@@ -1,4 +1,4 @@
-import 'package:chipmunk_fit/foundation/colors.dart';
+import 'package:chipfit/foundation/colors.dart';
 import 'package:flutter/material.dart';
 
 class FitScaleWidget extends StatefulWidget {

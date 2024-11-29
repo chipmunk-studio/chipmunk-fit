@@ -1,4 +1,4 @@
-import 'package:chipmunk_fit/foundation/buttonstyle.dart';
+import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 

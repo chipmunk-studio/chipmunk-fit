@@ -1,6 +1,5 @@
-name: chipmunk_fit
+name: chipfit
 description: "ChipmunkStudio DesignSystem"
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0
 homepage: https://github.com/chipmunk-studio/chipmunk-fit
 
@@ -27,7 +26,9 @@ dev_dependencies:
   flutter_gen_runner:
 
 flutter_gen:
-  output: lib/fit
+  assets:
+    outputs:
+      package_parameter_enabled: true
   lineLength: 80
 
   integrations:

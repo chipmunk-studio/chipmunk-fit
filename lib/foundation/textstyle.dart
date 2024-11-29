@@ -1,5 +1,5 @@
-import 'package:chipmunk_fit/fit/fonts.gen.dart';
-import 'package:chipmunk_fit/foundation/colors.dart';
+import 'package:chipfit/gen/fonts.gen.dart';
+import 'package:chipfit/foundation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

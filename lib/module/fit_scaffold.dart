@@ -1,7 +1,7 @@
-import 'package:chipmunk_fit/fit/assets.gen.dart';
-import 'package:chipmunk_fit/foundation/colors.dart';
-import 'package:chipmunk_fit/foundation/textstyle.dart';
-import 'package:chipmunk_fit/foundation/theme.dart';
+import 'package:chipfit/gen/assets.gen.dart';
+import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 

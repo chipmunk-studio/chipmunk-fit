@@ -16,22 +16,27 @@ class $AssetsFontsGen {
   const $AssetsFontsGen();
 
   /// File path: assets/fonts/Pretendard-Bold.ttf
-  String get pretendardBold => 'assets/fonts/Pretendard-Bold.ttf';
+  String get pretendardBold =>
+      'packages/chipfit/assets/fonts/Pretendard-Bold.ttf';
 
   /// File path: assets/fonts/Pretendard-Light.ttf
-  String get pretendardLight => 'assets/fonts/Pretendard-Light.ttf';
+  String get pretendardLight =>
+      'packages/chipfit/assets/fonts/Pretendard-Light.ttf';
 
   /// File path: assets/fonts/Pretendard-Medium.ttf
-  String get pretendardMedium => 'assets/fonts/Pretendard-Medium.ttf';
+  String get pretendardMedium =>
+      'packages/chipfit/assets/fonts/Pretendard-Medium.ttf';
 
   /// File path: assets/fonts/Pretendard-Regular.ttf
-  String get pretendardRegular => 'assets/fonts/Pretendard-Regular.ttf';
+  String get pretendardRegular =>
+      'packages/chipfit/assets/fonts/Pretendard-Regular.ttf';
 
   /// File path: assets/fonts/Pretendard-SemiBold.ttf
-  String get pretendardSemiBold => 'assets/fonts/Pretendard-SemiBold.ttf';
+  String get pretendardSemiBold =>
+      'packages/chipfit/assets/fonts/Pretendard-SemiBold.ttf';
 
   /// File path: assets/fonts/neodgm.ttf
-  String get neodgm => 'assets/fonts/neodgm.ttf';
+  String get neodgm => 'packages/chipfit/assets/fonts/neodgm.ttf';
 
   /// List of all assets
   List<String> get values => [
@@ -46,10 +51,6 @@ class $AssetsFontsGen {
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
-
-  /// File path: assets/icons/ic_ exchange_24.svg
-  SvgGenImage get icExchange24 =>
-      const SvgGenImage('assets/icons/ic_ exchange_24.svg');
 
   /// File path: assets/icons/ic_alarm_slash_24.svg
   SvgGenImage get icAlarmSlash24 =>
@@ -203,6 +204,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_envelope.svg
   SvgGenImage get icEnvelope =>
       const SvgGenImage('assets/icons/ic_envelope.svg');
+
+  /// File path: assets/icons/ic_exchange_24.svg
+  SvgGenImage get icExchange24 =>
+      const SvgGenImage('assets/icons/ic_exchange_24.svg');
 
   /// File path: assets/icons/ic_exchange_arrow_left.svg
   SvgGenImage get icExchangeArrowLeft =>
@@ -493,7 +498,6 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        icExchange24,
         icAlarmSlash24,
         icAlarmSoild24,
         icApple,
@@ -534,6 +538,7 @@ class $AssetsIconsGen {
         icEarth,
         icEarthUnselected,
         icEnvelope,
+        icExchange24,
         icExchangeArrowLeft,
         icExchangeArrowRight,
         icFeedSoild24,
@@ -642,19 +647,20 @@ class $AssetsLottieGen {
   const $AssetsLottieGen();
 
   /// File path: assets/lottie/coin_pig.lottie
-  String get coinPig => 'assets/lottie/coin_pig.lottie';
+  String get coinPig => 'packages/chipfit/assets/lottie/coin_pig.lottie';
 
   /// File path: assets/lottie/dot_loading.lottie
-  String get dotLoading => 'assets/lottie/dot_loading.lottie';
+  String get dotLoading => 'packages/chipfit/assets/lottie/dot_loading.lottie';
 
   /// File path: assets/lottie/gift_box.lottie
-  String get giftBox => 'assets/lottie/gift_box.lottie';
+  String get giftBox => 'packages/chipfit/assets/lottie/gift_box.lottie';
 
   /// File path: assets/lottie/loading.lottie
-  String get loading => 'assets/lottie/loading.lottie';
+  String get loading => 'packages/chipfit/assets/lottie/loading.lottie';
 
   /// File path: assets/lottie/run_chipmunk.lottie
-  String get runChipmunk => 'assets/lottie/run_chipmunk.lottie';
+  String get runChipmunk =>
+      'packages/chipfit/assets/lottie/run_chipmunk.lottie';
 
   /// List of all assets
   List<String> get values =>
@@ -663,6 +669,8 @@ class $AssetsLottieGen {
 
 class Assets {
   Assets._();
+
+  static const String package = 'chipfit';
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
@@ -678,6 +686,8 @@ class AssetGenImage {
   });
 
   final String _assetName;
+
+  static const String package = 'chipfit';
 
   final Size? size;
   final Set<String> flavors;
@@ -702,7 +712,8 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
-    String? package,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -737,7 +748,8 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
   }) {
     return AssetImage(
       _assetName,
@@ -748,7 +760,7 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  String get keyName => _assetName;
+  String get keyName => 'packages/chipfit/$_assetName';
 }
 
 class SvgGenImage {
@@ -769,11 +781,14 @@ class SvgGenImage {
   final Set<String> flavors;
   final bool _isVecFormat;
 
+  static const String package = 'chipfit';
+
   _svg.SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,
@@ -825,5 +840,5 @@ class SvgGenImage {
 
   String get path => _assetName;
 
-  String get keyName => _assetName;
+  String get keyName => 'packages/chipfit/$_assetName';
 }

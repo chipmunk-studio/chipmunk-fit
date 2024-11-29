@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:chipmunk_fit/foundation/colors.dart';
+import 'package:chipfit/foundation/colors.dart';
 import 'package:flutter/material.dart';
 
 class FitDotLoading extends StatefulWidget {
