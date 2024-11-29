@@ -1,5 +1,5 @@
 import 'package:chipfit/foundation/index.dart';
-import 'package:chipfit/main.dart';
+import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 
