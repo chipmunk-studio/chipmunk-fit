@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'fit_button.dart';
 
-class LarBottomButton extends StatelessWidget {
+class FitBottomButton extends StatelessWidget {
   final bool isEnabled;
   final bool isShowLoading;
   final Function0 onPress;
@@ -14,7 +14,7 @@ class LarBottomButton extends StatelessWidget {
   final bool isKeyboardVisible;
   final _deBouncer = FitButtonDeBouncer(milliseconds: 3000);
 
-  LarBottomButton({
+  FitBottomButton({
     super.key,
     required this.isEnabled,
     required this.onPress,
