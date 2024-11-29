@@ -1,3 +1,4 @@
+import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,7 @@ ThemeData fitLightTheme(BuildContext context) {
     checkboxTheme: _checkboxThemeData(lightFitColors),
     unselectedWidgetColor: lightFitColors.grey800,
     scaffoldBackgroundColor: lightFitColors.grey900,
-    fontFamily: FontFamily.pretendardRegular,
+    fontFamily: Assets.fonts.pretendardRegular,
     appBarTheme: appBarTheme(context, lightFitColors, false),
     elevatedButtonTheme: elevatedButtonTheme(context, lightFitColors),
     textButtonTheme: textButtonTheme(lightFitColors),
@@ -38,7 +39,7 @@ ThemeData fitDarkTheme(BuildContext context) {
     checkboxTheme: _checkboxThemeData(darkFitColors),
     unselectedWidgetColor: darkFitColors.grey800,
     scaffoldBackgroundColor: darkFitColors.grey900,
-    fontFamily: FontFamily.pretendardRegular,
+    fontFamily: Assets.fonts.pretendardRegular,
     appBarTheme: appBarTheme(context, darkFitColors, true),
     elevatedButtonTheme: elevatedButtonTheme(context, darkFitColors),
     textButtonTheme: textButtonTheme(darkFitColors),
@@ -118,12 +119,12 @@ bottomNavigationBarTheme(FitColors fitColors) {
   return BottomNavigationBarThemeData(
     backgroundColor: Colors.black,
     selectedLabelStyle: TextStyle(
-      fontFamily: FontFamily.pretendardRegular,
+      fontFamily: Assets.fonts.pretendardRegular,
       color: Colors.white,
       fontSize: 13.sp,
     ),
     unselectedLabelStyle: TextStyle(
-      fontFamily: FontFamily.pretendardRegular,
+      fontFamily: Assets.fonts.pretendardRegular,
       color: fitColors.grey700,
       fontSize: 13.sp,
     ),

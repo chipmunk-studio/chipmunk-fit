@@ -172,7 +172,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
                 style: TextStyle(
                   color: widget.selectedIndex == index ? Color(0xFF060A10) : Color(0xFFD7D8D9),
                   fontSize: 13,
-                  fontFamily: FontFamily.pretendardRegular,
+                  fontFamily: Assets.fonts.pretendardRegular,
                 ),
               ),
             ],
