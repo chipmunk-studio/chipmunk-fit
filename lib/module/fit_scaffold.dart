@@ -1,7 +1,7 @@
-import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/foundation/theme.dart';
+import 'package:chipfit/gen/assets.gen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ class FitScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor ?? context.fitColors.grey900,
-      appBar: appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.grey900),
+      appBar: isRemoveAppBar ? null : appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.grey900),
       bottomSheet: bottomSheet,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: Padding(
