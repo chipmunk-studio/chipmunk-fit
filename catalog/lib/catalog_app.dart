@@ -1,4 +1,5 @@
 import 'package:chipfit/foundation/theme.dart';
+import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipmunk_fit_catalog/presentation/navigation/navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

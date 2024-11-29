@@ -14,7 +14,7 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       height: height,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -29,7 +29,7 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       height: height,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -44,7 +44,7 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
       height: height,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -54,7 +54,7 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 22.spMin,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardBold,
+      fontFamily: FontFamily.pretendardBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -64,7 +64,7 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 22.spMin,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardMedium,
+      fontFamily: FontFamily.pretendardMedium,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -78,7 +78,7 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       height: height,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -88,7 +88,7 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 20.spMin,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardMedium,
+      fontFamily: FontFamily.pretendardMedium,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -102,7 +102,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -116,7 +116,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardRegular,
+      fontFamily: FontFamily.pretendardRegular,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -130,7 +130,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -146,7 +146,7 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       height: height,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardRegular,
+      fontFamily: FontFamily.pretendardRegular,
       color: color ?? this.fitColors.grey900,
       decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
       decorationColor: decorationColor,
@@ -162,7 +162,7 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       height: height,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -176,7 +176,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardRegular,
+      fontFamily: FontFamily.pretendardRegular,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -186,7 +186,7 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 18.spMin,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardMedium,
+      fontFamily: FontFamily.pretendardMedium,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -201,7 +201,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -215,7 +215,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardRegular,
+      fontFamily: FontFamily.pretendardRegular,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -229,7 +229,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.pretendardSemiBold,
+      fontFamily: FontFamily.pretendardSemiBold,
       color: color ?? this.fitColors.grey900,
     );
   }
@@ -244,7 +244,7 @@ extension FitTextStyleExtension on BuildContext {
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
-      fontFamily: Assets.fonts.neodgm,
+      fontFamily: FontFamily.neodgm,
       color: color ?? this.fitColors.grey900,
     );
   }

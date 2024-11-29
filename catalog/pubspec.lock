@@ -185,11 +185,9 @@ packages:
   chipfit:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "79f8447df4aec1ef40bbe865617e572e3c8fb545"
-      url: "https://github.com/chipmunk-studio/chipmunk-fit.git"
-    source: git
+      path: ".."
+      relative: true
+    source: path
     version: "1.0.0"
   clock:
     dependency: transitive

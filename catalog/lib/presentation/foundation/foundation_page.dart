@@ -11,12 +11,22 @@ class FoundationPage extends StatelessWidget {
     return FitScaffold(
       body: Column(
         children: [
-          Assets.images.icLauncher.image(),
           Center(
             child: Text(
               "안녕하세요",
-              style: context.body2Semibold(
+              style: context.headLine1(
                 color: context.fitColors.negative,
+              ),
+            ),
+          ),
+          Center(
+            child: Text(
+              "안녕하세요",
+              style: TextStyle(
+                fontSize: 30,
+                letterSpacing: -0.06,
+                fontFamily: FontFamily.pretendardSemiBold,
+                color: context.fitColors.grey400,
               ),
             ),
           ),

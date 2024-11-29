@@ -11,10 +11,10 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   chipfit:
-    git:
-      url: https://github.com/chipmunk-studio/chipmunk-fit.git
-      ref: main
-#    path: ../
+#    git:
+#      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+#      ref: main
+    path: ../
 
   ## Bloc
   bloc_concurrency:
@@ -34,5 +34,42 @@ dev_dependencies:
   build_runner:
   flutter_gen_runner:
 
+flutter_gen:
+  assets:
+    outputs:
+      package_parameter_enabled: true
+
+  integrations:
+    flutter_svg: true
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/fonts/
+
+  fonts:
+    - family: Pretendard-Light
+      fonts:
+        - asset: assets/fonts/Pretendard-Light.ttf
+          weight: 300
+    - family: Pretendard-Regular
+      fonts:
+        - asset: assets/fonts/Pretendard-Regular.ttf
+          weight: 400
+    - family: Pretendard-Medium
+      fonts:
+        - asset: assets/fonts/Pretendard-Medium.ttf
+          weight: 500
+    - family: Pretendard-SemiBold
+      fonts:
+        - asset: assets/fonts/Pretendard-SemiBold.ttf
+          weight: 600
+    - family: Pretendard-Bold
+      fonts:
+        - asset: assets/fonts/Pretendard-Bold.ttf
+          weight: 700
+    - family: Neodgm
+      fonts:
+        - asset: assets/fonts/neodgm.ttf
+          weight: 400
