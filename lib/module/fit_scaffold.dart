@@ -33,7 +33,7 @@ class FitScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor ?? context.fitColors.grey900,
-      appBar: isRemoveAppBar ? null : appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.grey900),
+      appBar: isRemoveAppBar == true ? null : appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.grey900),
       bottomSheet: bottomSheet,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: Padding(
@@ -91,7 +91,7 @@ abstract class FitCustomAppBar {
       ),
       backgroundColor: backgroundColor ?? context.fitColors.grey900,
       leading: IconButton(
-        icon: leadingIcon ?? Assets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
+        icon: leadingIcon ?? Assets.icons.icArrowLeft.svg(color: context.fitColors.grey100),
         onPressed: onPressed ?? () => Navigator.pop(context, true),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -99,7 +99,7 @@ abstract class FitCustomAppBar {
       ),
       title: Text(
         title,
-        style: context.subTitle1Medium(color: context.fitColors.grey900),
+        style: context.subTitle1Medium(color: context.fitColors.grey100),
       ),
       centerTitle: centerTitle,
       titleSpacing: leftAlignTitle ? 0.0 : NavigationToolbar.kMiddleSpacing,

@@ -9,6 +9,7 @@ class FoundationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FitScaffold(
+      appBar: FitCustomAppBar.leadingAppBar(context,title: "adfda"),
       body: Column(
         children: [
           Center(
