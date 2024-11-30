@@ -99,7 +99,7 @@ abstract class FitCustomAppBar {
       ),
       title: Text(
         title,
-        style: context.subTitle1Medium(color: context.fitColors.grey100),
+        style: context.subTitle2Medium(color: context.fitColors.grey100),
       ),
       centerTitle: centerTitle,
       titleSpacing: leftAlignTitle ? 0.0 : NavigationToolbar.kMiddleSpacing,
