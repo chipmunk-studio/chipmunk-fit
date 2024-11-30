@@ -50,20 +50,30 @@ class FitScaffold extends StatelessWidget {
 }
 
 class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Color color;
+  final Color statusBarColor;
+  final Color systemNavigationBarColor;
 
+  // 기존 생성자 유지
   const FitEmptyAppBar(
-    this.color, {
+    Color color, {
     super.key,
+  })  : statusBarColor = color,
+        systemNavigationBarColor = color;
+
+  // 새로운 팩토리 생성자
+  const FitEmptyAppBar.navigationBarColors({
+    super.key,
+    required this.statusBarColor,
+    required this.systemNavigationBarColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       systemOverlayStyle: customSystemUiOverlayStyle(
-        statusBarColor: color,
+        statusBarColor: statusBarColor,
         isDark: isDarkMode(context),
-        systemNavigationBarColor: color,
+        systemNavigationBarColor: systemNavigationBarColor,
       ),
     );
   }
