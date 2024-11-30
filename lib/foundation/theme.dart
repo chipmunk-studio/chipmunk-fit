@@ -218,5 +218,15 @@ SystemUiOverlayStyle customSystemUiOverlayStyle({
 }
 
 bool isDarkMode(BuildContext context) {
-  return MediaQuery.of(context).platformBrightness == Brightness.dark;
+  final brightness = MediaQuery.of(context).platformBrightness;
+  final theme = Theme.of(context);
+
+  if (theme.brightness == Brightness.dark) {
+    return true; // 다크 모드 강제
+  } else if (theme.brightness == Brightness.light) {
+    return false; // 라이트 모드 강제
+  } else {
+    // ThemeMode.system 또는 기본 상태에서는 시스템 설정을 따름
+    return brightness == Brightness.dark;
+  }
 }
