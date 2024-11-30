@@ -104,12 +104,9 @@ elevatedButtonTheme(BuildContext context, FitColors fitColors) {
       disabledForegroundColor: fitColors.grey400,
       textStyle: context.button1Medium(color: fitColors.white),
     ).copyWith(
-      overlayColor: WidgetStateProperty.resolveWith<Color?>(
-        (Set<WidgetState> states) {
-          if (states.contains(WidgetState.pressed)) return Colors.transparent;
-          return null;
-        },
-      ),
+      overlayColor: WidgetStateProperty.all(Colors.transparent), // 리플 효과 제거
+      shadowColor: WidgetStateProperty.all(Colors.transparent), // 그림자 제거
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent), // 클릭 시 잔여 색상 제거
     ),
   );
 }

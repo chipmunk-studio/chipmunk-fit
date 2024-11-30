@@ -18,6 +18,7 @@ dependencies:
   dotlottie_loader:
   flutter_svg:
   flutter_bounceable:
+  sprung:
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
-import 'package:chipfit/foundation/buttonstyle.dart';
+import 'package:chipfit/foundation/index.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
+import 'package:sprung/sprung.dart';
 
 class FitButton extends StatefulWidget {
   final dartz.Function0? onPress;
@@ -9,8 +10,10 @@ class FitButton extends StatefulWidget {
   final FitButtonType? type;
   final bool isExpand;
   final bool isEnabled;
+  final bool isRipple;
   final EdgeInsets? padding;
-  final Widget child;
+  final Widget? child; // 기존 child 유지
+  final String? text; // 추가된 텍스트 옵션
 
   const FitButton({
     super.key,
@@ -20,28 +23,18 @@ class FitButton extends StatefulWidget {
     this.style,
     this.isEnabled = true,
     this.isExpand = false,
+    this.isRipple = false,
     this.padding,
-    required this.child,
+    this.child,
+    this.text,
   });
 
   @override
   State<FitButton> createState() => _FitButtonState();
 }
 
-class _FitButtonState extends State<FitButton> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+class _FitButtonState extends State<FitButton> {
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,25 +42,35 @@ class _FitButtonState extends State<FitButton> with SingleTickerProviderStateMix
       onTapDown: widget.onPress != null ? _onTapDown : _onDisableTap,
       onTapUp: widget.onPress != null ? _onTapUp : null,
       onTapCancel: widget.onPress != null ? _onTapCancel : null,
-      child: ScaleTransition(
-        scale: Tween<double>(begin: 1, end: 0.95).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: Curves.easeInOut,
-          ),
-        ),
+      child: AnimatedContainer(
+        alignment: Alignment.center,
+        duration: const Duration(milliseconds: 300),
+        curve: isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
+        transformAlignment: Alignment.center,
+        transform: Matrix4.identity()..scale(isPressed ? 0.95 : 1.0),
         child: ElevatedButton(
-          style: widget.style ?? context.getButtonStyle(widget.type),
+          style: widget.style ??
+              context.getButtonStyle(
+                widget.type,
+                isRipple: widget.isRipple,
+              ),
           onPressed: widget.isEnabled ? widget.onPress : null,
           child: Container(
             width: double.infinity,
             padding: widget.padding ??
                 EdgeInsets.symmetric(
-                  // 기본값 설정
                   vertical: widget.isExpand ? 20 : 12,
                   horizontal: widget.isExpand ? 0 : 14,
                 ),
-            child: widget.child,
+            child: widget.child ??
+                Text(
+                  widget.text ?? '',
+                  textAlign: TextAlign.center,
+                  style: _getTextStyle(
+                    context,
+                    widget.isEnabled,
+                  ),
+                ),
           ),
         ),
       ),
@@ -79,20 +82,52 @@ class _FitButtonState extends State<FitButton> with SingleTickerProviderStateMix
         child: button,
       );
     } else {
-      return IntrinsicWidth(child: button);
+      return Align(
+        alignment: Alignment.center,
+        child: IntrinsicWidth(
+          child: button,
+        ),
+      );
     }
   }
 
+  TextStyle _getTextStyle(BuildContext context, bool isEnabled) {
+    final color = isEnabled
+        ? {
+            FitButtonType.secondary: context.fitColors.grey900,
+            FitButtonType.tertiary: context.fitColors.white,
+            FitButtonType.primary: context.fitColors.grey800,
+            FitButtonType.line: context.fitColors.white,
+          }
+        : {
+            FitButtonType.secondary: context.fitColors.grey400,
+            FitButtonType.tertiary: context.fitColors.grey800,
+            FitButtonType.primary: context.fitColors.grey900,
+            FitButtonType.line: context.fitColors.white.withOpacity(0.5),
+          };
+
+    // 기본 색상 설정
+    return context.body1Regular(
+      color: color[widget.type] ?? context.fitColors.grey800,
+    );
+  }
+
   void _onTapDown(TapDownDetails details) {
-    _controller.forward();
+    setState(() {
+      isPressed = true;
+    });
   }
 
   void _onTapUp(TapUpDetails details) {
-    _controller.reverse();
+    setState(() {
+      isPressed = false;
+    });
   }
 
   void _onTapCancel() {
-    _controller.reverse();
+    setState(() {
+      isPressed = false;
+    });
   }
 
   void _onDisableTap(TapDownDetails details) {

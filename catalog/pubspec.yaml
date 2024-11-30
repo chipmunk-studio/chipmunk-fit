@@ -11,9 +11,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   chipfit:
-#    git:
-#      url: https://github.com/chipmunk-studio/chipmunk-fit.git
-#      ref: main
+    #    git:
+    #      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+    #      ref: main
     path: ../
 
   ## Bloc
@@ -22,6 +22,8 @@ dependencies:
   side_effect_bloc:
   bloc_event_transformers:
   bloc:
+  go_router:
+  toast:
 
   equatable:
   freezed:
@@ -35,10 +37,6 @@ dev_dependencies:
   flutter_gen_runner:
 
 flutter_gen:
-  assets:
-    outputs:
-      package_parameter_enabled: true
-
   integrations:
     flutter_svg: true
 

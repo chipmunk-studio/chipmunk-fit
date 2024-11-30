@@ -1,5 +1,6 @@
 import 'package:chipfit/foundation/index.dart';
 import 'package:chipfit/module/skeletons/components/theme.dart';
+import 'package:chipmunk_fit_catalog/presentation/component/component_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/foundation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,7 +93,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
 
   late final List<Widget> _pages = [
     FoundationPage(),
-    Container(),
+    ComponentPage(),
     Container(),
     Container(),
     Container(),

@@ -12,31 +12,31 @@ enum FitButtonType {
 }
 
 extension ButtonStyleExtension on BuildContext {
-  ButtonStyle getButtonStyle(FitButtonType? type) {
+  ButtonStyle getButtonStyle(FitButtonType? type, {bool isRipple = false}) {
     switch (type) {
       case FitButtonType.secondary:
-        return btnStyleSecondary();
+        return btnStyleSecondary(isRipple: isRipple);
       case FitButtonType.tertiary:
-        return btnStyleTertiary();
+        return btnStyleTertiary(isRipple: isRipple);
       case FitButtonType.primary:
-        return btnStylePrimary();
+        return btnStylePrimary(isRipple: isRipple);
       case FitButtonType.line:
-        return btnStyleLine();
+        return btnStyleLine(isRipple: isRipple);
       default:
-        return btnStylePrimary(); // 기본 스타일
+        return btnStylePrimary(isRipple: isRipple); // 기본 스타일
     }
   }
 
-  ButtonStyle btnStyleSecondary() {
+  ButtonStyle btnStyleSecondary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.grey900,
       backgroundColor: this.fitColors.white,
       disabledForegroundColor: this.fitColors.grey400,
       disabledBackgroundColor: this.fitColors.grey600,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r), // 둥근 모서리
+        borderRadius: BorderRadius.circular(30.r),
         side: const BorderSide(
-          color: Colors.transparent, // 테두리 색상
+          color: Colors.transparent,
           width: 1.0,
         ),
       ),
@@ -47,19 +47,25 @@ extension ButtonStyleExtension on BuildContext {
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
       textStyle: button1Medium(),
+    ).copyWith(
+      overlayColor: isRipple
+          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : WidgetStateProperty.all(Colors.transparent), // 리플 제거
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
   }
 
-  ButtonStyle btnStyleTertiary() {
+  ButtonStyle btnStyleTertiary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.white,
-      backgroundColor: this.fitColors.grey900,
+      backgroundColor: this.fitColors.grey800,
       disabledForegroundColor: this.fitColors.grey800,
       disabledBackgroundColor: this.fitColors.grey500,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r), // 둥근 모서리
+        borderRadius: BorderRadius.circular(30.r),
         side: const BorderSide(
-          color: Colors.transparent, // 테두리 색상
+          color: Colors.transparent,
           width: 1.0,
         ),
       ),
@@ -70,19 +76,25 @@ extension ButtonStyleExtension on BuildContext {
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
       textStyle: button1Medium(),
+    ).copyWith(
+      overlayColor: isRipple
+          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
   }
 
-  ButtonStyle btnStylePrimary() {
+  ButtonStyle btnStylePrimary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.grey800,
       backgroundColor: this.fitColors.primary,
       disabledForegroundColor: this.fitColors.grey900,
       disabledBackgroundColor: this.fitColors.primary.withOpacity(0.2),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r), // 둥근 모서리
+        borderRadius: BorderRadius.circular(30.r),
         side: const BorderSide(
-          color: Colors.transparent, // 테두리 색상
+          color: Colors.transparent,
           width: 1.0,
         ),
       ),
@@ -94,19 +106,25 @@ extension ButtonStyleExtension on BuildContext {
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
       textStyle: button1Medium(),
+    ).copyWith(
+      overlayColor: isRipple
+          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
   }
 
-  ButtonStyle btnStyleLine() {
+  ButtonStyle btnStyleLine({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: Colors.white,
       backgroundColor: Colors.transparent,
       disabledForegroundColor: this.fitColors.white.withOpacity(0.5),
       disabledBackgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r), // 둥근 모서리
+        borderRadius: BorderRadius.circular(30.r),
         side: BorderSide(
-          color: this.fitColors.grey600, // 테두리 색상
+          color: this.fitColors.grey600,
           width: 1.0,
         ),
       ),
@@ -117,23 +135,35 @@ extension ButtonStyleExtension on BuildContext {
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
       textStyle: button1Medium(),
+    ).copyWith(
+      overlayColor: isRipple
+          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
   }
 
-  ButtonStyle btnStyleNegative() {
+  ButtonStyle btnStyleNegative({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.negative,
       backgroundColor: this.fitColors.negativeLight,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r), // 둥근 모서리
+        borderRadius: BorderRadius.circular(30.r),
         side: BorderSide(
-          color: this.fitColors.negative, // 테두리 색상
+          color: this.fitColors.negative,
           width: 1.0,
         ),
       ),
       elevation: 0,
       padding: EdgeInsets.zero,
       textStyle: button1Medium(),
+    ).copyWith(
+      overlayColor: isRipple
+          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
   }
 }

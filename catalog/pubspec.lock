@@ -407,6 +407,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   freezed:
     dependency: "direct main"
     description:
@@ -439,6 +444,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "8660b74171fafae4aa8202100fa2e55349e078281dadc73a241eb8e758534d9d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.6.1"
   graphs:
     dependency: transitive
     description:
@@ -804,6 +817,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  sprung:
+    dependency: transitive
+    description:
+      name: sprung
+      sha256: "54322638f5e393d2b808175f7eadbaa4836a4425456e98d93c3d676dc56ebdf1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   sqflite:
     dependency: transitive
     description:
@@ -916,6 +937,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  toast:
+    dependency: "direct main"
+    description:
+      name: toast
+      sha256: "12433091e3e5a25b3a25f670126e42547c9ade135de30ad9ace45d1ddccd57c9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   typed_data:
     dependency: transitive
     description:
