@@ -1,5 +1,4 @@
 import 'package:chipfit/gen/assets.gen.dart';
-import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -153,6 +152,10 @@ inputDecorationTheme(FitColors fitColors) {
       borderSide: BorderSide(color: fitColors.primary),
     ),
     errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16.r),
+      borderSide: BorderSide(color: fitColors.negative),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
       borderSide: BorderSide(color: fitColors.negative),
     ),
