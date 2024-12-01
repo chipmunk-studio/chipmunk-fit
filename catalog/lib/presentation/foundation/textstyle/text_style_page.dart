@@ -117,6 +117,10 @@ class TextStylePage extends StatelessWidget {
   }
 
   Widget _buildExplanationCard(BuildContext context) {
+    final double systemSpValue = 16.sp;
+    final double systemSpMinValue = min(16.0, systemSpValue);
+    final double systemSpMaxValue = max(16.0, systemSpValue);
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -127,6 +131,11 @@ class TextStylePage extends StatelessWidget {
 FitTextSp.MIN: 기본 sp 값과 화면 크기에 따라 계산된 값을 비교하여 더 작은 값을 선택합니다.
 FitTextSp.MAX: 기본 sp 값과 화면 크기에 따라 계산된 값을 비교하여 더 큰 값을 선택합니다.
 FitTextSp.SP: 화면 크기에 따라 계산된 sp 값을 그대로 사용합니다.
+
+현재 시스템 기준 값:
+- 기본 SP 값: $systemSpValue
+- MIN 값: $systemSpMinValue
+- MAX 값: $systemSpMaxValue
 ''',
           style: TextStyle(
             fontSize: 16.sp,
