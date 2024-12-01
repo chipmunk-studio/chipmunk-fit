@@ -14,7 +14,7 @@ class TextStylePage extends StatelessWidget {
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "TextStyle 테스트",
+        title: "TextStyle",
         actions: [],
       ),
       body: SingleChildScrollView(

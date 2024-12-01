@@ -13,7 +13,7 @@ class ButtonPage extends StatelessWidget {
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "FitButton 테스트",
+        title: "FitButton",
         actions: [],
       ),
       body: SingleChildScrollView(

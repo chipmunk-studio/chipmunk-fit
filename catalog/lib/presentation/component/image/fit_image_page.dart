@@ -13,7 +13,7 @@ class FitImagePage extends StatelessWidget {
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "이미지 테스트",
+        title: "FitImage",
         actions: [],
       ),
       body: SingleChildScrollView(

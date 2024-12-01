@@ -3,6 +3,7 @@ import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/skeletons/components/theme.dart';
 import 'package:chipmunk_fit_catalog/presentation/component/component_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/foundation_page.dart';
+import 'package:chipmunk_fit_catalog/presentation/module/module_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:side_effect_bloc/side_effect_bloc.dart';
@@ -95,7 +96,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
   late final List<Widget> _pages = [
     FoundationPage(),
     ComponentPage(),
-    Container(),
+    ModulePage(),
     Container(),
     Container(),
   ];
