@@ -1,4 +1,5 @@
 import 'package:chipmunk_fit_catalog/presentation/component/button/button_page.dart';
+import 'package:chipmunk_fit_catalog/presentation/component/checkbox/check_box_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/animation/animation_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/textstyle/text_style_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/module/animation_text/animation_text_page.dart';
@@ -45,6 +46,12 @@ final GoRouter catalogRouter = GoRouter(
           path: 'animation_text',
           builder: (BuildContext context, GoRouterState state) {
             return const AnimationText();
+          },
+        ),
+        GoRoute(
+          path: 'check_box',
+          builder: (BuildContext context, GoRouterState state) {
+            return const CheckBoxPage();
           },
         ),
       ],

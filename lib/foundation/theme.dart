@@ -6,48 +6,65 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'colors.dart';
 import 'textstyle.dart';
 
-ThemeData fitLightTheme(BuildContext context) {
+ThemeData fitLightTheme(
+  BuildContext context, {
+  Color? primaryColor,
+  Color? secondaryColor,
+}) {
+  final FitColors updatedColors = lightFitColors.copyWith(
+    primary: primaryColor ?? lightFitColors.primary,
+    secondary: secondaryColor ?? lightFitColors.secondary,
+  );
+
   return ThemeData(
     brightness: Brightness.light,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
-    checkboxTheme: _checkboxThemeData(lightFitColors),
-    unselectedWidgetColor: lightFitColors.grey800,
-    scaffoldBackgroundColor: lightFitColors.grey900,
+    checkboxTheme: _checkboxThemeData(updatedColors),
+    unselectedWidgetColor: updatedColors.grey800,
+    scaffoldBackgroundColor: updatedColors.grey900,
     fontFamily: Assets.fonts.pretendardRegular,
-    appBarTheme: appBarTheme(context, lightFitColors, false),
-    elevatedButtonTheme: elevatedButtonTheme(context, lightFitColors),
-    textButtonTheme: textButtonTheme(lightFitColors),
-    bottomSheetTheme: bottomSheetTheme(lightFitColors),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: lightFitColors.primary),
-    inputDecorationTheme: inputDecorationTheme(lightFitColors),
-    bottomNavigationBarTheme: bottomNavigationBarTheme(lightFitColors),
+    appBarTheme: appBarTheme(context, updatedColors, false),
+    elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
+    textButtonTheme: textButtonTheme(updatedColors),
+    bottomSheetTheme: bottomSheetTheme(updatedColors),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.primary),
+    inputDecorationTheme: inputDecorationTheme(updatedColors),
+    bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    extensions: [lightFitColors],
+    extensions: [updatedColors],
   );
 }
 
-/// 다크 테마
-ThemeData fitDarkTheme(BuildContext context) {
+ThemeData fitDarkTheme(
+  BuildContext context, {
+  Color? primaryColor,
+  Color? secondaryColor,
+}) {
+  final FitColors updatedColors = darkFitColors.copyWith(
+    primary: primaryColor ?? darkFitColors.primary,
+    secondary: secondaryColor ?? darkFitColors.secondary,
+  );
+
   return ThemeData(
     brightness: Brightness.dark,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
-    checkboxTheme: _checkboxThemeData(darkFitColors),
-    unselectedWidgetColor: darkFitColors.grey800,
-    scaffoldBackgroundColor: darkFitColors.grey900,
+    checkboxTheme: _checkboxThemeData(updatedColors),
+    unselectedWidgetColor: updatedColors.grey800,
+    scaffoldBackgroundColor: updatedColors.grey900,
     fontFamily: Assets.fonts.pretendardRegular,
-    appBarTheme: appBarTheme(context, darkFitColors, true),
-    elevatedButtonTheme: elevatedButtonTheme(context, darkFitColors),
-    textButtonTheme: textButtonTheme(darkFitColors),
-    bottomSheetTheme: bottomSheetTheme(darkFitColors),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: darkFitColors.primary),
-    inputDecorationTheme: inputDecorationTheme(darkFitColors),
-    bottomNavigationBarTheme: bottomNavigationBarTheme(darkFitColors),
+    appBarTheme: appBarTheme(context, updatedColors, true),
+    elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
+    textButtonTheme: textButtonTheme(updatedColors),
+    bottomSheetTheme: bottomSheetTheme(updatedColors),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.primary),
+    inputDecorationTheme: inputDecorationTheme(updatedColors),
+    bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    extensions: [darkFitColors],
+    extensions: [updatedColors],
   );
 }
 

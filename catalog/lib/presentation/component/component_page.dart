@@ -32,6 +32,14 @@ class ComponentPage extends StatelessWidget {
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/image'),
           ),
+          ListTile(
+            title: Text(
+              'FitCheckBox',
+              style: context.body1Regular(),
+            ),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            onTap: () => context.go('/check_box'),
+          ),
         ],
       ),
     );

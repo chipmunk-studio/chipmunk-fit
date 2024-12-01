@@ -6,11 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class FitCheckBox extends StatelessWidget {
   final bool state;
   final Function1<bool, void> onCheck;
+  final Color? color;
 
   const FitCheckBox({
     super.key,
     required this.onCheck,
     required this.state,
+    this.color,
   });
 
   @override
@@ -22,11 +24,12 @@ class FitCheckBox extends StatelessWidget {
         height: 16,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.r),
-          color: context.fitColors.grey800,
+          color: color ?? context.fitColors.grey800, // 외부 컬러 사용, 없으면 기본값
         ),
         child: Checkbox(
           value: state,
-          onChanged: (value) => value != null ? onCheck(value) : null,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          onChanged: (value) => value != null ? onCheck?.call(value) : null,
         ),
       ),
     );
