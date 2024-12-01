@@ -1,4 +1,5 @@
 import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/skeletons/components/theme.dart';
 import 'package:chipmunk_fit_catalog/presentation/component/component_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/foundation_page.dart';
@@ -176,7 +177,13 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
       child: BlocBuilder<NavigationBloc, NavigationState>(
         buildWhen: (previous, current) => previous.currentTab != current.currentTab,
         builder: (context, state) {
-          return Scaffold(
+          return FitScaffold(
+            padding: EdgeInsets.zero,
+            backgroundColor: context.fitColors.grey800,
+            appBar: FitEmptyAppBar.navigationBarColors(
+              statusBarColor: context.fitColors.grey800,
+              systemNavigationBarColor: context.fitColors.grey900,
+            ),
             body: Stack(
               children: [
                 Positioned.fill(

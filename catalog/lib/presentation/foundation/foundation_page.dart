@@ -1,3 +1,5 @@
+import 'package:chipfit/component/animation/fit_scale_widget.dart';
+import 'package:chipfit/foundation/index.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
@@ -10,7 +12,8 @@ class FoundationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FitScaffold(
-      appBar: FitCustomAppBar.leadingAppBar(context, title: "Foundation"),
+      padding: EdgeInsets.zero,
+      backgroundColor: context.fitColors.grey800,
       body: Column(
         children: [
           ListTile(
@@ -18,7 +21,7 @@ class FoundationPage extends StatelessWidget {
               'FitTextStyle',
               style: context.body1Regular(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/textstyle'),
           ),
         ],

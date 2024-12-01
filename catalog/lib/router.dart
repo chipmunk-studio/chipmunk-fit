@@ -4,6 +4,8 @@ import 'package:chipmunk_fit_catalog/presentation/navigation/navigation_page.dar
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'presentation/component/image/fit_image_page.dart';
+
 /// The route configuration.
 final GoRouter catalogRouter = GoRouter(
   routes: <RouteBase>[
@@ -23,6 +25,12 @@ final GoRouter catalogRouter = GoRouter(
           path: 'textstyle',
           builder: (BuildContext context, GoRouterState state) {
             return const TextStylePage();
+          },
+        ),
+        GoRoute(
+          path: 'image',
+          builder: (BuildContext context, GoRouterState state) {
+            return const FitImagePage();
           },
         ),
       ],

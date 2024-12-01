@@ -14,7 +14,7 @@ class TextStylePage extends StatelessWidget {
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "TextStyle Test",
+        title: "TextStyle 테스트",
         actions: [],
       ),
       body: SingleChildScrollView(
@@ -23,9 +23,9 @@ class TextStylePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildExplanationCard(context),
-            _buildSectionTitle(context, 'HeadLine Styles'),
-            _buildTextStyleExamples(
-              context,
+            _buildSection(
+              context: context,
+              title: "HeadLine Styles",
               examples: [
                 _TextStyleExample('HeadLine1 (FitTextSp.MIN)', context.headLine1(color: Colors.teal)),
                 _TextStyleExample('HeadLine1 (FitTextSp.MAX)', context.headLine1(color: Colors.teal, type: FitTextSp.MAX)),
@@ -38,76 +38,42 @@ class TextStylePage extends StatelessWidget {
                 _TextStyleExample('HeadLine3 (FitTextSp.SP)', context.headLine3(color: Colors.indigo, type: FitTextSp.SP)),
               ],
             ),
-            _buildSectionTitle(context, 'Subtitle Styles'),
-            _buildTextStyleExamples(
-              context,
+            _buildSection(
+              context: context,
+              title: "Subtitle Styles",
               examples: [
                 _TextStyleExample('SubTitle1 Bold (FitTextSp.MIN)', context.subTitle1Bold(color: Colors.orange)),
                 _TextStyleExample('SubTitle1 Bold (FitTextSp.MAX)', context.subTitle1Bold(color: Colors.orange, type: FitTextSp.MAX)),
                 _TextStyleExample('SubTitle1 Bold (FitTextSp.SP)', context.subTitle1Bold(color: Colors.orange, type: FitTextSp.SP)),
-                _TextStyleExample('SubTitle1 Medium (FitTextSp.MIN)', context.subTitle1Medium(color: Colors.orangeAccent)),
-                _TextStyleExample('SubTitle1 Medium (FitTextSp.MAX)', context.subTitle1Medium(color: Colors.orangeAccent, type: FitTextSp.MAX)),
-                _TextStyleExample('SubTitle1 Medium (FitTextSp.SP)', context.subTitle1Medium(color: Colors.orangeAccent, type: FitTextSp.SP)),
                 _TextStyleExample('SubTitle2 SemiBold (FitTextSp.MIN)', context.subTitle2SemiBold(color: Colors.purple)),
                 _TextStyleExample('SubTitle2 SemiBold (FitTextSp.MAX)', context.subTitle2SemiBold(color: Colors.purple, type: FitTextSp.MAX)),
                 _TextStyleExample('SubTitle2 SemiBold (FitTextSp.SP)', context.subTitle2SemiBold(color: Colors.purple, type: FitTextSp.SP)),
-                _TextStyleExample('SubTitle2 Medium (FitTextSp.MIN)', context.subTitle2Medium(color: Colors.deepPurple)),
-                _TextStyleExample('SubTitle2 Medium (FitTextSp.MAX)', context.subTitle2Medium(color: Colors.deepPurple, type: FitTextSp.MAX)),
-                _TextStyleExample('SubTitle2 Medium (FitTextSp.SP)', context.subTitle2Medium(color: Colors.deepPurple, type: FitTextSp.SP)),
               ],
             ),
-            _buildSectionTitle(context, 'Body Styles'),
-            _buildTextStyleExamples(
-              context,
+            _buildSection(
+              context: context,
+              title: "Body Styles",
               examples: [
                 _TextStyleExample('Body1 SemiBold (FitTextSp.MIN)', context.body1Semibold(color: Colors.green)),
                 _TextStyleExample('Body1 SemiBold (FitTextSp.MAX)', context.body1Semibold(color: Colors.green, type: FitTextSp.MAX)),
-                _TextStyleExample('Body1 SemiBold (FitTextSp.SP)', context.body1Semibold(color: Colors.green, type: FitTextSp.SP)),
                 _TextStyleExample('Body1 Regular (FitTextSp.MIN)', context.body1Regular(color: Colors.lightGreen)),
-                _TextStyleExample('Body1 Regular (FitTextSp.MAX)', context.body1Regular(color: Colors.lightGreen, type: FitTextSp.MAX)),
                 _TextStyleExample('Body1 Regular (FitTextSp.SP)', context.body1Regular(color: Colors.lightGreen, type: FitTextSp.SP)),
-                _TextStyleExample('Body2 SemiBold (FitTextSp.MIN)', context.body2Semibold(color: Colors.cyan)),
-                _TextStyleExample('Body2 SemiBold (FitTextSp.MAX)', context.body2Semibold(color: Colors.cyan, type: FitTextSp.MAX)),
-                _TextStyleExample('Body2 SemiBold (FitTextSp.SP)', context.body2Semibold(color: Colors.cyan, type: FitTextSp.SP)),
-                _TextStyleExample('Body2 Regular (FitTextSp.MIN)', context.body2Regular(color: Colors.cyanAccent)),
-                _TextStyleExample('Body2 Regular (FitTextSp.MAX)', context.body2Regular(color: Colors.cyanAccent, type: FitTextSp.MAX)),
-                _TextStyleExample('Body2 Regular (FitTextSp.SP)', context.body2Regular(color: Colors.cyanAccent, type: FitTextSp.SP)),
-                _TextStyleExample('Body3 SemiBold (FitTextSp.MIN)', context.body3Semibold(color: Colors.brown)),
-                _TextStyleExample('Body3 SemiBold (FitTextSp.MAX)', context.body3Semibold(color: Colors.brown, type: FitTextSp.MAX)),
-                _TextStyleExample('Body3 SemiBold (FitTextSp.SP)', context.body3Semibold(color: Colors.brown, type: FitTextSp.SP)),
-                _TextStyleExample('Body3 Regular (FitTextSp.MIN)', context.body3Regular(color: Colors.brown[300]!)),
-                _TextStyleExample('Body3 Regular (FitTextSp.MAX)', context.body3Regular(color: Colors.brown[300]!, type: FitTextSp.MAX)),
-                _TextStyleExample('Body3 Regular (FitTextSp.SP)', context.body3Regular(color: Colors.brown[300]!, type: FitTextSp.SP)),
               ],
             ),
-            _buildSectionTitle(context, 'Button Styles'),
-            _buildTextStyleExamples(
-              context,
-              examples: [
-                _TextStyleExample('Button1 Medium (FitTextSp.MIN)', context.button1Medium(color: Colors.indigo)),
-                _TextStyleExample('Button1 Medium (FitTextSp.MAX)', context.button1Medium(color: Colors.indigo, type: FitTextSp.MAX)),
-                _TextStyleExample('Button1 Medium (FitTextSp.SP)', context.button1Medium(color: Colors.indigo, type: FitTextSp.SP)),
-              ],
-            ),
-            _buildSectionTitle(context, 'Caption Styles'),
-            _buildTextStyleExamples(
-              context,
+            _buildSection(
+              context: context,
+              title: "Caption Styles",
               examples: [
                 _TextStyleExample('Caption1 SemiBold (FitTextSp.MIN)', context.caption1SemiBold(color: Colors.pink)),
-                _TextStyleExample('Caption1 SemiBold (FitTextSp.MAX)', context.caption1SemiBold(color: Colors.pink, type: FitTextSp.MAX)),
                 _TextStyleExample('Caption1 SemiBold (FitTextSp.SP)', context.caption1SemiBold(color: Colors.pink, type: FitTextSp.SP)),
-                _TextStyleExample('Caption2 Regular (FitTextSp.MIN)', context.caption2Regular(color: Colors.pinkAccent)),
-                _TextStyleExample('Caption2 Regular (FitTextSp.MAX)', context.caption2Regular(color: Colors.pinkAccent, type: FitTextSp.MAX)),
-                _TextStyleExample('Caption2 Regular (FitTextSp.SP)', context.caption2Regular(color: Colors.pinkAccent, type: FitTextSp.SP)),
               ],
             ),
-            _buildSectionTitle(context, 'Custom Font Style'),
-            _buildTextStyleExamples(
-              context,
+            _buildSection(
+              context: context,
+              title: "Custom Font Style",
               examples: [
                 _TextStyleExample('NeoDGM (FitTextSp.MIN)', context.neodgm(fontSize: 24, color: context.fitColors.grey100)),
-                _TextStyleExample('NeoDGM (FitTextSp.MAX)', context.neodgm(fontSize: 24, color:  context.fitColors.grey100, type: FitTextSp.MAX)),
-                _TextStyleExample('NeoDGM (FitTextSp.SP)', context.neodgm(fontSize: 24, color:  context.fitColors.grey100, type: FitTextSp.SP)),
+                _TextStyleExample('NeoDGM (FitTextSp.SP)', context.neodgm(fontSize: 24, color: context.fitColors.grey100, type: FitTextSp.SP)),
               ],
             ),
           ],
@@ -146,34 +112,60 @@ FitTextSp.SP: 화면 크기에 따라 계산된 sp 값을 그대로 사용합니
     );
   }
 
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Text(
-        title,
-        style: context.headLine2(color: context.fitColors.grey100),
+  Widget _buildSection({
+    required BuildContext context,
+    required String title,
+    required List<_TextStyleExample> examples,
+  }) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionTitle(context, title),
+            SizedBox(height: 16),
+            _buildTextStyleExamples(context, examples: examples),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Row(
+      children: [
+        Icon(Icons.text_fields, color: context.fitColors.primary, size: 24),
+        SizedBox(width: 8),
+        Text(
+          title,
+          style: context.headLine2(color: context.fitColors.grey100),
+        ),
+      ],
     );
   }
 
   Widget _buildTextStyleExamples(BuildContext context, {required List<_TextStyleExample> examples}) {
     return Column(
       children: examples
-          .map((example) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Text(
-                example.label,
-                style: example.style,
+          .map(
+            (example) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  example.label,
+                  style: example.style,
+                ),
               ),
-            ),
-            Icon(Icons.check_circle, color: Colors.teal),
-          ],
+              Icon(Icons.check_circle, color: Colors.teal),
+            ],
+          ),
         ),
-      ))
+      )
           .toList(),
     );
   }

@@ -61,34 +61,49 @@ class FitCachedNetworkImage extends StatelessWidget {
               fit: fit,
               cacheManager: cacheManager,
               fadeInDuration: const Duration(seconds: 1),
-              errorListener: (error) async {
-                print(error);
-              },
               placeholder: (context, url) => placeholder,
               errorWidget: (context, url, error) => errorWidget,
             )
           : Assets.icons.icProfileDefault.svg(width: width, height: height);
 
-      if (itemPadding != null) {
-        imageWidget = Padding(
-          padding: itemPadding!,
-          child: imageWidget,
-        );
-      }
-
+      // 패딩이 이미지 외부에만 적용되도록 설정
       switch (imageShape) {
         case FitImageShape.SQUIRCLE:
-          return CustomPaint(
-            painter: FitSquircleBorderPainter(
-              borderWidth: borderWidth,
-              borderColor: borderColor,
-            ),
-            child: ClipPath(
-              clipper: FitSquircleClipper(),
-              child: imageWidget,
+          return Padding(
+            padding: itemPadding ?? EdgeInsets.zero,
+            child: SizedBox(
+              width: width,
+              height: height,
+              child: CustomPaint(
+                painter: FitSquircleBorderPainter(
+                  borderWidth: borderWidth,
+                  borderColor: borderColor,
+                ),
+                child: ClipPath(
+                  clipper: FitSquircleClipper(),
+                  child: imageWidget,
+                ),
+              ),
             ),
           );
         case FitImageShape.CIRCLE:
+          return Padding(
+            padding: itemPadding ?? EdgeInsets.zero,
+            child: Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                border: borderWidth != null && borderColor != null
+                    ? Border.all(color: borderColor!, width: borderWidth!)
+                    : null,
+                shape: BoxShape.circle,
+              ),
+              child: ClipOval(
+                child: imageWidget,
+              ),
+            ),
+          );
+        case FitImageShape.RECTANGLE:
           return Container(
             width: width,
             height: height,
@@ -96,12 +111,15 @@ class FitCachedNetworkImage extends StatelessWidget {
               border: borderWidth != null && borderColor != null
                   ? Border.all(color: borderColor!, width: borderWidth!)
                   : null,
-              shape: BoxShape.circle,
+              shape: BoxShape.rectangle,
             ),
-            child: ClipOval(child: imageWidget),
+            child: imageWidget,
           );
         default:
-          return imageWidget;
+          return Padding(
+            padding: itemPadding ?? EdgeInsets.zero,
+            child: imageWidget,
+          );
       }
     } catch (e) {
       print(e);

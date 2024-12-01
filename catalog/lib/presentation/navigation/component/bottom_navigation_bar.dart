@@ -1,6 +1,5 @@
 import 'package:chipfit/foundation/index.dart';
 import 'package:chipfit/gen/assets.gen.dart';
-import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -81,10 +80,12 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
                   ? Assets.images.bgBottomNavSelected.svg(
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.width,
+                      color: context.fitColors.grey900,
                     )
                   : Assets.images.bgBottomNavUnselected.svg(
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.width,
+                      color: context.fitColors.grey900,
                     ),
             ),
           ),
@@ -107,7 +108,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           icon: Assets.icons.icCatSelected.svg(
             width: 28,
             height: 28,
-            color: widget.selectedIndex == 0 ? Color(0xFF060A10) : Color(0xFFD7D8D9),
+            color: widget.selectedIndex == 0 ? context.fitColors.primary : Color(0xFFD7D8D9),
           ),
           index: 0,
         ),
@@ -115,7 +116,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           icon: Assets.icons.icGiftSoild24.svg(
             width: 28,
             height: 28,
-            color: widget.selectedIndex == 1 ? Color(0xFF060A10) : Color(0xFFD7D8D9),
+            color: widget.selectedIndex == 1 ? context.fitColors.primary : Color(0xFFD7D8D9),
           ),
           index: 1,
         ),
@@ -123,7 +124,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           icon: Assets.icons.icHome.svg(
             width: 28,
             height: 28,
-            color: widget.selectedIndex == 2 ? Color(0xFF060A10) : Color(0xFFD7D8D9),
+            color: widget.selectedIndex == 2 ? context.fitColors.primary : Color(0xFFD7D8D9),
           ),
           index: 2,
         ),
@@ -131,7 +132,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           icon: Assets.icons.icFeedSoild24.svg(
             width: 28,
             height: 28,
-            color: widget.selectedIndex == 3 ? Color(0xFF060A10) : Color(0xFFD7D8D9),
+            color: widget.selectedIndex == 3 ? context.fitColors.primary : Color(0xFFD7D8D9),
           ),
           index: 3,
         ),
@@ -139,7 +140,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           icon: Assets.icons.icProfileDefault.svg(
             width: 28,
             height: 28,
-            color: widget.selectedIndex == 4 ? Color(0xFF060A10) : Color(0xFFD7D8D9),
+            color: widget.selectedIndex == 4 ? context.fitColors.primary : Color(0xFFD7D8D9),
           ),
           index: 4,
         ),
@@ -170,7 +171,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
               Text(
                 _getLabel(index),
                 style: TextStyle(
-                  color: widget.selectedIndex == index ? Color(0xFF060A10) : Color(0xFFD7D8D9),
+                  color: widget.selectedIndex == index ? context.fitColors.primary : Color(0xFFD7D8D9),
                   fontSize: 13,
                   fontFamily: Assets.fonts.pretendardRegular,
                 ),
