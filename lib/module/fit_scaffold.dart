@@ -36,14 +36,18 @@ class FitScaffold extends StatelessWidget {
       appBar: isRemoveAppBar == true ? null : appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.grey900),
       bottomSheet: bottomSheet,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      body: Padding(
-        padding: padding ??
-            EdgeInsets.only(
-              left: 20,
-              right: 20,
-              bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
-            ),
-        child: body,
+      body: SafeArea(
+        bottom: bottom ?? true,
+        top: top ?? true,
+        child: Padding(
+          padding: padding ??
+              EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
+              ),
+          child: body,
+        ),
       ),
     );
   }
