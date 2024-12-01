@@ -107,7 +107,7 @@ class _FitButtonState extends State<FitButton> {
           };
 
     // 기본 색상 설정
-    return context.body1Regular(
+    return context.button1Medium(
       color: color[widget.type] ?? context.fitColors.grey800,
     );
   }

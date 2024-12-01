@@ -20,6 +20,7 @@ dependencies:
   bloc_concurrency:
   flutter_bloc:
   side_effect_bloc:
+  flutter_screenutil:
   bloc_event_transformers:
   bloc:
   go_router:
