@@ -1,4 +1,5 @@
 import 'package:chipmunk_fit_catalog/presentation/component/button/button_page.dart';
+import 'package:chipmunk_fit_catalog/presentation/foundation/animation/animation_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/textstyle/text_style_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/navigation/navigation_page.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,12 @@ final GoRouter catalogRouter = GoRouter(
           path: 'image',
           builder: (BuildContext context, GoRouterState state) {
             return const FitImagePage();
+          },
+        ),
+        GoRoute(
+          path: 'animation',
+          builder: (BuildContext context, GoRouterState state) {
+            return const AnimationPage();
           },
         ),
       ],

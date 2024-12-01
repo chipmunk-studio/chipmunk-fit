@@ -1,6 +1,4 @@
-import 'package:chipfit/component/animation/fit_scale_widget.dart';
 import 'package:chipfit/foundation/index.dart';
-import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +21,14 @@ class FoundationPage extends StatelessWidget {
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/textstyle'),
+          ),
+          ListTile(
+            title: Text(
+              'FitAnimation',
+              style: context.body1Regular(),
+            ),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            onTap: () => context.go('/animation'),
           ),
         ],
       ),
