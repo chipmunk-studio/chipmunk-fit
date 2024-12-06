@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  awesome_dialog:
   flutter_screenutil:
   dartz:
   flutter_cache_manager:

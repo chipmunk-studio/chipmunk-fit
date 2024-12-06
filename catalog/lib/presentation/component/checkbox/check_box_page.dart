@@ -14,15 +14,16 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
   // 상태 관리
   final Map<String, bool> _checkBoxStates = {
     'default': false,
-    'checked': true,
-    'unchecked': false,
-    'disabledChecked': true,
-    'disabledUnchecked': false,
-    'custom1': false,
-    'custom2': true,
-    'group1': false,
-    'group2': true,
-    'group3': false,
+    'hover': false,
+    'focus': false,
+    'overlay': true,
+    'customShape': false,
+    'customSize': true,
+    'customBorderColor': false,
+    'complexCustom': true,
+    'activeColor': false,
+    'checkColor': true,
+    'disabled': false,
   };
 
   @override
@@ -31,7 +32,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "FitCheckBox 테스트",
+        title: "FitCheckBox",
         actions: [],
       ),
       body: SingleChildScrollView(
@@ -41,8 +42,8 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
           children: [
             _buildSection(
               context,
-              title: "기본 체크박스",
-              description: "기본 스타일의 체크박스를 테스트합니다.",
+              title: "기본 테스트",
+              description: "기본값으로 동작하는 체크박스를 테스트합니다.",
               examples: [
                 _buildCheckBox("default", "기본 체크박스"),
               ],
@@ -50,31 +51,109 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
             const SizedBox(height: 16),
             _buildSection(
               context,
-              title: "다양한 상태 테스트",
-              description: "체크박스의 다양한 상태를 테스트합니다.",
+              title: "호버 및 포커스 색상 테스트",
+              description: "호버 및 포커스 색상이 적용된 체크박스를 테스트합니다.",
               examples: [
-                _buildCheckBox("checked", "체크된 상태"),
-                _buildCheckBox("unchecked", "해제된 상태"),
-                _buildDisabledCheckBox("disabledChecked", "비활성화 (체크됨)"),
-                _buildDisabledCheckBox("disabledUnchecked", "비활성화 (체크 안됨)"),
+                _buildCheckBox(
+                  "hover",
+                  "호버 색상",
+                  hoverColor: Colors.blue.withOpacity(0.5),
+                ),
+                _buildCheckBox(
+                  "focus",
+                  "포커스 색상",
+                  focusColor: Colors.orange.withOpacity(0.5),
+                ),
               ],
             ),
             const SizedBox(height: 16),
             _buildSection(
               context,
-              title: "커스텀 스타일 테스트",
-              description: "체크박스에 커스텀 스타일을 적용하여 테스트합니다.",
+              title: "오버레이 색상 테스트",
+              description: "클릭 시 오버레이 색상이 적용된 체크박스를 테스트합니다.",
               examples: [
-                _buildCheckBox("custom1", "커스텀 스타일 1", customColor: Colors.blue),
-                _buildCheckBox("custom2", "커스텀 스타일 2", customColor: Colors.green),
+                _buildCheckBox(
+                  "overlay",
+                  "오버레이 색상",
+                  overlayColor: Colors.green.withOpacity(0.3),
+                ),
               ],
             ),
             const SizedBox(height: 16),
             _buildSection(
               context,
-              title: "그룹 체크박스 테스트",
-              description: "체크박스를 그룹으로 묶어서 선택을 테스트합니다.",
-              examples: _buildGroupedCheckBoxes(),
+              title: "활성화 및 체크 색상 테스트",
+              description: "활성화 색상 및 체크박스 내부 체크 색상을 테스트합니다.",
+              examples: [
+                _buildCheckBox(
+                  "activeColor",
+                  "활성화 색상",
+                  activeColor: Colors.purple,
+                ),
+                _buildCheckBox(
+                  "checkColor",
+                  "체크 색상",
+                  checkColor: Colors.yellow,
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildSection(
+              context,
+              title: "모양 및 크기 테스트",
+              description: "체크박스의 크기와 외곽 모양을 커스터마이징하여 테스트합니다.",
+              examples: [
+                _buildCheckBox(
+                  "customShape",
+                  "커스텀 모양",
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                _buildCheckBox(
+                  "customSize",
+                  "커스텀 크기",
+                  width: 36.0,
+                  height: 36.0,
+                ),
+                _buildCheckBox(
+                  "customBorderColor",
+                  "커스텀 테두리",
+                  side: BorderSide(color: Colors.red, width: 2.0),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildSection(
+              context,
+              title: "복합 커스터마이징 테스트",
+              description: "모든 속성을 조합하여 테스트합니다.",
+              examples: [
+                _buildCheckBox(
+                  "complexCustom",
+                  "복합 커스터마이징",
+                  activeColor: Colors.purple,
+                  checkColor: Colors.yellow,
+                  hoverColor: Colors.blue.withOpacity(0.5),
+                  focusColor: Colors.orange.withOpacity(0.5),
+                  overlayColor: Colors.green.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  side: BorderSide(color: Colors.red, width: 2.0),
+                  width: 24.0,
+                  height: 24.0,
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildSection(
+              context,
+              title: "비활성화 상태 테스트",
+              description: "체크박스가 비활성화 상태일 때 동작을 테스트합니다.",
+              examples: [
+                _buildDisabledCheckBox("disabled", "비활성화 체크박스"),
+              ],
             ),
           ],
         ),
@@ -125,8 +204,20 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
     );
   }
 
-  /// 기본 체크박스 생성
-  Widget _buildCheckBox(String key, String label, {Color? customColor}) {
+  /// 체크박스 생성
+  Widget _buildCheckBox(
+      String key,
+      String label, {
+        Color? hoverColor,
+        Color? focusColor,
+        Color? overlayColor,
+        Color? activeColor,
+        Color? checkColor,
+        OutlinedBorder? shape,
+        BorderSide? side,
+        double width = 16.0,
+        double height = 16.0,
+      }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -138,7 +229,15 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
               _checkBoxStates[key] = value;
             });
           },
-          color: customColor,
+          hoverColor: hoverColor,
+          focusColor: focusColor,
+          overlayColor: overlayColor,
+          activeColor: activeColor,
+          checkColor: checkColor,
+          shape: shape,
+          side: side,
+          width: width,
+          height: height,
         ),
       ],
     );
@@ -152,21 +251,10 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
         Text(label, style: context.body1Regular(color: context.fitColors.grey400)),
         FitCheckBox(
           state: _checkBoxStates[key]!,
-          onCheck: null,
+          onCheck: null, // 비활성화 상태
           color: context.fitColors.grey700,
         ),
       ],
     );
-  }
-
-  /// 그룹 체크박스 생성
-  List<Widget> _buildGroupedCheckBoxes() {
-    return [
-      _buildCheckBox("group1", "그룹 항목 1"),
-      const SizedBox(height: 8),
-      _buildCheckBox("group2", "그룹 항목 2"),
-      const SizedBox(height: 8),
-      _buildCheckBox("group3", "그룹 항목 3"),
-    ];
   }
 }

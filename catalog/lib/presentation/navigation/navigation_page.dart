@@ -185,6 +185,8 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
               statusBarColor: context.fitColors.grey800,
               systemNavigationBarColor: context.fitColors.grey900,
             ),
+            bottom: false,
+            top: false,
             body: Stack(
               children: [
                 Positioned.fill(
