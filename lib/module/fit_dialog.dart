@@ -1,12 +1,13 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:chipfit/foundation/index.dart';
 import 'package:flutter/material.dart';
 
 class FitDialog {
-  static AwesomeDialog showErrorDialog({
+  static AwesomeDialog makeErrorDialog({
     required BuildContext context,
     required String message,
     String? description,
-    required VoidCallback onOkPress,
+    required VoidCallback onPress,
     Color? dialogBackgroundColor,
     TextStyle? textStyle,
     TextStyle? buttonTextStyle,
@@ -18,8 +19,8 @@ class FitDialog {
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: dialogBackgroundColor ?? Colors.grey[800],
-      buttonsTextStyle: buttonTextStyle ?? const TextStyle(color: Colors.white),
+      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
+      buttonsTextStyle: buttonTextStyle ?? context.button1Medium(),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
       body: Padding(
@@ -32,12 +33,7 @@ class FitDialog {
             const SizedBox(height: 20),
             Text(
               description?.isNotEmpty == true ? description! : message,
-              style: textStyle ??
-                  const TextStyle(
-                    color: Colors.white,
-                    height: 1.4,
-                    fontSize: 14,
-                  ),
+              style: textStyle ?? context.body1Regular(color: context.fitColors.grey200),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -46,9 +42,9 @@ class FitDialog {
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: btnOkColor ?? Colors.blue,
+      btnOkColor: btnOkColor ?? context.fitColors.primary,
       btnOkText: btnOkText ?? '확인',
-      btnOkOnPress: onOkPress,
+      btnOkOnPress: onPress,
     );
   }
 
@@ -74,8 +70,8 @@ class FitDialog {
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: Colors.grey[800],
-      buttonsTextStyle: TextStyle(color: btnTextColor ?? Colors.black),
+      dialogBackgroundColor: context.fitColors.grey800,
+      buttonsTextStyle: context.button1Medium(color: btnTextColor ?? context.fitColors.grey900),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       body: Padding(
@@ -90,21 +86,15 @@ class FitDialog {
             if (title != null)
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  height: 1.4,
-                ),
+                style: context.headLine2(),
                 textAlign: TextAlign.center,
               ),
             if (subTitle != null) ...[
               const SizedBox(height: 12),
               Text(
                 subTitle,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  height: 1.4,
+                style: context.body1Regular(
+                  color: context.fitColors.grey200,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -116,12 +106,12 @@ class FitDialog {
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: btnOkColor ?? Colors.blue,
-      btnOkText: btnOkText ?? 'Confirm',
+      btnOkColor: btnOkColor ?? context.fitColors.primary,
+      btnOkText: btnOkText ?? '확인',
       btnOkOnPress: btnOkPressed,
       btnCancelOnPress: btnCancelPressed,
-      btnCancelColor: btnCancelColor ?? Colors.grey,
-      btnCancelText: btnCancelText ?? 'Cancel',
+      btnCancelColor: btnCancelColor ?? context.fitColors.grey500,
+      btnCancelText: btnCancelText ?? '취소',
       onDismissCallback: onDismissCallback,
     ).show();
   }
