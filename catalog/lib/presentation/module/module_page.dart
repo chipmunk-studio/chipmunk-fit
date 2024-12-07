@@ -22,6 +22,22 @@ class ModulePage extends StatelessWidget {
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/animation_text'),
           ),
+          ListTile(
+            title: Text(
+              'FitDialog',
+              style: context.body1Regular(),
+            ),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            onTap: () => context.go('/dialog'),
+          ),
+          ListTile(
+            title: Text(
+              'FitBottomSheet',
+              style: context.body1Regular(),
+            ),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            onTap: () => context.go('/bottom_sheet'),
+          ),
         ],
       ),
     );

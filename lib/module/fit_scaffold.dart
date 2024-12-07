@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/foundation/theme.dart';
@@ -11,7 +13,6 @@ class FitScaffold extends StatelessWidget {
   final bool? top;
   final Color? backgroundColor;
   final PreferredSizeWidget? appBar;
-  final bool isRemoveAppBar;
   final bool resizeToAvoidBottomInset;
   final Widget? bottomSheet;
   final EdgeInsets? padding;
@@ -24,7 +25,6 @@ class FitScaffold extends StatelessWidget {
     this.appBar,
     this.resizeToAvoidBottomInset = false,
     this.backgroundColor,
-    this.isRemoveAppBar = false,
     this.bottomSheet,
     this.padding,
   });
@@ -33,7 +33,11 @@ class FitScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor ?? context.fitColors.grey900,
-      appBar: isRemoveAppBar == true ? null : appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.grey900),
+      appBar: _buildPlatformSpecificAppBar(
+        appBar: appBar,
+        backgroundColor: backgroundColor,
+        context: context,
+      ),
       bottomSheet: bottomSheet,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: SafeArea(
@@ -51,20 +55,34 @@ class FitScaffold extends StatelessWidget {
       ),
     );
   }
+
+  PreferredSizeWidget? _buildPlatformSpecificAppBar({
+    PreferredSizeWidget? appBar,
+    Color? backgroundColor,
+    required BuildContext context,
+  }) {
+    if (Platform.isAndroid) {
+      return appBar ??
+          FitEmptyAppBar(
+            backgroundColor ?? context.fitColors.grey900,
+          );
+    } else if (Platform.isIOS) {
+      return appBar;
+    }
+    return appBar;
+  }
 }
 
 class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color statusBarColor;
   final Color systemNavigationBarColor;
 
-  // 기존 생성자 유지
   const FitEmptyAppBar(
     Color color, {
     super.key,
   })  : statusBarColor = color,
         systemNavigationBarColor = color;
 
-  // 새로운 팩토리 생성자
   const FitEmptyAppBar.navigationBarColors({
     super.key,
     required this.statusBarColor,

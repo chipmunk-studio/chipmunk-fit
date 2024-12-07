@@ -1,8 +1,11 @@
 import 'package:chipmunk_fit_catalog/presentation/component/button/button_page.dart';
+import 'package:chipmunk_fit_catalog/presentation/component/card/card_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/component/checkbox/check_box_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/animation/animation_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/foundation/textstyle/text_style_page.dart';
 import 'package:chipmunk_fit_catalog/presentation/module/animation_text/animation_text_page.dart';
+import 'package:chipmunk_fit_catalog/presentation/module/bottomsheet/bottom_sheet_page.dart';
+import 'package:chipmunk_fit_catalog/presentation/module/modal/ModalPage.dart';
 import 'package:chipmunk_fit_catalog/presentation/navigation/navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -52,6 +55,24 @@ final GoRouter catalogRouter = GoRouter(
           path: 'check_box',
           builder: (BuildContext context, GoRouterState state) {
             return const CheckBoxPage();
+          },
+        ),
+        GoRoute(
+          path: 'dialog',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ModalPage();
+          },
+        ),
+        GoRoute(
+          path: 'bottom_sheet',
+          builder: (BuildContext context, GoRouterState state) {
+            return const BottomSheetPage();
+          },
+        ),
+        GoRoute(
+          path: 'card',
+          builder: (BuildContext context, GoRouterState state) {
+            return const CardPage();
           },
         ),
       ],

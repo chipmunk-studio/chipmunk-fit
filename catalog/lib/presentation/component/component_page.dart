@@ -1,5 +1,4 @@
 import 'package:chipfit/foundation/index.dart';
-import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +38,14 @@ class ComponentPage extends StatelessWidget {
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/check_box'),
+          ),
+          ListTile(
+            title: Text(
+              'FitCard',
+              style: context.body1Regular(),
+            ),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            onTap: () => context.go('/card'),
           ),
         ],
       ),

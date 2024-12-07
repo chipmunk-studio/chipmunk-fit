@@ -182,7 +182,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
             padding: EdgeInsets.zero,
             backgroundColor: context.fitColors.grey800,
             appBar: FitEmptyAppBar.navigationBarColors(
-              statusBarColor: context.fitColors.grey800,
+              statusBarColor: context.fitColors.grey900,
               systemNavigationBarColor: context.fitColors.grey900,
             ),
             bottom: false,

@@ -20,7 +20,7 @@ class FitDialog {
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
-      buttonsTextStyle: buttonTextStyle ?? context.button1Medium(),
+      buttonsTextStyle: buttonTextStyle ?? context.button1Medium(color: context.fitColors.grey900),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
       body: Padding(
