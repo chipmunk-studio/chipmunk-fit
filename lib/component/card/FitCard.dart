@@ -41,7 +41,7 @@ class FitCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (leading != null || trailing != null)
+            if (leading != null || trailing != null) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,7 +50,8 @@ class FitCard extends StatelessWidget {
                   trailing ?? SizedBox.shrink(),
                 ],
               ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
+            ],
             child,
           ],
         ),
