@@ -29,15 +29,15 @@ class FitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: elevation ?? 6,
-      margin: margin ?? const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: elevation ?? 0,
+      margin: margin ?? const EdgeInsets.symmetric(vertical: 0.0),
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius ?? BorderRadius.circular(16.r),
       ),
       color: backgroundColor ?? context.fitColors.grey800,
       shadowColor: shadowColor ?? Colors.transparent,
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(16.0),
+        padding: padding ?? EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
