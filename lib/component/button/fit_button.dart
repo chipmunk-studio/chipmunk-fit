@@ -44,7 +44,7 @@ class _FitButtonState extends State<FitButton> {
       onTapCancel: widget.onPress != null ? _onTapCancel : null,
       child: AnimatedContainer(
         alignment: Alignment.center,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 600),
         curve: isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
         transformAlignment: Alignment.center,
         transform: Matrix4.identity()..scale(isPressed ? 0.95 : 1.0),
