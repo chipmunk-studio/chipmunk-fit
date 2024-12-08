@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'presentation/component/image/fit_image_page.dart';
+import 'presentation/foundation/color/color_page.dart';
 
 /// The route configuration.
 final GoRouter catalogRouter = GoRouter(
@@ -73,6 +74,12 @@ final GoRouter catalogRouter = GoRouter(
           path: 'card',
           builder: (BuildContext context, GoRouterState state) {
             return const CardPage();
+          },
+        ),
+        GoRoute(
+          path: 'color',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ColorPage();
           },
         ),
       ],

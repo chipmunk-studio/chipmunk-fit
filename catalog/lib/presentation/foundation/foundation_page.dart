@@ -30,6 +30,14 @@ class FoundationPage extends StatelessWidget {
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/animation'),
           ),
+          ListTile(
+            title: Text(
+              'FitColor',
+              style: context.body1Regular(),
+            ),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            onTap: () => context.go('/color'),
+          ),
         ],
       ),
     );

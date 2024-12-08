@@ -8,9 +8,9 @@ class FitBottomSheet {
   static Future<T?> show<T>(
     BuildContext context, {
     required Widget Function(BuildContext bottomSheetContext) content,
-    bool isShowCloseButton = true,
+    bool isShowCloseButton = false,
     bool isDismissible = true,
-    bool isShowTopBar = false,
+    bool isShowTopBar = true,
   }) async {
     return await _showBaseModalBottomSheet<T>(
       context: context,
