@@ -14,6 +14,7 @@ class FitScaffold extends StatelessWidget {
   final Color? backgroundColor;
   final PreferredSizeWidget? appBar;
   final bool resizeToAvoidBottomInset;
+  final bool? isRemoveAppBar;
   final Widget? bottomSheet;
   final EdgeInsets? padding;
 
@@ -24,6 +25,7 @@ class FitScaffold extends StatelessWidget {
     this.top,
     this.appBar,
     this.resizeToAvoidBottomInset = false,
+    this.isRemoveAppBar = false,
     this.backgroundColor,
     this.bottomSheet,
     this.padding,
@@ -33,11 +35,13 @@ class FitScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor ?? context.fitColors.grey900,
-      appBar: _buildPlatformSpecificAppBar(
-        appBar: appBar,
-        backgroundColor: backgroundColor,
-        context: context,
-      ),
+      appBar: isRemoveAppBar == false
+          ? _buildPlatformSpecificAppBar(
+              appBar: appBar,
+              backgroundColor: backgroundColor,
+              context: context,
+            )
+          : null,
       bottomSheet: bottomSheet,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: SafeArea(
