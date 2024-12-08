@@ -120,7 +120,6 @@ class BottomSheetPage extends StatelessWidget {
                   onPressed: () {
                     FitBottomSheet.showFull(
                       context,
-                      heightFactor: 0.8,
                       topContent: (bottomSheetContext) {
                         return Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -223,8 +222,6 @@ class BottomSheetPage extends StatelessWidget {
                     FitBottomSheet.showDraggable(
                       context,
                       initialHeightFactor: 0.4,
-                      maxHeightFactor: 0.9,
-                      minHeightFactor: 0.2,
                       topContent: (bottomSheetContext) {
                         return Padding(
                           padding: const EdgeInsets.all(16.0),

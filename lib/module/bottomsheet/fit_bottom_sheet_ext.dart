@@ -1,10 +1,10 @@
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FitBottomSheet {
-  /// 기본 바텀시트
   static Future<T?> show<T>(
     BuildContext context, {
     required Widget Function(BuildContext bottomSheetContext) content,
@@ -12,16 +12,18 @@ class FitBottomSheet {
     bool isDismissible = true,
     bool isShowTopBar = false,
   }) async {
-    return await _showBottomSheet(
-      context,
-      content: content,
-      isShowCloseButton: isShowCloseButton,
+    return await _showBaseModalBottomSheet<T>(
+      context: context,
       isDismissible: isDismissible,
-      isShowTopBar: isShowTopBar,
+      builder: (context) => _buildBottomSheetContent(
+        context,
+        content: content,
+        isShowCloseButton: isShowCloseButton,
+        isShowTopBar: isShowTopBar,
+      ),
     );
   }
 
-  /// 풀스크린 바텀시트
   static Future<T?> showFull<T>(
     BuildContext context, {
     required Widget Function(BuildContext) scrollContent,
@@ -29,24 +31,31 @@ class FitBottomSheet {
     bool isShowCloseButton = true,
     bool isDismissible = true,
     bool isShowTopBar = false,
-    double heightFactor = 1.0,
+    double heightFactor = 0.97,
   }) async {
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final adjustedHeightFactor = (heightFactor - (statusBarHeight / screenHeight)).clamp(0.1, 1.0);
-
-    return await _showBottomSheet(
-      context,
-      topContent: topContent,
-      scrollContent: scrollContent,
-      isShowCloseButton: isShowCloseButton,
+    return await _showBaseModalBottomSheet<T>(
+      context: context,
       isDismissible: isDismissible,
-      isShowTopBar: isShowTopBar,
-      heightFactor: adjustedHeightFactor,
+      builder: (context) {
+        final adjustedHeightFactor = _calculateHeightFactor(context, heightFactor);
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: adjustedHeightFactor,
+          maxChildSize: adjustedHeightFactor,
+          minChildSize: 0.1,
+          builder: (context, scrollController) => _buildFullSheetContent(
+            context,
+            scrollController: scrollController,
+            scrollContent: scrollContent,
+            topContent: topContent,
+            isShowCloseButton: isShowCloseButton,
+            isShowTopBar: isShowTopBar,
+          ),
+        );
+      },
     );
   }
 
-  /// 드래그 가능한 바텀시트
   static Future<T?> showDraggable<T>(
     BuildContext context, {
     required Widget Function(BuildContext) scrollContent,
@@ -55,159 +64,145 @@ class FitBottomSheet {
     bool isDismissible = true,
     bool isShowTopBar = false,
     double initialHeightFactor = 0.5,
-    double maxHeightFactor = 1.0,
+    double maxHeightFactor = 0.97,
     double minHeightFactor = 0.2,
   }) async {
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    return await showModalBottomSheet(
+    return await _showBaseModalBottomSheet<T>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: context.fitColors.grey800,
       isDismissible: isDismissible,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(32.r),
-          topRight: Radius.circular(32.r),
-        ),
-      ),
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: (initialHeightFactor - (statusBarHeight / screenHeight)).clamp(0.1, 1.0),
-            maxChildSize: maxHeightFactor,
-            minChildSize: minHeightFactor,
-            builder: (context, scrollController) {
-              return _buildBottomSheetContent(
-                context,
-                topContent: topContent,
-                scrollContent: scrollContent,
-                isShowCloseButton: isShowCloseButton,
-                isShowTopBar: isShowTopBar,
-                scrollController: scrollController,
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// 공통 바텀시트 생성 함수
-  static Future<T?> _showBottomSheet<T>(
-    BuildContext context, {
-    Widget Function(BuildContext)? topContent,
-    Widget Function(BuildContext)? scrollContent,
-    Widget Function(BuildContext)? content,
-    bool isShowCloseButton = true,
-    bool isDismissible = true,
-    bool isShowTopBar = false,
-    double heightFactor = 1.0,
-  }) async {
-    return await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: context.fitColors.grey800,
-      isDismissible: isDismissible,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(32.r),
-          topRight: Radius.circular(32.r),
-        ),
-      ),
       builder: (context) {
-        if (content != null) {
-          return SafeArea(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: content(context),
-            ),
-          );
-        }
-
-        return SafeArea(
-          child: DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: heightFactor,
-            maxChildSize: heightFactor,
-            minChildSize: 0.1,
-            builder: (context, scrollController) {
-              return _buildBottomSheetContent(
-                context,
-                topContent: topContent,
-                scrollContent: scrollContent,
-                isShowCloseButton: isShowCloseButton,
-                isShowTopBar: isShowTopBar,
-                scrollController: scrollController,
-              );
-            },
+        final initialFactor = _calculateHeightFactor(context, initialHeightFactor);
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: initialFactor,
+          maxChildSize: maxHeightFactor,
+          minChildSize: minHeightFactor,
+          builder: (context, scrollController) => _buildFullSheetContent(
+            context,
+            scrollController: scrollController,
+            scrollContent: scrollContent,
+            topContent: topContent,
+            isShowCloseButton: isShowCloseButton,
+            isShowTopBar: isShowTopBar,
           ),
         );
       },
     );
   }
 
-  /// 공통 바텀시트 내용 구성 함수
+  /// 공통적인 Modal Bottom Sheet 설정
+  static Future<T?> _showBaseModalBottomSheet<T>({
+    required BuildContext context,
+    required WidgetBuilder builder,
+    required bool isDismissible,
+  }) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: context.fitColors.grey800,
+      isDismissible: isDismissible,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32.r),
+          topRight: Radius.circular(32.r),
+        ),
+      ),
+      builder: builder,
+    );
+  }
+
+  /// 기본 BottomSheet Content 생성
   static Widget _buildBottomSheetContent(
     BuildContext context, {
-    Widget Function(BuildContext)? topContent,
-    Widget Function(BuildContext)? scrollContent,
-    bool isShowCloseButton = true,
-    bool isShowTopBar = false,
-    ScrollController? scrollController,
+    required Widget Function(BuildContext) content,
+    required bool isShowCloseButton,
+    required bool isShowTopBar,
+  }) {
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (isShowTopBar) _buildTopBar(context, isShowCloseButton),
+            if (isShowCloseButton) _buildCloseButton(context),
+            content(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 풀스크린 및 드래그 가능한 Sheet Content 생성
+  static Widget _buildFullSheetContent(
+    BuildContext context, {
+    required ScrollController scrollController,
+    required Widget Function(BuildContext) scrollContent,
+    required Widget Function(BuildContext) topContent,
+    required bool isShowCloseButton,
+    required bool isShowTopBar,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (isShowTopBar)
-          Column(
-            children: [
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  const Spacer(),
-                  Container(
-                    width: 48,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.r),
-                      color: context.fitColors.grey600,
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-              SizedBox(height: isShowCloseButton ? 8 : 24),
-            ],
+        if (isShowTopBar) _buildTopBar(context, isShowCloseButton),
+        if (isShowCloseButton) _buildCloseButton(context),
+        topContent(context),
+        Expanded(
+          child: SingleChildScrollView(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            child: scrollContent(context),
           ),
-        if (isShowCloseButton)
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: EdgeInsets.only(right: 16.0, top: isShowTopBar ? 0 : 16),
-              child: IconButton(
-                icon: Assets.icons.icXcircleFill24.svg(width: 28, height: 28),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ),
-        if (topContent != null) topContent(context),
-        if (scrollContent != null)
-          Flexible(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: scrollContent(context),
-              ),
-            ),
-          ),
+        ),
       ],
     );
+  }
+
+  /// Top Bar 생성
+  static Widget _buildTopBar(BuildContext context, bool isShowCloseButton) {
+    return Column(
+      children: [
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            const Spacer(),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.r),
+                color: context.fitColors.grey600,
+              ),
+            ),
+            const Spacer(),
+          ],
+        ),
+        if (!isShowCloseButton) const SizedBox(height: 36),
+      ],
+    );
+  }
+
+  /// Close 버튼 생성
+  static Widget _buildCloseButton(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 25, right: 20),
+        child: Bounceable(
+          onTap: () => Navigator.pop(context),
+          child: Assets.icons.icXcircleFill24.svg(width: 28, height: 28),
+        ),
+      ),
+    );
+  }
+
+  /// Height Factor 계산
+  static double _calculateHeightFactor(BuildContext context, double heightFactor) {
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return (heightFactor - (statusBarHeight / screenHeight)).clamp(0.1, 1.0);
   }
 }
