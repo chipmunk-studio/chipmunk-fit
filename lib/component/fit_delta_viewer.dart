@@ -10,6 +10,7 @@ class FitDeltaViewer extends StatefulWidget {
     super.key,
     required this.deltaJson,
     this.isReadOnly = true,
+    this.showCursor = false,
     this.scrollable = true,
     this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
     this.autoFocus = false,
@@ -20,6 +21,7 @@ class FitDeltaViewer extends StatefulWidget {
 
   final String deltaJson;
   final bool isReadOnly;
+  final bool showCursor; // 커서 표시 여부를 제어하는 매개변수
   final bool scrollable;
   final EdgeInsets padding;
   final bool autoFocus;
@@ -50,17 +52,14 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
 
   void _initializeController() {
     try {
-      // Delta JSON 파싱
       final List<dynamic> deltaOps = jsonDecode(widget.deltaJson)['ops'];
       final document = Document.fromJson(deltaOps);
-
-      // QuillController 생성 (고유 인스턴스)
       _controller = QuillController(
         document: document,
         selection: const TextSelection.collapsed(offset: 0),
         readOnly: widget.isReadOnly,
       );
-      setState(() {}); // 상태 업데이트
+      setState(() {});
     } catch (e) {
       debugPrint('DeltaViewer: Error initializing controller - $e');
       _controller = QuillController.basic();
@@ -69,7 +68,7 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
 
   @override
   void dispose() {
-    _controller.dispose(); // 컨트롤러 해제
+    _controller.dispose();
     super.dispose();
   }
 
@@ -86,6 +85,8 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
         enableSelectionToolbar: widget.enableSelectionToolbar,
         expands: widget.expands,
         maxContentWidth: widget.maxContentWidth,
+        showCursor: widget.showCursor,
+        // 커서 표시 여부 설정
         embedBuilders: [_ImageEmbedBuilder(widget.maxContentWidth)],
       ),
     );
