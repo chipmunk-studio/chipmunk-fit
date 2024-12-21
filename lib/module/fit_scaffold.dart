@@ -59,8 +59,18 @@ class FitScaffold extends StatelessWidget {
                 right: 20,
                 bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
               ),
-          // 로딩 상태를 조건부로 처리
-          child: isLoading ? loadingView : body,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            // 애니메이션 지속 시간
+            switchInCurve: Curves.easeIn,
+            switchOutCurve: Curves.easeOut,
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return FadeTransition(opacity: animation, child: child);
+            },
+            child: isLoading
+                ? SizedBox(key: const ValueKey('loading'), child: loadingView)
+                : SizedBox(key: const ValueKey('body'), child: body),
+          ),
         ),
       ),
     );
