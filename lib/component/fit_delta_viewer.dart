@@ -10,10 +10,22 @@ class FitDeltaViewer extends StatefulWidget {
     super.key,
     required this.deltaJson,
     this.isReadOnly = true,
+    this.scrollable = true,
+    this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+    this.autoFocus = false,
+    this.enableSelectionToolbar = false,
+    this.expands = true,
+    this.maxContentWidth = 800,
   });
 
   final String deltaJson;
   final bool isReadOnly;
+  final bool scrollable;
+  final EdgeInsets padding;
+  final bool autoFocus;
+  final bool enableSelectionToolbar;
+  final bool expands;
+  final double maxContentWidth;
 
   @override
   State<FitDeltaViewer> createState() => _FitDeltaViewerState();
@@ -59,17 +71,13 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
       focusNode: FocusNode(),
       scrollController: ScrollController(),
       configurations: QuillEditorConfigurations(
-        scrollable: true,
-        // 스크롤 가능하도록 설정
-        padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: MediaQuery.of(context).padding.bottom),
-        autoFocus: false,
-        enableSelectionToolbar: false,
-        expands: true,
-        // 가용 공간을 모두 차지하도록 설정
-        maxContentWidth: 800,
-        embedBuilders: [
-          ImageEmbedBuilder(800),
-        ],
+        scrollable: widget.scrollable,
+        padding: widget.padding,
+        autoFocus: widget.autoFocus,
+        enableSelectionToolbar: widget.enableSelectionToolbar,
+        expands: widget.expands,
+        maxContentWidth: widget.maxContentWidth,
+        embedBuilders: [ImageEmbedBuilder(widget.maxContentWidth)],
       ),
     );
   }
