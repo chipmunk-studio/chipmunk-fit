@@ -61,11 +61,17 @@ class FitScaffold extends StatelessWidget {
               ),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
-            // 애니메이션 지속 시간
             switchInCurve: Curves.easeIn,
             switchOutCurve: Curves.easeOut,
             transitionBuilder: (Widget child, Animation<double> animation) {
-              return FadeTransition(opacity: animation, child: child);
+              // topStart 정렬을 유지하기 위해 Align 추가
+              return FadeTransition(
+                opacity: animation,
+                child: Align(
+                  alignment: Alignment.topLeft, // Always align to topStart
+                  child: child,
+                ),
+              );
             },
             child: isLoading
                 ? SizedBox(key: const ValueKey('loading'), child: loadingView)
