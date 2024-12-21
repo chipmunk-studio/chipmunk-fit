@@ -3,20 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FitCard extends StatelessWidget {
-  final Widget? leading;
-  final Widget? trailing;
-  final Widget child;
   final Color? backgroundColor;
   final Color? shadowColor;
   final double? elevation;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final BorderRadius? borderRadius;
+  final Widget child;
 
   const FitCard({
     super.key,
-    this.leading,
-    this.trailing,
     this.backgroundColor,
     this.shadowColor,
     this.elevation,
@@ -38,23 +34,7 @@ class FitCard extends StatelessWidget {
       shadowColor: shadowColor ?? Colors.transparent,
       child: Padding(
         padding: padding ?? EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (leading != null || trailing != null) ...[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  leading ?? SizedBox.shrink(),
-                  trailing ?? SizedBox.shrink(),
-                ],
-              ),
-              const SizedBox(height: 16),
-            ],
-            child,
-          ],
-        ),
+        child: child,
       ),
     );
   }

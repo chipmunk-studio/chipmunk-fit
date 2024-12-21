@@ -19,6 +19,7 @@ dependencies:
   dotlottie_loader:
   flutter_svg:
   flutter_bounceable:
+  flutter_quill:
   sprung:
 
 dev_dependencies:
