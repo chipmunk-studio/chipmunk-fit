@@ -40,6 +40,14 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
     _initializeController();
   }
 
+  @override
+  void didUpdateWidget(covariant FitDeltaViewer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.deltaJson != oldWidget.deltaJson) {
+      _initializeController();
+    }
+  }
+
   void _initializeController() {
     try {
       // Delta JSON 파싱
@@ -52,6 +60,7 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
         selection: const TextSelection.collapsed(offset: 0),
         readOnly: widget.isReadOnly,
       );
+      setState(() {}); // 상태 업데이트
     } catch (e) {
       debugPrint('DeltaViewer: Error initializing controller - $e');
       _controller = QuillController.basic();
