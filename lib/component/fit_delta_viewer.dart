@@ -77,14 +77,14 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
         enableSelectionToolbar: widget.enableSelectionToolbar,
         expands: widget.expands,
         maxContentWidth: widget.maxContentWidth,
-        embedBuilders: [ImageEmbedBuilder(widget.maxContentWidth)],
+        embedBuilders: [_ImageEmbedBuilder(widget.maxContentWidth)],
       ),
     );
   }
 }
 
-class ImageEmbedBuilder extends EmbedBuilder {
-  ImageEmbedBuilder(this.maxContentWidth);
+class _ImageEmbedBuilder extends EmbedBuilder {
+  _ImageEmbedBuilder(this.maxContentWidth);
 
   final double? maxContentWidth;
 
