@@ -102,6 +102,10 @@ class $AssetsIconsGen {
   SvgGenImage get icBenefitZip =>
       const SvgGenImage('assets/icons/ic_benefit_zip.svg');
 
+  /// File path: assets/icons/ic_bookmark_soild_24.svg
+  SvgGenImage get icBookmarkSoild24 =>
+      const SvgGenImage('assets/icons/ic_bookmark_soild_24.svg');
+
   /// File path: assets/icons/ic_cancel_circle.svg
   SvgGenImage get icCancelCircle =>
       const SvgGenImage('assets/icons/ic_cancel_circle.svg');
@@ -511,6 +515,7 @@ class $AssetsIconsGen {
         icArrowsDownUp,
         icBell,
         icBenefitZip,
+        icBookmarkSoild24,
         icCancelCircle,
         icCatSelected,
         icCatUnselected,
@@ -658,13 +663,8 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/loading.lottie
   String get loading => 'packages/chipfit/assets/lottie/loading.lottie';
 
-  /// File path: assets/lottie/run_chipmunk.lottie
-  String get runChipmunk =>
-      'packages/chipfit/assets/lottie/run_chipmunk.lottie';
-
   /// List of all assets
-  List<String> get values =>
-      [coinPig, dotLoading, giftBox, loading, runChipmunk];
+  List<String> get values => [coinPig, dotLoading, giftBox, loading];
 }
 
 class Assets {
