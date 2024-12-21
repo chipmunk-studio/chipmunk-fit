@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chipfit/component/fit_dot_loading.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/foundation/theme.dart';
@@ -15,6 +16,8 @@ class FitScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final bool resizeToAvoidBottomInset;
   final bool? isRemoveAppBar;
+  final bool isLoading;
+  final Widget? loadingView;
   final Widget? bottomSheet;
   final EdgeInsets? padding;
 
@@ -26,6 +29,8 @@ class FitScaffold extends StatelessWidget {
     this.appBar,
     this.resizeToAvoidBottomInset = false,
     this.isRemoveAppBar = false,
+    this.isLoading = false,
+    this.loadingView = const Center(child: FitDotLoading()),
     this.backgroundColor,
     this.bottomSheet,
     this.padding,
@@ -54,7 +59,8 @@ class FitScaffold extends StatelessWidget {
                 right: 20,
                 bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
               ),
-          child: body,
+          // 로딩 상태를 조건부로 처리
+          child: isLoading ? loadingView : body,
         ),
       ),
     );
