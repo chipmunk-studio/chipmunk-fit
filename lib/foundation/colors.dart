@@ -35,6 +35,12 @@ class FitColors extends ThemeExtension<FitColors> {
   /// Background
   final Color backgroundGrey;
 
+  /// Brick Colors
+  final Color brickBlight;
+  final Color brickLight;
+  final Color brickBase;
+  final Color brickDark;
+
   const FitColors({
     required this.grey900,
     required this.grey800,
@@ -57,6 +63,10 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.warning,
     required this.warningLight,
     required this.backgroundGrey,
+    required this.brickBlight,
+    required this.brickLight,
+    required this.brickBase,
+    required this.brickDark,
   });
 
   @override
@@ -82,6 +92,10 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? warning,
     Color? warningLight,
     Color? backgroundGrey,
+    Color? brickBlight,
+    Color? brickLight,
+    Color? brickBase,
+    Color? brickDark,
   }) {
     return FitColors(
       grey900: grey900 ?? this.grey900,
@@ -105,6 +119,10 @@ class FitColors extends ThemeExtension<FitColors> {
       warning: warning ?? this.warning,
       warningLight: warningLight ?? this.warningLight,
       backgroundGrey: backgroundGrey ?? this.backgroundGrey,
+      brickBlight: brickBlight ?? this.brickBlight,
+      brickLight: brickLight ?? this.brickLight,
+      brickBase: brickBase ?? this.brickBase,
+      brickDark: brickDark ?? this.brickDark,
     );
   }
 
@@ -133,6 +151,10 @@ class FitColors extends ThemeExtension<FitColors> {
       warning: Color.lerp(warning, other.warning, t) ?? warning,
       warningLight: Color.lerp(warningLight, other.warningLight, t) ?? warningLight,
       backgroundGrey: Color.lerp(backgroundGrey, other.backgroundGrey, t) ?? backgroundGrey,
+      brickBlight: Color.lerp(brickBlight, other.brickBlight, t) ?? brickBlight,
+      brickLight: Color.lerp(brickLight, other.brickLight, t) ?? brickLight,
+      brickBase: Color.lerp(brickBase, other.brickBase, t) ?? brickBase,
+      brickDark: Color.lerp(brickDark, other.brickDark, t) ?? brickDark,
     );
   }
 }
@@ -160,8 +182,11 @@ const FitColors lightFitColors = FitColors(
   warning: Color(0xFF12E4EC),
   warningLight: Color(0xFF001719),
   backgroundGrey: Color(0xFF000000),
+  brickBlight: Color(0xFFFCEDEA),
+  brickLight: Color(0xFFCD4E2E),
+  brickBase: Color(0xFFB74326),
+  brickDark: Color(0xFFA93A1E),
 );
-
 
 /// Dark Theme Colors
 const FitColors darkFitColors = FitColors(
@@ -186,6 +211,10 @@ const FitColors darkFitColors = FitColors(
   warning: Color(0xFFEDBE13),
   warningLight: Color(0xFFF9F4E4),
   backgroundGrey: Color(0xFFF3F4F5),
+  brickBlight: Color(0xFFFCEDEA),
+  brickLight: Color(0xFFCD4E2E),
+  brickBase: Color(0xFFB74326),
+  brickDark: Color(0xFFA93A1E),
 );
 
 FitColors fitColors(BuildContext context) {
