@@ -65,13 +65,15 @@ class FitDialog {
     Widget? topContent,
     Widget? bottomContent,
     double borderRadius = 32.0,
+    Color? dialogBackgroundColor,
+    TextStyle? buttonsTextStyle,
   }) {
     AwesomeDialog(
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: context.fitColors.grey800,
-      buttonsTextStyle: context.button1Medium(color: btnTextColor ?? context.fitColors.grey900),
+      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
+      buttonsTextStyle: buttonsTextStyle ?? context.button1Medium(color: btnTextColor ?? context.fitColors.grey900),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       body: Padding(
