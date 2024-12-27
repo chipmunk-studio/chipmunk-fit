@@ -138,6 +138,7 @@ abstract class FitCustomAppBar {
     Widget? leadingIcon,
     List<Widget>? actions,
     Color? backgroundColor,
+    Color? titleColor, // 텍스트 컬러 추가
     bool centerTitle = false,
     bool leftAlignTitle = true,
   }) {
@@ -157,7 +158,7 @@ abstract class FitCustomAppBar {
       ),
       title: Text(
         title,
-        style: context.subTitle2Medium(color: context.fitColors.grey100),
+        style: context.subTitle2Medium(color: titleColor ?? context.fitColors.grey100),
       ),
       centerTitle: centerTitle,
       titleSpacing: leftAlignTitle ? 0.0 : NavigationToolbar.kMiddleSpacing,
