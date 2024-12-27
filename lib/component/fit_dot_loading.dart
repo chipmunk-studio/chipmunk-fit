@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 
 class FitDotLoading extends StatefulWidget {
   final double dotSize;
+  final Color? color; // 색상 추가 (nullable)
 
   const FitDotLoading({
     this.dotSize = 12,
+    this.color, // 기본값 제거
     super.key,
   });
 
@@ -36,20 +38,22 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final Color defaultColor = widget.color ?? context.fitColors.primary; // 기본 색상 설정
+
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(3, (i) => _buildDot(i, context)),
+      children: List.generate(3, (i) => _buildDot(i, defaultColor)),
     );
   }
 
-  Widget _buildDot(int index, BuildContext context) {
+  Widget _buildDot(int index, Color color) {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
         final double offset = math.sin((_controller.value * 2 * math.pi) + (index * 0.5 * math.pi)) * 8;
         return Transform.translate(
           offset: Offset(0, offset),
-          child: _Dot(widget.dotSize),
+          child: _Dot(widget.dotSize, color), // 색상 전달
         );
       },
     );
@@ -58,8 +62,9 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
 class _Dot extends StatelessWidget {
   final double dotSize;
+  final Color color; // 색상 추가
 
-  const _Dot(this.dotSize);
+  const _Dot(this.dotSize, this.color); // 색상 매개변수 받기
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +74,7 @@ class _Dot extends StatelessWidget {
       height: dotSize,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: context.fitColors.primary,
+        color: color, // 전달받은 색상 적용
       ),
     );
   }
