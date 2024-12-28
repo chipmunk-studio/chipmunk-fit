@@ -60,6 +60,8 @@ class FitDialog {
     Color? btnOkColor,
     Color? btnCancelColor,
     Color? btnTextColor,
+    Color? titleTextColor,
+    Color? subTitleTextColor,
     bool dismissOnTouchOutside = false,
     bool dismissOnBackKeyPress = false,
     Widget? topContent,
@@ -88,7 +90,7 @@ class FitDialog {
             if (title != null)
               Text(
                 title,
-                style: context.headLine2(),
+                style: context.headLine2(color: titleTextColor ?? context.fitColors.grey900),
                 textAlign: TextAlign.center,
               ),
             if (subTitle != null) ...[
@@ -96,7 +98,7 @@ class FitDialog {
               Text(
                 subTitle,
                 style: context.body1Regular(
-                  color: context.fitColors.grey200,
+                  color: subTitleTextColor ?? context.fitColors.grey200,
                 ),
                 textAlign: TextAlign.center,
               ),
