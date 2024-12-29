@@ -26,8 +26,6 @@ class CardPage extends StatelessWidget {
               title: "기본 카드",
               description: "기본 스타일의 FitCard를 테스트합니다.",
               child: FitCard(
-                leading: Icon(Icons.star, color: context.fitColors.primary),
-                trailing: Icon(Icons.more_vert, color: context.fitColors.primary),
                 backgroundColor: context.fitColors.grey800,
                 child: Text(
                   "이것은 기본 카드입니다.",
@@ -41,11 +39,6 @@ class CardPage extends StatelessWidget {
               title: "커스텀 배경색",
               description: "배경색과 내용을 커스터마이징한 FitCard입니다.",
               child: FitCard(
-                leading: CircleAvatar(
-                  backgroundColor: context.fitColors.primary,
-                  child: const Icon(Icons.person, color: Colors.white),
-                ),
-                trailing: Icon(Icons.edit, color: context.fitColors.primary),
                 backgroundColor: context.fitColors.primary.withOpacity(0.8),
                 child: Text(
                   "배경색이 커스터마이징된 카드입니다.",
@@ -59,8 +52,6 @@ class CardPage extends StatelessWidget {
               title: "쉐도우와 테두리",
               description: "카드의 쉐도우 색상과 테두리를 조정합니다.",
               child: FitCard(
-                leading: Icon(Icons.settings, color: context.fitColors.primary),
-                trailing: Icon(Icons.delete, color: context.fitColors.negative),
                 shadowColor: Colors.black54,
                 elevation: 12,
                 borderRadius: BorderRadius.circular(20.r),
@@ -76,8 +67,6 @@ class CardPage extends StatelessWidget {
               title: "긴 내용을 가진 카드",
               description: "다양한 내용을 포함한 FitCard입니다.",
               child: FitCard(
-                leading: Icon(Icons.info, color: context.fitColors.primary),
-                trailing: Icon(Icons.arrow_forward, color: context.fitColors.primary),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -109,20 +98,6 @@ class CardPage extends StatelessWidget {
               title: "커스텀 구성 요소 포함",
               description: "FitCard에 다양한 커스텀 구성 요소를 포함합니다.",
               child: FitCard(
-                leading: Icon(Icons.account_circle, color: context.fitColors.primary, size: 40),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.favorite, color: context.fitColors.positive),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.share, color: context.fitColors.grey300),
-                    ),
-                  ],
-                ),
                 backgroundColor: context.fitColors.grey700,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
