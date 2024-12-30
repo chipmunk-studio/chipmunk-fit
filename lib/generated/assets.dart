@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String colorColors = 'assets/color/colors.xml';
   static const String fontsNeodgm = 'assets/fonts/neodgm.ttf';
   static const String fontsPretendardBold = 'assets/fonts/Pretendard-Bold.ttf';
   static const String fontsPretendardLight = 'assets/fonts/Pretendard-Light.ttf';

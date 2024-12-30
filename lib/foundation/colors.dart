@@ -1,3 +1,4 @@
+import 'package:chipfit/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -161,15 +162,15 @@ class FitColors extends ThemeExtension<FitColors> {
 
 /// Light Theme Colors
 const FitColors lightFitColors = FitColors(
-  grey900: Color(0xFF141517),
-  grey800: Color(0xFF232527),
-  grey700: Color(0xFF2E3033),
-  grey600: Color(0xFF3C3F43),
-  grey500: Color(0xFF585C62),
-  grey400: Color(0xFF80858C),
-  grey300: Color(0xFFA2A6AC),
-  grey200: Color(0xFFCBCBCD),
-  grey100: Color(0xFFEBEDF0),
+  grey900: ColorName.black,
+  grey800: ColorName.grey800,
+  grey700: ColorName.grey700,
+  grey600: ColorName.grey600,
+  grey500: ColorName.grey500,
+  grey400: ColorName.grey400,
+  grey300: ColorName.grey300,
+  grey200: ColorName.grey200,
+  grey100: ColorName.grey100,
   white: Color(0xFFFFFFFF),
   black: Color(0xFF000000),
   primary: Color(0xFF13EF79),
@@ -190,15 +191,15 @@ const FitColors lightFitColors = FitColors(
 
 /// Dark Theme Colors
 const FitColors darkFitColors = FitColors(
-  grey900: Color(0xFF141517),
-  grey800: Color(0xFF232527),
-  grey700: Color(0xFF2E3033),
-  grey600: Color(0xFF3C3F43),
-  grey500: Color(0xFF585C62),
-  grey400: Color(0xFF80858C),
-  grey300: Color(0xFFA2A6AC),
-  grey200: Color(0xFFCBCBCD),
-  grey100: Color(0xFFEBEDF0),
+  grey900: ColorName.white,
+  grey800: ColorName.grey800Alt,
+  grey700: ColorName.grey700Alt,
+  grey600: ColorName.grey600Alt,
+  grey500: ColorName.grey500Alt,
+  grey400: ColorName.grey400Alt,
+  grey300: ColorName.grey300Alt,
+  grey200: ColorName.grey200Alt,
+  grey100: ColorName.grey100Alt,
   white: Color(0xFFFFFFFF),
   black: Color(0xFF000000),
   primary: Color(0xFF13EF79),

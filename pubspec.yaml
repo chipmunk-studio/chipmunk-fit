@@ -40,6 +40,10 @@ flutter_gen:
     rive: true
     lottie: true
 
+  colors:
+    inputs:
+      - assets/color/colors.xml
+
 flutter:
   uses-material-design: true
   assets:

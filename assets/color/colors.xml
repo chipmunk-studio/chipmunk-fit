@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <!-- Grey Colors -->
+    <color name="grey100">#FFF3F4F5</color>
+    <color name="grey200">#FFDFE0E2</color>
+    <color name="grey300">#FFCCCCCE</color>
+    <color name="grey400">#FFA7AAAD</color>
+    <color name="grey500">#FF818589</color>
+    <color name="grey600">#FF4D5359</color>
+    <color name="grey700">#FF2B3137</color>
+    <color name="grey800">#FF141B1F</color>
+
+    <!-- Alternative Background Colors -->
+    <color name="grey100_alt">#FF25252A</color>
+    <color name="grey200_alt">#FF25272A</color>
+    <color name="grey300_alt">#FF2F3134</color>
+    <color name="grey400_alt">#FF434548</color>
+    <color name="grey500_alt">#FF7B7E82</color>
+    <color name="grey600_alt">#FF9C9D9F</color>
+    <color name="grey700_alt">#FFCBCBCD</color>
+    <color name="grey800_alt">#FFEBEDF0</color>
+</resources>
