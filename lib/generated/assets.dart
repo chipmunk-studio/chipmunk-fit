@@ -68,6 +68,7 @@ class Assets {
   static const String iconsIcGradePlatinum = 'assets/icons/ic_grade_platinum.svg';
   static const String iconsIcGradeSilver = 'assets/icons/ic_grade_silver.svg';
   static const String iconsIcHome = 'assets/icons/ic_home.svg';
+  static const String iconsIcHomeSoild24 = 'assets/icons/ic_home_soild_24.svg';
   static const String iconsIcImage = 'assets/icons/ic_image.svg';
   static const String iconsIcIndicator = 'assets/icons/ic_indicator.svg';
   static const String iconsIcInfo = 'assets/icons/ic_info.svg';

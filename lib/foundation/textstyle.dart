@@ -3,11 +3,6 @@ import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/gen/fonts.gen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 enum FitTextSp { MIN, MAX, SP }
 
 extension FitTextStyleExtension on BuildContext {
@@ -133,6 +128,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _resolveFontSize(20, type),
       letterSpacing: -0.06,
+      height: height,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
       color: color ?? this.fitColors.white,
@@ -362,4 +358,3 @@ extension FitTextStyleExtension on BuildContext {
     }
   }
 }
-
