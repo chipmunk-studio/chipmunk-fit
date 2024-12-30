@@ -480,6 +480,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_user.svg
   SvgGenImage get icUser => const SvgGenImage('assets/icons/ic_user.svg');
 
+  /// File path: assets/icons/ic_user_soild_24.svg
+  SvgGenImage get icUserSoild24 =>
+      const SvgGenImage('assets/icons/ic_user_soild_24.svg');
+
   /// File path: assets/icons/ic_userplus_soild_24.svg
   SvgGenImage get icUserplusSoild24 =>
       const SvgGenImage('assets/icons/ic_userplus_soild_24.svg');
@@ -620,6 +624,7 @@ class $AssetsIconsGen {
         icSpaceShip,
         icTrophy,
         icUser,
+        icUserSoild24,
         icUserplusSoild24,
         icUsers24,
         icUsersSoild24,
@@ -632,12 +637,16 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/bg_bottom_nav.svg
-  SvgGenImage get bgBottomNav =>
-      const SvgGenImage('assets/images/bg_bottom_nav.svg');
+  /// File path: assets/images/bg_bottom_nav_selected.svg
+  SvgGenImage get bgBottomNavSelected =>
+      const SvgGenImage('assets/images/bg_bottom_nav_selected.svg');
+
+  /// File path: assets/images/bg_bottom_nav_unselected.svg
+  SvgGenImage get bgBottomNavUnselected =>
+      const SvgGenImage('assets/images/bg_bottom_nav_unselected.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [bgBottomNav];
+  List<SvgGenImage> get values => [bgBottomNavSelected, bgBottomNavUnselected];
 }
 
 class $AssetsLottieGen {
