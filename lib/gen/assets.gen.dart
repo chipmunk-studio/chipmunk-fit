@@ -281,6 +281,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_home.svg
   SvgGenImage get icHome => const SvgGenImage('assets/icons/ic_home.svg');
 
+  /// File path: assets/icons/ic_home_soild_24.svg
+  SvgGenImage get icHomeSoild24 =>
+      const SvgGenImage('assets/icons/ic_home_soild_24.svg');
+
   /// File path: assets/icons/ic_image.svg
   SvgGenImage get icImage => const SvgGenImage('assets/icons/ic_image.svg');
 
@@ -562,6 +566,7 @@ class $AssetsIconsGen {
         icGradePlatinum,
         icGradeSilver,
         icHome,
+        icHomeSoild24,
         icImage,
         icIndicator,
         icInfo,
@@ -627,25 +632,12 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/bg_bottom_nav_selected.svg
-  SvgGenImage get bgBottomNavSelected =>
-      const SvgGenImage('assets/images/bg_bottom_nav_selected.svg');
-
-  /// File path: assets/images/bg_bottom_nav_unselected.svg
-  SvgGenImage get bgBottomNavUnselected =>
-      const SvgGenImage('assets/images/bg_bottom_nav_unselected.svg');
-
-  /// File path: assets/images/bg_splash.png
-  AssetGenImage get bgSplash =>
-      const AssetGenImage('assets/images/bg_splash.png');
-
-  /// File path: assets/images/ic_launcher.png
-  AssetGenImage get icLauncher =>
-      const AssetGenImage('assets/images/ic_launcher.png');
+  /// File path: assets/images/bg_bottom_nav.svg
+  SvgGenImage get bgBottomNav =>
+      const SvgGenImage('assets/images/bg_bottom_nav.svg');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [bgBottomNavSelected, bgBottomNavUnselected, bgSplash, icLauncher];
+  List<SvgGenImage> get values => [bgBottomNav];
 }
 
 class $AssetsLottieGen {
