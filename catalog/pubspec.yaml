@@ -16,7 +16,6 @@ dependencies:
     #      ref: main
     path: ../
 
-  ## Bloc
   bloc_concurrency:
   flutter_bloc:
   side_effect_bloc:
