@@ -20,7 +20,7 @@ class FitDialog {
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
-      buttonsTextStyle: buttonTextStyle ?? context.button1Medium(color: context.fitColors.grey900),
+      buttonsTextStyle: buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.grey900),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
       body: Padding(
@@ -33,7 +33,7 @@ class FitDialog {
             const SizedBox(height: 20),
             Text(
               description?.isNotEmpty == true ? description! : message,
-              style: textStyle ?? context.body1Regular(color: context.fitColors.grey200),
+              style: textStyle ?? context.body1().copyWith(color: context.fitColors.grey200),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -75,7 +75,8 @@ class FitDialog {
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
-      buttonsTextStyle: buttonsTextStyle ?? context.button1Medium(color: btnTextColor ?? context.fitColors.grey900),
+      buttonsTextStyle:
+          buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.grey900),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       body: Padding(
@@ -90,16 +91,14 @@ class FitDialog {
             if (title != null)
               Text(
                 title,
-                style: context.headLine2(color: titleTextColor ?? context.fitColors.grey900),
+                style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey900),
                 textAlign: TextAlign.center,
               ),
             if (subTitle != null) ...[
               const SizedBox(height: 12),
               Text(
                 subTitle,
-                style: context.body1Regular(
-                  color: subTitleTextColor ?? context.fitColors.grey200,
-                ),
+                style: context.body1().copyWith(color: subTitleTextColor ?? context.fitColors.grey200),
                 textAlign: TextAlign.center,
               ),
             ],

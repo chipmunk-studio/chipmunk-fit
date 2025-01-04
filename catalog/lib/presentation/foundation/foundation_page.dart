@@ -17,7 +17,7 @@ class FoundationPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitTextStyle',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/textstyle'),
@@ -25,7 +25,7 @@ class FoundationPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitAnimation',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/animation'),
@@ -33,7 +33,7 @@ class FoundationPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitColor',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/color'),

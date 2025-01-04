@@ -43,12 +43,12 @@ class BottomSheetPage extends StatelessWidget {
                             children: [
                               Text(
                                 "기본 바텀시트",
-                                style: context.headLine2(),
+                                style: context.h2(),
                               ),
                               const SizedBox(height: 12),
                               Text(
                                 "이 바텀시트는 상단 바와 닫기 버튼이 포함되어 있습니다.",
-                                style: context.body1Regular(color: context.fitColors.grey300),
+                                style: context.body1().copyWith(color: context.fitColors.grey300),
                               ),
                               const SizedBox(height: 16),
                               ElevatedButton(
@@ -83,12 +83,12 @@ class BottomSheetPage extends StatelessWidget {
                             children: [
                               Text(
                                 "닫기 버튼 없는 바텀시트",
-                                style: context.headLine2(),
+                                style: context.h2(),
                               ),
                               const SizedBox(height: 12),
                               Text(
                                 "닫기 버튼과 외부 탭으로 닫을 수 없습니다.",
-                                style: context.body1Regular(color: context.fitColors.grey300),
+                                style: context.body1().copyWith(color: context.fitColors.grey300),
                               ),
                               const SizedBox(height: 16),
                               ElevatedButton(
@@ -129,12 +129,12 @@ class BottomSheetPage extends StatelessWidget {
                             children: [
                               Text(
                                 "풀스크린 바텀시트",
-                                style: context.headLine2(),
+                                style: context.h2(),
                               ),
                               const SizedBox(height: 12),
                               Text(
                                 "스크롤 가능한 콘텐츠를 포함합니다.",
-                                style: context.body1Regular(color: context.fitColors.grey300),
+                                style: context.body1().copyWith(color: context.fitColors.grey300),
                               ),
                             ],
                           ),
@@ -147,11 +147,11 @@ class BottomSheetPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: List.generate(
                               20,
-                                  (index) => Padding(
+                              (index) => Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Text(
                                   "항목 ${index + 1}",
-                                  style: context.body1Regular(color: context.fitColors.grey100),
+                                  style: context.body1().copyWith(color: context.fitColors.grey100),
                                 ),
                               ),
                             ),
@@ -176,7 +176,7 @@ class BottomSheetPage extends StatelessWidget {
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
                             "50% 풀스크린 바텀시트",
-                            style: context.headLine2(),
+                            style: context.h2(),
                           ),
                         );
                       },
@@ -186,7 +186,7 @@ class BottomSheetPage extends StatelessWidget {
                           child: Column(
                             children: List.generate(
                               10,
-                                  (index) => Padding(
+                              (index) => Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
@@ -194,7 +194,7 @@ class BottomSheetPage extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       "옵션 ${index + 1}",
-                                      style: context.body1Regular(color: context.fitColors.grey100),
+                                      style: context.body1().copyWith(color: context.fitColors.grey100),
                                     ),
                                   ],
                                 ),
@@ -231,12 +231,12 @@ class BottomSheetPage extends StatelessWidget {
                             children: [
                               Text(
                                 "드래그 가능한 바텀시트",
-                                style: context.headLine2(),
+                                style: context.h2(),
                               ),
                               const SizedBox(height: 12),
                               Text(
                                 "드래그하여 크기를 조정할 수 있습니다.",
-                                style: context.body1Regular(color: context.fitColors.grey300),
+                                style: context.body1().copyWith(color: context.fitColors.grey300),
                               ),
                             ],
                           ),
@@ -248,7 +248,7 @@ class BottomSheetPage extends StatelessWidget {
                           child: Column(
                             children: List.generate(
                               15,
-                                  (index) => Padding(
+                              (index) => Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
@@ -256,7 +256,7 @@ class BottomSheetPage extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       "항목 ${index + 1}",
-                                      style: context.body1Regular(color: context.fitColors.grey100),
+                                      style: context.body1().copyWith(color: context.fitColors.grey100),
                                     ),
                                   ],
                                 ),
@@ -277,11 +277,11 @@ class BottomSheetPage extends StatelessWidget {
   }
 
   Widget _buildSection(
-      BuildContext context, {
-        required String title,
-        required String description,
-        required List<Widget> actions,
-      }) {
+    BuildContext context, {
+    required String title,
+    required String description,
+    required List<Widget> actions,
+  }) {
     return Card(
       elevation: 6,
       margin: const EdgeInsets.symmetric(vertical: 16.0),
@@ -295,7 +295,7 @@ class BottomSheetPage extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               description,
-              style: context.body1Regular(color: context.fitColors.grey500),
+              style: context.body1().copyWith(color: context.fitColors.grey500),
             ),
             const SizedBox(height: 20),
             ...actions,
@@ -312,18 +312,18 @@ class BottomSheetPage extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           title,
-          style: context.headLine2(color: context.fitColors.grey100),
+          style: context.h2().copyWith(color: context.fitColors.grey100),
         ),
       ],
     );
   }
 
   Widget _buildActionButton(
-      BuildContext context, {
-        required String label,
-        required String description,
-        required VoidCallback onPressed,
-      }) {
+    BuildContext context, {
+    required String label,
+    required String description,
+    required VoidCallback onPressed,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -331,7 +331,7 @@ class BottomSheetPage extends StatelessWidget {
         children: [
           Text(
             description,
-            style: context.body1Regular(color: context.fitColors.grey400),
+            style: context.body1().copyWith(color: context.fitColors.grey400),
           ),
           const SizedBox(height: 8),
           ElevatedButton(

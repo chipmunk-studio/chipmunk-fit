@@ -29,7 +29,7 @@ class CardPage extends StatelessWidget {
                 backgroundColor: context.fitColors.grey800,
                 child: Text(
                   "이것은 기본 카드입니다.",
-                  style: context.body1Regular(color: context.fitColors.grey300),
+                  style: context.body1().copyWith(color: context.fitColors.grey300),
                 ),
               ),
             ),
@@ -42,7 +42,7 @@ class CardPage extends StatelessWidget {
                 backgroundColor: context.fitColors.primary.withOpacity(0.8),
                 child: Text(
                   "배경색이 커스터마이징된 카드입니다.",
-                  style: context.body1Regular(color: Colors.white),
+                  style: context.body1().copyWith(color: Colors.white),
                 ),
               ),
             ),
@@ -57,7 +57,7 @@ class CardPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.r),
                 child: Text(
                   "쉐도우와 테두리가 조정된 카드입니다.",
-                  style: context.body1Regular(color: context.fitColors.grey300),
+                  style: context.body1().copyWith(color: context.fitColors.grey300),
                 ),
               ),
             ),
@@ -72,7 +72,7 @@ class CardPage extends StatelessWidget {
                   children: [
                     Text(
                       "긴 내용을 가진 카드입니다.",
-                      style: context.body1Regular(color: context.fitColors.grey300),
+                      style: context.body1().copyWith(color: context.fitColors.grey300),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -80,13 +80,13 @@ class CardPage extends StatelessWidget {
                       "Flutter는 유연한 레이아웃 시스템을 제공하므로, 이러한 긴 텍스트도 적절히 레이아웃에 맞춰 표시됩니다. "
                       "카드는 다양한 콘텐츠를 담기에 적합하며, 그림자와 테두리를 통해 시각적 계층 구조를 효과적으로 구현할 수 있습니다. "
                       "이 텍스트는 사용자가 실제 앱에서 접할 수 있는 시나리오를 가정한 예제입니다.",
-                      style: context.body2Regular(color: context.fitColors.grey500),
+                      style: context.body2().copyWith(color: context.fitColors.grey500),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       "추가적으로, 이 FitCard는 상단에 아이콘과 하단에 다른 내용을 포함할 수 있는 구조를 제공합니다. "
                       "이를 통해 UI 컴포넌트를 보다 효과적으로 디자인할 수 있습니다.",
-                      style: context.body2Regular(color: context.fitColors.grey500),
+                      style: context.body2().copyWith(color: context.fitColors.grey500),
                     ),
                   ],
                 ),
@@ -104,12 +104,12 @@ class CardPage extends StatelessWidget {
                   children: [
                     Text(
                       "커스텀 구성 요소",
-                      style: context.headLine2(color: context.fitColors.grey100),
+                      style: context.h2().copyWith(color: context.fitColors.grey100),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       "이 카드는 leading과 trailing에 다양한 위젯을 포함할 수 있습니다. 이를 통해 사용자 상호작용을 지원하는 인터페이스를 제공합니다.",
-                      style: context.body1Regular(color: context.fitColors.grey400),
+                      style: context.body1().copyWith(color: context.fitColors.grey400),
                     ),
                   ],
                 ),
@@ -138,12 +138,12 @@ class CardPage extends StatelessWidget {
           children: [
             Text(
               title,
-              style: context.headLine2(color: context.fitColors.grey100),
+              style: context.h2().copyWith(color: context.fitColors.grey100),
             ),
             const SizedBox(height: 12),
             Text(
               description,
-              style: context.body1Regular(color: context.fitColors.grey500),
+              style: context.body1().copyWith(color: context.fitColors.grey500),
             ),
             const SizedBox(height: 20),
             child,

@@ -23,7 +23,7 @@ class FitTextButton extends StatelessWidget {
       onPressed: onPress != null ? () => _deBouncer.run(onPress) : null,
       child: Text(
         text,
-        style: textStyle ?? context.caption2Regular(),
+        style: textStyle ?? context.body4(),
       ),
     );
   }

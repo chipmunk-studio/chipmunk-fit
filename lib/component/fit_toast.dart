@@ -1,6 +1,6 @@
-import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,10 +24,7 @@ buildFitToastContent(
           Flexible(
             child: Text(
               content,
-              style: context.body3Regular(
-                color: context.fitColors.grey900,
-                height: 1.4,
-              ),
+              style: context.body3().copyWith(color: context.fitColors.grey900),
             ),
           ),
           const SizedBox(width: 12.0),

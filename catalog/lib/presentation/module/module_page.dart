@@ -17,7 +17,7 @@ class ModulePage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitAnimationText',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/animation_text'),
@@ -25,7 +25,7 @@ class ModulePage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitDialog',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/dialog'),
@@ -33,7 +33,7 @@ class ModulePage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitBottomSheet',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/bottom_sheet'),

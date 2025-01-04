@@ -46,7 +46,7 @@ extension ButtonStyleExtension on BuildContext {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
-      textStyle: button1Medium(),
+      textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
@@ -75,7 +75,7 @@ extension ButtonStyleExtension on BuildContext {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
-      textStyle: button1Medium(),
+      textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
@@ -105,7 +105,7 @@ extension ButtonStyleExtension on BuildContext {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
-      textStyle: button1Medium(),
+      textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
@@ -134,7 +134,7 @@ extension ButtonStyleExtension on BuildContext {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
-      textStyle: button1Medium(),
+      textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
@@ -157,7 +157,7 @@ extension ButtonStyleExtension on BuildContext {
       ),
       elevation: 0,
       padding: EdgeInsets.zero,
-      textStyle: button1Medium(),
+      textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))

@@ -114,7 +114,7 @@ class ModalPage extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               description,
-              style: context.body1Regular(color: context.fitColors.grey500),
+              style: context.body1().copyWith(color: context.fitColors.grey500),
             ),
             const SizedBox(height: 16),
             ...actions,
@@ -131,7 +131,7 @@ class ModalPage extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           title,
-          style: context.headLine2(color: context.fitColors.grey100),
+          style: context.h2().copyWith(color: context.fitColors.grey100),
         ),
       ],
     );

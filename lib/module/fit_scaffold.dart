@@ -158,7 +158,7 @@ abstract class FitCustomAppBar {
       ),
       title: Text(
         title,
-        style: context.subTitle2Medium(color: titleColor ?? context.fitColors.grey100),
+        style: context.subtitle2().copyWith(color: titleColor ?? context.fitColors.grey100),
       ),
       centerTitle: centerTitle,
       titleSpacing: leftAlignTitle ? 0.0 : NavigationToolbar.kMiddleSpacing,

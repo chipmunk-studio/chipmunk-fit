@@ -1,10 +1,7 @@
-import 'package:chipfit/component/index.dart';
+import 'package:chipfit/component/animation/index.dart';
 import 'package:chipfit/foundation/index.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
-import 'package:chipfit/component/animation/index.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-
 
 class AnimationPage extends StatelessWidget {
   const AnimationPage({super.key});
@@ -64,11 +61,11 @@ class AnimationPage extends StatelessWidget {
   }
 
   Widget _buildSection(
-      BuildContext context, {
-        required String title,
-        required String description,
-        required List<Widget> examples,
-      }) {
+    BuildContext context, {
+    required String title,
+    required String description,
+    required List<Widget> examples,
+  }) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -81,7 +78,7 @@ class AnimationPage extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               description,
-              style: context.body1Regular(color: context.fitColors.grey500),
+              style: context.body1().copyWith(color: context.fitColors.grey500),
             ),
             const SizedBox(height: 16),
             Column(children: examples),
@@ -99,7 +96,7 @@ class AnimationPage extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: context.headLine2(color: context.fitColors.grey100),
+            style: context.h2().copyWith(color: context.fitColors.grey100),
           ),
         ),
       ],
@@ -117,7 +114,7 @@ class AnimationPage extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: context.body1Semibold(color: Colors.white),
+        style: context.subtitle3().copyWith(color: Colors.white),
         textAlign: TextAlign.center,
       ),
     );

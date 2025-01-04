@@ -107,9 +107,9 @@ class _FitButtonState extends State<FitButton> {
           };
 
     // 기본 색상 설정
-    return context.button1Medium(
-      color: color[widget.type] ?? context.fitColors.grey800,
-    );
+    return context.button1().copyWith(
+          color: color[widget.type] ?? context.fitColors.grey800,
+        );
   }
 
   void _onTapDown(TapDownDetails details) {

@@ -119,7 +119,7 @@ elevatedButtonTheme(BuildContext context, FitColors fitColors) {
       foregroundColor: fitColors.grey900,
       // Disabled text color
       disabledForegroundColor: fitColors.grey400,
-      textStyle: context.button1Medium(color: fitColors.white),
+      textStyle: context.button1().copyWith(color: fitColors.white),
     ).copyWith(
       overlayColor: WidgetStateProperty.all(Colors.transparent), // 리플 효과 제거
       shadowColor: WidgetStateProperty.all(Colors.transparent), // 그림자 제거
@@ -202,8 +202,8 @@ appBarTheme(BuildContext context, FitColors fitColors, bool isDark) {
     elevation: 0,
     surfaceTintColor: Colors.transparent,
     iconTheme: IconThemeData(color: fitColors.white),
-    toolbarTextStyle: context.subTitle2Medium(color: fitColors.white),
-    titleTextStyle: context.subTitle2Medium(color: fitColors.white),
+    toolbarTextStyle: context.subtitle2().copyWith(color: fitColors.white),
+    titleTextStyle: context.subtitle2().copyWith(color: fitColors.white),
     titleSpacing: 0,
     toolbarHeight: 60,
     systemOverlayStyle: customSystemUiOverlayStyle(

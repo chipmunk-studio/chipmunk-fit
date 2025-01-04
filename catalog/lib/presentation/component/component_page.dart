@@ -18,7 +18,7 @@ class ComponentPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitButton',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/button'),
@@ -26,7 +26,7 @@ class ComponentPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitImage',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/image'),
@@ -34,7 +34,7 @@ class ComponentPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitCheckBox',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/check_box'),
@@ -42,7 +42,7 @@ class ComponentPage extends StatelessWidget {
           ListTile(
             title: Text(
               'FitCard',
-              style: context.body1Regular(),
+              style: context.body1(),
             ),
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
             onTap: () => context.go('/card'),

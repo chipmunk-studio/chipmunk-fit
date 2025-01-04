@@ -1,4 +1,5 @@
 import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/gen/colors.gen.dart';
 import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,323 +7,143 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 enum FitTextSp { MIN, MAX, SP }
 
 extension FitTextStyleExtension on BuildContext {
-  TextStyle headLine1({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle h1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(28, type),
-      letterSpacing: -0.06,
-      height: height,
+      fontSize: _getFontSize(28, type),
+      letterSpacing: _convertLetterSpacing(28, -2),
+      height: 40 / _getFontSize(28, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
-  TextStyle headLine2({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle h2({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(24, type),
-      letterSpacing: -0.06,
-      height: height,
+      fontSize: _getFontSize(24, type),
+      letterSpacing: _convertLetterSpacing(24, -2),
+      height: 34 / _getFontSize(24, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
-  TextStyle headLine3({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle subtitle1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(20, type),
-      letterSpacing: -0.06,
-      height: height,
+      fontSize: _getFontSize(20, type),
+      letterSpacing: _convertLetterSpacing(20, -2),
+      height: 30 / _getFontSize(20, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
-  TextStyle subTitle1Bold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle subtitle2({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(22, type),
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle subTitle1Medium({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(22, type),
-      letterSpacing: -0.06,
+      fontSize: _getFontSize(20, type),
+      letterSpacing: _convertLetterSpacing(20, -2),
+      height: 30 / _getFontSize(20, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
-  TextStyle subTitle2SemiBold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.0,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle subtitle3({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(20, type),
-      letterSpacing: -0.06,
-      height: height,
+      fontSize: _getFontSize(18, type),
+      letterSpacing: _convertLetterSpacing(18, -2),
+      height: 28 / _getFontSize(18, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
-  TextStyle subTitle2Medium({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle subtitle4({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(20, type),
-      letterSpacing: -0.06,
-      height: height,
+      fontSize: _getFontSize(16, type),
+      letterSpacing: _convertLetterSpacing(16, -2),
+      height: 24 / _getFontSize(16, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardSemiBold,
+    );
+  }
+
+  TextStyle subtitle5({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(15, type),
+      letterSpacing: _convertLetterSpacing(15, -2),
+      height: 24 / _getFontSize(15, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardSemiBold,
+    );
+  }
+
+  TextStyle subtitle6({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(14, type),
+      letterSpacing: _convertLetterSpacing(14, -2),
+      height: 22 / _getFontSize(14, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardSemiBold,
+    );
+  }
+
+  TextStyle body1({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(18, type),
+      letterSpacing: _convertLetterSpacing(18, -2),
+      height: 28 / _getFontSize(18, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardRegular,
+    );
+  }
+
+  TextStyle body2({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(16, type),
+      letterSpacing: _convertLetterSpacing(16, -2),
+      height: 24 / _getFontSize(16, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardRegular,
+    );
+  }
+
+  TextStyle body3({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(15, type),
+      letterSpacing: _convertLetterSpacing(15, -2),
+      height: 24 / _getFontSize(15, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardRegular,
+    );
+  }
+
+  TextStyle body4({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(14, type),
+      letterSpacing: _convertLetterSpacing(14, -2),
+      height: 22 / _getFontSize(14, type),
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardRegular,
+    );
+  }
+
+  TextStyle button1({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(18, type),
+      letterSpacing: _convertLetterSpacing(18, -2),
+      height: 18 / _getFontSize(18, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
-  TextStyle body1Semibold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle caption1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _resolveFontSize(18, type),
-      height: height,
-      letterSpacing: -0.06,
+      fontSize: _getFontSize(12, type),
+      letterSpacing: _convertLetterSpacing(12, -2),
+      height: 12 / _getFontSize(12, type),
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle body1Regular({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(18, type),
-      height: height,
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardRegular,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle body2Semibold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.0,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(16, type),
-      height: height,
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle body2Regular({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(16, type),
-      letterSpacing: -0.06,
-      height: height,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardRegular,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle body3Semibold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.0,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(15, type),
-      letterSpacing: -0.06,
-      height: height,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle body3Regular({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(15, type),
-      height: height,
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardRegular,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle button1Medium({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.0,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(18, type),
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardMedium,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle caption1SemiBold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(14, type),
-      height: height,
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle caption2Regular({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.4,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(14, type),
-      height: height,
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardRegular,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
-    );
-  }
-
-  TextStyle caption3Semibold({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.3,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
-    return TextStyle(
-      fontSize: _resolveFontSize(12, type),
-      height: height,
-      letterSpacing: -0.06,
-      fontStyle: FontStyle.normal,
-      fontFamily: FontFamily.pretendardSemiBold,
-      color: color ?? this.fitColors.white,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
@@ -335,7 +156,7 @@ extension FitTextStyleExtension on BuildContext {
     Color? decorationColor,
   }) {
     return TextStyle(
-      fontSize: _resolveFontSize(fontSize, type),
+      fontSize: _getFontSize(fontSize, type),
       height: height,
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
@@ -346,7 +167,7 @@ extension FitTextStyleExtension on BuildContext {
     );
   }
 
-  double _resolveFontSize(double baseSize, FitTextSp type) {
+  double _getFontSize(double baseSize, FitTextSp type) {
     switch (type) {
       case FitTextSp.MIN:
         return baseSize.spMin;
@@ -356,5 +177,15 @@ extension FitTextStyleExtension on BuildContext {
       default:
         return baseSize.sp;
     }
+  }
+
+  /// Figma의 Letter Spacing(% 값)을 Flutter의 `letterSpacing` 값으로 변환하는 함수
+  ///
+  /// [fontSize]: 텍스트의 폰트 크기 (Figma의 "Size" 값)
+  /// [letterPercentage]: Figma의 "Letter Spacing" 값 (-2%는 -2로 전달)
+  ///
+  /// 예: `convertLetterSpacing(20, -2)`는 `-0.4`를 반환
+  double _convertLetterSpacing(double fontSize, double letterPercentage) {
+    return fontSize * (letterPercentage / 100);
   }
 }

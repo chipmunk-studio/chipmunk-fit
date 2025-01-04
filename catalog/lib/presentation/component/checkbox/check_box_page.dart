@@ -163,11 +163,11 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
 
   /// 섹션 구성
   Widget _buildSection(
-      BuildContext context, {
-        required String title,
-        required String description,
-        required List<Widget> examples,
-      }) {
+    BuildContext context, {
+    required String title,
+    required String description,
+    required List<Widget> examples,
+  }) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -180,7 +180,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
             const SizedBox(height: 8),
             Text(
               description,
-              style: context.body1Regular(color: context.fitColors.grey500),
+              style: context.body1().copyWith(color: context.fitColors.grey500),
             ),
             const SizedBox(height: 16),
             Column(children: examples),
@@ -198,7 +198,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
         const SizedBox(width: 8),
         Text(
           title,
-          style: context.headLine2(color: context.fitColors.grey100),
+          style: context.h2().copyWith(color: context.fitColors.grey100),
         ),
       ],
     );
@@ -206,22 +206,22 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
 
   /// 체크박스 생성
   Widget _buildCheckBox(
-      String key,
-      String label, {
-        Color? hoverColor,
-        Color? focusColor,
-        Color? overlayColor,
-        Color? activeColor,
-        Color? checkColor,
-        OutlinedBorder? shape,
-        BorderSide? side,
-        double width = 16.0,
-        double height = 16.0,
-      }) {
+    String key,
+    String label, {
+    Color? hoverColor,
+    Color? focusColor,
+    Color? overlayColor,
+    Color? activeColor,
+    Color? checkColor,
+    OutlinedBorder? shape,
+    BorderSide? side,
+    double width = 16.0,
+    double height = 16.0,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: context.body1Regular(color: context.fitColors.grey400)),
+        Text(label, style: context.body1().copyWith(color: context.fitColors.grey400)),
         FitCheckBox(
           state: _checkBoxStates[key]!,
           onCheck: (value) {
@@ -248,7 +248,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: context.body1Regular(color: context.fitColors.grey400)),
+        Text(label, style: context.body1().copyWith(color: context.fitColors.grey400)),
         FitCheckBox(
           state: _checkBoxStates[key]!,
           onCheck: null, // 비활성화 상태

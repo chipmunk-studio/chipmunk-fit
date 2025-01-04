@@ -58,7 +58,7 @@ class FitImagePage extends StatelessWidget {
         SizedBox(width: 8),
         Text(
           title,
-          style: context.headLine2(color: context.fitColors.grey100),
+          style: context.h2().copyWith(color: context.fitColors.grey100),
         ),
       ],
     );
@@ -152,7 +152,7 @@ class FitImagePage extends StatelessWidget {
       children: [
         Text(
           label,
-          style: context.body1Semibold(color: context.fitColors.grey100),
+          style: context.subtitle3().copyWith(color: context.fitColors.grey100),
         ),
         SizedBox(height: 8),
         Container(

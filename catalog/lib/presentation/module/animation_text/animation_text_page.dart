@@ -27,7 +27,7 @@ class AnimationText extends StatelessWidget {
               examples: [
                 FitAnimatedText(
                   text: "안녕하세요! 단일 애니메이션 텍스트입니다.",
-                  textStyle: context.headLine2(color: context.fitColors.grey100),
+                  textStyle: context.h2().copyWith(color: context.fitColors.grey100),
                   duration: const Duration(milliseconds: 100),
                 ),
               ],
@@ -40,7 +40,7 @@ class AnimationText extends StatelessWidget {
               examples: [
                 FitAnimatedText(
                   text: "안녕하세요!\n이 텍스트는 여러 줄로 구성되어 있습니다.",
-                  textStyle: context.body1Semibold(color: context.fitColors.grey100),
+                  textStyle: context.subtitle3().copyWith(color: context.fitColors.grey100),
                   duration: const Duration(milliseconds: 100),
                 ),
               ],
@@ -53,7 +53,7 @@ class AnimationText extends StatelessWidget {
               examples: [
                 FitAnimatedText(
                   text: "이 텍스트는 완료 후 콜백을 호출합니다.",
-                  textStyle: context.body1Semibold(color: context.fitColors.primary),
+                  textStyle: context.subtitle3().copyWith(color: context.fitColors.primary),
                   duration: const Duration(milliseconds: 100),
                   onAnimationComplete: () {
                     context.showSnackBar("애니메이션 완료!");
@@ -85,7 +85,7 @@ class AnimationText extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               description,
-              style: context.body1Regular(color: context.fitColors.grey500),
+              style: context.body1().copyWith(color: context.fitColors.grey500),
             ),
             const SizedBox(height: 16),
             Column(children: examples),
@@ -102,7 +102,7 @@ class AnimationText extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           title,
-          style: context.headLine2(color: context.fitColors.grey100),
+          style: context.h2().copyWith(color: context.fitColors.grey100),
         ),
       ],
     );
