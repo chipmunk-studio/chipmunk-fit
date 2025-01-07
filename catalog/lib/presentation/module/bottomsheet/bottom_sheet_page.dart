@@ -190,7 +190,7 @@ class BottomSheetPage extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.label, color: context.fitColors.primary),
+                                    Icon(Icons.label, color: context.fitColors.main),
                                     const SizedBox(width: 8),
                                     Text(
                                       "옵션 ${index + 1}",
@@ -252,7 +252,7 @@ class BottomSheetPage extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.list, color: context.fitColors.primary),
+                                    Icon(Icons.list, color: context.fitColors.main),
                                     const SizedBox(width: 8),
                                     Text(
                                       "항목 ${index + 1}",
@@ -308,7 +308,7 @@ class BottomSheetPage extends StatelessWidget {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Row(
       children: [
-        Icon(Icons.format_align_center, color: context.fitColors.primary, size: 24),
+        Icon(Icons.format_align_center, color: context.fitColors.main, size: 24),
         const SizedBox(width: 8),
         Text(
           title,

@@ -1,5 +1,4 @@
 import 'package:chipfit/foundation/index.dart';
-import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class ColorPage extends StatelessWidget {
@@ -11,47 +10,83 @@ class ColorPage extends StatelessWidget {
     final FitColors darkColors = darkFitColors;
 
     return Scaffold(
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
-        title: "FitColors 테스트",
+      backgroundColor: context.fitColors.grey0,
+      appBar: AppBar(
+        centerTitle: false,
+        surfaceTintColor: context.fitColors.grey900,
+        backgroundColor: context.fitColors.grey0,
+        title: Text(
+          "FitColors 테스트",
+          style: context.subtitle2().copyWith(color: context.fitColors.grey900),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildComparisonSection("Grey Colors", [
-              _buildComparisonTile("Grey 900", lightColors.grey900, darkColors.grey900),
-              _buildComparisonTile("Grey 800", lightColors.grey800, darkColors.grey800),
-              _buildComparisonTile("Grey 700", lightColors.grey700, darkColors.grey700),
-              _buildComparisonTile("Grey 600", lightColors.grey600, darkColors.grey600),
-              _buildComparisonTile("Grey 500", lightColors.grey500, darkColors.grey500),
-              _buildComparisonTile("Grey 400", lightColors.grey400, darkColors.grey400),
-              _buildComparisonTile("Grey 300", lightColors.grey300, darkColors.grey300),
-              _buildComparisonTile("Grey 200", lightColors.grey200, darkColors.grey200),
+            _buildComparisonSection(context, "Grey Colors", [
+              _buildComparisonTile("Grey 0", lightColors.grey0, darkColors.grey0),
+              _buildComparisonTile("Grey 50", lightColors.grey50, darkColors.grey50),
               _buildComparisonTile("Grey 100", lightColors.grey100, darkColors.grey100),
+              _buildComparisonTile("Grey 200", lightColors.grey200, darkColors.grey200),
+              _buildComparisonTile("Grey 300", lightColors.grey300, darkColors.grey300),
+              _buildComparisonTile("Grey 400", lightColors.grey400, darkColors.grey400),
+              _buildComparisonTile("Grey 500", lightColors.grey500, darkColors.grey500),
+              _buildComparisonTile("Grey 600", lightColors.grey600, darkColors.grey600),
+              _buildComparisonTile("Grey 700", lightColors.grey700, darkColors.grey700),
+              _buildComparisonTile("Grey 800", lightColors.grey800, darkColors.grey800),
+              _buildComparisonTile("Grey 900", lightColors.grey900, darkColors.grey900),
             ]),
-            _buildComparisonSection("Basic Colors", [
-              _buildComparisonTile("White", lightColors.white, darkColors.white),
-              _buildComparisonTile("Black", lightColors.black, darkColors.black),
+            _buildComparisonSection(context, "Green Colors", [
+              _buildComparisonTile("Green 50", lightColors.green50, darkColors.green50),
+              _buildComparisonTile("Green 200", lightColors.green200, darkColors.green200),
+              _buildComparisonTile("Green 500", lightColors.green500, darkColors.green500),
+              _buildComparisonTile("Green 600", lightColors.green600, darkColors.green600),
+              _buildComparisonTile("Green 700", lightColors.green700, darkColors.green700),
+              _buildComparisonTile("Green Base", lightColors.greenBase, darkColors.greenBase),
+              _buildComparisonTile("Green Alpha 72", lightColors.greenAlpha72, darkColors.greenAlpha72),
+              _buildComparisonTile("Green Alpha 48", lightColors.greenAlpha48, darkColors.greenAlpha48),
+              _buildComparisonTile("Green Alpha 24", lightColors.greenAlpha24, darkColors.greenAlpha24),
+              _buildComparisonTile("Green Alpha 12", lightColors.greenAlpha12, darkColors.greenAlpha12),
             ]),
-            _buildComparisonSection("Primary and Secondary Colors", [
-              _buildComparisonTile("Primary", lightColors.primary, darkColors.primary),
-              _buildComparisonTile("Secondary", lightColors.secondary, darkColors.secondary),
+            _buildComparisonSection(context, "Blue Colors", [
+              _buildComparisonTile("Blue 50", lightColors.blue50, darkColors.blue50),
+              _buildComparisonTile("Blue 200", lightColors.blue200, darkColors.blue200),
+              _buildComparisonTile("Blue 500", lightColors.blue500, darkColors.blue500),
+              _buildComparisonTile("Blue 600", lightColors.blue600, darkColors.blue600),
+              _buildComparisonTile("Blue 700", lightColors.blue700, darkColors.blue700),
+              _buildComparisonTile("Blue Base", lightColors.blueBase, darkColors.blueBase),
+              _buildComparisonTile("Blue Alpha 72", lightColors.blueAlpha72, darkColors.blueAlpha72),
+              _buildComparisonTile("Blue Alpha 48", lightColors.blueAlpha48, darkColors.blueAlpha48),
+              _buildComparisonTile("Blue Alpha 24", lightColors.blueAlpha24, darkColors.blueAlpha24),
+              _buildComparisonTile("Blue Alpha 12", lightColors.blueAlpha12, darkColors.blueAlpha12),
             ]),
-            _buildComparisonSection("Positive and Negative Colors", [
-              _buildComparisonTile("Positive", lightColors.positive, darkColors.positive),
-              _buildComparisonTile("Positive Light", lightColors.positiveLight, darkColors.positiveLight),
-              _buildComparisonTile("Negative", lightColors.negative, darkColors.negative),
-              _buildComparisonTile("Negative Light", lightColors.negativeLight, darkColors.negativeLight),
-              _buildComparisonTile("Negative Dark", lightColors.negativeDark, darkColors.negativeDark),
+            _buildComparisonSection(context, "Red Colors", [
+              _buildComparisonTile("Red 50", lightColors.red50, darkColors.red50),
+              _buildComparisonTile("Red 200", lightColors.red200, darkColors.red200),
+              _buildComparisonTile("Red 500", lightColors.red500, darkColors.red500),
+              _buildComparisonTile("Red 600", lightColors.red600, darkColors.red600),
+              _buildComparisonTile("Red 700", lightColors.red700, darkColors.red700),
+              _buildComparisonTile("Red Base", lightColors.redBase, darkColors.redBase),
+              _buildComparisonTile("Red Alpha 72", lightColors.redAlpha72, darkColors.redAlpha72),
+              _buildComparisonTile("Red Alpha 48", lightColors.redAlpha48, darkColors.redAlpha48),
+              _buildComparisonTile("Red Alpha 24", lightColors.redAlpha24, darkColors.redAlpha24),
+              _buildComparisonTile("Red Alpha 12", lightColors.redAlpha12, darkColors.redAlpha12),
             ]),
-            _buildComparisonSection("Warning Colors", [
-              _buildComparisonTile("Warning", lightColors.warning, darkColors.warning),
-              _buildComparisonTile("Warning Light", lightColors.warningLight, darkColors.warningLight),
+            _buildComparisonSection(context, "Yellow Colors", [
+              _buildComparisonTile("Yellow Base", lightColors.yellowBase, darkColors.yellowBase),
+              _buildComparisonTile("Yellow Alpha 72", lightColors.yellowAlpha72, darkColors.yellowAlpha72),
+              _buildComparisonTile("Yellow Alpha 48", lightColors.yellowAlpha48, darkColors.yellowAlpha48),
+              _buildComparisonTile("Yellow Alpha 24", lightColors.yellowAlpha24, darkColors.yellowAlpha24),
+              _buildComparisonTile("Yellow Alpha 12", lightColors.yellowAlpha12, darkColors.yellowAlpha12),
             ]),
-            _buildComparisonSection("Background Grey", [
-              _buildComparisonTile("Background Grey", lightColors.backgroundGrey, darkColors.backgroundGrey),
+            _buildComparisonSection(context, "Brick Colors", [
+              _buildComparisonTile("Brick 50", lightColors.brick50, darkColors.brick50),
+              _buildComparisonTile("Brick 200", lightColors.brick200, darkColors.brick200),
+              _buildComparisonTile("Brick 500", lightColors.brick500, darkColors.brick500),
+              _buildComparisonTile("Brick 600", lightColors.brick600, darkColors.brick600),
+              _buildComparisonTile("Brick 700", lightColors.brick700, darkColors.brick700),
             ]),
           ],
         ),
@@ -59,7 +94,11 @@ class ColorPage extends StatelessWidget {
     );
   }
 
-  Widget _buildComparisonSection(String title, List<Widget> children) {
+  Widget _buildComparisonSection(
+    BuildContext context,
+    String title,
+    List<Widget> children,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Card(
@@ -70,10 +109,7 @@ class ColorPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+              Text(title, style: context.subtitle2().copyWith(color: context.fitColors.grey900)),
               const SizedBox(height: 16),
               Column(
                 children: children,

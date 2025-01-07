@@ -47,7 +47,7 @@ class _FitSwitchButtonState extends State<FitSwitchButton> {
         width: 56,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.r),
-          color: widget.isOn ? context.fitColors.secondary : Colors.grey,
+          color: widget.isOn ? context.fitColors.sub : Colors.grey,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),

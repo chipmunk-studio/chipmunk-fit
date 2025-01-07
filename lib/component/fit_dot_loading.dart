@@ -38,7 +38,7 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultColor = widget.color ?? context.fitColors.primary; // 기본 색상 설정
+    final Color defaultColor = widget.color ?? context.fitColors.main; // 기본 색상 설정
 
     return Row(
       mainAxisSize: MainAxisSize.min,

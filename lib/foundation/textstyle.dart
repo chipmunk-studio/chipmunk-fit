@@ -1,5 +1,4 @@
 import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/gen/colors.gen.dart';
 import 'package:chipfit/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +9,9 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle h1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(28, type),
-      letterSpacing: _convertLetterSpacing(28, -2),
-      height: 40 / _getFontSize(28, type),
+      letterSpacing: -0.06,
+      height: 1.5,
+      color: fitColors(this).grey900,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -20,8 +20,9 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle h2({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(24, type),
-      letterSpacing: _convertLetterSpacing(24, -2),
-      height: 34 / _getFontSize(24, type),
+      letterSpacing: -0.06,
+      height: 1.5,
+      color: fitColors(this).grey900,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -30,8 +31,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle subtitle1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(20, type),
-      letterSpacing: _convertLetterSpacing(20, -2),
-      height: 30 / _getFontSize(20, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -40,8 +41,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle subtitle2({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(20, type),
-      letterSpacing: _convertLetterSpacing(20, -2),
-      height: 30 / _getFontSize(20, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
     );
@@ -50,8 +51,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle subtitle3({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(18, type),
-      letterSpacing: _convertLetterSpacing(18, -2),
-      height: 28 / _getFontSize(18, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -60,8 +61,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle subtitle4({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(16, type),
-      letterSpacing: _convertLetterSpacing(16, -2),
-      height: 24 / _getFontSize(16, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -70,8 +71,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle subtitle5({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(15, type),
-      letterSpacing: _convertLetterSpacing(15, -2),
-      height: 24 / _getFontSize(15, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -80,8 +81,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle subtitle6({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(14, type),
-      letterSpacing: _convertLetterSpacing(14, -2),
-      height: 22 / _getFontSize(14, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -90,8 +91,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle body1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(18, type),
-      letterSpacing: _convertLetterSpacing(18, -2),
-      height: 28 / _getFontSize(18, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -100,8 +101,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle body2({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(16, type),
-      letterSpacing: _convertLetterSpacing(16, -2),
-      height: 24 / _getFontSize(16, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -110,8 +111,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle body3({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(15, type),
-      letterSpacing: _convertLetterSpacing(15, -2),
-      height: 24 / _getFontSize(15, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -120,8 +121,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle body4({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(14, type),
-      letterSpacing: _convertLetterSpacing(14, -2),
-      height: 22 / _getFontSize(14, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -130,8 +131,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle button1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(18, type),
-      letterSpacing: _convertLetterSpacing(18, -2),
-      height: 18 / _getFontSize(18, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
     );
@@ -140,8 +141,8 @@ extension FitTextStyleExtension on BuildContext {
   TextStyle caption1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
       fontSize: _getFontSize(12, type),
-      letterSpacing: _convertLetterSpacing(12, -2),
-      height: 12 / _getFontSize(12, type),
+      letterSpacing: -0.06,
+      height: 1.5,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -161,7 +162,6 @@ extension FitTextStyleExtension on BuildContext {
       letterSpacing: -0.06,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.neodgm,
-      color: color ?? this.fitColors.white,
       decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
       decorationColor: decorationColor,
     );

@@ -54,7 +54,7 @@ class FitImagePage extends StatelessWidget {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Row(
       children: [
-        Icon(Icons.image, color: context.fitColors.primary, size: 24),
+        Icon(Icons.image, color: context.fitColors.main, size: 24),
         SizedBox(width: 8),
         Text(
           title,

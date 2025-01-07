@@ -144,7 +144,7 @@ FitTextSp.SP: 화면 크기에 따라 계산된 sp 값을 그대로 사용합니
           children: [
             Row(
               children: [
-                Icon(Icons.text_fields, color: context.fitColors.primary, size: 24),
+                Icon(Icons.text_fields, color: context.fitColors.main, size: 24),
                 const SizedBox(width: 8),
                 Text(
                   title,

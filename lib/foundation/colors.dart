@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 
 @immutable
 class FitColors extends ThemeExtension<FitColors> {
+  /// Main&Sub
+  final Color main;
+  final Color sub;
+
   /// Grey Colors
+  final Color grey0;
+  final Color grey50;
   final Color grey900;
   final Color grey800;
   final Color grey700;
@@ -14,35 +20,67 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color grey200;
   final Color grey100;
 
-  /// Basic Colors
-  final Color white;
-  final Color black;
+  /// Green Colors
+  final Color green50;
+  final Color green200;
+  final Color green500;
+  final Color green600;
+  final Color green700;
 
-  /// Primary and Secondary
-  final Color primary;
-  final Color secondary;
+  /// Blue Colors
+  final Color blue50;
+  final Color blue200;
+  final Color blue500;
+  final Color blue600;
+  final Color blue700;
 
-  /// Positive and Negative
-  final Color positive;
-  final Color positiveLight;
-  final Color negative;
-  final Color negativeLight;
-  final Color negativeDark;
-
-  /// Warning
-  final Color warning;
-  final Color warningLight;
-
-  /// Background
-  final Color backgroundGrey;
+  /// Red Colors
+  final Color red50;
+  final Color red200;
+  final Color red500;
+  final Color red600;
+  final Color red700;
 
   /// Brick Colors
-  final Color brickBlight;
-  final Color brickLight;
-  final Color brickBase;
-  final Color brickDark;
+  final Color brick50;
+  final Color brick200;
+  final Color brick500;
+  final Color brick600;
+  final Color brick700;
+
+  /// Red Colors
+  final Color redBase;
+  final Color redAlpha72;
+  final Color redAlpha48;
+  final Color redAlpha24;
+  final Color redAlpha12;
+
+  /// Yellow Colors
+  final Color yellowBase;
+  final Color yellowAlpha72;
+  final Color yellowAlpha48;
+  final Color yellowAlpha24;
+  final Color yellowAlpha12;
+
+  /// Green Colors
+  final Color greenBase;
+  final Color greenAlpha72;
+  final Color greenAlpha48;
+  final Color greenAlpha24;
+  final Color greenAlpha12;
+
+  /// Blue Colors
+  final Color blueBase;
+  final Color blueAlpha72;
+  final Color blueAlpha48;
+  final Color blueAlpha24;
+  final Color blueAlpha12;
 
   const FitColors({
+    required this.main,
+    required this.sub,
+    required this.grey0,
+    required this.grey50,
     required this.grey900,
     required this.grey800,
     required this.grey700,
@@ -52,26 +90,54 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.grey300,
     required this.grey200,
     required this.grey100,
-    required this.white,
-    required this.black,
-    required this.primary,
-    required this.secondary,
-    required this.positive,
-    required this.positiveLight,
-    required this.negative,
-    required this.negativeLight,
-    required this.negativeDark,
-    required this.warning,
-    required this.warningLight,
-    required this.backgroundGrey,
-    required this.brickBlight,
-    required this.brickLight,
-    required this.brickBase,
-    required this.brickDark,
+    required this.green50,
+    required this.green200,
+    required this.green500,
+    required this.green600,
+    required this.green700,
+    required this.blue50,
+    required this.blue200,
+    required this.blue500,
+    required this.blue600,
+    required this.blue700,
+    required this.red50,
+    required this.red200,
+    required this.red500,
+    required this.red600,
+    required this.red700,
+    required this.brick50,
+    required this.brick200,
+    required this.brick500,
+    required this.brick600,
+    required this.brick700,
+    required this.redBase,
+    required this.redAlpha72,
+    required this.redAlpha48,
+    required this.redAlpha24,
+    required this.redAlpha12,
+    required this.yellowBase,
+    required this.yellowAlpha72,
+    required this.yellowAlpha48,
+    required this.yellowAlpha24,
+    required this.yellowAlpha12,
+    required this.greenBase,
+    required this.greenAlpha72,
+    required this.greenAlpha48,
+    required this.greenAlpha24,
+    required this.greenAlpha12,
+    required this.blueBase,
+    required this.blueAlpha72,
+    required this.blueAlpha48,
+    required this.blueAlpha24,
+    required this.blueAlpha12,
   });
 
   @override
   FitColors copyWith({
+    Color? main,
+    Color? sub,
+    Color? grey0,
+    Color? grey50,
     Color? grey900,
     Color? grey800,
     Color? grey700,
@@ -83,22 +149,52 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? grey100,
     Color? white,
     Color? black,
-    Color? primary,
-    Color? secondary,
-    Color? positive,
-    Color? positiveLight,
-    Color? negative,
-    Color? negativeLight,
-    Color? negativeDark,
-    Color? warning,
-    Color? warningLight,
-    Color? backgroundGrey,
-    Color? brickBlight,
-    Color? brickLight,
-    Color? brickBase,
-    Color? brickDark,
+    Color? green50,
+    Color? green200,
+    Color? green500,
+    Color? green600,
+    Color? green700,
+    Color? blue50,
+    Color? blue200,
+    Color? blue500,
+    Color? blue600,
+    Color? blue700,
+    Color? red50,
+    Color? red200,
+    Color? red500,
+    Color? red600,
+    Color? red700,
+    Color? brick50,
+    Color? brick200,
+    Color? brick500,
+    Color? brick600,
+    Color? brick700,
+    Color? redBase,
+    Color? redAlpha72,
+    Color? redAlpha48,
+    Color? redAlpha24,
+    Color? redAlpha12,
+    Color? yellowBase,
+    Color? yellowAlpha72,
+    Color? yellowAlpha48,
+    Color? yellowAlpha24,
+    Color? yellowAlpha12,
+    Color? greenBase,
+    Color? greenAlpha72,
+    Color? greenAlpha48,
+    Color? greenAlpha24,
+    Color? greenAlpha12,
+    Color? blueBase,
+    Color? blueAlpha72,
+    Color? blueAlpha48,
+    Color? blueAlpha24,
+    Color? blueAlpha12,
   }) {
     return FitColors(
+      main: main ?? this.main,
+      sub: sub ?? this.sub,
+      grey0: grey0 ?? this.grey0,
+      grey50: grey50 ?? this.grey50,
       grey900: grey900 ?? this.grey900,
       grey800: grey800 ?? this.grey800,
       grey700: grey700 ?? this.grey700,
@@ -108,29 +204,57 @@ class FitColors extends ThemeExtension<FitColors> {
       grey300: grey300 ?? this.grey300,
       grey200: grey200 ?? this.grey200,
       grey100: grey100 ?? this.grey100,
-      white: white ?? this.white,
-      black: black ?? this.black,
-      primary: primary ?? this.primary,
-      secondary: secondary ?? this.secondary,
-      positive: positive ?? this.positive,
-      positiveLight: positiveLight ?? this.positiveLight,
-      negative: negative ?? this.negative,
-      negativeLight: negativeLight ?? this.negativeLight,
-      negativeDark: negativeDark ?? this.negativeDark,
-      warning: warning ?? this.warning,
-      warningLight: warningLight ?? this.warningLight,
-      backgroundGrey: backgroundGrey ?? this.backgroundGrey,
-      brickBlight: brickBlight ?? this.brickBlight,
-      brickLight: brickLight ?? this.brickLight,
-      brickBase: brickBase ?? this.brickBase,
-      brickDark: brickDark ?? this.brickDark,
+      green50: green50 ?? this.green50,
+      green200: green200 ?? this.green200,
+      green500: green500 ?? this.green500,
+      green600: green600 ?? this.green600,
+      green700: green700 ?? this.green700,
+      blue50: blue50 ?? this.blue50,
+      blue200: blue200 ?? this.blue200,
+      blue500: blue500 ?? this.blue500,
+      blue600: blue600 ?? this.blue600,
+      blue700: blue700 ?? this.blue700,
+      red50: red50 ?? this.red50,
+      red200: red200 ?? this.red200,
+      red500: red500 ?? this.red500,
+      red600: red600 ?? this.red600,
+      red700: red700 ?? this.red700,
+      brick50: brick50 ?? this.brick50,
+      brick200: brick200 ?? this.brick200,
+      brick500: brick500 ?? this.brick500,
+      brick600: brick600 ?? this.brick600,
+      brick700: brick700 ?? this.brick700,
+      redBase: redBase ?? this.redBase,
+      redAlpha72: redAlpha72 ?? this.redAlpha72,
+      redAlpha48: redAlpha48 ?? this.redAlpha48,
+      redAlpha24: redAlpha24 ?? this.redAlpha24,
+      redAlpha12: redAlpha12 ?? this.redAlpha12,
+      yellowBase: yellowBase ?? this.yellowBase,
+      yellowAlpha72: yellowAlpha72 ?? this.yellowAlpha72,
+      yellowAlpha48: yellowAlpha48 ?? this.yellowAlpha48,
+      yellowAlpha24: yellowAlpha24 ?? this.yellowAlpha24,
+      yellowAlpha12: yellowAlpha12 ?? this.yellowAlpha12,
+      greenBase: greenBase ?? this.greenBase,
+      greenAlpha72: greenAlpha72 ?? this.greenAlpha72,
+      greenAlpha48: greenAlpha48 ?? this.greenAlpha48,
+      greenAlpha24: greenAlpha24 ?? this.greenAlpha24,
+      greenAlpha12: greenAlpha12 ?? this.greenAlpha12,
+      blueBase: blueBase ?? this.blueBase,
+      blueAlpha72: blueAlpha72 ?? this.blueAlpha72,
+      blueAlpha48: blueAlpha48 ?? this.blueAlpha48,
+      blueAlpha24: blueAlpha24 ?? this.blueAlpha24,
+      blueAlpha12: blueAlpha12 ?? this.blueAlpha12,
     );
   }
 
   @override
-  FitColors lerp(ThemeExtension<FitColors>? other, double t) {
+  ThemeExtension<FitColors> lerp(covariant ThemeExtension<FitColors>? other, double t) {
     if (other is! FitColors) return this;
     return FitColors(
+      main: Color.lerp(main, other.main, t) ?? main,
+      sub: Color.lerp(sub, other.sub, t) ?? sub,
+      grey0: Color.lerp(grey0, other.grey0, t) ?? grey0,
+      grey50: Color.lerp(grey50, other.grey50, t) ?? grey50,
       grey900: Color.lerp(grey900, other.grey900, t) ?? grey900,
       grey800: Color.lerp(grey800, other.grey800, t) ?? grey800,
       grey700: Color.lerp(grey700, other.grey700, t) ?? grey700,
@@ -140,82 +264,162 @@ class FitColors extends ThemeExtension<FitColors> {
       grey300: Color.lerp(grey300, other.grey300, t) ?? grey300,
       grey200: Color.lerp(grey200, other.grey200, t) ?? grey200,
       grey100: Color.lerp(grey100, other.grey100, t) ?? grey100,
-      white: Color.lerp(white, other.white, t) ?? white,
-      black: Color.lerp(black, other.black, t) ?? black,
-      primary: Color.lerp(primary, other.primary, t) ?? primary,
-      secondary: Color.lerp(secondary, other.secondary, t) ?? secondary,
-      positive: Color.lerp(positive, other.positive, t) ?? positive,
-      positiveLight: Color.lerp(positiveLight, other.positiveLight, t) ?? positiveLight,
-      negative: Color.lerp(negative, other.negative, t) ?? negative,
-      negativeLight: Color.lerp(negativeLight, other.negativeLight, t) ?? negativeLight,
-      negativeDark: Color.lerp(negativeDark, other.negativeDark, t) ?? negativeDark,
-      warning: Color.lerp(warning, other.warning, t) ?? warning,
-      warningLight: Color.lerp(warningLight, other.warningLight, t) ?? warningLight,
-      backgroundGrey: Color.lerp(backgroundGrey, other.backgroundGrey, t) ?? backgroundGrey,
-      brickBlight: Color.lerp(brickBlight, other.brickBlight, t) ?? brickBlight,
-      brickLight: Color.lerp(brickLight, other.brickLight, t) ?? brickLight,
-      brickBase: Color.lerp(brickBase, other.brickBase, t) ?? brickBase,
-      brickDark: Color.lerp(brickDark, other.brickDark, t) ?? brickDark,
+      green50: Color.lerp(green50, other.green50, t) ?? green50,
+      green200: Color.lerp(green200, other.green200, t) ?? green200,
+      green500: Color.lerp(green500, other.green500, t) ?? green500,
+      green600: Color.lerp(green600, other.green600, t) ?? green600,
+      green700: Color.lerp(green700, other.green700, t) ?? green700,
+      blue50: Color.lerp(blue50, other.blue50, t) ?? blue50,
+      blue200: Color.lerp(blue200, other.blue200, t) ?? blue200,
+      blue500: Color.lerp(blue500, other.blue500, t) ?? blue500,
+      blue600: Color.lerp(blue600, other.blue600, t) ?? blue600,
+      blue700: Color.lerp(blue700, other.blue700, t) ?? blue700,
+      red50: Color.lerp(red50, other.red50, t) ?? red50,
+      red200: Color.lerp(red200, other.red200, t) ?? red200,
+      red500: Color.lerp(red500, other.red500, t) ?? red500,
+      red600: Color.lerp(red600, other.red600, t) ?? red600,
+      red700: Color.lerp(red700, other.red700, t) ?? red700,
+      brick50: Color.lerp(brick50, other.brick50, t) ?? brick50,
+      brick200: Color.lerp(brick200, other.brick200, t) ?? brick200,
+      brick500: Color.lerp(brick500, other.brick500, t) ?? brick500,
+      brick600: Color.lerp(brick600, other.brick600, t) ?? brick600,
+      brick700: Color.lerp(brick700, other.brick700, t) ?? brick700,
+      redBase: Color.lerp(redBase, other.redBase, t) ?? redBase,
+      redAlpha72: Color.lerp(redAlpha72, other.redAlpha72, t) ?? redAlpha72,
+      redAlpha48: Color.lerp(redAlpha48, other.redAlpha48, t) ?? redAlpha48,
+      redAlpha24: Color.lerp(redAlpha24, other.redAlpha24, t) ?? redAlpha24,
+      redAlpha12: Color.lerp(redAlpha12, other.redAlpha12, t) ?? redAlpha12,
+      yellowBase: Color.lerp(yellowBase, other.yellowBase, t) ?? yellowBase,
+      yellowAlpha72: Color.lerp(yellowAlpha72, other.yellowAlpha72, t) ?? yellowAlpha72,
+      yellowAlpha48: Color.lerp(yellowAlpha48, other.yellowAlpha48, t) ?? yellowAlpha48,
+      yellowAlpha24: Color.lerp(yellowAlpha24, other.yellowAlpha24, t) ?? yellowAlpha24,
+      yellowAlpha12: Color.lerp(yellowAlpha12, other.yellowAlpha12, t) ?? yellowAlpha12,
+      greenBase: Color.lerp(greenBase, other.greenBase, t) ?? greenBase,
+      greenAlpha72: Color.lerp(greenAlpha72, other.greenAlpha72, t) ?? greenAlpha72,
+      greenAlpha48: Color.lerp(greenAlpha48, other.greenAlpha48, t) ?? greenAlpha48,
+      greenAlpha24: Color.lerp(greenAlpha24, other.greenAlpha24, t) ?? greenAlpha24,
+      greenAlpha12: Color.lerp(greenAlpha12, other.greenAlpha12, t) ?? greenAlpha12,
+      blueBase: Color.lerp(blueBase, other.blueBase, t) ?? blueBase,
+      blueAlpha72: Color.lerp(blueAlpha72, other.blueAlpha72, t) ?? blueAlpha72,
+      blueAlpha48: Color.lerp(blueAlpha48, other.blueAlpha48, t) ?? blueAlpha48,
+      blueAlpha24: Color.lerp(blueAlpha24, other.blueAlpha24, t) ?? blueAlpha24,
+      blueAlpha12: Color.lerp(blueAlpha12, other.blueAlpha12, t) ?? blueAlpha12,
     );
   }
 }
 
 /// Light Theme Colors
-const FitColors lightFitColors = FitColors(
-  grey900: Color(0xFF141517),
-  grey800: Color(0xFF232527),
-  grey700: Color(0xFF2E3033),
-  grey600: Color(0xFF3C3F43),
-  grey500: Color(0xFF585C62),
-  grey400: Color(0xFF80858C),
-  grey300: Color(0xFFA2A6AC),
-  grey200: Color(0xFFCBCBCD),
-  grey100: Color(0xFFEBEDF0),
-  white: Color(0xFFFFFFFF),
-  black: Color(0xFF000000),
-  primary: Color(0xFF13EF79),
-  secondary: Color(0xFF471AFF),
-  positive: Color(0xFF28AF58),
-  positiveLight: Color(0xFFE6FAED),
-  negative: Color(0xFFEF5248),
-  negativeLight: Color(0xFFFAE1E1),
-  negativeDark: Color(0xFF331D1D),
-  warning: Color(0xFFEDBE13),
-  warningLight: Color(0xFFF9F4E4),
-  backgroundGrey: Color(0xFFF3F4F5),
-  brickBlight: Color(0xFFFCEDEA),
-  brickLight: Color(0xFFCD4E2E),
-  brickBase: Color(0xFFB74326),
-  brickDark: Color(0xFFA93A1E),
+FitColors lightFitColors = FitColors(
+  main: ColorName.green500,
+  sub: ColorName.blue500,
+  grey0: ColorName.grey0,
+  grey50: ColorName.grey50,
+  grey900: ColorName.grey900,
+  grey800: ColorName.grey800,
+  grey700: ColorName.grey700,
+  grey600: ColorName.grey600,
+  grey500: ColorName.grey500,
+  grey400: ColorName.grey400,
+  grey300: ColorName.grey300,
+  grey200: ColorName.grey200,
+  grey100: ColorName.grey100,
+  green50: ColorName.green50,
+  green200: ColorName.green200,
+  green500: ColorName.green500,
+  green600: ColorName.green600,
+  green700: ColorName.green700,
+  blue50: ColorName.blue50,
+  blue200: ColorName.blue200,
+  blue500: ColorName.blue500,
+  blue600: ColorName.blue600,
+  blue700: ColorName.blue700,
+  red50: ColorName.red50,
+  red200: ColorName.red200,
+  red500: ColorName.red500,
+  red600: ColorName.red600,
+  red700: ColorName.red700,
+  redBase: ColorName.redAlphaBase,
+  redAlpha72: ColorName.redAlphaBase.withAlpha((255 * 0.72).toInt()),
+  redAlpha48: ColorName.redAlphaBase.withAlpha((255 * 0.48).toInt()),
+  redAlpha24: ColorName.redAlphaBase.withAlpha((255 * 0.24).toInt()),
+  redAlpha12: ColorName.redAlphaBase.withAlpha((255 * 0.12).toInt()),
+  yellowBase: ColorName.yellowAlphaBase,
+  yellowAlpha72: ColorName.yellowAlphaBase.withAlpha((255 * 0.72).toInt()),
+  yellowAlpha48: ColorName.yellowAlphaBase.withAlpha((255 * 0.48).toInt()),
+  yellowAlpha24: ColorName.yellowAlphaBase.withAlpha((255 * 0.24).toInt()),
+  yellowAlpha12: ColorName.yellowAlphaBase.withAlpha((255 * 0.12).toInt()),
+  greenBase: ColorName.greenAlphaBase,
+  greenAlpha72: ColorName.greenAlphaBase.withAlpha((255 * 0.72).toInt()),
+  greenAlpha48: ColorName.greenAlphaBase.withAlpha((255 * 0.48).toInt()),
+  greenAlpha24: ColorName.greenAlphaBase.withAlpha((255 * 0.24).toInt()),
+  greenAlpha12: ColorName.greenAlphaBase.withAlpha((255 * 0.12).toInt()),
+  blueBase: ColorName.blueAlphaBase,
+  blueAlpha72: ColorName.blueAlphaBase.withAlpha((255 * 0.72).toInt()),
+  blueAlpha48: ColorName.blueAlphaBase.withAlpha((255 * 0.48).toInt()),
+  blueAlpha24: ColorName.blueAlphaBase.withAlpha((255 * 0.24).toInt()),
+  blueAlpha12: ColorName.blueAlphaBase.withAlpha((255 * 0.12).toInt()),
+  brick50: ColorName.brick50,
+  brick200: ColorName.brick200,
+  brick500: ColorName.brick500,
+  brick600: ColorName.brick600,
+  brick700: ColorName.brick700,
 );
 
 /// Dark Theme Colors
-const FitColors darkFitColors = FitColors(
-  grey900: Color(0xFF141517),
-  grey800: Color(0xFF232527),
-  grey700: Color(0xFF2E3033),
-  grey600: Color(0xFF3C3F43),
-  grey500: Color(0xFF585C62),
-  grey400: Color(0xFF80858C),
-  grey300: Color(0xFFA2A6AC),
-  grey200: Color(0xFFCBCBCD),
-  grey100: Color(0xFFEBEDF0),
-  white: Color(0xFFFFFFFF),
-  black: Color(0xFF000000),
-  primary: Color(0xFF13EF79),
-  secondary: Color(0xFF471AFF),
-  positive: Color(0xFF28AF58),
-  positiveLight: Color(0xFFE6FAED),
-  negative: Color(0xFFEF5248),
-  negativeLight: Color(0xFFFAE1E1),
-  negativeDark: Color(0xFF331D1D),
-  warning: Color(0xFFEDBE13),
-  warningLight: Color(0xFFF9F4E4),
-  backgroundGrey: Color(0xFFF3F4F5),
-  brickBlight: Color(0xFFFCEDEA),
-  brickLight: Color(0xFFCD4E2E),
-  brickBase: Color(0xFFB74326),
-  brickDark: Color(0xFFA93A1E),
+FitColors darkFitColors = FitColors(
+  main: ColorName.green500Dark,
+  sub: ColorName.blue500Dark,
+  grey0: ColorName.grey0Dark,
+  grey50: ColorName.grey50Dark,
+  grey900: ColorName.grey900Dark,
+  grey800: ColorName.grey800Dark,
+  grey700: ColorName.grey700Dark,
+  grey600: ColorName.grey600Dark,
+  grey500: ColorName.grey500Dark,
+  grey400: ColorName.grey400Dark,
+  grey300: ColorName.grey300Dark,
+  grey200: ColorName.grey200Dark,
+  grey100: ColorName.grey100Dark,
+  green50: ColorName.green50Dark,
+  green200: ColorName.green200Dark,
+  green500: ColorName.green500Dark,
+  green600: ColorName.green600Dark,
+  green700: ColorName.green700Dark,
+  blue50: ColorName.blue50Dark,
+  blue200: ColorName.blue200Dark,
+  blue500: ColorName.blue500Dark,
+  blue600: ColorName.blue600Dark,
+  blue700: ColorName.blue700Dark,
+  red50: ColorName.red50Dark,
+  red200: ColorName.red200Dark,
+  red500: ColorName.red500Dark,
+  red600: ColorName.red600Dark,
+  red700: ColorName.red700Dark,
+  redBase: ColorName.redAlphaBaseDark,
+  redAlpha72: ColorName.redAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
+  redAlpha48: ColorName.redAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
+  redAlpha24: ColorName.redAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
+  redAlpha12: ColorName.redAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
+  yellowBase: ColorName.yellowAlphaBaseDark,
+  yellowAlpha72: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
+  yellowAlpha48: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
+  yellowAlpha24: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
+  yellowAlpha12: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
+  greenBase: ColorName.greenAlphaBaseDark,
+  greenAlpha72: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
+  greenAlpha48: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
+  greenAlpha24: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
+  greenAlpha12: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
+  blueBase: ColorName.blueAlphaBaseDark,
+  blueAlpha72: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
+  blueAlpha48: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
+  blueAlpha24: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
+  blueAlpha12: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
+  brick50: ColorName.brick50Dark,
+  brick200: ColorName.brick200Dark,
+  brick500: ColorName.brick500Dark,
+  brick600: ColorName.brick600Dark,
+  brick700: ColorName.brick700Dark,
 );
 
 FitColors fitColors(BuildContext context) {

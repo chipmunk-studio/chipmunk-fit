@@ -42,7 +42,7 @@ class FitDialog {
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: btnOkColor ?? context.fitColors.primary,
+      btnOkColor: btnOkColor ?? context.fitColors.main,
       btnOkText: btnOkText ?? '확인',
       btnOkOnPress: onPress,
     );
@@ -109,7 +109,7 @@ class FitDialog {
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: btnOkColor ?? context.fitColors.primary,
+      btnOkColor: btnOkColor ?? context.fitColors.main,
       btnOkText: btnOkText ?? '확인',
       btnOkOnPress: btnOkPressed,
       btnCancelOnPress: btnCancelPressed,

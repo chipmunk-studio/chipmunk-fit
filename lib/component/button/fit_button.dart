@@ -95,15 +95,15 @@ class _FitButtonState extends State<FitButton> {
     final color = isEnabled
         ? {
             FitButtonType.secondary: context.fitColors.grey900,
-            FitButtonType.tertiary: context.fitColors.white,
+            FitButtonType.tertiary: context.fitColors.grey0,
             FitButtonType.primary: context.fitColors.grey800,
-            FitButtonType.line: context.fitColors.white,
+            FitButtonType.line: context.fitColors.grey0,
           }
         : {
             FitButtonType.secondary: context.fitColors.grey400,
             FitButtonType.tertiary: context.fitColors.grey800,
             FitButtonType.primary: context.fitColors.grey900,
-            FitButtonType.line: context.fitColors.white.withOpacity(0.5),
+            FitButtonType.line: context.fitColors.grey0.withOpacity(0.5),
           };
 
     // 기본 색상 설정

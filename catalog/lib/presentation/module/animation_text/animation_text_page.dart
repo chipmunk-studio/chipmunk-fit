@@ -53,7 +53,7 @@ class AnimationText extends StatelessWidget {
               examples: [
                 FitAnimatedText(
                   text: "이 텍스트는 완료 후 콜백을 호출합니다.",
-                  textStyle: context.subtitle3().copyWith(color: context.fitColors.primary),
+                  textStyle: context.subtitle3().copyWith(color: context.fitColors.main),
                   duration: const Duration(milliseconds: 100),
                   onAnimationComplete: () {
                     context.showSnackBar("애니메이션 완료!");
@@ -98,7 +98,7 @@ class AnimationText extends StatelessWidget {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Row(
       children: [
-        Icon(Icons.text_fields, color: context.fitColors.primary, size: 24),
+        Icon(Icons.text_fields, color: context.fitColors.main, size: 24),
         const SizedBox(width: 8),
         Text(
           title,

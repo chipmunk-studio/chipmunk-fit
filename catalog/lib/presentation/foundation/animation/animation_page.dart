@@ -91,7 +91,7 @@ class AnimationPage extends StatelessWidget {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Row(
       children: [
-        Icon(Icons.animation, color: context.fitColors.primary, size: 24),
+        Icon(Icons.animation, color: context.fitColors.main, size: 24),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
@@ -109,7 +109,7 @@ class AnimationPage extends StatelessWidget {
       height: 100,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: context.fitColors.primary,
+        color: context.fitColors.main,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(

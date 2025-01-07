@@ -14,7 +14,7 @@ buildFitToastContent(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 13.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.r),
-        color: context.fitColors.white,
+        color: context.fitColors.grey0,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

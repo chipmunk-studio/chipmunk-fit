@@ -19,7 +19,7 @@ class ModulePage extends StatelessWidget {
               'FitAnimationText',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/animation_text'),
           ),
           ListTile(
@@ -27,7 +27,7 @@ class ModulePage extends StatelessWidget {
               'FitDialog',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/dialog'),
           ),
           ListTile(
@@ -35,7 +35,7 @@ class ModulePage extends StatelessWidget {
               'FitBottomSheet',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/bottom_sheet'),
           ),
         ],

@@ -1,26 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Grey Colors-->
-    <color name="grey50">#F3F4F5</color>
-    <color name="grey100">#E3E5E8</color>
-    <color name="grey200">#CCCDCE</color>
-    <color name="grey400">#A7AAAD</color>
-    <color name="grey500">#80858A</color>
-    <color name="grey600">#4D5359</color>
-    <color name="grey700">#2B3137</color>
-    <color name="grey800">#2E3338</color>
-    <color name="grey900">#2E3338</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-    <color name="grey50_dark">#151719</color>
-    <color name="grey100_dark">#222528</color>
-    <color name="grey200_dark">#2E3134</color>
-    <color name="grey400_dark">#3B3E42</color>
-    <color name="grey500_dark">#5F646A</color>
-    <color name="grey600_dark">#82878C</color>
-    <color name="grey700_dark">#ADB0B5</color>
-    <color name="grey800_dark">#DFE2E3</color>
-    <color name="grey900_dark">#DFE2E3</color>
-    <color name="black_dark">#2E3338</color>
-    <color name="white_dark">#FFFFFF</color>
+    <!-- Grey Colors -->
+    <color name="grey0">#FFFFFFFF</color>
+    <color name="grey50">#FFF3F4F5</color>
+    <color name="grey100">#FFEAECEE</color>
+    <color name="grey200">#FFDCE1E5</color>
+    <color name="grey300">#FFCBD1D7</color>
+    <color name="grey400">#FFB4BAC0</color>
+    <color name="grey500">#FF88919B</color>
+    <color name="grey600">#FF68737E</color>
+    <color name="grey700">#FF464D53</color>
+    <color name="grey800">#FF2E3338</color>
+    <color name="grey900">#FF161A1D</color>
+    <color name="grey0_dark">#FF171A1C</color>
+    <color name="grey50_dark">#FF202325</color>
+    <color name="grey100_dark">#FF2A2E31</color>
+    <color name="grey200_dark">#FF313537</color>
+    <color name="grey300_dark">#FF42474A</color>
+    <color name="grey400_dark">#FF52585C</color>
+    <color name="grey500_dark">#FF767D82</color>
+    <color name="grey600_dark">#FF9EA4A8</color>
+    <color name="grey700_dark">#FFBCC1C4</color>
+    <color name="grey800_dark">#FFD7D9DB</color>
+    <color name="grey900_dark">#FFEFF0F1</color>
+
+    <!-- Blue Colors -->
+    <color name="blue50">#FFE5E3FF</color>
+    <color name="blue200">#FFC1BBFF</color>
+    <color name="blue500">#FF1F0AFF</color>
+    <color name="blue600">#FF1D0AEB</color>
+    <color name="blue700">#FF2113BA</color>
+    <color name="blue50_dark">#FF110D3D</color>
+    <color name="blue200_dark">#FF170F6F</color>
+    <color name="blue500_dark">#FF4433FF</color>
+    <color name="blue600_dark">#FF3D2CF2</color>
+    <color name="blue700_dark">#FF3C2ED1</color>
+
+    <!-- Red Colors -->
+    <color name="red50">#FFFFEBEB</color>
+    <color name="red200">#FFFFD1D1</color>
+    <color name="red500">#FFFF2E2E</color>
+    <color name="red600">#FFEF1010</color>
+    <color name="red700">#FFB30000</color>
+    <color name="red50_dark">#FF361A1A</color>
+    <color name="red200_dark">#FF6B2E2E</color>
+    <color name="red500_dark">#FFFF4C4C</color>
+    <color name="red600_dark">#FFEE3F3F</color>
+    <color name="red700_dark">#FFCA3838</color>
+
+    <!-- Brick Colors -->
+    <color name="brick50">#FFFFE9E3</color>
+    <color name="brick200">#FFFFC9BB</color>
+    <color name="brick500">#FFCB4A2A</color>
+    <color name="brick600">#FFC13815</color>
+    <color name="brick700">#FFB03212</color>
+    <color name="brick50_dark">#FF36201A</color>
+    <color name="brick200_dark">#FF5B2315</color>
+    <color name="brick500_dark">#FFD25637</color>
+    <color name="brick600_dark">#FFD44A27</color>
+    <color name="brick700_dark">#FFB64023</color>
+
+    <!-- Green Colors -->
+    <color name="green50">#FFF0FFF6</color>
+    <color name="green200">#FFD8FFE8</color>
+    <color name="green500">#FF07FA6C</color>
+    <color name="green600">#FF0AE163</color>
+    <color name="green700">#FF00B34B</color>
+    <color name="green50_dark">#FF183825</color>
+    <color name="green200_dark">#FF22603C</color>
+    <color name="green500_dark">#FF47FF94</color>
+    <color name="green600_dark">#FF35E980</color>
+    <color name="green700_dark">#FF3DC576</color>
+
+    <!-- Focus Red Colors -->
+    <color name="red_alpha_base">#FFFF6060</color>
+    <color name="red_alpha_base_dark">#FF183825</color>
+
+    <!-- Focus Yellow Colors -->
+    <color name="yellow_alpha_base">#FFFEBD00</color>
+    <color name="yellow_alpha_base_dark">#FFFECE3D</color>
+
+    <!-- Focus Green Colors -->
+    <color name="green_alpha_base">#FF1EBE60</color>
+    <color name="green_alpha_base_dark">#FF59CC89</color>
+
+    <!-- Focus Blue Colors -->
+    <color name="blue_alpha_base">#FF149DE1</color>
+    <color name="blue_alpha_base_dark">#FF45C1EA</color>
 </resources>

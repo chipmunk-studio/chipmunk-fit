@@ -39,7 +39,7 @@ class CardPage extends StatelessWidget {
               title: "커스텀 배경색",
               description: "배경색과 내용을 커스터마이징한 FitCard입니다.",
               child: FitCard(
-                backgroundColor: context.fitColors.primary.withOpacity(0.8),
+                backgroundColor: context.fitColors.main.withOpacity(0.8),
                 child: Text(
                   "배경색이 커스터마이징된 카드입니다.",
                   style: context.body1().copyWith(color: Colors.white),

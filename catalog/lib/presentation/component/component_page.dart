@@ -20,7 +20,7 @@ class ComponentPage extends StatelessWidget {
               'FitButton',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/button'),
           ),
           ListTile(
@@ -28,7 +28,7 @@ class ComponentPage extends StatelessWidget {
               'FitImage',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/image'),
           ),
           ListTile(
@@ -36,7 +36,7 @@ class ComponentPage extends StatelessWidget {
               'FitCheckBox',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/check_box'),
           ),
           ListTile(
@@ -44,7 +44,7 @@ class ComponentPage extends StatelessWidget {
               'FitCard',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.white),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/card'),
           ),
         ],

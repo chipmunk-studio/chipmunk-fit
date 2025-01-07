@@ -8,12 +8,12 @@ import 'textstyle.dart';
 
 ThemeData fitLightTheme(
   BuildContext context, {
-  Color? primaryColor,
-  Color? secondaryColor,
+  Color? mainColor,
+  Color? subColor,
 }) {
   final FitColors updatedColors = lightFitColors.copyWith(
-    primary: primaryColor ?? lightFitColors.primary,
-    secondary: secondaryColor ?? lightFitColors.secondary,
+    main: mainColor ?? lightFitColors.main,
+    sub: subColor ?? lightFitColors.sub,
   );
 
   return ThemeData(
@@ -29,7 +29,7 @@ ThemeData fitLightTheme(
     elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
     textButtonTheme: textButtonTheme(updatedColors),
     bottomSheetTheme: bottomSheetTheme(updatedColors),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.primary),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.main),
     inputDecorationTheme: inputDecorationTheme(updatedColors),
     bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -39,12 +39,12 @@ ThemeData fitLightTheme(
 
 ThemeData fitDarkTheme(
   BuildContext context, {
-  Color? primaryColor,
-  Color? secondaryColor,
+  Color? mainColor,
+  Color? subColor,
 }) {
   final FitColors updatedColors = darkFitColors.copyWith(
-    primary: primaryColor ?? darkFitColors.primary,
-    secondary: secondaryColor ?? darkFitColors.secondary,
+    main: mainColor ?? darkFitColors.main,
+    sub: subColor ?? darkFitColors.sub,
   );
 
   return ThemeData(
@@ -60,7 +60,7 @@ ThemeData fitDarkTheme(
     elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
     textButtonTheme: textButtonTheme(updatedColors),
     bottomSheetTheme: bottomSheetTheme(updatedColors),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.primary),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.main),
     inputDecorationTheme: inputDecorationTheme(updatedColors),
     bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -84,13 +84,13 @@ _checkboxThemeData(FitColors fitColors) {
         if (!states.contains(WidgetState.selected)) {
           return fitColors.grey700; // 체크박스가 선택된경우.
         }
-        return fitColors.primary; // 체크박스가 활성화된 경우
+        return fitColors.main; // 체크박스가 활성화된 경우
       },
     ),
     overlayColor: WidgetStateProperty.resolveWith<Color>(
       (states) {
         if (states.contains(WidgetState.pressed)) {
-          return fitColors.primary; // 체크박스가 눌린 경우
+          return fitColors.main; // 체크박스가 눌린 경우
         }
         return Colors.transparent; // 체크박스가 눌리지 않은 경우
       },
@@ -112,14 +112,14 @@ elevatedButtonTheme(BuildContext context, FitColors fitColors) {
         borderRadius: BorderRadius.circular(100.r),
       ),
       // Enabled button color
-      backgroundColor: fitColors.primary,
+      backgroundColor: fitColors.main,
       // Disabled button color
       disabledBackgroundColor: fitColors.grey600,
       // Enabled text color
       foregroundColor: fitColors.grey900,
       // Disabled text color
       disabledForegroundColor: fitColors.grey400,
-      textStyle: context.button1().copyWith(color: fitColors.white),
+      textStyle: context.button1().copyWith(color: fitColors.grey0),
     ).copyWith(
       overlayColor: WidgetStateProperty.all(Colors.transparent), // 리플 효과 제거
       shadowColor: WidgetStateProperty.all(Colors.transparent), // 그림자 제거
@@ -163,21 +163,21 @@ inputDecorationTheme(FitColors fitColors) {
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide(color: fitColors.primary),
+      borderSide: BorderSide(color: fitColors.main),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide(color: fitColors.negative),
+      borderSide: BorderSide(color: fitColors.redBase),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide(color: fitColors.negative),
+      borderSide: BorderSide(color: fitColors.redBase),
     ),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
       borderSide: BorderSide(color: fitColors.grey700),
     ),
-    counterStyle: TextStyle(color: fitColors.primary),
+    counterStyle: TextStyle(color: fitColors.main),
   );
 }
 
@@ -201,9 +201,9 @@ appBarTheme(BuildContext context, FitColors fitColors, bool isDark) {
     color: fitColors.grey900,
     elevation: 0,
     surfaceTintColor: Colors.transparent,
-    iconTheme: IconThemeData(color: fitColors.white),
-    toolbarTextStyle: context.subtitle2().copyWith(color: fitColors.white),
-    titleTextStyle: context.subtitle2().copyWith(color: fitColors.white),
+    iconTheme: IconThemeData(color: fitColors.grey0),
+    toolbarTextStyle: context.subtitle2().copyWith(color: fitColors.grey0),
+    titleTextStyle: context.subtitle2().copyWith(color: fitColors.grey0),
     titleSpacing: 0,
     toolbarHeight: 60,
     systemOverlayStyle: customSystemUiOverlayStyle(

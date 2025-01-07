@@ -194,7 +194,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Row(
       children: [
-        Icon(Icons.check_box, color: context.fitColors.primary, size: 24),
+        Icon(Icons.check_box, color: context.fitColors.main, size: 24),
         const SizedBox(width: 8),
         Text(
           title,

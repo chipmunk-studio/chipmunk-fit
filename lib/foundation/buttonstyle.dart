@@ -30,7 +30,7 @@ extension ButtonStyleExtension on BuildContext {
   ButtonStyle btnStyleSecondary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.grey900,
-      backgroundColor: this.fitColors.white,
+      backgroundColor: this.fitColors.grey0,
       disabledForegroundColor: this.fitColors.grey400,
       disabledBackgroundColor: this.fitColors.grey600,
       shape: RoundedRectangleBorder(
@@ -58,7 +58,7 @@ extension ButtonStyleExtension on BuildContext {
 
   ButtonStyle btnStyleTertiary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.white,
+      foregroundColor: this.fitColors.grey0,
       backgroundColor: this.fitColors.grey800,
       disabledForegroundColor: this.fitColors.grey800,
       disabledBackgroundColor: this.fitColors.grey500,
@@ -88,9 +88,9 @@ extension ButtonStyleExtension on BuildContext {
   ButtonStyle btnStylePrimary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.grey800,
-      backgroundColor: this.fitColors.primary,
+      backgroundColor: this.fitColors.main,
       disabledForegroundColor: this.fitColors.grey900,
-      disabledBackgroundColor: this.fitColors.primary.withOpacity(0.2),
+      disabledBackgroundColor: this.fitColors.main.withOpacity(0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.r),
         side: const BorderSide(
@@ -119,7 +119,7 @@ extension ButtonStyleExtension on BuildContext {
     return ElevatedButton.styleFrom(
       foregroundColor: Colors.white,
       backgroundColor: Colors.transparent,
-      disabledForegroundColor: this.fitColors.white.withOpacity(0.5),
+      disabledForegroundColor: this.fitColors.grey0.withOpacity(0.5),
       disabledBackgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.r),
@@ -146,12 +146,12 @@ extension ButtonStyleExtension on BuildContext {
 
   ButtonStyle btnStyleNegative({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.negative,
-      backgroundColor: this.fitColors.negativeLight,
+      foregroundColor: this.fitColors.redBase,
+      backgroundColor: this.fitColors.red200,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.r),
         side: BorderSide(
-          color: this.fitColors.negative,
+          color: this.fitColors.redBase,
           width: 1.0,
         ),
       ),
