@@ -19,7 +19,7 @@ class FitDialog {
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
+      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey100,
       buttonsTextStyle: buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.grey0),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
@@ -33,7 +33,7 @@ class FitDialog {
             const SizedBox(height: 20),
             Text(
               description?.isNotEmpty == true ? description! : message,
-              style: textStyle ?? context.body1().copyWith(color: context.fitColors.grey200),
+              style: textStyle ?? context.body1().copyWith(color: context.fitColors.grey700),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -74,9 +74,8 @@ class FitDialog {
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey800,
-      buttonsTextStyle:
-          buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.grey0),
+      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey100,
+      buttonsTextStyle: buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.grey0),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       body: Padding(
@@ -91,14 +90,14 @@ class FitDialog {
             if (title != null)
               Text(
                 title,
-                style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey0),
+                style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey900),
                 textAlign: TextAlign.center,
               ),
             if (subTitle != null) ...[
               const SizedBox(height: 12),
               Text(
                 subTitle,
-                style: context.body1().copyWith(color: subTitleTextColor ?? context.fitColors.grey200),
+                style: context.body1().copyWith(color: subTitleTextColor ?? context.fitColors.grey700),
                 textAlign: TextAlign.center,
               ),
             ],
