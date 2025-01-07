@@ -106,8 +106,8 @@ class ColorName {
   /// Color: #FF00B34B
   static const Color green700 = Color(0xFF00B34B);
 
-  /// Color: #FF3DC576
-  static const Color green700Dark = Color(0xFF3DC576);
+  /// Color: #FF34B76B
+  static const Color green700Dark = Color(0xFF34B76B);
 
   /// Color: #FF1EBE60
   static const Color greenAlphaBase = Color(0xFF1EBE60);

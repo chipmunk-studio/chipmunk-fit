@@ -150,7 +150,7 @@ abstract class FitCustomAppBar {
       ),
       backgroundColor: backgroundColor ?? context.fitColors.grey0,
       leading: IconButton(
-        icon: leadingIcon ?? Assets.icons.icArrowLeft.svg(color: context.fitColors.grey100),
+        icon: leadingIcon ?? Assets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
         onPressed: onPressed ?? () => Navigator.pop(context, true),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -158,7 +158,7 @@ abstract class FitCustomAppBar {
       ),
       title: Text(
         title,
-        style: context.subtitle2().copyWith(color: titleColor ?? context.fitColors.grey100),
+        style: context.subtitle2().copyWith(color: titleColor ?? context.fitColors.grey900),
       ),
       centerTitle: centerTitle,
       titleSpacing: leftAlignTitle ? 0.0 : NavigationToolbar.kMiddleSpacing,
