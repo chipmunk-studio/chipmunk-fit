@@ -13,11 +13,11 @@ class ColorPage extends StatelessWidget {
       backgroundColor: context.fitColors.grey0,
       appBar: AppBar(
         centerTitle: false,
-        surfaceTintColor: context.fitColors.grey900,
+        surfaceTintColor: context.fitColors.grey0,
         backgroundColor: context.fitColors.grey0,
         title: Text(
           "FitColors 테스트",
-          style: context.subtitle2().copyWith(color: context.fitColors.grey900),
+          style: context.subtitle2().copyWith(color: context.fitColors.grey0),
         ),
       ),
       body: SingleChildScrollView(

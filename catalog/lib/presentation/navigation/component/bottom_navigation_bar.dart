@@ -80,12 +80,12 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
                   ? Assets.images.bgBottomNavSelected.svg(
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.width,
-                      color: context.fitColors.grey900,
+                      color: context.fitColors.grey0,
                     )
                   : Assets.images.bgBottomNavUnselected.svg(
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.width,
-                      color: context.fitColors.grey900,
+                      color: context.fitColors.grey0,
                     ),
             ),
           ),
