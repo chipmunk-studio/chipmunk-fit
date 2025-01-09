@@ -90,7 +90,7 @@ class FitDialog {
             if (title != null)
               Text(
                 title,
-                style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey0),
+                style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey900),
                 textAlign: TextAlign.center,
               ),
             if (subTitle != null) ...[

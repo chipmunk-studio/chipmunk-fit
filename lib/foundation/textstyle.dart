@@ -132,7 +132,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(18, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.0,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
     );

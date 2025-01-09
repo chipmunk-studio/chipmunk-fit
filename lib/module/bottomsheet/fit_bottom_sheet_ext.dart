@@ -99,7 +99,7 @@ class FitBottomSheet {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: context.fitColors.grey800,
+      backgroundColor: context.fitColors.grey100,
       isDismissible: isDismissible,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

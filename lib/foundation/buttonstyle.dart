@@ -105,7 +105,7 @@ extension ButtonStyleExtension on BuildContext {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
-      textStyle: button1(),
+      textStyle: button1().copyWith(color: this.fitColors.grey50),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
