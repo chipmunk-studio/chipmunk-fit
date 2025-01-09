@@ -10,7 +10,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(28, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       color: fitColors(this).grey900,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
@@ -21,7 +21,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(24, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       color: fitColors(this).grey900,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
@@ -32,7 +32,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(20, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -42,7 +42,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(20, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
     );
@@ -52,7 +52,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(18, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -62,7 +62,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(16, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -72,7 +72,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(15, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -82,7 +82,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(14, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
@@ -92,7 +92,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(18, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -102,7 +102,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(16, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -112,7 +112,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(15, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -122,7 +122,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(14, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardRegular,
     );
@@ -132,7 +132,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(18, type),
       letterSpacing: -0.06,
-      height: 1.0,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardMedium,
     );
@@ -142,7 +142,7 @@ extension FitTextStyleExtension on BuildContext {
     return TextStyle(
       fontSize: _getFontSize(12, type),
       letterSpacing: -0.06,
-      height: 1.5,
+      height: 1.4,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.pretendardSemiBold,
     );
