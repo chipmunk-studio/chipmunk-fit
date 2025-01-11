@@ -99,7 +99,7 @@ class FitBottomSheet {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: context.fitColors.grey100,
+      backgroundColor: context.fitColors.backgroundElevated,
       isDismissible: isDismissible,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -174,7 +174,7 @@ class FitBottomSheet {
               height: 4,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.r),
-                color: context.fitColors.grey600,
+                color: context.fitColors.fillEmphasize,
               ),
             ),
             const Spacer(),

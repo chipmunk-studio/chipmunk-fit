@@ -19,8 +19,8 @@ class FitDialog {
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey100,
-      buttonsTextStyle: buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.grey0),
+      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
+      buttonsTextStyle: buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.staticBlack),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
       body: Padding(
@@ -74,8 +74,8 @@ class FitDialog {
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
-      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.grey100,
-      buttonsTextStyle: buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.grey0),
+      dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
+      buttonsTextStyle: buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.staticBlack),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       body: Padding(
