@@ -72,7 +72,7 @@ _checkboxThemeData(FitColors fitColors) {
   return CheckboxThemeData(
     side: BorderSide(
       width: 1.5,
-      color: fitColors.grey700,
+      color: fitColors.grey400,
     ),
     splashRadius: 0,
     shape: RoundedRectangleBorder(
@@ -82,7 +82,7 @@ _checkboxThemeData(FitColors fitColors) {
     fillColor: WidgetStateProperty.resolveWith<Color>(
       (states) {
         if (!states.contains(WidgetState.selected)) {
-          return fitColors.grey700; // 체크박스가 선택된경우.
+          return fitColors.grey400; // 체크박스가 선택된경우.
         }
         return fitColors.main; // 체크박스가 활성화된 경우
       },
