@@ -39,7 +39,7 @@ class FitScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor ?? context.fitColors.grey0,
+      backgroundColor: backgroundColor ?? context.fitColors.backgroundBase,
       appBar: isRemoveAppBar == false
           ? _buildPlatformSpecificAppBar(
               appBar: appBar,
@@ -90,7 +90,7 @@ class FitScaffold extends StatelessWidget {
     if (Platform.isAndroid) {
       return appBar ??
           FitEmptyAppBar(
-            backgroundColor ?? context.fitColors.grey0,
+            backgroundColor ?? context.fitColors.backgroundBase,
           );
     } else if (Platform.isIOS) {
       return appBar;
@@ -144,11 +144,11 @@ abstract class FitCustomAppBar {
   }) {
     return AppBar(
       systemOverlayStyle: customSystemUiOverlayStyle(
-        statusBarColor: backgroundColor ?? context.fitColors.grey0,
+        statusBarColor: backgroundColor ?? context.fitColors.backgroundBase,
         isDark: isDarkMode(context),
-        systemNavigationBarColor: backgroundColor ?? context.fitColors.grey0,
+        systemNavigationBarColor: backgroundColor ?? context.fitColors.backgroundBase,
       ),
-      backgroundColor: backgroundColor ?? context.fitColors.grey0,
+      backgroundColor: backgroundColor ?? context.fitColors.backgroundBase,
       leading: IconButton(
         icon: leadingIcon ?? Assets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
         onPressed: onPressed ?? () => Navigator.pop(context, true),
