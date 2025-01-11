@@ -53,6 +53,7 @@ class _FitButtonState extends State<FitButton> {
               context.getButtonStyle(
                 widget.type,
                 isRipple: widget.isRipple,
+                isEnabled: widget.isEnabled,
               ),
           onPressed: widget.isEnabled ? widget.onPress : null,
           child: Container(
@@ -95,21 +96,23 @@ class _FitButtonState extends State<FitButton> {
   TextStyle _getTextStyle(BuildContext context, bool isEnabled) {
     final color = isEnabled
         ? {
-            FitButtonType.secondary: context.fitColors.grey900,
-            FitButtonType.tertiary: context.fitColors.grey0,
-            FitButtonType.primary: context.fitColors.grey800,
-            FitButtonType.line: context.fitColors.grey0,
+            FitButtonType.secondary: context.fitColors.inverseText,
+            FitButtonType.tertiary: context.fitColors.grey900,
+            FitButtonType.primary: context.fitColors.staticBlack,
+            FitButtonType.ghost: context.fitColors.grey900,
+            FitButtonType.destructive: context.fitColors.staticWhite,
           }
         : {
-            FitButtonType.secondary: context.fitColors.grey400,
-            FitButtonType.tertiary: context.fitColors.grey800,
-            FitButtonType.primary: context.fitColors.grey900,
-            FitButtonType.line: context.fitColors.grey0.withOpacity(0.5),
+            FitButtonType.secondary: context.fitColors.textSecondary,
+            FitButtonType.tertiary: context.fitColors.textTertiary,
+            FitButtonType.primary: context.fitColors.inverseDisabled,
+            FitButtonType.ghost: context.fitColors.grey300,
+            FitButtonType.destructive: context.fitColors.inverseDisabled,
           };
 
     // 기본 색상 설정
     return context.button1().copyWith(
-          color: color[widget.type] ?? context.fitColors.grey800,
+          color: color[widget.type] ?? context.fitColors.grey0,
         );
   }
 

@@ -7,12 +7,17 @@ import 'colors.dart';
 enum FitButtonType {
   secondary,
   tertiary,
-  line,
+  ghost,
   primary,
+  destructive,
 }
 
 extension ButtonStyleExtension on BuildContext {
-  ButtonStyle getButtonStyle(FitButtonType? type, {bool isRipple = false}) {
+  ButtonStyle getButtonStyle(
+    FitButtonType? type, {
+    required bool isEnabled,
+    bool isRipple = false,
+  }) {
     switch (type) {
       case FitButtonType.secondary:
         return btnStyleSecondary(isRipple: isRipple);
@@ -20,8 +25,10 @@ extension ButtonStyleExtension on BuildContext {
         return btnStyleTertiary(isRipple: isRipple);
       case FitButtonType.primary:
         return btnStylePrimary(isRipple: isRipple);
-      case FitButtonType.line:
-        return btnStyleLine(isRipple: isRipple);
+      case FitButtonType.ghost:
+        return btnStyleGhost(isRipple: isRipple, isEnabled: isEnabled);
+      case FitButtonType.destructive:
+        return btnStyleDestructive(isRipple: isRipple);
       default:
         return btnStylePrimary(isRipple: isRipple); // 기본 스타일
     }
@@ -29,12 +36,12 @@ extension ButtonStyleExtension on BuildContext {
 
   ButtonStyle btnStyleSecondary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.grey900,
-      backgroundColor: this.fitColors.grey0,
-      disabledForegroundColor: this.fitColors.grey400,
-      disabledBackgroundColor: this.fitColors.grey600,
+      foregroundColor: this.fitColors.inverseText,
+      backgroundColor: this.fitColors.grey900,
+      disabledForegroundColor: this.fitColors.textSecondary,
+      disabledBackgroundColor: this.fitColors.grey300,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(100.r),
         side: const BorderSide(
           color: Colors.transparent,
           width: 1.0,
@@ -58,12 +65,12 @@ extension ButtonStyleExtension on BuildContext {
 
   ButtonStyle btnStyleTertiary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.grey0,
-      backgroundColor: this.fitColors.grey800,
-      disabledForegroundColor: this.fitColors.grey800,
-      disabledBackgroundColor: this.fitColors.grey500,
+      foregroundColor: this.fitColors.grey900,
+      backgroundColor: this.fitColors.fillStrong,
+      disabledForegroundColor: this.fitColors.textTertiary,
+      disabledBackgroundColor: this.fitColors.fillAlternative,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(100.r),
         side: const BorderSide(
           color: Colors.transparent,
           width: 1.0,
@@ -87,12 +94,12 @@ extension ButtonStyleExtension on BuildContext {
 
   ButtonStyle btnStylePrimary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.grey800,
+      foregroundColor: this.fitColors.staticBlack,
       backgroundColor: this.fitColors.main,
-      disabledForegroundColor: this.fitColors.grey900,
-      disabledBackgroundColor: this.fitColors.main.withOpacity(0.2),
+      disabledForegroundColor: this.fitColors.inverseDisabled,
+      disabledBackgroundColor: this.fitColors.green50,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(100.r),
         side: const BorderSide(
           color: Colors.transparent,
           width: 1.0,
@@ -105,7 +112,7 @@ extension ButtonStyleExtension on BuildContext {
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
       alignment: Alignment.center,
-      textStyle: button1().copyWith(color: this.fitColors.grey50),
+      textStyle: button1().copyWith(color: this.fitColors.staticBlack),
     ).copyWith(
       overlayColor: isRipple
           ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
@@ -115,16 +122,19 @@ extension ButtonStyleExtension on BuildContext {
     );
   }
 
-  ButtonStyle btnStyleLine({bool isRipple = false}) {
+  ButtonStyle btnStyleGhost({
+    bool isRipple = false,
+    required bool isEnabled,
+  }) {
     return ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
+      foregroundColor: this.fitColors.grey900,
       backgroundColor: Colors.transparent,
-      disabledForegroundColor: this.fitColors.grey0.withOpacity(0.5),
+      disabledForegroundColor: this.fitColors.grey300,
       disabledBackgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(100.r),
         side: BorderSide(
-          color: this.fitColors.grey600,
+          color: isEnabled ? this.fitColors.grey500 : this.fitColors.grey200,
           width: 1.0,
         ),
       ),
@@ -144,19 +154,18 @@ extension ButtonStyleExtension on BuildContext {
     );
   }
 
-  ButtonStyle btnStyleNegative({bool isRipple = false}) {
+  ButtonStyle btnStyleDestructive({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.redBase,
-      backgroundColor: this.fitColors.red200,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r),
-        side: BorderSide(
-          color: this.fitColors.redBase,
-          width: 1.0,
-        ),
-      ),
+      foregroundColor: this.fitColors.staticWhite,
+      backgroundColor: this.fitColors.red500,
+      disabledForegroundColor: this.fitColors.inverseDisabled,
+      disabledBackgroundColor: this.fitColors.red50,
       elevation: 0,
       padding: EdgeInsets.zero,
+      minimumSize: const Size(0, 0),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      visualDensity: VisualDensity.compact,
+      alignment: Alignment.center,
       textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple

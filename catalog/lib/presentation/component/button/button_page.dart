@@ -85,12 +85,12 @@ class ButtonPage extends StatelessWidget {
               title: "4. Line 버튼 테스트",
               buttons: [
                 FitButton(
-                  type: FitButtonType.line,
+                  type: FitButtonType.ghost,
                   text: '기본 Line 버튼',
                   onPress: () => print('Line 버튼 클릭됨'),
                 ),
                 FitButton(
-                  type: FitButtonType.line,
+                  type: FitButtonType.ghost,
                   isEnabled: false,
                   text: '비활성화 Line 버튼',
                   onDisablePress: () => context.showSnackBar('Line 버튼 비활성 클릭'),
@@ -100,7 +100,25 @@ class ButtonPage extends StatelessWidget {
             SizedBox(height: 16),
             _buildSection(
               context,
-              title: "5. 커스텀 스타일 버튼 테스트",
+              title: "5. Destructive 버튼 테스트",
+              buttons: [
+                FitButton(
+                  type: FitButtonType.destructive,
+                  text: '기본 Destructive 버튼',
+                  onPress: () => print('Destructive 버튼 클릭됨'),
+                ),
+                FitButton(
+                  type: FitButtonType.destructive,
+                  isEnabled: false,
+                  text: '비활성화 Destructive 버튼',
+                  onDisablePress: () => context.showSnackBar('Destructive 버튼 비활성 클릭'),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            _buildSection(
+              context,
+              title: "6. 커스텀 스타일 버튼 테스트",
               buttons: [
                 FitButton(
                   style: ElevatedButton.styleFrom(
@@ -142,11 +160,11 @@ class ButtonPage extends StatelessWidget {
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Row(
       children: [
-        Icon(Icons.touch_app, color: context.fitColors.grey100, size: 24),
+        Icon(Icons.touch_app, color: context.fitColors.grey900, size: 24),
         SizedBox(width: 8),
         Text(
           title,
-          style: context.h2().copyWith(color: context.fitColors.grey100),
+          style: context.h2().copyWith(color: context.fitColors.grey900),
         ),
       ],
     );
