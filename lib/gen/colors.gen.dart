@@ -127,8 +127,8 @@ class ColorName {
   /// Color: #FF26292C
   static const Color grey100Dark = Color(0xFF26292C);
 
-  /// Color: #FFDCE1E5
-  static const Color grey200 = Color(0xFFDCE1E5);
+  /// Color: #FFDBE0E5
+  static const Color grey200 = Color(0xFFDBE0E5);
 
   /// Color: #FF373B3E
   static const Color grey200Dark = Color(0xFF373B3E);
