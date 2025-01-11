@@ -65,7 +65,7 @@ extension ButtonStyleExtension on BuildContext {
 
   ButtonStyle btnStyleTertiary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
-      foregroundColor: this.fitColors.grey900,
+      foregroundColor: this.fitColors.textDisabled,
       backgroundColor: this.fitColors.fillStrong,
       disabledForegroundColor: this.fitColors.textTertiary,
       disabledBackgroundColor: this.fitColors.fillAlternative,

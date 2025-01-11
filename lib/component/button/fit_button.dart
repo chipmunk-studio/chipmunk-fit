@@ -97,7 +97,7 @@ class _FitButtonState extends State<FitButton> {
     final color = isEnabled
         ? {
             FitButtonType.secondary: context.fitColors.inverseText,
-            FitButtonType.tertiary: context.fitColors.grey900,
+            FitButtonType.tertiary: context.fitColors.textDisabled,
             FitButtonType.primary: context.fitColors.staticBlack,
             FitButtonType.ghost: context.fitColors.grey900,
             FitButtonType.destructive: context.fitColors.staticWhite,
