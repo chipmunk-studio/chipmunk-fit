@@ -46,8 +46,8 @@ class ColorName {
   /// Color: #FF149DE1
   static const Color blueAlphaBase = Color(0xFF149DE1);
 
-  /// Color: #FF45C1EA
-  static const Color blueAlphaBaseDark = Color(0xFF45C1EA);
+  /// Color: #FF31BAE8
+  static const Color blueAlphaBaseDark = Color(0xFF31BAE8);
 
   /// Color: #FFFFC9BB
   static const Color brick200 = Color(0xFFFFC9BB);
@@ -211,11 +211,11 @@ class ColorName {
   /// Color: #FFCA3838
   static const Color red700Dark = Color(0xFFCA3838);
 
-  /// Color: #FFFF6060
-  static const Color redAlphaBase = Color(0xFFFF6060);
+  /// Color: #FFFC4848
+  static const Color redAlphaBase = Color(0xFFFC4848);
 
-  /// Color: #FF183825
-  static const Color redAlphaBaseDark = Color(0xFF183825);
+  /// Color: #FFFF6060
+  static const Color redAlphaBaseDark = Color(0xFFFF6060);
 
   /// Color: #000000
   static const Color staticBlack = Color(0xFF000000);

@@ -76,8 +76,8 @@
     <color name="green700_dark">#FF34B76B</color>
 
     <!-- Focus Red Colors -->
-    <color name="red_alpha_base">#FFFF6060</color>
-    <color name="red_alpha_base_dark">#FF183825</color>
+    <color name="red_alpha_base">#FFFC4848</color>
+    <color name="red_alpha_base_dark">#FFFF6060</color>
 
     <!-- Focus Yellow Colors -->
     <color name="yellow_alpha_base">#FFFEBD00</color>
@@ -89,6 +89,6 @@
 
     <!-- Focus Blue Colors -->
     <color name="blue_alpha_base">#FF149DE1</color>
-    <color name="blue_alpha_base_dark">#FF45C1EA</color>
+    <color name="blue_alpha_base_dark">#FF31BAE8</color>
 
 </resources>
