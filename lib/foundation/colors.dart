@@ -573,7 +573,7 @@ FitColors darkFitColors = FitColors(
   inverseText: ColorName.grey0Dark,
   inverseDisabled: ColorName.grey0Dark,
   dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
-  dimOverlay: ColorName.staticWhite.withValues(alpha: 0.76),
+  dimOverlay: ColorName.staticBlack.withValues(alpha: 0.76),
 );
 
 FitColors fitColors(BuildContext context) {
