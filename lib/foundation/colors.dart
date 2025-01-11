@@ -76,6 +76,39 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color blueAlpha24;
   final Color blueAlpha12;
 
+  /// Static Colors
+  final Color staticBlack;
+  final Color staticWhite;
+
+  /// Background Colors
+  final Color backgroundBase;
+  final Color backgroundAlternative;
+  final Color backgroundElevated;
+
+  /// Text Colors
+  final Color textPrimary;
+  final Color textSecondary;
+  final Color textTertiary;
+  final Color textDisabled;
+
+  /// Fill Colors
+  final Color fillBase;
+  final Color fillAlternative;
+  final Color fillStrong;
+
+  /// Divider Colors
+  final Color dividerPrimary;
+  final Color dividerSecondary;
+
+  /// Inverse Colors
+  final Color inverseBackground;
+  final Color inverseText;
+  final Color inverseDisabled;
+
+  /// Dim Colors
+  final Color dimBackground;
+  final Color dimOverlay;
+
   const FitColors({
     required this.main,
     required this.sub,
@@ -130,6 +163,25 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.blueAlpha48,
     required this.blueAlpha24,
     required this.blueAlpha12,
+    required this.staticBlack,
+    required this.staticWhite,
+    required this.backgroundBase,
+    required this.backgroundAlternative,
+    required this.backgroundElevated,
+    required this.textPrimary,
+    required this.textSecondary,
+    required this.textTertiary,
+    required this.textDisabled,
+    required this.fillBase,
+    required this.fillAlternative,
+    required this.fillStrong,
+    required this.dividerPrimary,
+    required this.dividerSecondary,
+    required this.inverseBackground,
+    required this.inverseText,
+    required this.inverseDisabled,
+    required this.dimBackground,
+    required this.dimOverlay,
   });
 
   @override
@@ -189,6 +241,25 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? blueAlpha48,
     Color? blueAlpha24,
     Color? blueAlpha12,
+    Color? staticBlack,
+    Color? staticWhite,
+    Color? backgroundBase,
+    Color? backgroundAlternative,
+    Color? backgroundElevated,
+    Color? textPrimary,
+    Color? textSecondary,
+    Color? textTertiary,
+    Color? textDisabled,
+    Color? fillBase,
+    Color? fillAlternative,
+    Color? fillStrong,
+    Color? dividerPrimary,
+    Color? dividerSecondary,
+    Color? inverseBackground,
+    Color? inverseText,
+    Color? inverseDisabled,
+    Color? dimBackground,
+    Color? dimOverlay,
   }) {
     return FitColors(
       main: main ?? this.main,
@@ -244,6 +315,25 @@ class FitColors extends ThemeExtension<FitColors> {
       blueAlpha48: blueAlpha48 ?? this.blueAlpha48,
       blueAlpha24: blueAlpha24 ?? this.blueAlpha24,
       blueAlpha12: blueAlpha12 ?? this.blueAlpha12,
+      staticBlack: staticBlack ?? this.staticBlack,
+      staticWhite: staticWhite ?? this.staticWhite,
+      backgroundBase: backgroundBase ?? this.backgroundBase,
+      backgroundAlternative: backgroundAlternative ?? this.backgroundAlternative,
+      backgroundElevated: backgroundElevated ?? this.backgroundElevated,
+      textPrimary: textPrimary ?? this.textPrimary,
+      textSecondary: textSecondary ?? this.textSecondary,
+      textTertiary: textTertiary ?? this.textTertiary,
+      textDisabled: textDisabled ?? this.textDisabled,
+      fillBase: fillBase ?? this.fillBase,
+      fillAlternative: fillAlternative ?? this.fillAlternative,
+      fillStrong: fillStrong ?? this.fillStrong,
+      dividerPrimary: dividerPrimary ?? this.dividerPrimary,
+      dividerSecondary: dividerSecondary ?? this.dividerSecondary,
+      inverseBackground: inverseBackground ?? this.inverseBackground,
+      inverseText: inverseText ?? this.inverseText,
+      inverseDisabled: inverseDisabled ?? this.inverseDisabled,
+      dimBackground: dimBackground ?? this.dimBackground,
+      dimOverlay: dimOverlay ?? this.dimOverlay,
     );
   }
 
@@ -304,6 +394,25 @@ class FitColors extends ThemeExtension<FitColors> {
       blueAlpha48: Color.lerp(blueAlpha48, other.blueAlpha48, t) ?? blueAlpha48,
       blueAlpha24: Color.lerp(blueAlpha24, other.blueAlpha24, t) ?? blueAlpha24,
       blueAlpha12: Color.lerp(blueAlpha12, other.blueAlpha12, t) ?? blueAlpha12,
+      staticBlack: Color.lerp(staticBlack, other.staticBlack, t) ?? staticBlack,
+      staticWhite: Color.lerp(staticWhite, other.staticWhite, t) ?? staticWhite,
+      backgroundBase: Color.lerp(backgroundBase, other.backgroundBase, t) ?? backgroundBase,
+      backgroundAlternative: Color.lerp(backgroundAlternative, other.backgroundAlternative, t) ?? backgroundAlternative,
+      backgroundElevated: Color.lerp(backgroundElevated, other.backgroundElevated, t) ?? backgroundElevated,
+      textPrimary: Color.lerp(textPrimary, other.textPrimary, t) ?? textPrimary,
+      textSecondary: Color.lerp(textSecondary, other.textSecondary, t) ?? textSecondary,
+      textTertiary: Color.lerp(textTertiary, other.textTertiary, t) ?? textTertiary,
+      textDisabled: Color.lerp(textDisabled, other.textDisabled, t) ?? textDisabled,
+      fillBase: Color.lerp(fillBase, other.fillBase, t) ?? fillBase,
+      fillAlternative: Color.lerp(fillAlternative, other.fillAlternative, t) ?? fillAlternative,
+      fillStrong: Color.lerp(fillStrong, other.fillStrong, t) ?? fillStrong,
+      dividerPrimary: Color.lerp(dividerPrimary, other.dividerPrimary, t) ?? dividerPrimary,
+      dividerSecondary: Color.lerp(dividerSecondary, other.dividerSecondary, t) ?? dividerSecondary,
+      inverseBackground: Color.lerp(inverseBackground, other.inverseBackground, t) ?? inverseBackground,
+      inverseText: Color.lerp(inverseText, other.inverseText, t) ?? inverseText,
+      inverseDisabled: Color.lerp(inverseDisabled, other.inverseDisabled, t) ?? inverseDisabled,
+      dimBackground: Color.lerp(dimBackground, other.dimBackground, t) ?? dimBackground,
+      dimOverlay: Color.lerp(dimOverlay, other.dimOverlay, t) ?? dimOverlay,
     );
   }
 }
@@ -363,6 +472,25 @@ FitColors lightFitColors = FitColors(
   brick500: ColorName.brick500,
   brick600: ColorName.brick600,
   brick700: ColorName.brick700,
+  staticBlack: ColorName.staticBlack,
+  staticWhite: ColorName.staticWhite,
+  backgroundBase: ColorName.grey50,
+  backgroundAlternative: ColorName.grey0,
+  backgroundElevated: ColorName.grey0,
+  textPrimary: ColorName.grey900,
+  textSecondary: ColorName.grey600,
+  textTertiary: ColorName.grey500,
+  textDisabled: ColorName.grey400,
+  fillBase: ColorName.grey0,
+  fillAlternative: ColorName.grey50,
+  fillStrong: ColorName.grey200,
+  dividerPrimary: ColorName.grey100,
+  dividerSecondary: ColorName.grey200,
+  inverseBackground: ColorName.grey900,
+  inverseText: ColorName.grey0,
+  inverseDisabled: ColorName.grey500,
+  dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
+  dimOverlay: ColorName.staticWhite.withValues(alpha: 0.76),
 );
 
 /// Dark Theme Colors
@@ -420,6 +548,25 @@ FitColors darkFitColors = FitColors(
   brick500: ColorName.brick500Dark,
   brick600: ColorName.brick600Dark,
   brick700: ColorName.brick700Dark,
+  staticBlack: ColorName.staticBlack,
+  staticWhite: ColorName.staticWhite,
+  backgroundBase: ColorName.grey0Dark,
+  backgroundAlternative: ColorName.grey50Dark,
+  backgroundElevated: ColorName.grey100Dark,
+  textPrimary: ColorName.grey900Dark,
+  textSecondary: ColorName.grey700Dark,
+  textTertiary: ColorName.grey600Dark,
+  textDisabled: ColorName.grey500Dark,
+  fillBase: ColorName.grey50Dark,
+  fillAlternative: ColorName.grey100Dark,
+  fillStrong: ColorName.grey200Dark,
+  dividerPrimary: ColorName.grey100Dark,
+  dividerSecondary: ColorName.grey200Dark,
+  inverseBackground: ColorName.grey900Dark,
+  inverseText: ColorName.grey0Dark,
+  inverseDisabled: ColorName.grey0Dark,
+  dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
+  dimOverlay: ColorName.staticWhite.withValues(alpha: 0.76),
 );
 
 FitColors fitColors(BuildContext context) {

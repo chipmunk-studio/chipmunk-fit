@@ -42,7 +42,7 @@
     <color name="red500">#FFFF2E2E</color>
     <color name="red600">#FFEF1010</color>
     <color name="red700">#FFB30000</color>
-    <color name="red50_dark">#FF361A1A</color>
+    <color name="red50_dark">#FF3E1E1E</color>
     <color name="red200_dark">#FF6B2E2E</color>
     <color name="red500_dark">#FFFF4C4C</color>
     <color name="red600_dark">#FFEE3F3F</color>
@@ -61,8 +61,8 @@
     <color name="brick700_dark">#FFB64023</color>
 
     <!-- Green Colors -->
-    <color name="green50">#FFF0FFF6</color>
-    <color name="green200">#FFD8FFE8</color>
+    <color name="green50">#FFE0FFED</color>
+    <color name="green200">#FFC2FFDB</color>
     <color name="green500">#FF07FA6C</color>
     <color name="green600">#FF0AE163</color>
     <color name="green700">#FF00B34B</color>
@@ -87,4 +87,9 @@
     <!-- Focus Blue Colors -->
     <color name="blue_alpha_base">#FF149DE1</color>
     <color name="blue_alpha_base_dark">#FF45C1EA</color>
+
+    <color name="static_black">#000000</color>
+    <color name="static_white">#FFFFFF</color>
+
+
 </resources>
