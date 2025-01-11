@@ -95,6 +95,7 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color fillBase;
   final Color fillAlternative;
   final Color fillStrong;
+  final Color fillEmphasize;
 
   /// Divider Colors
   final Color dividerPrimary;
@@ -175,6 +176,7 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.fillBase,
     required this.fillAlternative,
     required this.fillStrong,
+    required this.fillEmphasize,
     required this.dividerPrimary,
     required this.dividerSecondary,
     required this.inverseBackground,
@@ -253,6 +255,7 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? fillBase,
     Color? fillAlternative,
     Color? fillStrong,
+    Color? fillEmphasize,
     Color? dividerPrimary,
     Color? dividerSecondary,
     Color? inverseBackground,
@@ -327,6 +330,7 @@ class FitColors extends ThemeExtension<FitColors> {
       fillBase: fillBase ?? this.fillBase,
       fillAlternative: fillAlternative ?? this.fillAlternative,
       fillStrong: fillStrong ?? this.fillStrong,
+      fillEmphasize: fillEmphasize ?? this.fillEmphasize,
       dividerPrimary: dividerPrimary ?? this.dividerPrimary,
       dividerSecondary: dividerSecondary ?? this.dividerSecondary,
       inverseBackground: inverseBackground ?? this.inverseBackground,
@@ -406,6 +410,7 @@ class FitColors extends ThemeExtension<FitColors> {
       fillBase: Color.lerp(fillBase, other.fillBase, t) ?? fillBase,
       fillAlternative: Color.lerp(fillAlternative, other.fillAlternative, t) ?? fillAlternative,
       fillStrong: Color.lerp(fillStrong, other.fillStrong, t) ?? fillStrong,
+      fillEmphasize: Color.lerp(fillEmphasize, other.fillEmphasize, t) ?? fillEmphasize,
       dividerPrimary: Color.lerp(dividerPrimary, other.dividerPrimary, t) ?? dividerPrimary,
       dividerSecondary: Color.lerp(dividerSecondary, other.dividerSecondary, t) ?? dividerSecondary,
       inverseBackground: Color.lerp(inverseBackground, other.inverseBackground, t) ?? inverseBackground,
@@ -478,12 +483,13 @@ FitColors lightFitColors = FitColors(
   backgroundAlternative: ColorName.grey0,
   backgroundElevated: ColorName.grey0,
   textPrimary: ColorName.grey900,
-  textSecondary: ColorName.grey600,
-  textTertiary: ColorName.grey500,
-  textDisabled: ColorName.grey400,
+  textSecondary: ColorName.grey700,
+  textTertiary: ColorName.grey600,
+  textDisabled: ColorName.grey500,
   fillBase: ColorName.grey0,
   fillAlternative: ColorName.grey50,
   fillStrong: ColorName.grey200,
+  fillEmphasize: ColorName.grey300,
   dividerPrimary: ColorName.grey100,
   dividerSecondary: ColorName.grey200,
   inverseBackground: ColorName.grey900,
@@ -560,6 +566,7 @@ FitColors darkFitColors = FitColors(
   fillBase: ColorName.grey50Dark,
   fillAlternative: ColorName.grey100Dark,
   fillStrong: ColorName.grey200Dark,
+  fillEmphasize: ColorName.grey300Dark,
   dividerPrimary: ColorName.grey100Dark,
   dividerSecondary: ColorName.grey200Dark,
   inverseBackground: ColorName.grey900Dark,
