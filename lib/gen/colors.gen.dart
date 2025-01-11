@@ -118,14 +118,14 @@ class ColorName {
   /// Color: #FFFFFFFF
   static const Color grey0 = Color(0xFFFFFFFF);
 
-  /// Color: #FF171A1C
-  static const Color grey0Dark = Color(0xFF171A1C);
+  /// Color: #FF0F1215
+  static const Color grey0Dark = Color(0xFF0F1215);
 
   /// Color: #FFEAECEE
   static const Color grey100 = Color(0xFFEAECEE);
 
-  /// Color: #FF2A2E31
-  static const Color grey100Dark = Color(0xFF2A2E31);
+  /// Color: #FF26292C
+  static const Color grey100Dark = Color(0xFF26292C);
 
   /// Color: #FFDCE1E5
   static const Color grey200 = Color(0xFFDCE1E5);
@@ -154,8 +154,8 @@ class ColorName {
   /// Color: #FF767D82
   static const Color grey500Dark = Color(0xFF767D82);
 
-  /// Color: #FF202325
-  static const Color grey50Dark = Color(0xFF202325);
+  /// Color: #FF1A1C1E
+  static const Color grey50Dark = Color(0xFF1A1C1E);
 
   /// Color: #FF68737E
   static const Color grey600 = Color(0xFF68737E);
