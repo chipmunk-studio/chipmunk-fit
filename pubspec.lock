@@ -367,10 +367,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bounceable
-      sha256: "67af1eee931477c1ec144bb1d42b848048440c84f02963dcdede42a2dfec1390"
+      sha256: "2e46ad87e5870188a459d1e88f5acbf7bf0217651a6655f9ff079bc0c5976010"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   flutter_cache_manager:
     dependency: "direct main"
     description:
@@ -460,10 +460,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_quill_delta_from_html
-      sha256: "3809961f59b323e3ff368921c8f4a2ae559ff05a6bd132e565d7e6180db868e8"
+      sha256: "79405765612016de9de2361be86383360b0b43a6bf88b818c079a953583f1849"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.5"
+    version: "1.5.0"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -484,10 +484,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "54900a1a1243f3c4a5506d853a2b5c2dbc38d5f27e52a52618a8054401431123"
+      sha256: c200fd79c918a40c5cd50ea0877fa13f81bdaf6f0a5d3dbcc2a13e3285d6aa1b
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.16"
+    version: "2.0.17"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -566,10 +566,10 @@ packages:
     dependency: transitive
     description:
       name: image_size_getter
-      sha256: "0511799498340b70993d2dfb34b55a2247b5b801d75a6cdd4543acfcafdb12b0"
+      sha256: c3900f04e31468a81aa23b09b1c7d09c3c952122bbe9ecdae336977b7be24c05
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0+1"
   intl:
     dependency: transitive
     description:
@@ -814,10 +814,10 @@ packages:
     dependency: transitive
     description:
       name: pubspec_parse
-      sha256: "81876843eb50dc2e1e5b151792c9a985c5ed2536914115ed04e9c8528f6647b0"
+      sha256: "0560ba233314abbed0a48a2956f7f022cce7c3e1e73df540277da7544cad4082"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   quill_native_bridge:
     dependency: transitive
     description:
@@ -1131,18 +1131,18 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
-      sha256: "772638d3b34c779ede05ba3d38af34657a05ac55b06279ea6edd409e323dca8e"
+      sha256: "3ba963161bd0fe395917ba881d320b9c4f6dd3c4a233da62ab18a5025c85f1e9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "2.4.0"
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
-      sha256: "44cf3aabcedde30f2dba119a9dea3b0f2672fbe6fa96e85536251d678216b3c4"
+      sha256: "3284b6d2ac454cf34f114e1d3319866fdd1e19cdc329999057e44ffe936cfa77"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "3.1.4"
   uuid:
     dependency: transitive
     description:
@@ -1163,10 +1163,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_codec
-      sha256: "2430b973a4ca3c4dbc9999b62b8c719a160100dcbae5c819bae0cacce32c9cdb"
+      sha256: "99fd9fbd34d9f9a32efd7b6a6aae14125d8237b10403b422a6a6dfeac2806146"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.12"
+    version: "1.1.13"
   vector_graphics_compiler:
     dependency: transitive
     description:

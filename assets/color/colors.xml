@@ -15,9 +15,9 @@
     <color name="grey700">#FF464D53</color>
     <color name="grey800">#FF2E3338</color>
     <color name="grey900">#FF161A1D</color>
-    <color name="grey0_dark">#FF171A1C</color>
-    <color name="grey50_dark">#FF202325</color>
-    <color name="grey100_dark">#FF2A2E31</color>
+    <color name="grey0_dark">#FF0F1215</color>
+    <color name="grey50_dark">#FF1A1C1E</color>
+    <color name="grey100_dark">#FF26292C</color>
     <color name="grey200_dark">#FF373B3E</color>
     <color name="grey300_dark">#FF42474A</color>
     <color name="grey400_dark">#FF52585C</color>
