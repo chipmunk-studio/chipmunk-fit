@@ -106,6 +106,10 @@ class $AssetsIconsGen {
   SvgGenImage get icBookmarkSoild24 =>
       const SvgGenImage('assets/icons/ic_bookmark_soild_24.svg');
 
+  /// File path: assets/icons/ic_camera_soild_24.svg
+  SvgGenImage get icCameraSoild24 =>
+      const SvgGenImage('assets/icons/ic_camera_soild_24.svg');
+
   /// File path: assets/icons/ic_cancel_circle.svg
   SvgGenImage get icCancelCircle =>
       const SvgGenImage('assets/icons/ic_cancel_circle.svg');
@@ -524,6 +528,7 @@ class $AssetsIconsGen {
         icBell,
         icBenefitZip,
         icBookmarkSoild24,
+        icCameraSoild24,
         icCancelCircle,
         icCatSelected,
         icCatUnselected,

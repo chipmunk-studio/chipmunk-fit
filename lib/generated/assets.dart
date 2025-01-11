@@ -23,6 +23,7 @@ class Assets {
   static const String iconsIcBell = 'assets/icons/ic_bell.svg';
   static const String iconsIcBenefitZip = 'assets/icons/ic_benefit_zip.svg';
   static const String iconsIcBookmarkSoild24 = 'assets/icons/ic_bookmark_soild_24.svg';
+  static const String iconsIcCameraSoild24 = 'assets/icons/ic_camera_soild_24.svg';
   static const String iconsIcCancelCircle = 'assets/icons/ic_cancel_circle.svg';
   static const String iconsIcCatSelected = 'assets/icons/ic_cat_selected.svg';
   static const String iconsIcCatUnselected = 'assets/icons/ic_cat_unselected.svg';
