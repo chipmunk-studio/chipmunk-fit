@@ -135,7 +135,7 @@ extension ButtonStyleExtension on BuildContext {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.r),
         side: BorderSide(
-          color: isEnabled ? this.fitColors.grey500 : this.fitColors.grey200,
+          color: isEnabled ? this.fitColors.grey400 : this.fitColors.grey200,
           width: 1.0,
         ),
       ),
