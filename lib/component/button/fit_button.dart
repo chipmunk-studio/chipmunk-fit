@@ -1,4 +1,5 @@
 import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/gen/colors.gen.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:sprung/sprung.dart';
@@ -105,7 +106,7 @@ class _FitButtonState extends State<FitButton> {
         : {
             FitButtonType.secondary: context.fitColors.textSecondary,
             FitButtonType.tertiary: context.fitColors.textTertiary,
-            FitButtonType.primary: context.fitColors.inverseDisabled,
+            FitButtonType.primary: ColorName.grey0Dark,
             FitButtonType.ghost: context.fitColors.grey300,
             FitButtonType.destructive: context.fitColors.inverseDisabled,
           };

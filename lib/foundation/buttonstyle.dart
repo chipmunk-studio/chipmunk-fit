@@ -1,4 +1,5 @@
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -96,7 +97,7 @@ extension ButtonStyleExtension on BuildContext {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.staticBlack,
       backgroundColor: this.fitColors.main,
-      disabledForegroundColor: this.fitColors.inverseDisabled,
+      disabledForegroundColor: ColorName.grey0Dark,
       disabledBackgroundColor: this.fitColors.green50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.r),
