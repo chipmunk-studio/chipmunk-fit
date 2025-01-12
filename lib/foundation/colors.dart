@@ -170,6 +170,7 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.backgroundBase,
     required this.backgroundAlternative,
     required this.backgroundElevated,
+    required this.backgroundElevatedAlternative,
     required this.textPrimary,
     required this.textSecondary,
     required this.textTertiary,
