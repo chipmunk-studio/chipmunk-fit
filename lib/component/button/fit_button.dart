@@ -1,5 +1,4 @@
 import 'package:chipfit/foundation/index.dart';
-import 'package:chipfit/gen/colors.gen.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:sprung/sprung.dart';
@@ -104,11 +103,11 @@ class _FitButtonState extends State<FitButton> {
             FitButtonType.destructive: context.fitColors.staticWhite,
           }
         : {
-            FitButtonType.secondary: ColorName.grey700Dark,
-            FitButtonType.tertiary: ColorName.grey500Dark,
-            FitButtonType.primary: ColorName.grey0Dark,
-            FitButtonType.ghost: ColorName.grey300Dark,
-            FitButtonType.destructive: ColorName.grey0Dark,
+            FitButtonType.secondary: context.fitColors.textSecondary,
+            FitButtonType.tertiary: context.fitColors.textDisabled,
+            FitButtonType.primary: context.fitColors.inverseDisabled,
+            FitButtonType.ghost: context.fitColors.grey300,
+            FitButtonType.destructive: context.fitColors.inverseDisabled,
           };
 
     // 기본 색상 설정
