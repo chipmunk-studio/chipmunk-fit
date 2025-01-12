@@ -140,7 +140,7 @@ extension FitTextStyleExtension on BuildContext {
 
   TextStyle caption1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _getFontSize(12, type),
+      fontSize: _getFontSize(14, type),
       letterSpacing: -0.06,
       height: 1.4,
       fontStyle: FontStyle.normal,
