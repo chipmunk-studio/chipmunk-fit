@@ -130,6 +130,7 @@ class Assets {
   static const String iconsIcUsersSoild24 = 'assets/icons/ic_users_soild_24.svg';
   static const String iconsIcWarningCircle24 = 'assets/icons/ic_warning_circle_24.svg';
   static const String iconsIcWasteBasket = 'assets/icons/ic_waste_basket.svg';
+  static const String iconsIcXcircle24 = 'assets/icons/ic_xcircle_24.svg';
   static const String iconsIcXcircleFill24 = 'assets/icons/ic_xcircle_fill_24.svg';
   static const String imagesBgBottomNavSelected = 'assets/images/bg_bottom_nav_selected.svg';
   static const String imagesBgBottomNavUnselected = 'assets/images/bg_bottom_nav_unselected.svg';

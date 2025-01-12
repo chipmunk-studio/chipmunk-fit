@@ -508,6 +508,10 @@ class $AssetsIconsGen {
   SvgGenImage get icWasteBasket =>
       const SvgGenImage('assets/icons/ic_waste_basket.svg');
 
+  /// File path: assets/icons/ic_xcircle_24.svg
+  SvgGenImage get icXcircle24 =>
+      const SvgGenImage('assets/icons/ic_xcircle_24.svg');
+
   /// File path: assets/icons/ic_xcircle_fill_24.svg
   SvgGenImage get icXcircleFill24 =>
       const SvgGenImage('assets/icons/ic_xcircle_fill_24.svg');
@@ -635,6 +639,7 @@ class $AssetsIconsGen {
         icUsersSoild24,
         icWarningCircle24,
         icWasteBasket,
+        icXcircle24,
         icXcircleFill24
       ];
 }
