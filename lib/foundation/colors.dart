@@ -84,6 +84,7 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color backgroundBase;
   final Color backgroundAlternative;
   final Color backgroundElevated;
+  final Color backgroundElevatedAlternative;
 
   /// Text Colors
   final Color textPrimary;
@@ -248,6 +249,7 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? backgroundBase,
     Color? backgroundAlternative,
     Color? backgroundElevated,
+    Color? backgroundElevatedAlternative,
     Color? textPrimary,
     Color? textSecondary,
     Color? textTertiary,
@@ -323,6 +325,7 @@ class FitColors extends ThemeExtension<FitColors> {
       backgroundBase: backgroundBase ?? this.backgroundBase,
       backgroundAlternative: backgroundAlternative ?? this.backgroundAlternative,
       backgroundElevated: backgroundElevated ?? this.backgroundElevated,
+      backgroundElevatedAlternative: backgroundElevatedAlternative ?? this.backgroundElevatedAlternative,
       textPrimary: textPrimary ?? this.textPrimary,
       textSecondary: textSecondary ?? this.textSecondary,
       textTertiary: textTertiary ?? this.textTertiary,
@@ -403,6 +406,7 @@ class FitColors extends ThemeExtension<FitColors> {
       backgroundBase: Color.lerp(backgroundBase, other.backgroundBase, t) ?? backgroundBase,
       backgroundAlternative: Color.lerp(backgroundAlternative, other.backgroundAlternative, t) ?? backgroundAlternative,
       backgroundElevated: Color.lerp(backgroundElevated, other.backgroundElevated, t) ?? backgroundElevated,
+      backgroundElevatedAlternative: Color.lerp(backgroundElevatedAlternative, other.backgroundElevatedAlternative, t) ?? backgroundElevatedAlternative,
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t) ?? textPrimary,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t) ?? textSecondary,
       textTertiary: Color.lerp(textTertiary, other.textTertiary, t) ?? textTertiary,
@@ -482,6 +486,7 @@ FitColors lightFitColors = FitColors(
   backgroundBase: ColorName.grey50,
   backgroundAlternative: ColorName.grey0,
   backgroundElevated: ColorName.grey0,
+  backgroundElevatedAlternative: ColorName.grey50,
   textPrimary: ColorName.grey900,
   textSecondary: ColorName.grey700,
   textTertiary: ColorName.grey600,
@@ -559,6 +564,7 @@ FitColors darkFitColors = FitColors(
   backgroundBase: ColorName.grey0Dark,
   backgroundAlternative: ColorName.grey50Dark,
   backgroundElevated: ColorName.grey100Dark,
+  backgroundElevatedAlternative: ColorName.grey50Dark,
   textPrimary: ColorName.grey900Dark,
   textSecondary: ColorName.grey700Dark,
   textTertiary: ColorName.grey600Dark,
