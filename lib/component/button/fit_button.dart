@@ -7,8 +7,9 @@ class FitButton extends StatefulWidget {
   final dartz.Function0? onPress;
   final dartz.Function0? onDisablePress;
   final ButtonStyle? style;
-  final FitButtonType? type;
-  final FitTextSp textType;
+  final FitButtonType type;
+  final FitTextSp textSp;
+  final TextStyle? textStyle;
   final bool isExpand;
   final bool isEnabled;
   final bool isRipple;
@@ -20,12 +21,13 @@ class FitButton extends StatefulWidget {
     super.key,
     this.onPress,
     this.onDisablePress,
-    this.type,
+    this.type = FitButtonType.primary,
     this.style,
     this.isEnabled = true,
     this.isExpand = false,
     this.isRipple = false,
-    this.textType = FitTextSp.MIN,
+    this.textSp = FitTextSp.MIN,
+    this.textStyle = null,
     this.padding,
     this.child,
     this.text,
@@ -63,18 +65,19 @@ class _FitButtonState extends State<FitButton> {
             width: double.infinity,
             padding: widget.padding ??
                 EdgeInsets.symmetric(
-                  vertical: widget.isExpand ? 20 : 12,
+                  vertical: widget.isExpand ? 16 : 12,
                   horizontal: widget.isExpand ? 0 : 14,
                 ),
             child: widget.child ??
                 Text(
                   widget.text ?? '',
                   textAlign: TextAlign.center,
-                  style: _getTextStyle(
-                    context,
-                    widget.isEnabled,
-                    widget.textType,
-                  ),
+                  style: widget.textStyle ??
+                      _getTextStyle(
+                        context,
+                        widget.isEnabled,
+                        widget.textSp,
+                      ),
                 ),
           ),
         ),
