@@ -26,7 +26,7 @@ class FitButton extends StatefulWidget {
     this.isEnabled = true,
     this.isExpand = false,
     this.isRipple = false,
-    this.textSp = FitTextSp.MIN,
+    this.textSp = FitTextSp.SP,
     this.textStyle = null,
     this.padding,
     this.child,
