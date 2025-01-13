@@ -178,14 +178,4 @@ extension FitTextStyleExtension on BuildContext {
         return baseSize.sp;
     }
   }
-
-  /// Figma의 Letter Spacing(% 값)을 Flutter의 `letterSpacing` 값으로 변환하는 함수
-  ///
-  /// [fontSize]: 텍스트의 폰트 크기 (Figma의 "Size" 값)
-  /// [letterPercentage]: Figma의 "Letter Spacing" 값 (-2%는 -2로 전달)
-  ///
-  /// 예: `convertLetterSpacing(20, -2)`는 `-0.4`를 반환
-  double _convertLetterSpacing(double fontSize, double letterPercentage) {
-    return fontSize * (letterPercentage / 100);
-  }
 }

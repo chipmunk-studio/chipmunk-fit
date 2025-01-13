@@ -8,6 +8,7 @@ class FitButton extends StatefulWidget {
   final dartz.Function0? onDisablePress;
   final ButtonStyle? style;
   final FitButtonType? type;
+  final FitTextSp textType;
   final bool isExpand;
   final bool isEnabled;
   final bool isRipple;
@@ -24,6 +25,7 @@ class FitButton extends StatefulWidget {
     this.isEnabled = true,
     this.isExpand = false,
     this.isRipple = false,
+    this.textType = FitTextSp.MIN,
     this.padding,
     this.child,
     this.text,
@@ -71,6 +73,7 @@ class _FitButtonState extends State<FitButton> {
                   style: _getTextStyle(
                     context,
                     widget.isEnabled,
+                    widget.textType,
                   ),
                 ),
           ),
@@ -93,7 +96,11 @@ class _FitButtonState extends State<FitButton> {
     }
   }
 
-  TextStyle _getTextStyle(BuildContext context, bool isEnabled) {
+  TextStyle _getTextStyle(
+    BuildContext context,
+    bool isEnabled,
+    FitTextSp type,
+  ) {
     final color = isEnabled
         ? {
             FitButtonType.secondary: context.fitColors.inverseText,
@@ -111,7 +118,7 @@ class _FitButtonState extends State<FitButton> {
           };
 
     // 기본 색상 설정
-    return context.button1().copyWith(
+    return context.button1(type: type).copyWith(
           color: color[widget.type] ?? context.fitColors.grey0,
         );
   }
