@@ -143,6 +143,7 @@ abstract class FitCustomAppBar {
     bool leftAlignTitle = true,
   }) {
     return AppBar(
+      toolbarHeight: 40,
       systemOverlayStyle: customSystemUiOverlayStyle(
         statusBarColor: backgroundColor ?? context.fitColors.backgroundAlternative,
         isDark: isDarkMode(context),
