@@ -65,7 +65,7 @@ class _FitButtonState extends State<FitButton> {
             width: double.infinity,
             padding: widget.padding ??
                 EdgeInsets.symmetric(
-                  vertical: widget.isExpand ? 16 : 12,
+                  vertical: widget.isExpand ? 20 : 12,
                   horizontal: widget.isExpand ? 0 : 14,
                 ),
             child: widget.child ??
