@@ -123,6 +123,7 @@ class _FitButtonState extends State<FitButton> {
     // 기본 색상 설정
     return context.button1(type: type).copyWith(
           color: color[widget.type] ?? context.fitColors.grey0,
+          height: 1.0,
         );
   }
 
