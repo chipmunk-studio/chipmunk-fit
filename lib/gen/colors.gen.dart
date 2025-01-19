@@ -13,36 +13,6 @@ import 'package:flutter/material.dart';
 class ColorName {
   ColorName._();
 
-  /// Color: #FFC1BBFF
-  static const Color blue200 = Color(0xFFC1BBFF);
-
-  /// Color: #FF170F6F
-  static const Color blue200Dark = Color(0xFF170F6F);
-
-  /// Color: #FFE5E3FF
-  static const Color blue50 = Color(0xFFE5E3FF);
-
-  /// Color: #FF1F0AFF
-  static const Color blue500 = Color(0xFF1F0AFF);
-
-  /// Color: #FF4433FF
-  static const Color blue500Dark = Color(0xFF4433FF);
-
-  /// Color: #FF110D3D
-  static const Color blue50Dark = Color(0xFF110D3D);
-
-  /// Color: #FF1D0AEB
-  static const Color blue600 = Color(0xFF1D0AEB);
-
-  /// Color: #FF3D2CF2
-  static const Color blue600Dark = Color(0xFF3D2CF2);
-
-  /// Color: #FF2113BA
-  static const Color blue700 = Color(0xFF2113BA);
-
-  /// Color: #FF3C2ED1
-  static const Color blue700Dark = Color(0xFF3C2ED1);
-
   /// Color: #FF149DE1
   static const Color blueAlphaBase = Color(0xFF149DE1);
 
@@ -180,6 +150,42 @@ class ColorName {
 
   /// Color: #FFEFF0F1
   static const Color grey900Dark = Color(0xFFEFF0F1);
+
+  /// Color: #FFC1BBFF
+  static const Color periwinkle200 = Color(0xFFC1BBFF);
+
+  /// Color: #FF170F6F
+  static const Color periwinkle200Dark = Color(0xFF170F6F);
+
+  /// Color: #FFE5E3FF
+  static const Color periwinkle50 = Color(0xFFE5E3FF);
+
+  /// Color: #FF5647FF
+  static const Color periwinkle500 = Color(0xFF5647FF);
+
+  /// Color: #FF5C5CFF
+  static const Color periwinkle500Dark = Color(0xFF5C5CFF);
+
+  /// Color: #FF110D3D
+  static const Color periwinkle50Dark = Color(0xFF110D3D);
+
+  /// Color: #FF3F2FEE
+  static const Color periwinkle600 = Color(0xFF3F2FEE);
+
+  /// Color: #FF4E3FF3
+  static const Color periwinkle600Dark = Color(0xFF4E3FF3);
+
+  /// Color: #FF3323E7
+  static const Color periwinkle700 = Color(0xFF3323E7);
+
+  /// Color: #FF4336D3
+  static const Color periwinkle700Dark = Color(0xFF4336D3);
+
+  /// Color: #FF149DE1
+  static const Color periwinkleAlphaBase = Color(0xFF149DE1);
+
+  /// Color: #FF31BAE8
+  static const Color periwinkleAlphaBaseDark = Color(0xFF31BAE8);
 
   /// Color: #FFFFD1D1
   static const Color red200 = Color(0xFFFFD1D1);

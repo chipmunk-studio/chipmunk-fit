@@ -28,11 +28,11 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color green700;
 
   /// Blue Colors
-  final Color blue50;
-  final Color blue200;
-  final Color blue500;
-  final Color blue600;
-  final Color blue700;
+  final Color periwinkle50;
+  final Color periwinkle200;
+  final Color periwinkle500;
+  final Color periwinkle600;
+  final Color periwinkle700;
 
   /// Red Colors
   final Color red50;
@@ -55,6 +55,13 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color redAlpha24;
   final Color redAlpha12;
 
+  /// Blue Colors
+  final Color blueAlphaBase;
+  final Color blueAlpha72;
+  final Color blueAlpha48;
+  final Color blueAlpha24;
+  final Color blueAlpha12;
+
   /// Yellow Colors
   final Color yellowBase;
   final Color yellowAlpha72;
@@ -70,11 +77,11 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color greenAlpha12;
 
   /// Blue Colors
-  final Color blueBase;
-  final Color blueAlpha72;
-  final Color blueAlpha48;
-  final Color blueAlpha24;
-  final Color blueAlpha12;
+  final Color periwinkleBase;
+  final Color periwinkleAlpha72;
+  final Color periwinkleAlpha48;
+  final Color periwinkleAlpha24;
+  final Color periwinkleAlpha12;
 
   /// Static Colors
   final Color staticBlack;
@@ -130,11 +137,11 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.green500,
     required this.green600,
     required this.green700,
-    required this.blue50,
-    required this.blue200,
-    required this.blue500,
-    required this.blue600,
-    required this.blue700,
+    required this.periwinkle50,
+    required this.periwinkle200,
+    required this.periwinkle500,
+    required this.periwinkle600,
+    required this.periwinkle700,
     required this.red50,
     required this.red200,
     required this.red500,
@@ -150,6 +157,11 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.redAlpha48,
     required this.redAlpha24,
     required this.redAlpha12,
+    required this.blueAlphaBase,
+    required this.blueAlpha72,
+    required this.blueAlpha48,
+    required this.blueAlpha24,
+    required this.blueAlpha12,
     required this.yellowBase,
     required this.yellowAlpha72,
     required this.yellowAlpha48,
@@ -160,11 +172,11 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.greenAlpha48,
     required this.greenAlpha24,
     required this.greenAlpha12,
-    required this.blueBase,
-    required this.blueAlpha72,
-    required this.blueAlpha48,
-    required this.blueAlpha24,
-    required this.blueAlpha12,
+    required this.periwinkleBase,
+    required this.periwinkleAlpha72,
+    required this.periwinkleAlpha48,
+    required this.periwinkleAlpha24,
+    required this.periwinkleAlpha12,
     required this.staticBlack,
     required this.staticWhite,
     required this.backgroundBase,
@@ -210,16 +222,21 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? green500,
     Color? green600,
     Color? green700,
-    Color? blue50,
-    Color? blue200,
-    Color? blue500,
-    Color? blue600,
-    Color? blue700,
+    Color? periwinkle50,
+    Color? periwinkle200,
+    Color? periwinkle500,
+    Color? periwinkle600,
+    Color? periwinkle700,
     Color? red50,
     Color? red200,
     Color? red500,
     Color? red600,
     Color? red700,
+    Color? blueAlphaBase,
+    Color? blueAlpha72,
+    Color? blueAlpha48,
+    Color? blueAlpha24,
+    Color? blueAlpha12,
     Color? brick50,
     Color? brick200,
     Color? brick500,
@@ -240,11 +257,11 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? greenAlpha48,
     Color? greenAlpha24,
     Color? greenAlpha12,
-    Color? blueBase,
-    Color? blueAlpha72,
-    Color? blueAlpha48,
-    Color? blueAlpha24,
-    Color? blueAlpha12,
+    Color? periwinkleBase,
+    Color? periwinkleAlpha72,
+    Color? periwinkleAlpha48,
+    Color? periwinkleAlpha24,
+    Color? periwinkleAlpha12,
     Color? staticBlack,
     Color? staticWhite,
     Color? backgroundBase,
@@ -286,16 +303,21 @@ class FitColors extends ThemeExtension<FitColors> {
       green500: green500 ?? this.green500,
       green600: green600 ?? this.green600,
       green700: green700 ?? this.green700,
-      blue50: blue50 ?? this.blue50,
-      blue200: blue200 ?? this.blue200,
-      blue500: blue500 ?? this.blue500,
-      blue600: blue600 ?? this.blue600,
-      blue700: blue700 ?? this.blue700,
+      periwinkle50: periwinkle50 ?? this.periwinkle50,
+      periwinkle200: periwinkle200 ?? this.periwinkle200,
+      periwinkle500: periwinkle500 ?? this.periwinkle500,
+      periwinkle600: periwinkle600 ?? this.periwinkle600,
+      periwinkle700: periwinkle700 ?? this.periwinkle700,
       red50: red50 ?? this.red50,
       red200: red200 ?? this.red200,
       red500: red500 ?? this.red500,
       red600: red600 ?? this.red600,
       red700: red700 ?? this.red700,
+      blueAlphaBase: blueAlphaBase ?? this.blueAlphaBase,
+      blueAlpha72: blueAlpha72 ?? this.blueAlpha72,
+      blueAlpha48: blueAlpha48 ?? this.blueAlpha48,
+      blueAlpha24: blueAlpha24 ?? this.blueAlpha24,
+      blueAlpha12: blueAlpha12 ?? this.blueAlpha12,
       brick50: brick50 ?? this.brick50,
       brick200: brick200 ?? this.brick200,
       brick500: brick500 ?? this.brick500,
@@ -316,11 +338,11 @@ class FitColors extends ThemeExtension<FitColors> {
       greenAlpha48: greenAlpha48 ?? this.greenAlpha48,
       greenAlpha24: greenAlpha24 ?? this.greenAlpha24,
       greenAlpha12: greenAlpha12 ?? this.greenAlpha12,
-      blueBase: blueBase ?? this.blueBase,
-      blueAlpha72: blueAlpha72 ?? this.blueAlpha72,
-      blueAlpha48: blueAlpha48 ?? this.blueAlpha48,
-      blueAlpha24: blueAlpha24 ?? this.blueAlpha24,
-      blueAlpha12: blueAlpha12 ?? this.blueAlpha12,
+      periwinkleBase: periwinkleBase ?? this.periwinkleBase,
+      periwinkleAlpha72: periwinkleAlpha72 ?? this.periwinkleAlpha72,
+      periwinkleAlpha48: periwinkleAlpha48 ?? this.periwinkleAlpha48,
+      periwinkleAlpha24: periwinkleAlpha24 ?? this.periwinkleAlpha24,
+      periwinkleAlpha12: periwinkleAlpha12 ?? this.periwinkleAlpha12,
       staticBlack: staticBlack ?? this.staticBlack,
       staticWhite: staticWhite ?? this.staticWhite,
       backgroundBase: backgroundBase ?? this.backgroundBase,
@@ -367,11 +389,11 @@ class FitColors extends ThemeExtension<FitColors> {
       green500: Color.lerp(green500, other.green500, t) ?? green500,
       green600: Color.lerp(green600, other.green600, t) ?? green600,
       green700: Color.lerp(green700, other.green700, t) ?? green700,
-      blue50: Color.lerp(blue50, other.blue50, t) ?? blue50,
-      blue200: Color.lerp(blue200, other.blue200, t) ?? blue200,
-      blue500: Color.lerp(blue500, other.blue500, t) ?? blue500,
-      blue600: Color.lerp(blue600, other.blue600, t) ?? blue600,
-      blue700: Color.lerp(blue700, other.blue700, t) ?? blue700,
+      periwinkle50: Color.lerp(periwinkle50, other.periwinkle50, t) ?? periwinkle50,
+      periwinkle200: Color.lerp(periwinkle200, other.periwinkle200, t) ?? periwinkle200,
+      periwinkle500: Color.lerp(periwinkle500, other.periwinkle500, t) ?? periwinkle500,
+      periwinkle600: Color.lerp(periwinkle600, other.periwinkle600, t) ?? periwinkle600,
+      periwinkle700: Color.lerp(periwinkle700, other.periwinkle700, t) ?? periwinkle700,
       red50: Color.lerp(red50, other.red50, t) ?? red50,
       red200: Color.lerp(red200, other.red200, t) ?? red200,
       red500: Color.lerp(red500, other.red500, t) ?? red500,
@@ -387,6 +409,11 @@ class FitColors extends ThemeExtension<FitColors> {
       redAlpha48: Color.lerp(redAlpha48, other.redAlpha48, t) ?? redAlpha48,
       redAlpha24: Color.lerp(redAlpha24, other.redAlpha24, t) ?? redAlpha24,
       redAlpha12: Color.lerp(redAlpha12, other.redAlpha12, t) ?? redAlpha12,
+      blueAlphaBase: Color.lerp(blueAlphaBase, other.blueAlphaBase, t) ?? blueAlphaBase,
+      blueAlpha72: Color.lerp(blueAlpha72, other.blueAlpha72, t) ?? blueAlpha72,
+      blueAlpha48: Color.lerp(blueAlpha48, other.blueAlpha48, t) ?? blueAlpha48,
+      blueAlpha24: Color.lerp(blueAlpha24, other.blueAlpha24, t) ?? blueAlpha24,
+      blueAlpha12: Color.lerp(blueAlpha12, other.blueAlpha12, t) ?? blueAlpha12,
       yellowBase: Color.lerp(yellowBase, other.yellowBase, t) ?? yellowBase,
       yellowAlpha72: Color.lerp(yellowAlpha72, other.yellowAlpha72, t) ?? yellowAlpha72,
       yellowAlpha48: Color.lerp(yellowAlpha48, other.yellowAlpha48, t) ?? yellowAlpha48,
@@ -397,17 +424,19 @@ class FitColors extends ThemeExtension<FitColors> {
       greenAlpha48: Color.lerp(greenAlpha48, other.greenAlpha48, t) ?? greenAlpha48,
       greenAlpha24: Color.lerp(greenAlpha24, other.greenAlpha24, t) ?? greenAlpha24,
       greenAlpha12: Color.lerp(greenAlpha12, other.greenAlpha12, t) ?? greenAlpha12,
-      blueBase: Color.lerp(blueBase, other.blueBase, t) ?? blueBase,
-      blueAlpha72: Color.lerp(blueAlpha72, other.blueAlpha72, t) ?? blueAlpha72,
-      blueAlpha48: Color.lerp(blueAlpha48, other.blueAlpha48, t) ?? blueAlpha48,
-      blueAlpha24: Color.lerp(blueAlpha24, other.blueAlpha24, t) ?? blueAlpha24,
-      blueAlpha12: Color.lerp(blueAlpha12, other.blueAlpha12, t) ?? blueAlpha12,
+      periwinkleBase: Color.lerp(periwinkleBase, other.periwinkleBase, t) ?? periwinkleBase,
+      periwinkleAlpha72: Color.lerp(periwinkleAlpha72, other.periwinkleAlpha72, t) ?? periwinkleAlpha72,
+      periwinkleAlpha48: Color.lerp(periwinkleAlpha48, other.periwinkleAlpha48, t) ?? periwinkleAlpha48,
+      periwinkleAlpha24: Color.lerp(periwinkleAlpha24, other.periwinkleAlpha24, t) ?? periwinkleAlpha24,
+      periwinkleAlpha12: Color.lerp(periwinkleAlpha12, other.periwinkleAlpha12, t) ?? periwinkleAlpha12,
       staticBlack: Color.lerp(staticBlack, other.staticBlack, t) ?? staticBlack,
       staticWhite: Color.lerp(staticWhite, other.staticWhite, t) ?? staticWhite,
       backgroundBase: Color.lerp(backgroundBase, other.backgroundBase, t) ?? backgroundBase,
       backgroundAlternative: Color.lerp(backgroundAlternative, other.backgroundAlternative, t) ?? backgroundAlternative,
       backgroundElevated: Color.lerp(backgroundElevated, other.backgroundElevated, t) ?? backgroundElevated,
-      backgroundElevatedAlternative: Color.lerp(backgroundElevatedAlternative, other.backgroundElevatedAlternative, t) ?? backgroundElevatedAlternative,
+      backgroundElevatedAlternative:
+          Color.lerp(backgroundElevatedAlternative, other.backgroundElevatedAlternative, t) ??
+              backgroundElevatedAlternative,
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t) ?? textPrimary,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t) ?? textSecondary,
       textTertiary: Color.lerp(textTertiary, other.textTertiary, t) ?? textTertiary,
@@ -430,7 +459,7 @@ class FitColors extends ThemeExtension<FitColors> {
 /// Light Theme Colors
 FitColors lightFitColors = FitColors(
   main: ColorName.green500,
-  sub: ColorName.blue500,
+  sub: ColorName.periwinkle500,
   grey0: ColorName.grey0,
   grey50: ColorName.grey50,
   grey900: ColorName.grey900,
@@ -447,11 +476,11 @@ FitColors lightFitColors = FitColors(
   green500: ColorName.green500,
   green600: ColorName.green600,
   green700: ColorName.green700,
-  blue50: ColorName.blue50,
-  blue200: ColorName.blue200,
-  blue500: ColorName.blue500,
-  blue600: ColorName.blue600,
-  blue700: ColorName.blue700,
+  periwinkle50: ColorName.periwinkle50,
+  periwinkle200: ColorName.periwinkle200,
+  periwinkle500: ColorName.periwinkle500,
+  periwinkle600: ColorName.periwinkle600,
+  periwinkle700: ColorName.periwinkle700,
   red50: ColorName.red50,
   red200: ColorName.red200,
   red500: ColorName.red500,
@@ -462,6 +491,11 @@ FitColors lightFitColors = FitColors(
   redAlpha48: ColorName.redAlphaBase.withAlpha((255 * 0.48).toInt()),
   redAlpha24: ColorName.redAlphaBase.withAlpha((255 * 0.24).toInt()),
   redAlpha12: ColorName.redAlphaBase.withAlpha((255 * 0.12).toInt()),
+  blueAlphaBase: ColorName.blueAlphaBase,
+  blueAlpha72: ColorName.blueAlphaBase.withAlpha((255 * 0.72).toInt()),
+  blueAlpha48: ColorName.blueAlphaBase.withAlpha((255 * 0.48).toInt()),
+  blueAlpha24: ColorName.blueAlphaBase.withAlpha((255 * 0.24).toInt()),
+  blueAlpha12: ColorName.blueAlphaBase.withAlpha((255 * 0.12).toInt()),
   yellowBase: ColorName.yellowAlphaBase,
   yellowAlpha72: ColorName.yellowAlphaBase.withAlpha((255 * 0.72).toInt()),
   yellowAlpha48: ColorName.yellowAlphaBase.withAlpha((255 * 0.48).toInt()),
@@ -472,11 +506,11 @@ FitColors lightFitColors = FitColors(
   greenAlpha48: ColorName.greenAlphaBase.withAlpha((255 * 0.48).toInt()),
   greenAlpha24: ColorName.greenAlphaBase.withAlpha((255 * 0.24).toInt()),
   greenAlpha12: ColorName.greenAlphaBase.withAlpha((255 * 0.12).toInt()),
-  blueBase: ColorName.blueAlphaBase,
-  blueAlpha72: ColorName.blueAlphaBase.withAlpha((255 * 0.72).toInt()),
-  blueAlpha48: ColorName.blueAlphaBase.withAlpha((255 * 0.48).toInt()),
-  blueAlpha24: ColorName.blueAlphaBase.withAlpha((255 * 0.24).toInt()),
-  blueAlpha12: ColorName.blueAlphaBase.withAlpha((255 * 0.12).toInt()),
+  periwinkleBase: ColorName.periwinkleAlphaBase,
+  periwinkleAlpha72: ColorName.periwinkleAlphaBase.withAlpha((255 * 0.72).toInt()),
+  periwinkleAlpha48: ColorName.periwinkleAlphaBase.withAlpha((255 * 0.48).toInt()),
+  periwinkleAlpha24: ColorName.periwinkleAlphaBase.withAlpha((255 * 0.24).toInt()),
+  periwinkleAlpha12: ColorName.periwinkleAlphaBase.withAlpha((255 * 0.12).toInt()),
   brick50: ColorName.brick50,
   brick200: ColorName.brick200,
   brick500: ColorName.brick500,
@@ -508,7 +542,7 @@ FitColors lightFitColors = FitColors(
 /// Dark Theme Colors
 FitColors darkFitColors = FitColors(
   main: ColorName.green500Dark,
-  sub: ColorName.blue500Dark,
+  sub: ColorName.periwinkle500Dark,
   grey0: ColorName.grey0Dark,
   grey50: ColorName.grey50Dark,
   grey900: ColorName.grey900Dark,
@@ -525,11 +559,11 @@ FitColors darkFitColors = FitColors(
   green500: ColorName.green500Dark,
   green600: ColorName.green600Dark,
   green700: ColorName.green700Dark,
-  blue50: ColorName.blue50Dark,
-  blue200: ColorName.blue200Dark,
-  blue500: ColorName.blue500Dark,
-  blue600: ColorName.blue600Dark,
-  blue700: ColorName.blue700Dark,
+  periwinkle50: ColorName.periwinkle50Dark,
+  periwinkle200: ColorName.periwinkle200Dark,
+  periwinkle500: ColorName.periwinkle500Dark,
+  periwinkle600: ColorName.periwinkle600Dark,
+  periwinkle700: ColorName.periwinkle700Dark,
   red50: ColorName.red50Dark,
   red200: ColorName.red200Dark,
   red500: ColorName.red500Dark,
@@ -541,6 +575,11 @@ FitColors darkFitColors = FitColors(
   redAlpha24: ColorName.redAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
   redAlpha12: ColorName.redAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
   yellowBase: ColorName.yellowAlphaBaseDark,
+  blueAlphaBase: ColorName.blueAlphaBaseDark,
+  blueAlpha72: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
+  blueAlpha48: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
+  blueAlpha24: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
+  blueAlpha12: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
   yellowAlpha72: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
   yellowAlpha48: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
   yellowAlpha24: ColorName.yellowAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
@@ -550,11 +589,11 @@ FitColors darkFitColors = FitColors(
   greenAlpha48: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
   greenAlpha24: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
   greenAlpha12: ColorName.greenAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
-  blueBase: ColorName.blueAlphaBaseDark,
-  blueAlpha72: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
-  blueAlpha48: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
-  blueAlpha24: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
-  blueAlpha12: ColorName.blueAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
+  periwinkleBase: ColorName.periwinkleAlphaBaseDark,
+  periwinkleAlpha72: ColorName.periwinkleAlphaBaseDark.withAlpha((255 * 0.72).toInt()),
+  periwinkleAlpha48: ColorName.periwinkleAlphaBaseDark.withAlpha((255 * 0.48).toInt()),
+  periwinkleAlpha24: ColorName.periwinkleAlphaBaseDark.withAlpha((255 * 0.24).toInt()),
+  periwinkleAlpha12: ColorName.periwinkleAlphaBaseDark.withAlpha((255 * 0.12).toInt()),
   brick50: ColorName.brick50Dark,
   brick200: ColorName.brick200Dark,
   brick500: ColorName.brick500Dark,

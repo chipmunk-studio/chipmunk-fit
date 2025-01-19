@@ -28,16 +28,16 @@
     <color name="grey900_dark">#FFEFF0F1</color>
 
     <!-- Blue Colors -->
-    <color name="blue50">#FFE5E3FF</color>
-    <color name="blue200">#FFC1BBFF</color>
-    <color name="blue500">#FF1F0AFF</color>
-    <color name="blue600">#FF1D0AEB</color>
-    <color name="blue700">#FF2113BA</color>
-    <color name="blue50_dark">#FF110D3D</color>
-    <color name="blue200_dark">#FF170F6F</color>
-    <color name="blue500_dark">#FF4433FF</color>
-    <color name="blue600_dark">#FF3D2CF2</color>
-    <color name="blue700_dark">#FF3C2ED1</color>
+    <color name="periwinkle50">#FFE5E3FF</color>
+    <color name="periwinkle200">#FFC1BBFF</color>
+    <color name="periwinkle500">#FF5647FF</color>
+    <color name="periwinkle600">#FF3F2FEE</color>
+    <color name="periwinkle700">#FF3323E7</color>
+    <color name="periwinkle50_dark">#FF110D3D</color>
+    <color name="periwinkle200_dark">#FF170F6F</color>
+    <color name="periwinkle500_dark">#FF5C5CFF</color>
+    <color name="periwinkle600_dark">#FF4E3FF3</color>
+    <color name="periwinkle700_dark">#FF4336D3</color>
 
     <!-- Red Colors -->
     <color name="red50">#FFFFEBEB</color>
@@ -63,7 +63,7 @@
     <color name="brick600_dark">#FFD44A27</color>
     <color name="brick700_dark">#FFB64023</color>
 
-    <!-- Green Colors -->
+    <!-- Blue Colors -->
     <color name="green50">#FFE0FFED</color>
     <color name="green200">#FFC2FFDB</color>
     <color name="green500">#FF07FA6C</color>
@@ -74,6 +74,10 @@
     <color name="green500_dark">#FF47FF94</color>
     <color name="green600_dark">#FF35E980</color>
     <color name="green700_dark">#FF34B76B</color>
+
+    <!-- Blue Alpha Colors -->
+    <color name="blue_alpha_base">#FF149DE1</color>
+    <color name="blue_alpha_base_Dark">#FF31BAE8</color>
 
     <!-- Focus Red Colors -->
     <color name="red_alpha_base">#FFFC4848</color>
@@ -88,7 +92,8 @@
     <color name="green_alpha_base_dark">#FF59CC89</color>
 
     <!-- Focus Blue Colors -->
-    <color name="blue_alpha_base">#FF149DE1</color>
-    <color name="blue_alpha_base_dark">#FF31BAE8</color>
+    <color name="periwinkle_alpha_base">#FF149DE1</color>
+    <color name="periwinkle_alpha_base_dark">#FF31BAE8</color>
+
 
 </resources>
