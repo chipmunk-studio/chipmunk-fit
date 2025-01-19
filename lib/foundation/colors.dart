@@ -534,7 +534,7 @@ FitColors lightFitColors = FitColors(
   dividerSecondary: ColorName.grey200,
   inverseBackground: ColorName.grey900,
   inverseText: ColorName.grey0,
-  inverseDisabled: ColorName.grey500,
+  inverseDisabled: ColorName.grey400.withValues(alpha: 0.8),
   dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
   dimOverlay: ColorName.staticWhite.withValues(alpha: 0.76),
 );
