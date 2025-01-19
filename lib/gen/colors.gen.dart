@@ -58,8 +58,8 @@ class ColorName {
   /// Color: #FFE0FFED
   static const Color green50 = Color(0xFFE0FFED);
 
-  /// Color: #FF07FA6C
-  static const Color green500 = Color(0xFF07FA6C);
+  /// Color: #FF24F97D
+  static const Color green500 = Color(0xFF24F97D);
 
   /// Color: #FF47FF94
   static const Color green500Dark = Color(0xFF47FF94);
@@ -67,17 +67,17 @@ class ColorName {
   /// Color: #FF183825
   static const Color green50Dark = Color(0xFF183825);
 
-  /// Color: #FF0AE163
-  static const Color green600 = Color(0xFF0AE163);
+  /// Color: #FF06E563
+  static const Color green600 = Color(0xFF06E563);
 
-  /// Color: #FF35E980
-  static const Color green600Dark = Color(0xFF35E980);
+  /// Color: #FF31ED7F
+  static const Color green600Dark = Color(0xFF31ED7F);
 
-  /// Color: #FF00B34B
-  static const Color green700 = Color(0xFF00B34B);
+  /// Color: #FF05C756
+  static const Color green700 = Color(0xFF05C756);
 
-  /// Color: #FF34B76B
-  static const Color green700Dark = Color(0xFF34B76B);
+  /// Color: #FF12D363
+  static const Color green700Dark = Color(0xFF12D363);
 
   /// Color: #FF1EBE60
   static const Color greenAlphaBase = Color(0xFF1EBE60);

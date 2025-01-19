@@ -66,14 +66,14 @@
     <!-- Blue Colors -->
     <color name="green50">#FFE0FFED</color>
     <color name="green200">#FFC2FFDB</color>
-    <color name="green500">#FF07FA6C</color>
-    <color name="green600">#FF0AE163</color>
-    <color name="green700">#FF00B34B</color>
+    <color name="green500">#FF24F97D</color>
+    <color name="green600">#FF06E563</color>
+    <color name="green700">#FF05C756</color>
     <color name="green50_dark">#FF183825</color>
     <color name="green200_dark">#FF22603C</color>
     <color name="green500_dark">#FF47FF94</color>
-    <color name="green600_dark">#FF35E980</color>
-    <color name="green700_dark">#FF34B76B</color>
+    <color name="green600_dark">#FF31ED7F</color>
+    <color name="green700_dark">#FF12D363</color>
 
     <!-- Blue Alpha Colors -->
     <color name="blue_alpha_base">#FF149DE1</color>
