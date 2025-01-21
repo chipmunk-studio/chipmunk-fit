@@ -74,7 +74,14 @@ class FitScaffold extends StatelessWidget {
               );
             },
             child: isLoading
-                ? SizedBox(key: const ValueKey('loading'), child: loadingView)
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(key: const ValueKey('loading'), child: loadingView),
+                      const SizedBox(height: 56),
+                    ],
+                  )
                 : SizedBox(key: const ValueKey('body'), child: body),
           ),
         ),
