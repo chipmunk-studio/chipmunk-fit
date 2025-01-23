@@ -12,6 +12,7 @@ class FoundationPage extends StatelessWidget {
     return FitScaffold(
       padding: EdgeInsets.zero,
       backgroundColor: context.fitColors.grey800,
+      isLoading: true,
       body: Column(
         children: [
           ListTile(

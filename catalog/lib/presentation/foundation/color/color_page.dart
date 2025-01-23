@@ -51,12 +51,6 @@ class ColorPage extends StatelessWidget {
               _buildComparisonTile("Green Alpha 12", lightColors.greenAlpha12, darkColors.greenAlpha12),
             ]),
             _buildComparisonSection(context, "Blue Colors", [
-              _buildComparisonTile("Blue 50", lightColors.blue50, darkColors.blue50),
-              _buildComparisonTile("Blue 200", lightColors.blue200, darkColors.blue200),
-              _buildComparisonTile("Blue 500", lightColors.blue500, darkColors.blue500),
-              _buildComparisonTile("Blue 600", lightColors.blue600, darkColors.blue600),
-              _buildComparisonTile("Blue 700", lightColors.blue700, darkColors.blue700),
-              _buildComparisonTile("Blue Base", lightColors.blueBase, darkColors.blueBase),
               _buildComparisonTile("Blue Alpha 72", lightColors.blueAlpha72, darkColors.blueAlpha72),
               _buildComparisonTile("Blue Alpha 48", lightColors.blueAlpha48, darkColors.blueAlpha48),
               _buildComparisonTile("Blue Alpha 24", lightColors.blueAlpha24, darkColors.blueAlpha24),

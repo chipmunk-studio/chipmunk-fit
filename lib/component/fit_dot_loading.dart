@@ -26,7 +26,7 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
     // 애니메이션 컨트롤러 초기화
     _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       vsync: this,
     )..repeat();
 
@@ -59,7 +59,8 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
       builder: (context, child) {
         // 물결 애니메이션이 진행됨에 따라 점진적으로 정렬 상태로 돌아감
         final double normalizedValue = math.sin(_animation.value * math.pi);
-        final double offset = math.sin((_animation.value * 2 * math.pi) + (index * 0.5 * math.pi)) * 8 * normalizedValue;
+        final double offset =
+            math.sin((_animation.value * 2 * math.pi) + (index * 0.5 * math.pi)) * 8 * normalizedValue;
 
         return Transform.translate(
           offset: Offset(0, offset), // Y축으로만 움직임
