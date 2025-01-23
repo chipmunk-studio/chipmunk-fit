@@ -69,7 +69,7 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4), // 고정된 간격 설정
+      margin: EdgeInsets.symmetric(horizontal: dotSize * 0.3), // dotSize에 비례한 간격 설정
       width: dotSize,
       height: dotSize,
       decoration: BoxDecoration(
