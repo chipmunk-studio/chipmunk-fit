@@ -108,6 +108,7 @@ class Assets {
   static const String iconsIcPushAlarm = 'assets/icons/ic_push_alarm.svg';
   static const String iconsIcPushPin = 'assets/icons/ic_push_pin.svg';
   static const String iconsIcQuestion = 'assets/icons/ic_question.svg';
+  static const String iconsIcRadarRotate = 'assets/icons/ic_radar_rotate.svg';
   static const String iconsIcRandomBox = 'assets/icons/ic_random_box.svg';
   static const String iconsIcRank24 = 'assets/icons/ic_rank_24.svg';
   static const String iconsIcRankBronze = 'assets/icons/ic_rank_bronze.svg';
