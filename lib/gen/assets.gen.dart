@@ -478,6 +478,10 @@ class $AssetsIconsGen {
   SvgGenImage get icSpaceShip =>
       const SvgGenImage('assets/icons/ic_space_ship.svg');
 
+  /// File path: assets/icons/ic_sports_medal.svg
+  SvgGenImage get icSportsMedal =>
+      const SvgGenImage('assets/icons/ic_sports_medal.svg');
+
   /// File path: assets/icons/ic_trophy.svg
   SvgGenImage get icTrophy => const SvgGenImage('assets/icons/ic_trophy.svg');
 
@@ -631,6 +635,7 @@ class $AssetsIconsGen {
         icSend,
         icSettingSoild24,
         icSpaceShip,
+        icSportsMedal,
         icTrophy,
         icUser,
         icUserSoild24,
