@@ -3,13 +3,18 @@ import 'dart:math' as math;
 import 'package:chipfit/foundation/colors.dart';
 import 'package:flutter/material.dart';
 
+
 class FitDotLoading extends StatefulWidget {
   final double dotSize;
-  final Color? color; // 색상 추가 (nullable)
+  final double waveHeight; // 물결 높이
+  final Duration duration; // 물결 인터벌 시간
+  final Color? color;
 
   const FitDotLoading({
     this.dotSize = 12,
-    this.color, // 기본값 제거
+    this.waveHeight = 12, // 기본 물결 높이
+    this.duration = const Duration(seconds: 700), // 기본 물결 주기
+    this.color,
     super.key,
   });
 
@@ -19,15 +24,23 @@ class FitDotLoading extends StatefulWidget {
 
 class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
 
+    // 애니메이션 컨트롤러 초기화
     _controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: widget.duration, // 사용자 정의 인터벌 시간 적용
       vsync: this,
     )..repeat();
+
+    // 애니메이션 정의
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -38,7 +51,7 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultColor = widget.color ?? context.fitColors.main; // 기본 색상 설정
+    final Color defaultColor = widget.color ?? Colors.green; // 기본 색상 설정
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -48,12 +61,17 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
   Widget _buildDot(int index, Color color) {
     return AnimatedBuilder(
-      animation: _controller,
+      animation: _animation,
       builder: (context, child) {
-        final double offset = math.sin((_controller.value * 2 * math.pi) + (index * 0.5 * math.pi)) * 8;
+        // 물결 높이 및 정렬 적용
+        final double normalizedValue = math.sin(_animation.value * math.pi);
+        final double offset = math.sin((_animation.value * 2 * math.pi) + (index * 0.5 * math.pi)) *
+            widget.waveHeight * // 사용자 정의 물결 높이 적용
+            normalizedValue;
+
         return Transform.translate(
-          offset: Offset(0, offset),
-          child: _Dot(widget.dotSize, color), // 색상 전달
+          offset: Offset(0, offset), // Y축으로만 움직임
+          child: _Dot(widget.dotSize, color),
         );
       },
     );
@@ -62,19 +80,19 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
 class _Dot extends StatelessWidget {
   final double dotSize;
-  final Color color; // 색상 추가
+  final Color color;
 
-  const _Dot(this.dotSize, this.color); // 색상 매개변수 받기
+  const _Dot(this.dotSize, this.color);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: dotSize * 0.3), // dotSize에 비례한 간격 설정
+      margin: EdgeInsets.symmetric(horizontal: dotSize * 0.3), // 점 간 간격
       width: dotSize,
       height: dotSize,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: color, // 전달받은 색상 적용
+        color: color,
       ),
     );
   }
