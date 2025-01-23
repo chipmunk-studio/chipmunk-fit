@@ -1,8 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:chipfit/foundation/colors.dart';
 import 'package:flutter/material.dart';
-
 
 class FitDotLoading extends StatefulWidget {
   final double dotSize;
@@ -13,7 +11,7 @@ class FitDotLoading extends StatefulWidget {
   const FitDotLoading({
     this.dotSize = 12,
     this.waveHeight = 12, // 기본 물결 높이
-    this.duration = const Duration(seconds: 700), // 기본 물결 주기
+    this.duration = const Duration(seconds: 1), // 기본 물결 주기
     this.color,
     super.key,
   });
