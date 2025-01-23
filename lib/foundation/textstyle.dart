@@ -140,7 +140,17 @@ extension FitTextStyleExtension on BuildContext {
 
   TextStyle caption1({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _getFontSize(14, type),
+      fontSize: _getFontSize(12, type),
+      letterSpacing: -0.06,
+      height: 1.0,
+      fontStyle: FontStyle.normal,
+      fontFamily: FontFamily.pretendardSemiBold,
+    );
+  }
+
+  TextStyle caption2({FitTextSp type = FitTextSp.MIN}) {
+    return TextStyle(
+      fontSize: _getFontSize(10, type),
       letterSpacing: -0.06,
       height: 1.0,
       fontStyle: FontStyle.normal,
