@@ -49,6 +49,8 @@ class Assets {
   static const String iconsIcDotsthree24 = 'assets/icons/ic_dotsthree_24.svg';
   static const String iconsIcDotsthreeSoild24 = 'assets/icons/ic_dotsthree_soild_24.svg';
   static const String iconsIcEarth = 'assets/icons/ic_earth.svg';
+  static const String iconsIcEarthLightSelected = 'assets/icons/ic_earth_light_selected.svg';
+  static const String iconsIcEarthLightUnseleted = 'assets/icons/ic_earth_light_unseleted.svg';
   static const String iconsIcEarthUnselected = 'assets/icons/ic_earth_unselected.svg';
   static const String iconsIcEnvelope = 'assets/icons/ic_envelope.svg';
   static const String iconsIcExchange24 = 'assets/icons/ic_exchange_24.svg';

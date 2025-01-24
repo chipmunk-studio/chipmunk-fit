@@ -205,6 +205,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_earth.svg
   SvgGenImage get icEarth => const SvgGenImage('assets/icons/ic_earth.svg');
 
+  /// File path: assets/icons/ic_earth_light_selected.svg
+  SvgGenImage get icEarthLightSelected =>
+      const SvgGenImage('assets/icons/ic_earth_light_selected.svg');
+
+  /// File path: assets/icons/ic_earth_light_unseleted.svg
+  SvgGenImage get icEarthLightUnseleted =>
+      const SvgGenImage('assets/icons/ic_earth_light_unseleted.svg');
+
   /// File path: assets/icons/ic_earth_unselected.svg
   SvgGenImage get icEarthUnselected =>
       const SvgGenImage('assets/icons/ic_earth_unselected.svg');
@@ -566,6 +574,8 @@ class $AssetsIconsGen {
         icDotsthree24,
         icDotsthreeSoild24,
         icEarth,
+        icEarthLightSelected,
+        icEarthLightUnseleted,
         icEarthUnselected,
         icEnvelope,
         icExchange24,
