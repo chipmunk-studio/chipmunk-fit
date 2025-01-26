@@ -155,11 +155,11 @@ inputDecorationTheme(FitColors fitColors) {
     // contentPadding: const EdgeInsets.fromLTRB(20, 16, 0, 16),
     disabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide(color: fitColors.grey700),
+      borderSide: BorderSide(color: fitColors.dividerSecondary),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide(color: fitColors.grey700),
+      borderSide: BorderSide(color: fitColors.dividerSecondary),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
@@ -175,7 +175,7 @@ inputDecorationTheme(FitColors fitColors) {
     ),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide(color: fitColors.grey700),
+      borderSide: BorderSide(color: fitColors.dividerSecondary),
     ),
     counterStyle: TextStyle(color: fitColors.main),
   );
