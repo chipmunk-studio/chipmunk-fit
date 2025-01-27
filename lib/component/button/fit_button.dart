@@ -39,6 +39,7 @@ class FitButton extends StatefulWidget {
 
 class _FitButtonState extends State<FitButton> {
   bool isPressed = false;
+  bool isClicked = false; // 두 번 클릭 방지를 위한 플래그
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class _FitButtonState extends State<FitButton> {
                 isRipple: widget.isRipple,
                 isEnabled: widget.isEnabled,
               ),
-          onPressed: widget.isEnabled ? widget.onPress : null,
+          onPressed: widget.isEnabled ? _handlePress : null, // _handlePress로 변경
           child: Container(
             alignment: Alignment.center,
             width: double.infinity,
@@ -99,6 +100,24 @@ class _FitButtonState extends State<FitButton> {
     }
   }
 
+  void _handlePress() {
+    if (isClicked) return; // 이미 클릭된 상태라면 무시
+    setState(() {
+      isClicked = true; // 클릭 상태 설정
+    });
+
+    widget.onPress?.call(); // onPress 호출
+
+    // 일정 시간 후 클릭 가능하도록 설정 (예: 1초)
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          isClicked = false; // 클릭 가능 상태로 복구
+        });
+      }
+    });
+  }
+
   TextStyle _getTextStyle(
     BuildContext context,
     bool isEnabled,
@@ -120,7 +139,6 @@ class _FitButtonState extends State<FitButton> {
             FitButtonType.destructive: context.fitColors.inverseDisabled,
           };
 
-    // 기본 색상 설정
     return context.button1(type: type).copyWith(
           color: color[widget.type] ?? context.fitColors.grey0,
           height: 1.0,
