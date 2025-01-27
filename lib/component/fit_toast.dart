@@ -14,7 +14,7 @@ buildFitToastContent(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 13.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.r),
-        color: context.fitColors.grey0,
+        color: context.fitColors.inverseBackground,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -24,7 +24,7 @@ buildFitToastContent(
           Flexible(
             child: Text(
               content,
-              style: context.body3().copyWith(color: context.fitColors.grey900),
+              style: context.body3().copyWith(color: context.fitColors.inverseText),
             ),
           ),
           const SizedBox(width: 12.0),
