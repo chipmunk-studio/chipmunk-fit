@@ -117,6 +117,7 @@ class FitColors extends ThemeExtension<FitColors> {
   /// Dim Colors
   final Color dimBackground;
   final Color dimOverlay;
+  final Color dimCard;
 
   const FitColors({
     required this.main,
@@ -198,6 +199,7 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.inverseDisabled,
     required this.dimBackground,
     required this.dimOverlay,
+    required this.dimCard,
   });
 
   @override
@@ -283,6 +285,7 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? inverseDisabled,
     Color? dimBackground,
     Color? dimOverlay,
+    Color? dimCard,
   }) {
     return FitColors(
       main: main ?? this.main,
@@ -364,6 +367,7 @@ class FitColors extends ThemeExtension<FitColors> {
       inverseDisabled: inverseDisabled ?? this.inverseDisabled,
       dimBackground: dimBackground ?? this.dimBackground,
       dimOverlay: dimOverlay ?? this.dimOverlay,
+      dimCard: dimCard ?? this.dimCard,
     );
   }
 
@@ -452,6 +456,7 @@ class FitColors extends ThemeExtension<FitColors> {
       inverseDisabled: Color.lerp(inverseDisabled, other.inverseDisabled, t) ?? inverseDisabled,
       dimBackground: Color.lerp(dimBackground, other.dimBackground, t) ?? dimBackground,
       dimOverlay: Color.lerp(dimOverlay, other.dimOverlay, t) ?? dimOverlay,
+      dimCard: Color.lerp(dimCard, other.dimCard, t) ?? dimCard,
     );
   }
 }
@@ -537,6 +542,7 @@ FitColors lightFitColors = FitColors(
   inverseDisabled: ColorName.grey400.withValues(alpha: 0.8),
   dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
   dimOverlay: ColorName.staticWhite.withValues(alpha: 0.76),
+  dimCard: Color(0xFFEFEFEF).withValues(alpha: 0.72),
 );
 
 /// Dark Theme Colors
@@ -620,6 +626,7 @@ FitColors darkFitColors = FitColors(
   inverseDisabled: ColorName.grey0Dark,
   dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
   dimOverlay: ColorName.staticBlack.withValues(alpha: 0.76),
+  dimCard: Color(0xFF0D0D0D).withValues(alpha: 0.72),
 );
 
 FitColors fitColors(BuildContext context) {
