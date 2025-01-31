@@ -7,6 +7,7 @@ import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class FitScaffold extends StatelessWidget {
   final Widget body;
@@ -38,51 +39,53 @@ class FitScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor ?? context.fitColors.backgroundAlternative,
-      appBar: isRemoveAppBar == false
-          ? _buildPlatformSpecificAppBar(
-              appBar: appBar,
-              backgroundColor: backgroundColor,
-              context: context,
-            )
-          : null,
-      bottomSheet: bottomSheet,
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      body: SafeArea(
-        bottom: bottom ?? true,
-        top: top ?? true,
-        child: Padding(
-          padding: padding ??
-              EdgeInsets.only(
-                left: 20,
-                right: 20,
-                bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
-              ),
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            switchInCurve: Curves.easeIn,
-            switchOutCurve: Curves.easeOut,
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              // topStart 정렬을 유지하기 위해 Align 추가
-              return FadeTransition(
-                opacity: animation,
-                child: Align(
-                  alignment: Alignment.topLeft, // Always align to topStart
-                  child: child,
+    return CupertinoScaffold(
+      body: Scaffold(
+        backgroundColor: backgroundColor ?? context.fitColors.backgroundAlternative,
+        appBar: isRemoveAppBar == false
+            ? _buildPlatformSpecificAppBar(
+                appBar: appBar,
+                backgroundColor: backgroundColor,
+                context: context,
+              )
+            : null,
+        bottomSheet: bottomSheet,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+        body: SafeArea(
+          bottom: bottom ?? true,
+          top: top ?? true,
+          child: Padding(
+            padding: padding ??
+                EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
                 ),
-              );
-            },
-            child: isLoading
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(key: const ValueKey('loading'), child: loadingView),
-                      const SizedBox(height: 56),
-                    ],
-                  )
-                : SizedBox(key: const ValueKey('body'), child: body),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              switchInCurve: Curves.easeIn,
+              switchOutCurve: Curves.easeOut,
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                // topStart 정렬을 유지하기 위해 Align 추가
+                return FadeTransition(
+                  opacity: animation,
+                  child: Align(
+                    alignment: Alignment.topLeft, // Always align to topStart
+                    child: child,
+                  ),
+                );
+              },
+              child: isLoading
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(key: const ValueKey('loading'), child: loadingView),
+                        const SizedBox(height: 56),
+                      ],
+                    )
+                  : SizedBox(key: const ValueKey('body'), child: body),
+            ),
           ),
         ),
       ),

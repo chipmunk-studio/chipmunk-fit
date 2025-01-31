@@ -21,6 +21,7 @@ dependencies:
   flutter_bounceable:
   flutter_quill:
   sprung:
+  modal_bottom_sheet:
 
 dev_dependencies:
   flutter_test:
