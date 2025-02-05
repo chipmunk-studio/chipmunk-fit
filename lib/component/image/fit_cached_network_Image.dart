@@ -144,12 +144,14 @@ Widget buildFitImage({
   switch (type) {
     case FitImageType.LOTTIE:
       return FitLottieWidget(
+        key: ValueKey(url),
         lottieUrl: url,
         width: width,
         height: height,
       );
     default:
       return FitCachedNetworkImage(
+        key: ValueKey(url),
         width: width,
         height: height,
         imageUrl: url,
