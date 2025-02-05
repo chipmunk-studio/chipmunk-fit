@@ -127,6 +127,7 @@ class Assets {
   static const String iconsIcSpaceShip = 'assets/icons/ic_space_ship.svg';
   static const String iconsIcSportsMedal = 'assets/icons/ic_sports_medal.svg';
   static const String iconsIcTrophy = 'assets/icons/ic_trophy.svg';
+  static const String iconsIcUpdatePencil = 'assets/icons/ic_update_pencil.svg';
   static const String iconsIcUser = 'assets/icons/ic_user.svg';
   static const String iconsIcUserSoild24 = 'assets/icons/ic_user_soild_24.svg';
   static const String iconsIcUserplusSoild24 = 'assets/icons/ic_userplus_soild_24.svg';
