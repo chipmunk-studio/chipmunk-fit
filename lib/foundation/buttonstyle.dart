@@ -57,10 +57,10 @@ extension ButtonStyleExtension on BuildContext {
       textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
-          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
-          : WidgetStateProperty.all(Colors.transparent), // 리플 제거
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
+          ? MaterialStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : MaterialStateProperty.all(Colors.transparent), // 리플 제거
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
     );
   }
 
@@ -86,10 +86,10 @@ extension ButtonStyleExtension on BuildContext {
       textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
-          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
-          : WidgetStateProperty.all(Colors.transparent),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
+          ? MaterialStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : MaterialStateProperty.all(Colors.transparent),
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
     );
   }
 
@@ -116,10 +116,10 @@ extension ButtonStyleExtension on BuildContext {
       textStyle: button1().copyWith(color: this.fitColors.staticBlack),
     ).copyWith(
       overlayColor: isRipple
-          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
-          : WidgetStateProperty.all(Colors.transparent),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
+          ? MaterialStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : MaterialStateProperty.all(Colors.transparent),
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
     );
   }
 
@@ -148,10 +148,10 @@ extension ButtonStyleExtension on BuildContext {
       textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
-          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
-          : WidgetStateProperty.all(Colors.transparent),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
+          ? MaterialStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : MaterialStateProperty.all(Colors.transparent),
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
     );
   }
 
@@ -170,10 +170,10 @@ extension ButtonStyleExtension on BuildContext {
       textStyle: button1(),
     ).copyWith(
       overlayColor: isRipple
-          ? WidgetStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
-          : WidgetStateProperty.all(Colors.transparent),
-      shadowColor: WidgetStateProperty.all(Colors.transparent),
-      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
+          ? MaterialStateProperty.all(this.fitColors.grey600.withOpacity(0.2))
+          : MaterialStateProperty.all(Colors.transparent),
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
     );
   }
 }

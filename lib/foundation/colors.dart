@@ -539,10 +539,10 @@ FitColors lightFitColors = FitColors(
   dividerSecondary: ColorName.grey200,
   inverseBackground: ColorName.grey900,
   inverseText: ColorName.grey0,
-  inverseDisabled: ColorName.grey400.withValues(alpha: 0.8),
-  dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
-  dimOverlay: ColorName.staticWhite.withValues(alpha: 0.76),
-  dimCard: Color(0xFFEFEFEF).withValues(alpha: 0.72),
+  inverseDisabled: ColorName.grey400.withOpacity(0.8),
+  dimBackground: ColorName.staticBlack.withOpacity(0.6),
+  dimOverlay: ColorName.staticWhite.withOpacity(0.76),
+  dimCard: Color(0xFFEFEFEF).withOpacity(0.72),
 );
 
 /// Dark Theme Colors
@@ -624,9 +624,9 @@ FitColors darkFitColors = FitColors(
   inverseBackground: ColorName.grey900Dark,
   inverseText: ColorName.grey0Dark,
   inverseDisabled: ColorName.grey0Dark,
-  dimBackground: ColorName.staticBlack.withValues(alpha: 0.6),
-  dimOverlay: ColorName.staticBlack.withValues(alpha: 0.76),
-  dimCard: Color(0xFF0D0D0D).withValues(alpha: 0.72),
+  dimBackground: ColorName.staticBlack.withOpacity(0.6),
+  dimOverlay: ColorName.staticBlack.withOpacity(0.76),
+  dimCard: Color(0xFF0D0D0D).withOpacity(0.72),
 );
 
 FitColors fitColors(BuildContext context) {

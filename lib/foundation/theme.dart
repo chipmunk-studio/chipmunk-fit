@@ -78,18 +78,18 @@ _checkboxThemeData(FitColors fitColors) {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4.r),
     ),
-    checkColor: WidgetStateProperty.resolveWith<Color>((states) => Colors.black),
-    fillColor: WidgetStateProperty.resolveWith<Color>(
+    checkColor: MaterialStateProperty.resolveWith<Color>((states) => Colors.black),
+    fillColor: MaterialStateProperty.resolveWith<Color>(
       (states) {
-        if (!states.contains(WidgetState.selected)) {
+        if (!states.contains(MaterialState.selected)) {
           return fitColors.grey400; // 체크박스가 선택된경우.
         }
         return fitColors.main; // 체크박스가 활성화된 경우
       },
     ),
-    overlayColor: WidgetStateProperty.resolveWith<Color>(
+    overlayColor: MaterialStateProperty.resolveWith<Color>(
       (states) {
-        if (states.contains(WidgetState.pressed)) {
+        if (states.contains(MaterialState.pressed)) {
           return fitColors.main; // 체크박스가 눌린 경우
         }
         return Colors.transparent; // 체크박스가 눌리지 않은 경우
@@ -121,9 +121,9 @@ elevatedButtonTheme(BuildContext context, FitColors fitColors) {
       disabledForegroundColor: fitColors.grey400,
       textStyle: context.button1().copyWith(color: fitColors.grey0),
     ).copyWith(
-      overlayColor: WidgetStateProperty.all(Colors.transparent), // 리플 효과 제거
-      shadowColor: WidgetStateProperty.all(Colors.transparent), // 그림자 제거
-      surfaceTintColor: WidgetStateProperty.all(Colors.transparent), // 클릭 시 잔여 색상 제거
+      overlayColor: MaterialStateProperty.all(Colors.transparent), // 리플 효과 제거
+      shadowColor: MaterialStateProperty.all(Colors.transparent), // 그림자 제거
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent), // 클릭 시 잔여 색상 제거
     ),
   );
 }
