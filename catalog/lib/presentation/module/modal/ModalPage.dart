@@ -49,7 +49,7 @@ class ModalPage extends StatelessWidget {
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    FitDialog.showFitDialog(
+                    FitDialog.makeFitDialog(
                       context: context,
                       title: "기본 대화상자",
                       subTitle: "이 대화상자는 기본 스타일을 따릅니다.",
@@ -57,7 +57,7 @@ class ModalPage extends StatelessWidget {
                       btnOkPressed: () => print("확인 버튼 클릭됨"),
                       btnCancelText: "취소",
                       btnCancelPressed: () => print("취소 버튼 클릭됨"),
-                    );
+                    ).show();
                   },
                   child: const Text("기본 대화상자 표시"),
                 ),
@@ -71,7 +71,7 @@ class ModalPage extends StatelessWidget {
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    FitDialog.showFitDialog(
+                    FitDialog.makeFitDialog(
                       context: context,
                       title: "커스텀 대화상자",
                       subTitle: "커스텀 스타일과 버튼 색상을 테스트합니다.",

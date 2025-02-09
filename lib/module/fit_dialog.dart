@@ -48,7 +48,7 @@ class FitDialog {
     );
   }
 
-  static void showFitDialog({
+  static AwesomeDialog makeFitDialog({
     required BuildContext context,
     String? title,
     String? subTitle,
@@ -70,12 +70,13 @@ class FitDialog {
     Color? dialogBackgroundColor,
     TextStyle? buttonsTextStyle,
   }) {
-    AwesomeDialog(
+    return AwesomeDialog(
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
-      buttonsTextStyle: buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.staticBlack),
+      buttonsTextStyle:
+          buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.staticBlack),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       body: Padding(
@@ -115,6 +116,6 @@ class FitDialog {
       btnCancelColor: btnCancelColor ?? context.fitColors.grey500,
       btnCancelText: btnCancelText ?? '취소',
       onDismissCallback: onDismissCallback,
-    ).show();
+    );
   }
 }
