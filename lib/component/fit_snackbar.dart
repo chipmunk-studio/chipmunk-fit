@@ -1,3 +1,4 @@
+import 'package:chipfit/foundation/index.dart';
 import 'package:flutter/material.dart';
 
 extension ShowSnackBarBuildContextExtension on BuildContext {
@@ -41,7 +42,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: Color(0xFF24F97D), // 초록색 배경
+                  color: this.fitColors.main,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(Icons.check, color: Colors.white, size: 16),
@@ -51,10 +52,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
               Expanded(
                 child: Text(
                   message,
-                  style: const TextStyle(
-                    color: Color(0xFF212121), // 기본 검은색
-                    fontSize: 16,
-                  ),
+                  style: body3().copyWith(color: this.fitColors.main),
                 ),
               ),
               // ✅ 커스텀 버튼 (onTap 없으면 안 보이게)
@@ -63,11 +61,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
                   onTap: onTap,
                   child: Text(
                     buttonText, // 버튼 텍스트 커스텀 가능
-                    style: TextStyle(
-                      color: buttonTextColor, // 버튼 색상도 변경 가능
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: subtitle5().copyWith(color: this.fitColors.main),
                   ),
                 ),
             ],
