@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 
 extension ShowSnackBarBuildContextExtension on BuildContext {
   void showSnackBar(
-      String message, [
-        Duration duration = const Duration(seconds: 2),
-        double bottomOffset = 16.0, // 하단에서 얼마나 떨어질지 조절
-      ]) {
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+    Color? backgroundColor,
+    double? elevation,
+    EdgeInsetsGeometry margin = const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+    EdgeInsetsGeometry? padding,
+    double? width,
+    ShapeBorder? shape,
+    SnackBarBehavior behavior = SnackBarBehavior.floating,
+    DismissDirection dismissDirection = DismissDirection.down,
+    SnackBarAction? action,
+    bool? showCloseIcon,
+    Color? closeIconColor,
+    void Function()? onVisible,
+    Clip clipBehavior = Clip.hardEdge,
+  }) {
     try {
       final messengerState = ScaffoldMessenger.maybeOf(this);
       if (messengerState == null) {
@@ -16,12 +28,19 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
         SnackBar(
           content: Text(message),
           duration: duration,
-          behavior: SnackBarBehavior.floating, // 기본 고정형에서 떠 있는 형태로 변경
-          margin: EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-            bottom: bottomOffset, // 하단에서 떨어지는 거리 조정 가능
-          ),
+          backgroundColor: backgroundColor,
+          elevation: elevation,
+          margin: margin,
+          padding: padding,
+          width: width,
+          shape: shape,
+          behavior: behavior,
+          dismissDirection: dismissDirection,
+          action: action,
+          showCloseIcon: showCloseIcon,
+          closeIconColor: closeIconColor,
+          onVisible: onVisible,
+          clipBehavior: clipBehavior,
         ),
       );
     } catch (_) {}
