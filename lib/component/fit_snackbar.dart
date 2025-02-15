@@ -36,6 +36,8 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
           behavior: behavior,
           dismissDirection: dismissDirection,
           content: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // ✅ 초록 체크 아이콘
               Container(
