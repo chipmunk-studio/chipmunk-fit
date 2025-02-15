@@ -54,7 +54,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
               Expanded(
                 child: Text(
                   message,
-                  style: body3().copyWith(color: this.fitColors.main),
+                  style: body3().copyWith(color: this.fitColors.staticBlack),
                 ),
               ),
               // ✅ 커스텀 버튼 (onTap 없으면 안 보이게)
@@ -63,7 +63,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
                   onTap: onTap,
                   child: Text(
                     buttonText, // 버튼 텍스트 커스텀 가능
-                    style: subtitle5().copyWith(color: this.fitColors.main),
+                    style: subtitle5().copyWith(color: this.fitColors.green700),
                   ),
                 ),
             ],
