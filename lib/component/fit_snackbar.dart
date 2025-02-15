@@ -1,4 +1,3 @@
-import 'package:chipfit/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 extension ShowSnackBarBuildContextExtension on BuildContext {
@@ -38,7 +37,15 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
           content: Row(
             children: [
               // ✅ 초록 체크 아이콘
-              Assets.icons.icCheckCircleFill24.svg(width: 24, height: 24),
+              Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: Color(0xFF24F97D), // 초록색 배경
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.check, color: Colors.white, size: 16),
+              ),
               const SizedBox(width: 8), // 간격
               // ✅ 메시지 텍스트
               Expanded(
