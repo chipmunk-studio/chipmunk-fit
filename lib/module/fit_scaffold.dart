@@ -130,7 +130,7 @@ class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       systemOverlayStyle: customSystemUiOverlayStyle(
         statusBarColor: statusBarColor,
-        isDark: isDarkMode(context),
+        isDark:  context.fitThemeMode.isDarkMode,
         systemNavigationBarColor: systemNavigationBarColor,
       ),
     );
@@ -156,7 +156,7 @@ abstract class FitCustomAppBar {
       toolbarHeight: 56,
       systemOverlayStyle: customSystemUiOverlayStyle(
         statusBarColor: backgroundColor ?? context.fitColors.backgroundAlternative,
-        isDark: isDarkMode(context),
+        isDark: context.fitThemeMode.isDarkMode,
         systemNavigationBarColor: backgroundColor ?? context.fitColors.backgroundAlternative,
       ),
       backgroundColor: backgroundColor ?? context.fitColors.backgroundAlternative,

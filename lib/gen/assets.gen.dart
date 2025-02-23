@@ -10,6 +10,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:lottie/lottie.dart' as _lottie;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class $AssetsFontsGen {
@@ -40,13 +41,13 @@ class $AssetsFontsGen {
 
   /// List of all assets
   List<String> get values => [
-        pretendardBold,
-        pretendardLight,
-        pretendardMedium,
-        pretendardRegular,
-        pretendardSemiBold,
-        neodgm
-      ];
+    pretendardBold,
+    pretendardLight,
+    pretendardMedium,
+    pretendardRegular,
+    pretendardSemiBold,
+    neodgm,
+  ];
 }
 
 class $AssetsIconsGen {
@@ -409,9 +410,13 @@ class $AssetsIconsGen {
   SvgGenImage get icPrimaryPlus =>
       const SvgGenImage('assets/icons/ic_primary_plus.svg');
 
-  /// File path: assets/icons/ic_profile_default.svg
-  SvgGenImage get icProfileDefault =>
-      const SvgGenImage('assets/icons/ic_profile_default.svg');
+  /// File path: assets/icons/ic_profile_default_dark.svg
+  SvgGenImage get icProfileDefaultDark =>
+      const SvgGenImage('assets/icons/ic_profile_default_dark.svg');
+
+  /// File path: assets/icons/ic_profile_default_light.svg
+  SvgGenImage get icProfileDefaultLight =>
+      const SvgGenImage('assets/icons/ic_profile_default_light.svg');
 
   /// File path: assets/icons/ic_profile_setting.svg
   SvgGenImage get icProfileSetting =>
@@ -538,135 +543,136 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        icAlarmSlash24,
-        icAlarmSoild24,
-        icApple,
-        icArrowBottomRanker,
-        icArrowDown,
-        icArrowLeft,
-        icArrowRight12,
-        icArrowRight16,
-        icArrowTopRanker,
-        icArrowUp,
-        icArrowsDownUp,
-        icBell,
-        icBenefitZip,
-        icBookmarkSoild24,
-        icCameraSoild24,
-        icCancelCircle,
-        icCatSelected,
-        icCatUnselected,
-        icChatSoild24,
-        icCheck16,
-        icCheckCircleFill24,
-        icChecklist24,
-        icChipmunk,
-        icChipmunkShip,
-        icClose24,
-        icCloseCircle24,
-        icCoin,
-        icCoinPig,
-        icCoinPocket,
-        icCollectComplete,
-        icCommentSoild24,
-        icCoupon,
-        icCrossMark,
-        icDogSelected,
-        icDogUnselected,
-        icDoor,
-        icDotory,
-        icDotsthree24,
-        icDotsthreeSoild24,
-        icEarth,
-        icEarthLightSelected,
-        icEarthLightUnseleted,
-        icEarthUnselected,
-        icEnvelope,
-        icExchange24,
-        icExchangeArrowLeft,
-        icExchangeArrowRight,
-        icFeedSoild24,
-        icGameRanking1,
-        icGameRanking2,
-        icGameRanking3,
-        icGift,
-        icGiftBox,
-        icGiftSoild24,
-        icGlobe24,
-        icGoogle,
-        icGpsFix,
-        icGradeBronze,
-        icGradeDiamond,
-        icGradeGold,
-        icGradePlatinum,
-        icGradeSilver,
-        icHome,
-        icHomeSoild24,
-        icImage,
-        icIndicator,
-        icInfo,
-        icInfocircleSoild24,
-        icIngredientBag,
-        icJoystick,
-        icKakao,
-        icLarAppbar,
-        icLikeSoildEmpty24,
-        icLikeSoildFill24,
-        icList,
-        icLocationPin10,
-        icLock,
-        icLogo20,
-        icMappin,
-        icMegaphone,
-        icMicrophone,
-        icMicrophone2,
-        icMission24,
-        icMissionList,
-        icNote24,
-        icPencil,
-        icPhone,
-        icPictureSoild24,
-        icPigCoin,
-        icPinSoild24,
-        icPlaySoild24,
-        icPlus,
-        icPlus24,
-        icPoliceCarLight,
-        icPrimaryPlus,
-        icProfileDefault,
-        icProfileSetting,
-        icProhibit,
-        icPushAlarm,
-        icPushPin,
-        icQuestion,
-        icRadarRotate,
-        icRandomBox,
-        icRank24,
-        icRankBronze,
-        icRankGold,
-        icRankSilver,
-        icRecordPause,
-        icRecordPlay,
-        icRecordStop,
-        icRecycle,
-        icRefresh24,
-        icSearch24,
-        icSend,
-        icSettingSoild24,
-        icSpaceShip,
-        icSportsMedal,
-        icTrophy,
-        icUpdatePencil,
-        icUser,
-        icUserSoild24,
-        icUserplusSoild24,
-        icUsers24,
-        icUsersSoild24,
-        icWarningCircle24,
-        icWasteBasket,
-        icXcircle24,
-        icXcircleFill24
-      ];
+    icAlarmSlash24,
+    icAlarmSoild24,
+    icApple,
+    icArrowBottomRanker,
+    icArrowDown,
+    icArrowLeft,
+    icArrowRight12,
+    icArrowRight16,
+    icArrowTopRanker,
+    icArrowUp,
+    icArrowsDownUp,
+    icBell,
+    icBenefitZip,
+    icBookmarkSoild24,
+    icCameraSoild24,
+    icCancelCircle,
+    icCatSelected,
+    icCatUnselected,
+    icChatSoild24,
+    icCheck16,
+    icCheckCircleFill24,
+    icChecklist24,
+    icChipmunk,
+    icChipmunkShip,
+    icClose24,
+    icCloseCircle24,
+    icCoin,
+    icCoinPig,
+    icCoinPocket,
+    icCollectComplete,
+    icCommentSoild24,
+    icCoupon,
+    icCrossMark,
+    icDogSelected,
+    icDogUnselected,
+    icDoor,
+    icDotory,
+    icDotsthree24,
+    icDotsthreeSoild24,
+    icEarth,
+    icEarthLightSelected,
+    icEarthLightUnseleted,
+    icEarthUnselected,
+    icEnvelope,
+    icExchange24,
+    icExchangeArrowLeft,
+    icExchangeArrowRight,
+    icFeedSoild24,
+    icGameRanking1,
+    icGameRanking2,
+    icGameRanking3,
+    icGift,
+    icGiftBox,
+    icGiftSoild24,
+    icGlobe24,
+    icGoogle,
+    icGpsFix,
+    icGradeBronze,
+    icGradeDiamond,
+    icGradeGold,
+    icGradePlatinum,
+    icGradeSilver,
+    icHome,
+    icHomeSoild24,
+    icImage,
+    icIndicator,
+    icInfo,
+    icInfocircleSoild24,
+    icIngredientBag,
+    icJoystick,
+    icKakao,
+    icLarAppbar,
+    icLikeSoildEmpty24,
+    icLikeSoildFill24,
+    icList,
+    icLocationPin10,
+    icLock,
+    icLogo20,
+    icMappin,
+    icMegaphone,
+    icMicrophone,
+    icMicrophone2,
+    icMission24,
+    icMissionList,
+    icNote24,
+    icPencil,
+    icPhone,
+    icPictureSoild24,
+    icPigCoin,
+    icPinSoild24,
+    icPlaySoild24,
+    icPlus,
+    icPlus24,
+    icPoliceCarLight,
+    icPrimaryPlus,
+    icProfileDefaultDark,
+    icProfileDefaultLight,
+    icProfileSetting,
+    icProhibit,
+    icPushAlarm,
+    icPushPin,
+    icQuestion,
+    icRadarRotate,
+    icRandomBox,
+    icRank24,
+    icRankBronze,
+    icRankGold,
+    icRankSilver,
+    icRecordPause,
+    icRecordPlay,
+    icRecordStop,
+    icRecycle,
+    icRefresh24,
+    icSearch24,
+    icSend,
+    icSettingSoild24,
+    icSpaceShip,
+    icSportsMedal,
+    icTrophy,
+    icUpdatePencil,
+    icUser,
+    icUserSoild24,
+    icUserplusSoild24,
+    icUsers24,
+    icUsersSoild24,
+    icWarningCircle24,
+    icWasteBasket,
+    icXcircle24,
+    icXcircleFill24,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -688,23 +694,27 @@ class $AssetsLottieGen {
   const $AssetsLottieGen();
 
   /// File path: assets/lottie/coin_pig.lottie
-  String get coinPig => 'packages/chipfit/assets/lottie/coin_pig.lottie';
+  LottieGenImage get coinPig =>
+      const LottieGenImage('assets/lottie/coin_pig.lottie');
 
   /// File path: assets/lottie/dot_loading.lottie
-  String get dotLoading => 'packages/chipfit/assets/lottie/dot_loading.lottie';
+  LottieGenImage get dotLoading =>
+      const LottieGenImage('assets/lottie/dot_loading.lottie');
 
   /// File path: assets/lottie/gift_box.lottie
-  String get giftBox => 'packages/chipfit/assets/lottie/gift_box.lottie';
+  LottieGenImage get giftBox =>
+      const LottieGenImage('assets/lottie/gift_box.lottie');
 
   /// File path: assets/lottie/loading.lottie
-  String get loading => 'packages/chipfit/assets/lottie/loading.lottie';
+  LottieGenImage get loading =>
+      const LottieGenImage('assets/lottie/loading.lottie');
 
   /// List of all assets
-  List<String> get values => [coinPig, dotLoading, giftBox, loading];
+  List<LottieGenImage> get values => [coinPig, dotLoading, giftBox, loading];
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String package = 'chipfit';
 
@@ -715,11 +725,7 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -750,7 +756,7 @@ class AssetGenImage {
     bool isAntiAlias = false,
     @Deprecated('Do not specify package for a generated library asset')
     String? package = package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -787,11 +793,7 @@ class AssetGenImage {
     @Deprecated('Do not specify package for a generated library asset')
     String? package = package,
   }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -800,17 +802,11 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -867,10 +863,75 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => 'packages/chipfit/$_assetName';
+}
+
+class LottieGenImage {
+  const LottieGenImage(this._assetName, {this.flavors = const {}});
+
+  final String _assetName;
+  final Set<String> flavors;
+
+  static const String package = 'chipfit';
+
+  _lottie.LottieBuilder lottie({
+    Animation<double>? controller,
+    bool? animate,
+    _lottie.FrameRate? frameRate,
+    bool? repeat,
+    bool? reverse,
+    _lottie.LottieDelegates? delegates,
+    _lottie.LottieOptions? options,
+    void Function(_lottie.LottieComposition)? onLoaded,
+    _lottie.LottieImageProviderFactory? imageProviderFactory,
+    Key? key,
+    AssetBundle? bundle,
+    Widget Function(BuildContext, Widget, _lottie.LottieComposition?)?
+    frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    AlignmentGeometry? alignment,
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
+    bool? addRepaintBoundary,
+    FilterQuality? filterQuality,
+    void Function(String)? onWarning,
+  }) {
+    return _lottie.Lottie.asset(
+      _assetName,
+      controller: controller,
+      animate: animate,
+      frameRate: frameRate,
+      repeat: repeat,
+      reverse: reverse,
+      delegates: delegates,
+      options: options,
+      onLoaded: onLoaded,
+      imageProviderFactory: imageProviderFactory,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      package: package,
+      addRepaintBoundary: addRepaintBoundary,
+      filterQuality: filterQuality,
+      onWarning: onWarning,
     );
   }
 

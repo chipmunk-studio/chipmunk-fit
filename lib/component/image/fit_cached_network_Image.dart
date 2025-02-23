@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chipfit/component/fit_dot_loading.dart';
 import 'package:chipfit/component/fit_lottie_widget.dart';
+import 'package:chipfit/foundation/index.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -14,7 +15,7 @@ class FitCachedNetworkImage extends StatelessWidget {
   final String imageUrl;
   final BoxFit fit;
   final Widget placeholder;
-  final Widget errorWidget;
+  final Widget? errorWidget;
   final double? width;
   final double? height;
   final FitImageShape imageShape;
@@ -42,16 +43,22 @@ class FitCachedNetworkImage extends StatelessWidget {
     required this.imageUrl,
     this.fit = BoxFit.cover,
     this.imageShape = FitImageShape.RECTANGLE,
-    Widget? errorWidget,
+    this.errorWidget,
     Widget? placeholder,
     this.borderWidth,
     this.borderColor,
     this.itemPadding,
-  })  : errorWidget = errorWidget ?? Assets.icons.icProfileDefault.svg(width: width, height: height),
-        placeholder = placeholder ?? const FitDotLoading();
+  }) : placeholder = placeholder ?? const FitDotLoading();
 
   @override
   Widget build(BuildContext context) {
+    // 에러 위젯을 BuildContext를 사용하여 초기화
+    final isDarkMode = context.fitThemeMode.isDarkMode;
+    final Widget defaultErrorWidget = errorWidget ??
+        (isDarkMode
+            ? Assets.icons.icProfileDefaultDark.svg(width: width)
+            : Assets.icons.icProfileDefaultLight.svg(width: width));
+
     try {
       Widget imageWidget = imageUrl.isNotEmpty
           ? CachedNetworkImage(
@@ -62,9 +69,9 @@ class FitCachedNetworkImage extends StatelessWidget {
               cacheManager: cacheManager,
               fadeInDuration: const Duration(seconds: 1),
               placeholder: (context, url) => placeholder,
-              errorWidget: (context, url, error) => errorWidget,
+              errorWidget: (context, url, error) => defaultErrorWidget,
             )
-          : Assets.icons.icProfileDefault.svg(width: width, height: height);
+          : defaultErrorWidget;
 
       // 패딩이 이미지 외부에만 적용되도록 설정
       switch (imageShape) {

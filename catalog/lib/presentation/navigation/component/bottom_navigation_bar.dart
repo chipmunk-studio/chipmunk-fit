@@ -137,7 +137,7 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           index: 3,
         ),
         _buildNavItem(
-          icon: Assets.icons.icProfileDefault.svg(
+          icon: Assets.icons.icProfileDefaultDark.svg(
             width: 28,
             height: 28,
             color: widget.selectedIndex == 4 ? context.fitColors.main : Color(0xFFD7D8D9),

@@ -104,7 +104,8 @@ class Assets {
   static const String iconsIcPlus24 = 'assets/icons/ic_plus_24.svg';
   static const String iconsIcPoliceCarLight = 'assets/icons/ic_police_car_light.svg';
   static const String iconsIcPrimaryPlus = 'assets/icons/ic_primary_plus.svg';
-  static const String iconsIcProfileDefault = 'assets/icons/ic_profile_default.svg';
+  static const String iconsIcProfileDefaultDark = 'assets/icons/ic_profile_default_dark.svg';
+  static const String iconsIcProfileDefaultLight = 'assets/icons/ic_profile_default_light.svg';
   static const String iconsIcProfileSetting = 'assets/icons/ic_profile_setting.svg';
   static const String iconsIcProhibit = 'assets/icons/ic_prohibit.svg';
   static const String iconsIcPushAlarm = 'assets/icons/ic_push_alarm.svg';

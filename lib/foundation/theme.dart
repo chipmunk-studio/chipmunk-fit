@@ -16,6 +16,8 @@ ThemeData fitLightTheme(
     sub: subColor ?? lightFitColors.sub,
   );
 
+  final isDarkMode = FitThemeModeExtension(isDarkMode: false);
+
   return ThemeData(
     brightness: Brightness.light,
     splashColor: Colors.transparent,
@@ -33,7 +35,10 @@ ThemeData fitLightTheme(
     inputDecorationTheme: inputDecorationTheme(updatedColors),
     bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    extensions: [updatedColors],
+    extensions: [
+      updatedColors,
+      isDarkMode,
+    ],
   );
 }
 
@@ -46,6 +51,8 @@ ThemeData fitDarkTheme(
     main: mainColor ?? darkFitColors.main,
     sub: subColor ?? darkFitColors.sub,
   );
+
+  final isDarkMode = FitThemeModeExtension(isDarkMode: true);
 
   return ThemeData(
     brightness: Brightness.dark,
@@ -64,7 +71,7 @@ ThemeData fitDarkTheme(
     inputDecorationTheme: inputDecorationTheme(updatedColors),
     bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    extensions: [updatedColors],
+    extensions: [updatedColors, isDarkMode],
   );
 }
 
@@ -231,16 +238,32 @@ SystemUiOverlayStyle customSystemUiOverlayStyle({
   );
 }
 
-bool isDarkMode(BuildContext context) {
-  final brightness = MediaQuery.of(context).platformBrightness;
-  final theme = Theme.of(context);
+class FitThemeModeExtension extends ThemeExtension<FitThemeModeExtension> {
+  final bool isDarkMode;
 
-  if (theme.brightness == Brightness.dark) {
-    return true; // 다크 모드 강제
-  } else if (theme.brightness == Brightness.light) {
-    return false; // 라이트 모드 강제
-  } else {
-    // ThemeMode.system 또는 기본 상태에서는 시스템 설정을 따름
-    return brightness == Brightness.dark;
+  const FitThemeModeExtension({required this.isDarkMode});
+
+  @override
+  FitThemeModeExtension copyWith({bool? isDarkMode}) {
+    return FitThemeModeExtension(
+      isDarkMode: isDarkMode ?? this.isDarkMode,
+    );
+  }
+
+  @override
+  ThemeExtension<FitThemeModeExtension> lerp(covariant ThemeExtension<FitThemeModeExtension>? other, double t) {
+    if (other is! FitThemeModeExtension) {
+      return this;
+    }
+    return FitThemeModeExtension(
+      isDarkMode: t < 0.5 ? isDarkMode : other.isDarkMode,
+    );
   }
 }
+
+extension FitThemeModeExtensionOnContext on BuildContext {
+  FitThemeModeExtension get fitThemeMode {
+    return Theme.of(this).extension<FitThemeModeExtension>()!;
+  }
+}
+
