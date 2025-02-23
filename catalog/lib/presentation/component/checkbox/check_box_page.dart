@@ -1,5 +1,6 @@
-import 'package:chipfit/component/index.dart';
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/component/fit_check_box.dart';
+import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,7 @@
-import 'package:chipfit/component/animation/index.dart';
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/component/animation/fit_linear_bounce_animation.dart';
+import 'package:chipfit/component/animation/fit_scale_animation.dart';
+import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chipfit/component/fit_dot_loading.dart';
 import 'package:chipfit/component/fit_lottie_widget.dart';
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

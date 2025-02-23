@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/textstyle.dart';
 import 'package:flutter/material.dart';
 
 class FitDialog {

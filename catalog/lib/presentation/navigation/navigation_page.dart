@@ -1,4 +1,4 @@
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/skeletons/components/theme.dart';
 import 'package:chipmunk_fit_catalog/presentation/component/component_page.dart';

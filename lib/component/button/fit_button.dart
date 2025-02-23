@@ -1,4 +1,6 @@
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/foundation/buttonstyle.dart';
+import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/textstyle.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:sprung/sprung.dart';

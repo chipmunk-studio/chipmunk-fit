@@ -1,4 +1,4 @@
-import 'package:chipfit/foundation/index.dart';
+import 'package:chipfit/foundation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
