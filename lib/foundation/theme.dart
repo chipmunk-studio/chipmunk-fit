@@ -16,7 +16,7 @@ ThemeData fitLightTheme(
     sub: subColor ?? lightFitColors.sub,
   );
 
-  final isDarkMode = FitThemeModeExtension(isDarkMode: false);
+  final isDarkMode = FitThemeModeExtension(brightness: Brightness.light);
 
   return ThemeData(
     brightness: Brightness.light,
@@ -52,7 +52,7 @@ ThemeData fitDarkTheme(
     sub: subColor ?? darkFitColors.sub,
   );
 
-  final isDarkMode = FitThemeModeExtension(isDarkMode: true);
+  final isDarkMode = FitThemeModeExtension(brightness: Brightness.dark);
 
   return ThemeData(
     brightness: Brightness.dark,
@@ -237,33 +237,38 @@ SystemUiOverlayStyle customSystemUiOverlayStyle({
     systemNavigationBarColor: systemNavigationBarColor, // 내비게이션 바 색상
   );
 }
-
 class FitThemeModeExtension extends ThemeExtension<FitThemeModeExtension> {
-  final bool isDarkMode;
+  final Brightness brightness;
 
-  const FitThemeModeExtension({required this.isDarkMode});
+  const FitThemeModeExtension({required this.brightness});
+
+  bool get isDarkMode => brightness == Brightness.dark;
+  bool get isBright => brightness == Brightness.light;
 
   @override
-  FitThemeModeExtension copyWith({bool? isDarkMode}) {
+  FitThemeModeExtension copyWith({Brightness? brightness}) {
     return FitThemeModeExtension(
-      isDarkMode: isDarkMode ?? this.isDarkMode,
+      brightness: brightness ?? this.brightness,
     );
   }
 
   @override
-  ThemeExtension<FitThemeModeExtension> lerp(covariant ThemeExtension<FitThemeModeExtension>? other, double t) {
+  ThemeExtension<FitThemeModeExtension> lerp(
+      covariant ThemeExtension<FitThemeModeExtension>? other, double t) {
     if (other is! FitThemeModeExtension) {
       return this;
     }
     return FitThemeModeExtension(
-      isDarkMode: t < 0.5 ? isDarkMode : other.isDarkMode,
+      brightness: t < 0.5 ? brightness : other.brightness,
     );
   }
 }
 
+/// **BuildContext에서 ThemeExtension을 쉽게 가져오는 확장 메서드**
 extension FitThemeModeExtensionOnContext on BuildContext {
   FitThemeModeExtension get fitThemeMode {
-    return Theme.of(this).extension<FitThemeModeExtension>()!;
+    final theme = Theme.of(this);
+    final brightness = theme.brightness; // 현재 밝기 상태 가져오기
+    return FitThemeModeExtension(brightness: brightness);
   }
 }
-
