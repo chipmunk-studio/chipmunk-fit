@@ -112,17 +112,20 @@ class FitScaffold extends StatelessWidget {
 class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color statusBarColor;
   final Color systemNavigationBarColor;
+  final Color backgroundColor;
 
   const FitEmptyAppBar(
     Color color, {
     super.key,
   })  : statusBarColor = color,
+        backgroundColor = color,
         systemNavigationBarColor = color;
 
   const FitEmptyAppBar.navigationBarColors({
     super.key,
     required this.statusBarColor,
     required this.systemNavigationBarColor,
+    required this.backgroundColor,
   });
 
   @override
@@ -130,9 +133,10 @@ class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       systemOverlayStyle: customSystemUiOverlayStyle(
         statusBarColor: statusBarColor,
-        isDark:  context.fitThemeMode.isDarkMode,
+        isDark: context.fitThemeMode.isDarkMode,
         systemNavigationBarColor: systemNavigationBarColor,
       ),
+      backgroundColor: backgroundColor,
     );
   }
 
