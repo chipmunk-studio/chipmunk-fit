@@ -9,6 +9,7 @@ class Assets {
   static const String fontsPretendardMedium = 'assets/fonts/Pretendard-Medium.ttf';
   static const String fontsPretendardRegular = 'assets/fonts/Pretendard-Regular.ttf';
   static const String fontsPretendardSemiBold = 'assets/fonts/Pretendard-SemiBold.ttf';
+  static const String iconsCrown = 'assets/icons/Crown.svg';
   static const String iconsIcAlarmSlash24 = 'assets/icons/ic_alarm_slash_24.svg';
   static const String iconsIcAlarmSoild24 = 'assets/icons/ic_alarm_soild_24.svg';
   static const String iconsIcApple = 'assets/icons/ic_apple.svg';
@@ -138,6 +139,9 @@ class Assets {
   static const String iconsIcWasteBasket = 'assets/icons/ic_waste_basket.svg';
   static const String iconsIcXcircle24 = 'assets/icons/ic_xcircle_24.svg';
   static const String iconsIcXcircleFill24 = 'assets/icons/ic_xcircle_fill_24.svg';
+  static const String iconsMedal = 'assets/icons/Medal.svg';
+  static const String iconsMedal1 = 'assets/icons/Medal-1.svg';
+  static const String iconsMedal2 = 'assets/icons/Medal-2.svg';
   static const String imagesBgBottomNavSelected = 'assets/images/bg_bottom_nav_selected.svg';
   static const String imagesBgBottomNavUnselected = 'assets/images/bg_bottom_nav_unselected.svg';
   static const String lottieCoinPig = 'assets/lottie/coin_pig.lottie';

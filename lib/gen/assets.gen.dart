@@ -181,6 +181,9 @@ class $AssetsIconsGen {
   SvgGenImage get icCrossMark =>
       const SvgGenImage('assets/icons/ic_cross_mark.svg');
 
+  /// File path: assets/icons/ic_crown.svg
+  SvgGenImage get icCrown => const SvgGenImage('assets/icons/ic_crown.svg');
+
   /// File path: assets/icons/ic_dog_selected.svg
   SvgGenImage get icDogSelected =>
       const SvgGenImage('assets/icons/ic_dog_selected.svg');
@@ -350,6 +353,15 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_mappin.svg
   SvgGenImage get icMappin => const SvgGenImage('assets/icons/ic_mappin.svg');
+
+  /// File path: assets/icons/ic_medal_1.svg
+  SvgGenImage get icMedal1 => const SvgGenImage('assets/icons/ic_medal_1.svg');
+
+  /// File path: assets/icons/ic_medal_2.svg
+  SvgGenImage get icMedal2 => const SvgGenImage('assets/icons/ic_medal_2.svg');
+
+  /// File path: assets/icons/ic_medal_3.svg
+  SvgGenImage get icMedal3 => const SvgGenImage('assets/icons/ic_medal_3.svg');
 
   /// File path: assets/icons/ic_megaphone.svg
   SvgGenImage get icMegaphone =>
@@ -576,6 +588,7 @@ class $AssetsIconsGen {
     icCommentSoild24,
     icCoupon,
     icCrossMark,
+    icCrown,
     icDogSelected,
     icDogUnselected,
     icDoor,
@@ -622,6 +635,9 @@ class $AssetsIconsGen {
     icLock,
     icLogo20,
     icMappin,
+    icMedal1,
+    icMedal2,
+    icMedal3,
     icMegaphone,
     icMicrophone,
     icMicrophone2,
