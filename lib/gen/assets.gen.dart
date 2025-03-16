@@ -241,6 +241,9 @@ class $AssetsIconsGen {
   SvgGenImage get icFeedSoild24 =>
       const SvgGenImage('assets/icons/ic_feed_soild_24.svg');
 
+  /// File path: assets/icons/ic_flag.svg
+  SvgGenImage get icFlag => const SvgGenImage('assets/icons/ic_flag.svg');
+
   /// File path: assets/icons/ic_game_ranking_1.svg
   SvgGenImage get icGameRanking1 =>
       const SvgGenImage('assets/icons/ic_game_ranking_1.svg');
@@ -604,6 +607,7 @@ class $AssetsIconsGen {
     icExchangeArrowLeft,
     icExchangeArrowRight,
     icFeedSoild24,
+    icFlag,
     icGameRanking1,
     icGameRanking2,
     icGameRanking3,

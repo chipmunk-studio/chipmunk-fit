@@ -9,7 +9,6 @@ class Assets {
   static const String fontsPretendardMedium = 'assets/fonts/Pretendard-Medium.ttf';
   static const String fontsPretendardRegular = 'assets/fonts/Pretendard-Regular.ttf';
   static const String fontsPretendardSemiBold = 'assets/fonts/Pretendard-SemiBold.ttf';
-  static const String iconsCrown = 'assets/icons/Crown.svg';
   static const String iconsIcAlarmSlash24 = 'assets/icons/ic_alarm_slash_24.svg';
   static const String iconsIcAlarmSoild24 = 'assets/icons/ic_alarm_soild_24.svg';
   static const String iconsIcApple = 'assets/icons/ic_apple.svg';
@@ -43,6 +42,7 @@ class Assets {
   static const String iconsIcCommentSoild24 = 'assets/icons/ic_comment_soild_24.svg';
   static const String iconsIcCoupon = 'assets/icons/ic_coupon.svg';
   static const String iconsIcCrossMark = 'assets/icons/ic_cross_mark.svg';
+  static const String iconsIcCrown = 'assets/icons/ic_crown.svg';
   static const String iconsIcDogSelected = 'assets/icons/ic_dog_selected.svg';
   static const String iconsIcDogUnselected = 'assets/icons/ic_dog_unselected.svg';
   static const String iconsIcDoor = 'assets/icons/ic_door.svg';
@@ -58,6 +58,7 @@ class Assets {
   static const String iconsIcExchangeArrowLeft = 'assets/icons/ic_exchange_arrow_left.svg';
   static const String iconsIcExchangeArrowRight = 'assets/icons/ic_exchange_arrow_right.svg';
   static const String iconsIcFeedSoild24 = 'assets/icons/ic_feed_soild_24.svg';
+  static const String iconsIcFlag = 'assets/icons/ic_flag.svg';
   static const String iconsIcGameRanking1 = 'assets/icons/ic_game_ranking_1.svg';
   static const String iconsIcGameRanking2 = 'assets/icons/ic_game_ranking_2.svg';
   static const String iconsIcGameRanking3 = 'assets/icons/ic_game_ranking_3.svg';
@@ -89,6 +90,9 @@ class Assets {
   static const String iconsIcLock = 'assets/icons/ic_lock.svg';
   static const String iconsIcLogo20 = 'assets/icons/ic_logo_20.svg';
   static const String iconsIcMappin = 'assets/icons/ic_mappin.svg';
+  static const String iconsIcMedal1 = 'assets/icons/ic_medal_1.svg';
+  static const String iconsIcMedal2 = 'assets/icons/ic_medal_2.svg';
+  static const String iconsIcMedal3 = 'assets/icons/ic_medal_3.svg';
   static const String iconsIcMegaphone = 'assets/icons/ic_megaphone.svg';
   static const String iconsIcMicrophone = 'assets/icons/ic_microphone.svg';
   static const String iconsIcMicrophone2 = 'assets/icons/ic_microphone2.svg';
@@ -139,9 +143,6 @@ class Assets {
   static const String iconsIcWasteBasket = 'assets/icons/ic_waste_basket.svg';
   static const String iconsIcXcircle24 = 'assets/icons/ic_xcircle_24.svg';
   static const String iconsIcXcircleFill24 = 'assets/icons/ic_xcircle_fill_24.svg';
-  static const String iconsMedal = 'assets/icons/Medal.svg';
-  static const String iconsMedal1 = 'assets/icons/Medal-1.svg';
-  static const String iconsMedal2 = 'assets/icons/Medal-2.svg';
   static const String imagesBgBottomNavSelected = 'assets/images/bg_bottom_nav_selected.svg';
   static const String imagesBgBottomNavUnselected = 'assets/images/bg_bottom_nav_unselected.svg';
   static const String lottieCoinPig = 'assets/lottie/coin_pig.lottie';
