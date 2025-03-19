@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 class FitDialog {
@@ -9,6 +10,7 @@ class FitDialog {
     required String message,
     String? description,
     required VoidCallback onPress,
+    Function1<DismissType, void>? onDismissCallback,
     Color? dialogBackgroundColor,
     TextStyle? textStyle,
     TextStyle? buttonTextStyle,
@@ -24,6 +26,7 @@ class FitDialog {
       buttonsTextStyle: buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.staticBlack),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
+      onDismissCallback: onDismissCallback,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -80,6 +83,7 @@ class FitDialog {
           buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.staticBlack),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
+      onDismissCallback: onDismissCallback,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -116,7 +120,6 @@ class FitDialog {
       btnCancelOnPress: btnCancelPressed,
       btnCancelColor: btnCancelColor ?? context.fitColors.grey500,
       btnCancelText: btnCancelText ?? '취소',
-      onDismissCallback: onDismissCallback,
     );
   }
 }
