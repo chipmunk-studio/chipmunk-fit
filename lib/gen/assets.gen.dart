@@ -706,12 +706,12 @@ class $AssetsImagesGen {
   SvgGenImage get bgBottomNavUnselected =>
       const SvgGenImage('assets/images/bg_bottom_nav_unselected.svg');
 
-  /// File path: assets/images/ic_sneakers.svg
-  SvgGenImage get icSneakers =>
-      const SvgGenImage('assets/images/ic_sneakers.svg');
+  /// File path: assets/images/ic_sneakers.png
+  AssetGenImage get icSneakers =>
+      const AssetGenImage('assets/images/ic_sneakers.png');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
     bgBottomNavSelected,
     bgBottomNavUnselected,
     icSneakers,
@@ -936,6 +936,9 @@ class LottieGenImage {
     bool? addRepaintBoundary,
     FilterQuality? filterQuality,
     void Function(String)? onWarning,
+    _lottie.LottieDecoder? decoder,
+    _lottie.RenderCache? renderCache,
+    bool? backgroundLoading,
   }) {
     return _lottie.Lottie.asset(
       _assetName,
@@ -960,6 +963,9 @@ class LottieGenImage {
       addRepaintBoundary: addRepaintBoundary,
       filterQuality: filterQuality,
       onWarning: onWarning,
+      decoder: decoder,
+      renderCache: renderCache,
+      backgroundLoading: backgroundLoading,
     );
   }
 

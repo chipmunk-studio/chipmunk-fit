@@ -145,7 +145,7 @@ class Assets {
   static const String iconsIcXcircleFill24 = 'assets/icons/ic_xcircle_fill_24.svg';
   static const String imagesBgBottomNavSelected = 'assets/images/bg_bottom_nav_selected.svg';
   static const String imagesBgBottomNavUnselected = 'assets/images/bg_bottom_nav_unselected.svg';
-  static const String imagesIcSneakers = 'assets/images/ic_sneakers.svg';
+  static const String imagesIcSneakers = 'assets/images/ic_sneakers.png';
   static const String lottieCoinPig = 'assets/lottie/coin_pig.lottie';
   static const String lottieDotLoading = 'assets/lottie/dot_loading.lottie';
   static const String lottieGiftBox = 'assets/lottie/gift_box.lottie';
