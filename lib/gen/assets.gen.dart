@@ -706,8 +706,16 @@ class $AssetsImagesGen {
   SvgGenImage get bgBottomNavUnselected =>
       const SvgGenImage('assets/images/bg_bottom_nav_unselected.svg');
 
+  /// File path: assets/images/ic_sneakers.svg
+  SvgGenImage get icSneakers =>
+      const SvgGenImage('assets/images/ic_sneakers.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [bgBottomNavSelected, bgBottomNavUnselected];
+  List<SvgGenImage> get values => [
+    bgBottomNavSelected,
+    bgBottomNavUnselected,
+    icSneakers,
+  ];
 }
 
 class $AssetsLottieGen {

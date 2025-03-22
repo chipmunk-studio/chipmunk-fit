@@ -78,7 +78,7 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
       controller: _controller,
       focusNode: FocusNode(),
       scrollController: ScrollController(),
-      configurations: QuillEditorConfigurations(
+      config: QuillEditorConfig(
         scrollable: widget.scrollable,
         padding: widget.padding,
         autoFocus: widget.autoFocus,
@@ -87,47 +87,45 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
         maxContentWidth: widget.maxContentWidth,
         showCursor: widget.showCursor,
         // 커서 표시 여부 설정
-        embedBuilders: [_ImageEmbedBuilder(widget.maxContentWidth)],
+        embedBuilders: [
+          // _ImageEmbedBuilder(widget.maxContentWidth),
+        ],
       ),
     );
   }
 }
-
-class _ImageEmbedBuilder extends EmbedBuilder {
-  _ImageEmbedBuilder(this.maxContentWidth);
-
-  final double? maxContentWidth;
-
-  @override
-  String get key => BlockEmbed.imageType;
-
-  @override
-  Widget build(
-    BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
-  ) {
-    final url = node.value.data as String;
-    final image = buildFitImage(
-      url: url,
-      fit: BoxFit.scaleDown,
-      imageShape: FitImageShape.RECTANGLE,
-    );
-
-    final alignment = node.parent?.style.attributes['align'];
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: maxContentWidth ?? double.infinity),
-      child: Align(
-        alignment: alignment?.value == 'right'
-            ? Alignment.topRight
-            : alignment?.value == 'center'
-                ? Alignment.topCenter
-                : Alignment.topLeft,
-        child: image,
-      ),
-    );
-  }
-}
+//
+// class _ImageEmbedBuilder extends EmbedBuilder {
+//   _ImageEmbedBuilder(this.maxContentWidth);
+//
+//   final double? maxContentWidth;
+//
+//   @override
+//   String get key => BlockEmbed.imageType;
+//
+//   @override
+//   Widget build(
+//     BuildContext context,
+//     EmbedContext embedContext,
+//   ) {
+//     final url = node.value.data as String;
+//     final image = buildFitImage(
+//       url: url,
+//       fit: BoxFit.scaleDown,
+//       imageShape: FitImageShape.RECTANGLE,
+//     );
+//
+//     final alignment = node.parent?.style.attributes['align'];
+//     return ConstrainedBox(
+//       constraints: BoxConstraints(maxWidth: maxContentWidth ?? double.infinity),
+//       child: Align(
+//         alignment: alignment?.value == 'right'
+//             ? Alignment.topRight
+//             : alignment?.value == 'center'
+//                 ? Alignment.topCenter
+//                 : Alignment.topLeft,
+//         child: image,
+//       ),
+//     );
+//   }
+// }
