@@ -19,6 +19,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
     void Function()? onTap, // 버튼 클릭 시 동작
     String buttonText = "바로가기", // 기본 버튼 텍스트
     Color buttonTextColor = const Color(0xFF4CAF50), // 버튼 텍스트 색상 (초록색)
+    Widget? content,
   }) {
     try {
       final messengerState = ScaffoldMessenger.maybeOf(this);
@@ -36,39 +37,40 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
           shape: shape,
           behavior: behavior,
           dismissDirection: dismissDirection,
-          content: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // ✅ 초록 체크 아이콘
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: this.fitColors.main,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.check, color: Colors.white, size: 16),
-              ),
-              const SizedBox(width: 8), // 간격
-              // ✅ 메시지 텍스트
-              Expanded(
-                child: Text(
-                  message,
-                  style: body3().copyWith(color: this.fitColors.staticBlack),
-                ),
-              ),
-              // ✅ 커스텀 버튼 (onTap 없으면 안 보이게)
-              if (onTap != null)
-                GestureDetector(
-                  onTap: onTap,
-                  child: Text(
-                    buttonText, // 버튼 텍스트 커스텀 가능
-                    style: subtitle5().copyWith(color: this.fitColors.green700),
+          content: content ??
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // ✅ 초록 체크 아이콘
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: this.fitColors.main,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.check, color: Colors.white, size: 16),
                   ),
-                ),
-            ],
-          ),
+                  const SizedBox(width: 8), // 간격
+                  // ✅ 메시지 텍스트
+                  Expanded(
+                    child: Text(
+                      message,
+                      style: body3().copyWith(color: this.fitColors.staticBlack),
+                    ),
+                  ),
+                  // ✅ 커스텀 버튼 (onTap 없으면 안 보이게)
+                  if (onTap != null)
+                    GestureDetector(
+                      onTap: onTap,
+                      child: Text(
+                        buttonText, // 버튼 텍스트 커스텀 가능
+                        style: subtitle5().copyWith(color: this.fitColors.green700),
+                      ),
+                    ),
+                ],
+              ),
         ),
       );
     } catch (_) {}
