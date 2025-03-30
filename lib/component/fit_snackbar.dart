@@ -60,6 +60,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
                       style: body3().copyWith(color: this.fitColors.staticBlack),
                     ),
                   ),
+                  const SizedBox(width: 8), // 간격
                   // ✅ 커스텀 버튼 (onTap 없으면 안 보이게)
                   if (onTap != null)
                     GestureDetector(
