@@ -158,6 +158,7 @@ Widget buildFitImage({
       );
     default:
       return FitCachedNetworkImage(
+        key: ValueKey(url),
         width: width,
         height: height,
         imageUrl: url,
