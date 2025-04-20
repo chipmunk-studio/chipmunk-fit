@@ -314,6 +314,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_info.svg
   SvgGenImage get icInfo => const SvgGenImage('assets/icons/ic_info.svg');
 
+  /// File path: assets/icons/ic_infocircle_blue.svg
+  SvgGenImage get icInfocircleBlue =>
+      const SvgGenImage('assets/icons/ic_infocircle_blue.svg');
+
   /// File path: assets/icons/ic_infocircle_soild24.svg
   SvgGenImage get icInfocircleSoild24 =>
       const SvgGenImage('assets/icons/ic_infocircle_soild24.svg');
@@ -627,6 +631,7 @@ class $AssetsIconsGen {
     icImage,
     icIndicator,
     icInfo,
+    icInfocircleBlue,
     icInfocircleSoild24,
     icIngredientBag,
     icJoystick,
