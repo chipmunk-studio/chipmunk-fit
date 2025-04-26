@@ -57,7 +57,7 @@ class ModalPage extends StatelessWidget {
                       btnOkText: "확인",
                       btnOkPressed: () => print("확인 버튼 클릭됨"),
                       btnCancelText: "취소",
-                      btnCancelPressed: () => print("취소 버튼 클릭됨"),
+                      btnCancelPressed: () {},
                     ).show();
                   },
                   child: const Text("기본 대화상자 표시"),

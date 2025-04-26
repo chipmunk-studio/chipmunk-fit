@@ -1,7 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/foundation/textstyle.dart';
-import 'package:dartz/dartz.dart';
+import 'package:chipfit/component/button/fit_button.dart';
+import 'package:chipfit/foundation/buttonstyle.dart';
+import 'package:chipfit/foundation/colors.dart'; // Assume context.fitColors exists
+import 'package:chipfit/foundation/textstyle.dart'; // Assume context text styles exist
 import 'package:flutter/material.dart';
 
 class FitDialog {
@@ -10,7 +11,7 @@ class FitDialog {
     required String message,
     String? description,
     required VoidCallback onPress,
-    Function1<DismissType, void>? onDismissCallback,
+    Function(DismissType)? onDismissCallback,
     Color? dialogBackgroundColor,
     TextStyle? textStyle,
     TextStyle? buttonTextStyle,
@@ -23,6 +24,7 @@ class FitDialog {
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
+      // Error dialog usually only has OK, so this style applies to it.
       buttonsTextStyle: buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.staticBlack),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
@@ -49,6 +51,7 @@ class FitDialog {
       btnOkColor: btnOkColor ?? context.fitColors.main,
       btnOkText: btnOkText ?? '확인',
       btnOkOnPress: onPress,
+      // No cancel button in the typical error dialog
     );
   }
 
@@ -61,9 +64,7 @@ class FitDialog {
     VoidCallback? btnCancelPressed,
     Function(DismissType)? onDismissCallback,
     String? btnCancelText,
-    Color? btnOkColor,
-    Color? btnCancelColor,
-    Color? btnTextColor,
+    Color? btnOkTextColor,
     Color? titleTextColor,
     Color? subTitleTextColor,
     bool dismissOnTouchOutside = false,
@@ -72,15 +73,51 @@ class FitDialog {
     Widget? bottomContent,
     double borderRadius = 32.0,
     Color? dialogBackgroundColor,
-    TextStyle? buttonsTextStyle,
+    FitButtonType? okButtonType,
+    FitButtonType? cancelButtonType,
+    Color? btnCancelTextColor,
   }) {
+    const int delayMilliseconds = 100;
+    Widget? okButtonWidget;
+    if (btnOkPressed != null || btnOkText != null) {
+      okButtonWidget = FitButton(
+        onPress: () async {
+          await Future.delayed(const Duration(milliseconds: delayMilliseconds));
+          Navigator.pop(context);
+          btnOkPressed?.call();
+        },
+        type: okButtonType ?? FitButtonType.primary,
+        isExpand: true,
+        text: btnOkText ?? '확인',
+        textStyle: context.button1().copyWith(
+              color: btnOkTextColor ?? context.fitColors.staticBlack,
+            ),
+      );
+    }
+
+    // Cancel 버튼 위젯 생성 (Navigator.pop 포함)
+    Widget? cancelButtonWidget;
+    if (btnCancelPressed != null || btnCancelText != null) {
+      cancelButtonWidget = FitButton(
+        onPress: () async {
+          await Future.delayed(const Duration(milliseconds: delayMilliseconds));
+          Navigator.pop(context);
+          btnCancelPressed?.call();
+        },
+        type: cancelButtonType ?? FitButtonType.secondary,
+        isExpand: true,
+        text: btnCancelText ?? '취소',
+        textStyle: context.button1().copyWith(
+              color: btnCancelTextColor ?? context.fitColors.textTertiary,
+            ),
+      );
+    }
+
     return AwesomeDialog(
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
-      buttonsTextStyle:
-          buttonsTextStyle ?? context.button1().copyWith(color: btnTextColor ?? context.fitColors.staticBlack),
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       onDismissCallback: onDismissCallback,
@@ -114,12 +151,10 @@ class FitDialog {
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: btnOkColor ?? context.fitColors.main,
-      btnOkText: btnOkText ?? '확인',
-      btnOkOnPress: btnOkPressed,
-      btnCancelOnPress: btnCancelPressed,
-      btnCancelColor: btnCancelColor ?? context.fitColors.grey500,
-      btnCancelText: btnCancelText ?? '취소',
+      btnOk: okButtonWidget,
+      btnCancel: cancelButtonWidget,
+      btnOkOnPress: null,
+      btnCancelOnPress: null,
     );
   }
 }
