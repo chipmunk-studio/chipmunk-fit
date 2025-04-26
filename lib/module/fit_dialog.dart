@@ -64,7 +64,6 @@ class FitDialog {
     VoidCallback? btnCancelPressed,
     Function(DismissType)? onDismissCallback,
     String? btnCancelText,
-    Color? btnOkTextColor,
     Color? titleTextColor,
     Color? subTitleTextColor,
     bool dismissOnTouchOutside = false,
@@ -75,10 +74,10 @@ class FitDialog {
     Color? dialogBackgroundColor,
     FitButtonType? okButtonType,
     FitButtonType? cancelButtonType,
-    Color? btnCancelTextColor,
   }) {
     const int delayMilliseconds = 100;
     Widget? okButtonWidget;
+
     if (btnOkPressed != null || btnOkText != null) {
       okButtonWidget = FitButton(
         onPress: () async {
@@ -89,27 +88,21 @@ class FitDialog {
         type: okButtonType ?? FitButtonType.primary,
         isExpand: true,
         text: btnOkText ?? '확인',
-        textStyle: context.button1().copyWith(
-              color: btnOkTextColor ?? context.fitColors.staticBlack,
-            ),
       );
     }
 
-    // Cancel 버튼 위젯 생성 (Navigator.pop 포함)
     Widget? cancelButtonWidget;
     if (btnCancelPressed != null || btnCancelText != null) {
       cancelButtonWidget = FitButton(
-        onPress: () async {
+        type: cancelButtonType ?? FitButtonType.secondary,
+        isExpand: true,
+        isEnabled: false,
+        text: btnCancelText ?? '취소',
+        onDisablePress: () async {
           await Future.delayed(const Duration(milliseconds: delayMilliseconds));
           Navigator.pop(context);
           btnCancelPressed?.call();
         },
-        type: cancelButtonType ?? FitButtonType.secondary,
-        isExpand: true,
-        text: btnCancelText ?? '취소',
-        textStyle: context.button1().copyWith(
-              color: btnCancelTextColor ?? context.fitColors.textTertiary,
-            ),
       );
     }
 

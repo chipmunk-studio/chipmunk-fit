@@ -11,7 +11,7 @@ class ComponentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FitScaffold(
-      backgroundColor: context.fitColors.grey800,
+      backgroundColor: context.fitColors.backgroundAlternative,
       padding: EdgeInsets.zero,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -21,7 +21,7 @@ class ComponentPage extends StatelessWidget {
               'FitButton',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
             onTap: () => context.go('/button'),
           ),
           ListTile(
@@ -29,7 +29,7 @@ class ComponentPage extends StatelessWidget {
               'FitImage',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
             onTap: () => context.go('/image'),
           ),
           ListTile(
@@ -37,7 +37,7 @@ class ComponentPage extends StatelessWidget {
               'FitCheckBox',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
+            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
             onTap: () => context.go('/check_box'),
           ),
           ListTile(

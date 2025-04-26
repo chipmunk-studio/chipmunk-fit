@@ -38,7 +38,7 @@ extension ButtonStyleExtension on BuildContext {
   ButtonStyle btnStyleSecondary({bool isRipple = false}) {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.inverseText,
-      backgroundColor: this.fitColors.grey300,
+      backgroundColor: this.fitColors.grey900,
       disabledForegroundColor: this.fitColors.textSecondary,
       disabledBackgroundColor: this.fitColors.grey300,
       shape: RoundedRectangleBorder(
