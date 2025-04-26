@@ -108,6 +108,7 @@ class FitDialog {
 
     return AwesomeDialog(
       context: context,
+      width: MediaQuery.of(context).size.width,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
