@@ -337,6 +337,10 @@ class $AssetsIconsGen {
   AssetGenImage get icLarAppbar =>
       const AssetGenImage('assets/icons/ic_lar_appbar.png');
 
+  /// File path: assets/icons/ic_lightning.png
+  AssetGenImage get icLightning =>
+      const AssetGenImage('assets/icons/ic_lightning.png');
+
   /// File path: assets/icons/ic_like_soild_empty_24.svg
   SvgGenImage get icLikeSoildEmpty24 =>
       const SvgGenImage('assets/icons/ic_like_soild_empty_24.svg');
@@ -518,9 +522,6 @@ class $AssetsIconsGen {
   SvgGenImage get icSportsMedal =>
       const SvgGenImage('assets/icons/ic_sports_medal.svg');
 
-  /// File path: assets/icons/ic_storm.png
-  AssetGenImage get icStorm => const AssetGenImage('assets/icons/ic_storm.png');
-
   /// File path: assets/icons/ic_trophy.svg
   SvgGenImage get icTrophy => const SvgGenImage('assets/icons/ic_trophy.svg');
 
@@ -640,6 +641,7 @@ class $AssetsIconsGen {
     icJoystick,
     icKakao,
     icLarAppbar,
+    icLightning,
     icLikeSoildEmpty24,
     icLikeSoildFill24,
     icList,
@@ -689,7 +691,6 @@ class $AssetsIconsGen {
     icSettingSoild24,
     icSpaceShip,
     icSportsMedal,
-    icStorm,
     icTrophy,
     icUpdatePencil,
     icUser,
