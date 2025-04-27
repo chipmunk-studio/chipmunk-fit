@@ -297,6 +297,18 @@ class $AssetsIconsGen {
   SvgGenImage get icGradeSilver =>
       const SvgGenImage('assets/icons/ic_grade_silver.svg');
 
+  /// File path: assets/icons/ic_green_alarm.svg
+  SvgGenImage get icGreenAlarm =>
+      const SvgGenImage('assets/icons/ic_green_alarm.svg');
+
+  /// File path: assets/icons/ic_green_battery_full.svg
+  SvgGenImage get icGreenBatteryFull =>
+      const SvgGenImage('assets/icons/ic_green_battery_full.svg');
+
+  /// File path: assets/icons/ic_green_lightning.svg
+  SvgGenImage get icGreenLightning =>
+      const SvgGenImage('assets/icons/ic_green_lightning.svg');
+
   /// File path: assets/icons/ic_home.svg
   SvgGenImage get icHome => const SvgGenImage('assets/icons/ic_home.svg');
 
@@ -630,6 +642,9 @@ class $AssetsIconsGen {
     icGradeGold,
     icGradePlatinum,
     icGradeSilver,
+    icGreenAlarm,
+    icGreenBatteryFull,
+    icGreenLightning,
     icHome,
     icHomeSoild24,
     icImage,
