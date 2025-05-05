@@ -38,9 +38,9 @@ class FitBottomButton extends StatelessWidget {
 
     if (isShowLoading) {
       buttonChild = SizedBox(
-        height: 20,
-        width: 20,
-        child: FitDotLoading(),
+        child: FitDotLoading(
+          dotSize: 12,
+        ),
       );
     }
 

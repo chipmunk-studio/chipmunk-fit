@@ -1,3 +1,4 @@
+import 'package:chipfit/component/button/fit_bottom_button.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/gen/assets.gen.dart';
@@ -48,6 +49,13 @@ class ComponentPage extends StatelessWidget {
             trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey0),
             onTap: () => context.go('/card'),
           ),
+          FitBottomButton(
+            isEnabled: true,
+            isShowLoading: true,
+            onPress: () {},
+            text: '',
+            isKeyboardVisible: false,
+          )
         ],
       ),
     );
