@@ -309,6 +309,10 @@ class $AssetsIconsGen {
   SvgGenImage get icGreenLightning =>
       const SvgGenImage('assets/icons/ic_green_lightning.svg');
 
+  /// File path: assets/icons/ic_hash_soild_24.svg
+  SvgGenImage get icHashSoild24 =>
+      const SvgGenImage('assets/icons/ic_hash_soild_24.svg');
+
   /// File path: assets/icons/ic_home.svg
   SvgGenImage get icHome => const SvgGenImage('assets/icons/ic_home.svg');
 
@@ -645,6 +649,7 @@ class $AssetsIconsGen {
     icGreenAlarm,
     icGreenBatteryFull,
     icGreenLightning,
+    icHashSoild24,
     icHome,
     icHomeSoild24,
     icImage,

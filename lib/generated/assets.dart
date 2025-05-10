@@ -76,6 +76,7 @@ class Assets {
   static const String iconsIcGreenAlarm = 'assets/icons/ic_green_alarm.svg';
   static const String iconsIcGreenBatteryFull = 'assets/icons/ic_green_battery_full.svg';
   static const String iconsIcGreenLightning = 'assets/icons/ic_green_lightning.svg';
+  static const String iconsIcHashSoild24 = 'assets/icons/ic_hash_soild_24.svg';
   static const String iconsIcHome = 'assets/icons/ic_home.svg';
   static const String iconsIcHomeSoild24 = 'assets/icons/ic_home_soild_24.svg';
   static const String iconsIcImage = 'assets/icons/ic_image.svg';
