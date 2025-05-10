@@ -67,7 +67,10 @@ ThemeData fitDarkTheme(
     elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
     textButtonTheme: textButtonTheme(updatedColors),
     bottomSheetTheme: bottomSheetTheme(updatedColors),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.main),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: updatedColors.main,
+      selectionHandleColor: updatedColors.sub,
+    ),
     inputDecorationTheme: inputDecorationTheme(updatedColors),
     bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -237,12 +240,14 @@ SystemUiOverlayStyle customSystemUiOverlayStyle({
     systemNavigationBarColor: systemNavigationBarColor, // 내비게이션 바 색상
   );
 }
+
 class FitThemeModeExtension extends ThemeExtension<FitThemeModeExtension> {
   final Brightness brightness;
 
   const FitThemeModeExtension({required this.brightness});
 
   bool get isDarkMode => brightness == Brightness.dark;
+
   bool get isBright => brightness == Brightness.light;
 
   @override
@@ -253,8 +258,7 @@ class FitThemeModeExtension extends ThemeExtension<FitThemeModeExtension> {
   }
 
   @override
-  ThemeExtension<FitThemeModeExtension> lerp(
-      covariant ThemeExtension<FitThemeModeExtension>? other, double t) {
+  ThemeExtension<FitThemeModeExtension> lerp(covariant ThemeExtension<FitThemeModeExtension>? other, double t) {
     if (other is! FitThemeModeExtension) {
       return this;
     }
