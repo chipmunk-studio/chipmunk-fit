@@ -158,22 +158,13 @@ extension FitTextStyleExtension on BuildContext {
     );
   }
 
-  TextStyle neodgm({
-    Color? color,
-    FitTextSp type = FitTextSp.MIN,
-    double height = 1.3,
-    double fontSize = 30,
-    bool isUnderlined = false,
-    Color? decorationColor,
-  }) {
+  TextStyle neodgm({FitTextSp type = FitTextSp.MIN}) {
     return TextStyle(
-      fontSize: _getFontSize(fontSize, type),
-      height: height,
+      fontSize: _getFontSize(30, type),
       letterSpacing: -0.06,
+      height: 1.0,
       fontStyle: FontStyle.normal,
       fontFamily: FontFamily.neodgm,
-      decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
-      decorationColor: decorationColor,
     );
   }
 
