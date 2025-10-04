@@ -19,9 +19,13 @@ dependencies:
     sdk: flutter
   assets:
   foundation:
+    path: ./foundation
   component:
+    path: ./component
   module:
+    path: ./module
   dependencies:
+    path: ./dependencies
 
 dev_dependencies:
   flutter_test:
