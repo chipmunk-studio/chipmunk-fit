@@ -13,6 +13,7 @@ workspace:
   - module
   - chip_assets
   - dependencies
+  - catalog
 
 dependencies:
   flutter:
@@ -37,7 +38,7 @@ dev_dependencies:
 melos:
   scripts:
     get:
-      run: melos exec --concurrency=10 -- "flutter pub get"
+      run: melos exec --concurrency=1 -- "flutter pub get"
       description: Run "flutter pub get" in all packages.
 
     build:
@@ -59,9 +60,14 @@ melos:
     build:module:
       run: melos exec --scope="module" -- "dart run build_runner build --delete-conflicting-outputs"
       description: Run build_runner in the module module.
+
+    build:assets:
+      run: melos exec --scope="chip_assets" -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner in the chip_assets module.
+
     build:catalog:
       run: melos exec --scope="catalog" -- "dart run build_runner build --delete-conflicting-outputs"
-      description: Run build_runner in the assets module.
+      description: Run build_runner in the catalog module.
 
     clean:
       run: melos exec -- "flutter clean"

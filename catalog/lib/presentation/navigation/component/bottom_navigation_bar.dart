@@ -77,12 +77,12 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
             child: SizedBox(
               height: 96,
               child: widget.selectedIndex == 2
-                  ? Assets.images.bgBottomNavSelected.svg(
+                  ? ChipAssets.images.bgBottomNavSelected.svg(
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.width,
                       color: context.fitColors.grey0,
                     )
-                  : Assets.images.bgBottomNavUnselected.svg(
+                  : ChipAssets.images.bgBottomNavUnselected.svg(
                       fit: BoxFit.fill,
                       width: MediaQuery.of(context).size.width,
                       color: context.fitColors.grey0,
