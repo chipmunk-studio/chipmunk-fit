@@ -13,13 +13,10 @@ workspace:
   - module
   - assets
   - dependencies
-  - catalog
 
 dependencies:
   flutter:
     sdk: flutter
-  catalog:
-    path: ./catalog
   assets:
     path: ./assets
   foundation:
