@@ -22,6 +22,7 @@ flutter_gen:
   output: lib/gen/
   assets:
     outputs:
+      class_name: ChipAssets
       package_parameter_enabled: true
   line_length: 80
   integrations:
