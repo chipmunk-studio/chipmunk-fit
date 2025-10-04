@@ -11,11 +11,20 @@ dependencies:
   flutter:
     sdk: flutter
   foundation:
-    path: ../foundation
   assets:
+  dependencies:
+  dartz:
+  flutter_cache_manager:
+  cached_network_image:
+  flutter_animate:
+  lottie:
+  dotlottie_loader:
+  flutter_svg:
+  flutter_bounceable:
+  flutter_quill:
+  sprung:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
   build_runner:

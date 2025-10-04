@@ -3,8 +3,6 @@ description: "ChipmunkStudio DesignSystem Catalog App"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
-resolution: workspace
-
 environment:
   sdk: ^3.5.4
 
@@ -26,10 +24,20 @@ dependencies:
   bloc:
   go_router:
   toast:
-  awesome_dialog:
   equatable:
   freezed:
   freezed_annotation:
+  dartz:
+  flutter_cache_manager:
+  cached_network_image:
+  flutter_animate:
+  lottie:
+  dotlottie_loader:
+  flutter_svg:
+  flutter_bounceable:
+  flutter_quill:
+  sprung:
+  modal_bottom_sheet:
 
 dev_dependencies:
   flutter_test:

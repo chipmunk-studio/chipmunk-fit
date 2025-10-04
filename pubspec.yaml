@@ -12,7 +12,7 @@ workspace:
   - foundation
   - module
   - assets
-  - catalog
+  - dependencies
 
 dependencies:
   flutter:
@@ -21,27 +21,12 @@ dependencies:
   foundation:
   component:
   module:
-  awesome_dialog:
-  flutter_screenutil:
-  dartz:
-  flutter_cache_manager:
-  cached_network_image:
-  flutter_animate:
-  lottie:
-  dotlottie_loader:
-  flutter_svg:
-  flutter_bounceable:
-  flutter_quill:
-  sprung:
-  modal_bottom_sheet:
+  dependencies:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   build_runner:
-  flutter_gen_runner:
-
   melos: ^7.1.0
 
 melos:
