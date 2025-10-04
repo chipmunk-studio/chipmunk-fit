@@ -1,10 +1,10 @@
+import 'package:assets/gen/assets.gen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chipfit/component/fit_dot_loading.dart';
-import 'package:chipfit/component/fit_lottie_widget.dart';
-import 'package:chipfit/foundation/theme.dart';
-import 'package:chipfit/gen/assets.gen.dart';
+import 'package:component/fit_dot_loading.dart';
+import 'package:component/fit_lottie_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:foundation/theme.dart';
 
 import 'fit_http_client_with_timeout.dart';
 import 'fit_image_shape.dart';

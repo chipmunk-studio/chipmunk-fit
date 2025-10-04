@@ -1,14 +1,32 @@
 name: chipfit
 description: "ChipmunkStudio DesignSystem"
+publish_to: 'none'
 version: 1.0.0
 homepage: https://github.com/chipmunk-studio/chipmunk-fit
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.3
+
+workspace:
+  - component
+  - foundation
+  - module
+  - assets
+  - catalog
 
 dependencies:
   flutter:
     sdk: flutter
+
+  component:
+    path: ./component
+  foundation:
+    path: ./foundation
+  module:
+    path: ./module
+  assets:
+    path: ./assets
+
   awesome_dialog:
   flutter_screenutil:
   dartz:
@@ -26,55 +44,81 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   build_runner:
   flutter_gen_runner:
 
-flutter_gen:
-  assets:
-    outputs:
-      package_parameter_enabled: true
-  line_length: 80 # Optional (default: 80)
+  melos: ^7.1.0
 
-  integrations:
-    image: true
-    flutter_svg: true
-    rive: true
-    lottie: true
+melos:
+  scripts:
+    get:
+      run: melos exec --concurrency=10 -- "flutter pub get"
+      description: Run "flutter pub get" in all packages.
 
-  colors:
-    inputs:
-      - assets/color/colors.xml
+    build:
+      run: melos exec --depends-on="build_runner" --concurrency=10 -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner for all packages that have it as a dependency.
 
-flutter:
-  uses-material-design: true
-  assets:
-    - assets/fonts/
-    - assets/images/
-    - assets/icons/
-    - assets/lottie/
+    build:all:
+      run: melos exec --concurrency=10 -- "dart run build_runner build --delete-conflicting-outputs" || true
+      description: Run build_runner for all packages including those with build_runner in dev_dependencies.
 
-  fonts:
-    - family: Pretendard-Light
-      fonts:
-        - asset: assets/fonts/Pretendard-Light.ttf
-          weight: 300
-    - family: Pretendard-Regular
-      fonts:
-        - asset: assets/fonts/Pretendard-Regular.ttf
-          weight: 400
-    - family: Pretendard-Medium
-      fonts:
-        - asset: assets/fonts/Pretendard-Medium.ttf
-          weight: 500
-    - family: Pretendard-SemiBold
-      fonts:
-        - asset: assets/fonts/Pretendard-SemiBold.ttf
-          weight: 600
-    - family: Pretendard-Bold
-      fonts:
-        - asset: assets/fonts/Pretendard-Bold.ttf
-          weight: 700
-    - family: Neodgm
-      fonts:
-        - asset: assets/fonts/neodgm.ttf
-          weight: 400
+    build:component:
+      run: melos exec --scope="component" -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner in the component module.
+
+    build:foundation:
+      run: melos exec --scope="foundation" -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner in the foundation module.
+
+    build:module:
+      run: melos exec --scope="module" -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner in the module module.
+
+    build:assets:
+      run: melos exec --scope="assets" -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner in the assets module.
+    build:catalog:
+      run: melos exec --scope="catalog" -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Run build_runner in the assets module.
+
+    clean:
+      run: melos exec -- "flutter clean"
+      description: Run "flutter clean" in all packages.
+
+    test:
+      run: melos exec -- "flutter test"
+      description: Run "flutter test" in all packages.
+
+    lint:
+      run: melos exec -- "flutter analyze"
+      description: Run lint analysis on all packages.
+
+    lint:error:
+      run: melos exec -- "flutter analyze --fatal-infos"
+      description: Run lint analysis and fail on any issues.
+
+    lint:fix:
+      run: melos exec -- "dart fix --apply"
+      description: Automatically fix lint issues where possible.
+
+    lint:component:
+      run: melos exec --scope="component" -- "flutter analyze"
+      description: Run lint analysis on component package.
+
+    lint:foundation:
+      run: melos exec --scope="foundation" -- "flutter analyze"
+      description: Run lint analysis on foundation package.
+
+    lint:module:
+      run: melos exec --scope="module" -- "flutter analyze"
+      description: Run lint analysis on module package.
+
+    gen:
+      run: melos exec --scope="assets" -- "fluttergen -c pubspec.yaml"
+      description: Run flutter_gen for assets module.
+
+    build:main:
+      run: dart run build_runner build --delete-conflicting-outputs
+      description: Run build_runner in the main app for .g.dart and .freezed.dart files.

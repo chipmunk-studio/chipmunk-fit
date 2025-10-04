@@ -1,7 +1,7 @@
 import 'package:chipfit/component/fit_snackbar.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
-import 'package:chipfit/module/bottomsheet/fit_bottom_sheet_ext.dart';
+import 'package:chipfit/module/fit_bottomsheet.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -196,7 +196,9 @@ class BottomSheetPage extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       "옵션 ${index + 1}",
-                                      style: context.body1().copyWith(color: context.fitColors.grey100),
+                                      style: context
+                                          .body1()
+                                          .copyWith(color: context.fitColors.grey100),
                                     ),
                                   ],
                                 ),
@@ -258,7 +260,9 @@ class BottomSheetPage extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       "항목 ${index + 1}",
-                                      style: context.body1().copyWith(color: context.fitColors.grey100),
+                                      style: context
+                                          .body1()
+                                          .copyWith(color: context.fitColors.grey100),
                                     ),
                                   ],
                                 ),

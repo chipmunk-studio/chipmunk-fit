@@ -1,0 +1,1 @@
+export 'package:component/painter/fit_squircle_painter.dart';

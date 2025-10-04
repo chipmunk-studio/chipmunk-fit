@@ -1,5 +1,4 @@
-import 'package:chipfit/component/image/fit_cached_network_image.dart';
-import 'package:chipfit/component/image/fit_image_shape.dart';
+import 'package:chipfit/component/image/fit_image.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';

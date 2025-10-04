@@ -1,0 +1,1 @@
+export 'package:module/skeletons/skeletons.dart';

@@ -1,6 +1,6 @@
-import 'package:chipfit/component/button/fit_bottom_button.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/component/button/fit_bottom_button.dart';
 import 'package:chipfit/gen/assets.gen.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';

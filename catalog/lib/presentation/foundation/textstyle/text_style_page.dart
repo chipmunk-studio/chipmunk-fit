@@ -29,11 +29,15 @@ class TextStylePage extends StatelessWidget {
               title: "HeadLine Styles",
               styles: {
                 'HeadLine1 (FitTextSp.MIN)': context.h1().copyWith(color: Colors.teal),
-                'HeadLine1 (FitTextSp.MAX)': context.h1(type: FitTextSp.MAX).copyWith(color: Colors.teal),
-                'HeadLine1 (FitTextSp.SP)': context.h1(type: FitTextSp.SP).copyWith(color: Colors.teal),
+                'HeadLine1 (FitTextSp.MAX)':
+                    context.h1(type: FitTextSp.MAX).copyWith(color: Colors.teal),
+                'HeadLine1 (FitTextSp.SP)':
+                    context.h1(type: FitTextSp.SP).copyWith(color: Colors.teal),
                 'HeadLine2 (FitTextSp.MIN)': context.h2().copyWith(color: Colors.blueAccent),
-                'HeadLine2 (FitTextSp.MAX)': context.h2(type: FitTextSp.MAX).copyWith(color: Colors.blueAccent),
-                'HeadLine2 (FitTextSp.SP)': context.h2(type: FitTextSp.SP).copyWith(color: Colors.blueAccent),
+                'HeadLine2 (FitTextSp.MAX)':
+                    context.h2(type: FitTextSp.MAX).copyWith(color: Colors.blueAccent),
+                'HeadLine2 (FitTextSp.SP)':
+                    context.h2(type: FitTextSp.SP).copyWith(color: Colors.blueAccent),
               },
             ),
             _buildStylesSection(
@@ -41,24 +45,36 @@ class TextStylePage extends StatelessWidget {
               title: "Subtitle Styles",
               styles: {
                 'Subtitle1 (FitTextSp.MIN)': context.subtitle1().copyWith(color: Colors.orange),
-                'Subtitle1 (FitTextSp.MAX)': context.subtitle1(type: FitTextSp.MAX).copyWith(color: Colors.orange),
-                'Subtitle1 (FitTextSp.SP)': context.subtitle1(type: FitTextSp.SP).copyWith(color: Colors.orange),
+                'Subtitle1 (FitTextSp.MAX)':
+                    context.subtitle1(type: FitTextSp.MAX).copyWith(color: Colors.orange),
+                'Subtitle1 (FitTextSp.SP)':
+                    context.subtitle1(type: FitTextSp.SP).copyWith(color: Colors.orange),
                 'Subtitle2 (FitTextSp.MIN)': context.subtitle2().copyWith(color: Colors.purple),
-                'Subtitle2 (FitTextSp.MAX)': context.subtitle2(type: FitTextSp.MAX).copyWith(color: Colors.purple),
-                'Subtitle2 (FitTextSp.SP)': context.subtitle2(type: FitTextSp.SP).copyWith(color: Colors.purple),
+                'Subtitle2 (FitTextSp.MAX)':
+                    context.subtitle2(type: FitTextSp.MAX).copyWith(color: Colors.purple),
+                'Subtitle2 (FitTextSp.SP)':
+                    context.subtitle2(type: FitTextSp.SP).copyWith(color: Colors.purple),
                 'Subtitle3 (FitTextSp.MIN)': context.subtitle3().copyWith(color: Colors.green),
-                'Subtitle3 (FitTextSp.MAX)': context.subtitle3(type: FitTextSp.MAX).copyWith(color: Colors.green),
-                'Subtitle3 (FitTextSp.SP)': context.subtitle3(type: FitTextSp.SP).copyWith(color: Colors.green),
+                'Subtitle3 (FitTextSp.MAX)':
+                    context.subtitle3(type: FitTextSp.MAX).copyWith(color: Colors.green),
+                'Subtitle3 (FitTextSp.SP)':
+                    context.subtitle3(type: FitTextSp.SP).copyWith(color: Colors.green),
                 'Subtitle4 (FitTextSp.MIN)': context.subtitle4().copyWith(color: Colors.lightGreen),
-                'Subtitle4 (FitTextSp.MAX)': context.subtitle4(type: FitTextSp.MAX).copyWith(color: Colors.lightGreen),
-                'Subtitle4 (FitTextSp.SP)': context.subtitle4(type: FitTextSp.SP).copyWith(color: Colors.lightGreen),
+                'Subtitle4 (FitTextSp.MAX)':
+                    context.subtitle4(type: FitTextSp.MAX).copyWith(color: Colors.lightGreen),
+                'Subtitle4 (FitTextSp.SP)':
+                    context.subtitle4(type: FitTextSp.SP).copyWith(color: Colors.lightGreen),
                 'Subtitle5 (FitTextSp.MIN)': context.subtitle5().copyWith(color: Colors.red),
-                'Subtitle5 (FitTextSp.MAX)': context.subtitle5(type: FitTextSp.MAX).copyWith(color: Colors.red),
-                'Subtitle5 (FitTextSp.SP)': context.subtitle5(type: FitTextSp.SP).copyWith(color: Colors.red),
-                'Subtitle6 (FitTextSp.MIN)': context.subtitle6().copyWith(color: Colors.purpleAccent),
+                'Subtitle5 (FitTextSp.MAX)':
+                    context.subtitle5(type: FitTextSp.MAX).copyWith(color: Colors.red),
+                'Subtitle5 (FitTextSp.SP)':
+                    context.subtitle5(type: FitTextSp.SP).copyWith(color: Colors.red),
+                'Subtitle6 (FitTextSp.MIN)':
+                    context.subtitle6().copyWith(color: Colors.purpleAccent),
                 'Subtitle6 (FitTextSp.MAX)':
                     context.subtitle6(type: FitTextSp.MAX).copyWith(color: Colors.purpleAccent),
-                'Subtitle6 (FitTextSp.SP)': context.subtitle6(type: FitTextSp.SP).copyWith(color: Colors.purpleAccent),
+                'Subtitle6 (FitTextSp.SP)':
+                    context.subtitle6(type: FitTextSp.SP).copyWith(color: Colors.purpleAccent),
               },
             ),
             _buildStylesSection(
@@ -66,17 +82,25 @@ class TextStylePage extends StatelessWidget {
               title: "Body Styles",
               styles: {
                 'Body1 (FitTextSp.MIN)': context.body1().copyWith(color: Colors.teal),
-                'Body1 (FitTextSp.MAX)': context.body1(type: FitTextSp.MAX).copyWith(color: Colors.teal),
-                'Body1 (FitTextSp.SP)': context.body1(type: FitTextSp.SP).copyWith(color: Colors.teal),
+                'Body1 (FitTextSp.MAX)':
+                    context.body1(type: FitTextSp.MAX).copyWith(color: Colors.teal),
+                'Body1 (FitTextSp.SP)':
+                    context.body1(type: FitTextSp.SP).copyWith(color: Colors.teal),
                 'Body2 (FitTextSp.MIN)': context.body2().copyWith(color: Colors.lightBlue),
-                'Body2 (FitTextSp.MAX)': context.body2(type: FitTextSp.MAX).copyWith(color: Colors.lightBlue),
-                'Body2 (FitTextSp.SP)': context.body2(type: FitTextSp.SP).copyWith(color: Colors.lightBlue),
+                'Body2 (FitTextSp.MAX)':
+                    context.body2(type: FitTextSp.MAX).copyWith(color: Colors.lightBlue),
+                'Body2 (FitTextSp.SP)':
+                    context.body2(type: FitTextSp.SP).copyWith(color: Colors.lightBlue),
                 'Body3 (FitTextSp.MIN)': context.body3().copyWith(color: Colors.lightGreen),
-                'Body3 (FitTextSp.MAX)': context.body3(type: FitTextSp.MAX).copyWith(color: Colors.lightGreen),
-                'Body3 (FitTextSp.SP)': context.body3(type: FitTextSp.SP).copyWith(color: Colors.lightGreen),
+                'Body3 (FitTextSp.MAX)':
+                    context.body3(type: FitTextSp.MAX).copyWith(color: Colors.lightGreen),
+                'Body3 (FitTextSp.SP)':
+                    context.body3(type: FitTextSp.SP).copyWith(color: Colors.lightGreen),
                 'Body4 (FitTextSp.MIN)': context.body4().copyWith(color: Colors.greenAccent),
-                'Body4 (FitTextSp.MAX)': context.body4(type: FitTextSp.MAX).copyWith(color: Colors.greenAccent),
-                'Body4 (FitTextSp.SP)': context.body4(type: FitTextSp.SP).copyWith(color: Colors.greenAccent),
+                'Body4 (FitTextSp.MAX)':
+                    context.body4(type: FitTextSp.MAX).copyWith(color: Colors.greenAccent),
+                'Body4 (FitTextSp.SP)':
+                    context.body4(type: FitTextSp.SP).copyWith(color: Colors.greenAccent),
               },
             ),
             _buildStylesSection(
@@ -84,17 +108,24 @@ class TextStylePage extends StatelessWidget {
               title: "Caption Styles",
               styles: {
                 'Caption1 (FitTextSp.MIN)': context.caption1().copyWith(color: Colors.pink),
-                'Caption1 (FitTextSp.MAX)': context.caption1(type: FitTextSp.MAX).copyWith(color: Colors.pink),
-                'Caption1 (FitTextSp.SP)': context.caption1(type: FitTextSp.SP).copyWith(color: Colors.pink),
+                'Caption1 (FitTextSp.MAX)':
+                    context.caption1(type: FitTextSp.MAX).copyWith(color: Colors.pink),
+                'Caption1 (FitTextSp.SP)':
+                    context.caption1(type: FitTextSp.SP).copyWith(color: Colors.pink),
               },
             ),
             _buildStylesSection(
               context: context,
               title: "Custom Font Style",
               styles: {
-                'NeoDGM (FitTextSp.MIN)': context.neodgm(fontSize: 24, color: context.fitColors.grey100),
-                'NeoDGM (FitTextSp.SP)':
-                    context.neodgm(fontSize: 24, color: context.fitColors.grey100, type: FitTextSp.SP),
+                'NeoDGM (FitTextSp.MIN)': context.neodgm().copyWith(
+                      fontSize: 24,
+                      color: context.fitColors.grey100,
+                    ),
+                'NeoDGM (FitTextSp.SP)': context.neodgm().copyWith(
+                      fontSize: 24,
+                      color: context.fitColors.grey100,
+                    ),
               },
             ),
           ],

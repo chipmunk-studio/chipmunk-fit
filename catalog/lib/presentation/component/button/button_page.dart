@@ -141,7 +141,8 @@ class ButtonPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(BuildContext context, {required String title, required List<Widget> buttons}) {
+  Widget _buildSection(BuildContext context,
+      {required String title, required List<Widget> buttons}) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

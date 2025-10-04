@@ -1,0 +1,68 @@
+name: assets
+description: A new Flutter package.
+publish_to: 'none'
+
+environment:
+  sdk: '^3.5.3'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  flutter_gen_runner:
+  build_runner:
+
+flutter_gen:
+  output: lib/gen/
+  assets:
+    outputs:
+      package_parameter_enabled: true
+  line_length: 80
+  integrations:
+    image: true
+    flutter_svg: true
+    rive: true
+    lottie: true
+  colors:
+    inputs:
+      - color/colors.xml
+
+flutter:
+  uses-material-design: true
+  assets:
+    - fonts/
+    - images/
+    - icons/
+    - lottie/
+
+  fonts:
+    - family: Pretendard-Light
+      fonts:
+        - asset: fonts/Pretendard-Light.ttf
+          weight: 300
+    - family: Pretendard-Regular
+      fonts:
+        - asset: fonts/Pretendard-Regular.ttf
+          weight: 400
+    - family: Pretendard-Medium
+      fonts:
+        - asset: fonts/Pretendard-Medium.ttf
+          weight: 500
+    - family: Pretendard-SemiBold
+      fonts:
+        - asset: fonts/Pretendard-SemiBold.ttf
+          weight: 600
+    - family: Pretendard-Bold
+      fonts:
+        - asset: fonts/Pretendard-Bold.ttf
+          weight: 700
+    - family: Neodgm
+      fonts:
+        - asset: fonts/neodgm.ttf
+          weight: 400

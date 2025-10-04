@@ -1,0 +1,18 @@
+name: foundation
+description: A new Flutter package.
+publish_to: 'none'
+
+environment:
+  sdk: '^3.5.3'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  assets:
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner:

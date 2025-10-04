@@ -1,8 +1,8 @@
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/gen/assets.gen.dart';
+import 'package:assets/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foundation/colors.dart';
 
 class FitBottomSheet {
   static Future<T?> show<T>(
