@@ -55,30 +55,30 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/fonts/
+    - ChipAssets.fonts.
 
   fonts:
     - family: Pretendard-Light
       fonts:
-        - asset: assets/fonts/Pretendard-Light.ttf
+        - asset: ChipAssets.fonts.Pretendard-Light.ttf
           weight: 300
     - family: Pretendard-Regular
       fonts:
-        - asset: assets/fonts/Pretendard-Regular.ttf
+        - asset: ChipAssets.fonts.Pretendard-Regular.ttf
           weight: 400
     - family: Pretendard-Medium
       fonts:
-        - asset: assets/fonts/Pretendard-Medium.ttf
+        - asset: ChipAssets.fonts.Pretendard-Medium.ttf
           weight: 500
     - family: Pretendard-SemiBold
       fonts:
-        - asset: assets/fonts/Pretendard-SemiBold.ttf
+        - asset: ChipAssets.fonts.Pretendard-SemiBold.ttf
           weight: 600
     - family: Pretendard-Bold
       fonts:
-        - asset: assets/fonts/Pretendard-Bold.ttf
+        - asset: ChipAssets.fonts.Pretendard-Bold.ttf
           weight: 700
     - family: Neodgm
       fonts:
-        - asset: assets/fonts/neodgm.ttf
+        - asset: ChipAssets.fonts.neodgm.ttf
           weight: 400

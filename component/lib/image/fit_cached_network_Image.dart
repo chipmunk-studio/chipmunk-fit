@@ -56,8 +56,8 @@ class FitCachedNetworkImage extends StatelessWidget {
     final isDarkMode = context.fitThemeMode.isDarkMode;
     final Widget defaultErrorWidget = errorWidget ??
         (isDarkMode
-            ? Assets.icons.icProfileDefaultDark.svg(width: width)
-            : Assets.icons.icProfileDefaultLight.svg(width: width));
+            ? ChipAssets.icons.icProfileDefaultDark.svg(width: width)
+            : ChipAssets.icons.icProfileDefaultLight.svg(width: width));
 
     try {
       Widget imageWidget = imageUrl.isNotEmpty

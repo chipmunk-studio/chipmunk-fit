@@ -165,7 +165,7 @@ abstract class FitCustomAppBar {
       ),
       backgroundColor: backgroundColor ?? context.fitColors.backgroundAlternative,
       leading: IconButton(
-        icon: leadingIcon ?? Assets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
+        icon: leadingIcon ?? ChipAssets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
         onPressed: onPressed ?? () => Navigator.pop(context, true),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,

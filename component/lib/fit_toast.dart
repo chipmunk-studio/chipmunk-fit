@@ -19,7 +19,7 @@ buildFitToastContent(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          icon ?? Assets.icons.icCheckCircleFill24.svg(),
+          icon ?? ChipAssets.icons.icCheckCircleFill24.svg(),
           const SizedBox(width: 12.0),
           Flexible(
             child: Text(

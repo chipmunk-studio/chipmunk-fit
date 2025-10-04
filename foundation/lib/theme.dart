@@ -26,7 +26,7 @@ ThemeData fitLightTheme(
     checkboxTheme: _checkboxThemeData(updatedColors),
     unselectedWidgetColor: updatedColors.grey800,
     scaffoldBackgroundColor: updatedColors.grey900,
-    fontFamily: Assets.fonts.pretendardRegular,
+    fontFamily: ChipAssets.fonts.pretendardRegular,
     appBarTheme: appBarTheme(context, updatedColors, false),
     elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
     textButtonTheme: textButtonTheme(updatedColors),
@@ -62,7 +62,7 @@ ThemeData fitDarkTheme(
     checkboxTheme: _checkboxThemeData(updatedColors),
     unselectedWidgetColor: updatedColors.grey800,
     scaffoldBackgroundColor: updatedColors.grey900,
-    fontFamily: Assets.fonts.pretendardRegular,
+    fontFamily: ChipAssets.fonts.pretendardRegular,
     appBarTheme: appBarTheme(context, updatedColors, true),
     elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
     textButtonTheme: textButtonTheme(updatedColors),
@@ -142,12 +142,12 @@ bottomNavigationBarTheme(FitColors fitColors) {
   return BottomNavigationBarThemeData(
     backgroundColor: Colors.black,
     selectedLabelStyle: TextStyle(
-      fontFamily: Assets.fonts.pretendardRegular,
+      fontFamily: ChipAssets.fonts.pretendardRegular,
       color: Colors.white,
       fontSize: 13.sp,
     ),
     unselectedLabelStyle: TextStyle(
-      fontFamily: Assets.fonts.pretendardRegular,
+      fontFamily: ChipAssets.fonts.pretendardRegular,
       color: fitColors.grey700,
       fontSize: 13.sp,
     ),

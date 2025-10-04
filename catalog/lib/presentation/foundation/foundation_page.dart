@@ -21,7 +21,7 @@ class FoundationPage extends StatelessWidget {
               'FitTextStyle',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
+            trailing: ChipAssets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
             onTap: () => context.go('/textstyle'),
           ),
           ListTile(
@@ -29,7 +29,7 @@ class FoundationPage extends StatelessWidget {
               'FitAnimation',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
+            trailing: ChipAssets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
             onTap: () => context.go('/animation'),
           ),
           ListTile(
@@ -37,7 +37,7 @@ class FoundationPage extends StatelessWidget {
               'FitColor',
               style: context.body1(),
             ),
-            trailing: Assets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
+            trailing: ChipAssets.icons.icArrowRight16.svg(color: context.fitColors.grey900),
             onTap: () => context.go('/color'),
           ),
         ],

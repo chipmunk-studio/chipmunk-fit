@@ -193,7 +193,7 @@ class FitBottomSheet {
         padding: const EdgeInsets.only(top: 25, right: 20),
         child: Bounceable(
           onTap: () => Navigator.pop(context),
-          child: Assets.icons.icXcircleFill24.svg(width: 28, height: 28),
+          child: ChipAssets.icons.icXcircleFill24.svg(width: 28, height: 28),
         ),
       ),
     );
