@@ -2,6 +2,7 @@ import 'package:catalog/presentation/component/component_page.dart';
 import 'package:catalog/presentation/foundation/foundation_page.dart';
 import 'package:catalog/presentation/module/module_page.dart';
 import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/fit_skeletons.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:side_effect_bloc/side_effect_bloc.dart';
 import 'bloc/navigation.dart';
 import 'component/bottom_navigation_bar.dart';
 
+/// 메인 네비게이션 페이지
 class NavigationPage extends StatelessWidget {
   const NavigationPage({super.key});
 
@@ -27,34 +29,10 @@ class NavigationPage extends StatelessWidget {
           context.fitColors.grey600,
           context.fitColors.grey700,
         ],
-        stops: [0.3, 0.5, 0.7, 0.9, 0.7, 0.5, 0.3],
+        stops: const [0.3, 0.5, 0.7, 0.9, 0.7, 0.5, 0.3],
       ),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<NavigationBloc>(
-            create: (context) => NavigationBloc()..add(NavigationInit()),
-          ),
-          // BlocProvider<BenefitBloc>(
-          //   lazy: true,
-          //   create: (context) => serviceLocator<BenefitBloc>(),
-          // ),
-          // BlocProvider<MainBloc>(
-          //   lazy: true,
-          //   create: (context) => serviceLocator<MainBloc>()..add(MainInit()),
-          // ),
-          // BlocProvider<FeedBloc>(
-          //   lazy: true,
-          //   create: (context) => serviceLocator<FeedBloc>(),
-          // ),
-          // BlocProvider<MyPageBloc>(
-          //   lazy: true,
-          //   create: (context) => serviceLocator<MyPageBloc>(),
-          // ),
-          // BlocProvider<FriendBloc>(
-          //   lazy: true,
-          //   create: (context) => serviceLocator<FriendBloc>(),
-          // ),
-        ],
+      child: BlocProvider<NavigationBloc>(
+        create: (context) => NavigationBloc()..add(NavigationInit()),
         child: const _NavigationPage(),
       ),
     );
@@ -71,67 +49,27 @@ class _NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObserver, RouteAware {
   late NavigationBloc _navigationBloc;
 
-  // late BenefitBloc _benefitBloc;
-  // late MainBloc _mainBloc;
-  // late FeedBloc _feedBloc;
-  // late MyPageBloc _myPageBloc;
-  // late FriendBloc _friendBloc;
-
-  // late final List<Widget> _pages = [
-  //   FeedPage(bloc: _feedBloc),
-  //   BenefitPage(bloc: _benefitBloc),
-  //   LarMainPage(
-  //     bloc: _mainBloc,
-  //     onProfileImageLoaded: (entity) {
-  //       _navigationBloc.add(NavigationProfileInit(entity));
-  //     },
-  //   ),
-  //   FriendPage(
-  //     bloc: _friendBloc,
-  //     parentBloc: _navigationBloc,
-  //   ),
-  //   MyPage(bloc: _myPageBloc),
-  // ];
-
-  late final List<Widget> _pages = [
+  /// 페이지 목록
+  late final List<Widget> _pages = const [
     FoundationPage(),
     ComponentPage(),
     ModulePage(),
-    Container(),
-    Container(),
+    _DevelopPage(),
+    _SettingsPage(),
   ];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
-    _navigationBloc = BlocProvider.of<NavigationBloc>(context);
-    // _benefitBloc = BlocProvider.of<BenefitBloc>(context);
-    // _mainBloc = BlocProvider.of<MainBloc>(context);
-    // _feedBloc = BlocProvider.of<FeedBloc>(context);
-    // _myPageBloc = BlocProvider.of<MyPageBloc>(context);
-    // _friendBloc = BlocProvider.of<FriendBloc>(context);
+    _navigationBloc = context.read<NavigationBloc>();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    switch (state) {
-      case AppLifecycleState.resumed:
-        _navigationBloc.add(NavigationOnResumed());
-        break;
-      case AppLifecycleState.inactive:
-        // 앱이 비활성 상태일 때 (예: 전화가 왔을 때)
-        break;
-      case AppLifecycleState.paused:
-        // 앱이 백그라운드로 전환될 때
-        break;
-      case AppLifecycleState.detached:
-        // 앱이 완전히 종료되기 전에 호출됩니다.
-        break;
-      default:
-        break;
+    if (state == AppLifecycleState.resumed) {
+      _navigationBloc.add(NavigationOnResumed());
     }
   }
 
@@ -139,8 +77,6 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _navigationBloc.close();
-    // _benefitBloc.close();
-    // _mainBloc.close();
     super.dispose();
   }
 
@@ -153,38 +89,17 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
   @override
   Widget build(BuildContext context) {
     return BlocSideEffectListener<NavigationBloc, NavigationSideEffect>(
-      listener: (context, sideEffect) async {
-        if (sideEffect is NavigationError) {
-        } else if (sideEffect is NavigationOnResumeEffect) {
-          switch (sideEffect.tab) {
-            case NavigationTab.feed:
-              // _feedBloc.add(FeedInit());
-              break;
-            case NavigationTab.benefit:
-              // _benefitBloc.add(BenefitInit());
-              break;
-            case NavigationTab.main:
-              // _mainBloc.add(MainOnResume());
-              break;
-            case NavigationTab.friends:
-              // _friendBloc.add(FriendInit());
-              break;
-            case NavigationTab.my_page:
-              // _myPageBloc.add(MyPageInit());
-              break;
-          }
-        }
-      },
+      listener: _handleSideEffect,
       child: BlocBuilder<NavigationBloc, NavigationState>(
         buildWhen: (previous, current) => previous.currentTab != current.currentTab,
         builder: (context, state) {
           return FitScaffold(
             padding: EdgeInsets.zero,
-            backgroundColor: context.fitColors.grey0,
+            backgroundColor: context.fitColors.backgroundBase,
             appBar: FitEmptyAppBar.navigationBarColors(
-              statusBarColor: context.fitColors.grey0,
-              systemNavigationBarColor: context.fitColors.grey0,
-              backgroundColor: context.fitColors.grey0,
+              statusBarColor: context.fitColors.backgroundBase,
+              systemNavigationBarColor: context.fitColors.backgroundBase,
+              backgroundColor: context.fitColors.backgroundBase,
             ),
             bottom: false,
             top: false,
@@ -200,10 +115,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: FitBottomNavigationBar(
-                    selectedIndex: state.currentTab.index,
-                    onItemTapped: _onItemTapped,
-                  ),
+                  child: _buildBottomNav(state.currentTab.index),
                 ),
               ],
             ),
@@ -213,7 +125,105 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
     );
   }
 
-  void _onItemTapped(int index) {
-    _navigationBloc.add(NavigationSelectTabEvent(index));
+  /// 사이드 이펙트 처리
+  void _handleSideEffect(BuildContext context, NavigationSideEffect sideEffect) {
+    if (sideEffect is NavigationError) {
+      // 에러 처리
+      debugPrint('Navigation error: ${sideEffect.toString()}');
+    } else if (sideEffect is NavigationOnResumeEffect) {
+      // 탭별 재개 처리
+      _handleTabResume(sideEffect.tab);
+    }
+  }
+
+  /// 탭 재개 처리
+  void _handleTabResume(NavigationTab tab) {
+    switch (tab) {
+      case NavigationTab.feed:
+      case NavigationTab.benefit:
+      case NavigationTab.main:
+      case NavigationTab.friends:
+      case NavigationTab.my_page:
+        // 필요시 각 탭별 초기화 로직 추가
+        break;
+    }
+  }
+
+  /// 하단 네비게이션 바
+  Widget _buildBottomNav(int selectedIndex) {
+    return FitBottomNavigationBar(
+      selectedIndex: selectedIndex,
+      onItemTapped: (index) {
+        _navigationBloc.add(NavigationSelectTabEvent(index));
+      },
+    );
+  }
+}
+
+/// 개발 페이지 (임시)
+class _DevelopPage extends StatelessWidget {
+  const _DevelopPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: context.fitColors.backgroundBase,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.code,
+              size: 64,
+              color: context.fitColors.grey400,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '개발 도구',
+              style: context.h2().copyWith(color: context.fitColors.grey700),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '준비 중입니다',
+              style: context.body1().copyWith(color: context.fitColors.grey500),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 설정 페이지 (임시)
+class _SettingsPage extends StatelessWidget {
+  const _SettingsPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: context.fitColors.backgroundBase,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.settings,
+              size: 64,
+              color: context.fitColors.grey400,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '설정',
+              style: context.h2().copyWith(color: context.fitColors.grey700),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '준비 중입니다',
+              style: context.body1().copyWith(color: context.fitColors.grey500),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
