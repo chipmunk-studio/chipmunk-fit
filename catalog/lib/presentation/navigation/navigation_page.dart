@@ -1,9 +1,9 @@
+import 'package:catalog/presentation/component/component_page.dart';
+import 'package:catalog/presentation/foundation/foundation_page.dart';
+import 'package:catalog/presentation/module/module_page.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/fit_skeletons.dart';
-import 'package:chipmunk_fit_catalog/presentation/component/component_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/foundation/foundation_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/module/module_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:side_effect_bloc/side_effect_bloc.dart';

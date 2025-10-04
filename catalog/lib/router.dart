@@ -1,17 +1,17 @@
-import 'package:chipmunk_fit_catalog/presentation/component/button/button_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/component/card/card_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/component/checkbox/check_box_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/foundation/animation/animation_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/foundation/textstyle/text_style_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/module/animation_text/animation_text_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/module/bottomsheet/bottom_sheet_page.dart';
-import 'package:chipmunk_fit_catalog/presentation/module/modal/ModalPage.dart';
-import 'package:chipmunk_fit_catalog/presentation/navigation/navigation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'presentation/component/button/button_page.dart';
+import 'presentation/component/card/card_page.dart';
+import 'presentation/component/checkbox/check_box_page.dart';
 import 'presentation/component/image/fit_image_page.dart';
+import 'presentation/foundation/animation/animation_page.dart';
 import 'presentation/foundation/color/color_page.dart';
+import 'presentation/foundation/textstyle/text_style_page.dart';
+import 'presentation/module/animation_text/animation_text_page.dart';
+import 'presentation/module/bottomsheet/bottom_sheet_page.dart';
+import 'presentation/module/modal/ModalPage.dart';
+import 'presentation/navigation/navigation_page.dart';
 
 /// The route configuration.
 final GoRouter catalogRouter = GoRouter(
