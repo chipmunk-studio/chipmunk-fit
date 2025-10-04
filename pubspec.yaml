@@ -17,16 +17,11 @@ workspace:
 dependencies:
   flutter:
     sdk: flutter
-
-  component:
-    path: ./component
-  foundation:
-    path: ./foundation
-  module:
-    path: ./module
   assets:
-    path: ./assets
-
+  foundation:
+  component:
+  module:
+  catalog:
   awesome_dialog:
   flutter_screenutil:
   dartz:
