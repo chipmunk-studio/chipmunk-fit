@@ -31,6 +31,8 @@ flutter_gen:
     rive: true
     lottie: true
   colors:
+    outputs:
+      class_name: ChipColors
     inputs:
       - color/colors.xml
 

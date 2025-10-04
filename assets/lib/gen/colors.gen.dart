@@ -11,8 +11,8 @@
 import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
-class ColorName {
-  ColorName._();
+class ChipColors {
+  ChipColors._();
 
   /// Color: #FF149DE1
   static const Color blueAlphaBase = Color(0xFF149DE1);

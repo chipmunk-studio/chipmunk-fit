@@ -97,7 +97,7 @@ extension ButtonStyleExtension on BuildContext {
     return ElevatedButton.styleFrom(
       foregroundColor: this.fitColors.staticBlack,
       backgroundColor: this.fitColors.main,
-      disabledForegroundColor: ColorName.grey0Dark,
+      disabledForegroundColor: ChipColors.grey0Dark,
       disabledBackgroundColor: this.fitColors.green50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.r),
