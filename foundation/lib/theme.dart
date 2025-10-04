@@ -6,151 +6,123 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'colors.dart';
 import 'textstyle.dart';
 
+/// 라이트 테마 생성
 ThemeData fitLightTheme(
   BuildContext context, {
   Color? mainColor,
   Color? subColor,
 }) {
-  final FitColors updatedColors = lightFitColors.copyWith(
-    main: mainColor ?? lightFitColors.main,
-    sub: subColor ?? lightFitColors.sub,
+  final updatedColors = lightFitColors.copyWith(
+    main: mainColor,
+    sub: subColor,
   );
 
-  final isDarkMode = FitThemeModeExtension(brightness: Brightness.light);
-
-  return ThemeData(
+  return _buildThemeData(
+    context,
     brightness: Brightness.light,
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
-    hoverColor: Colors.transparent,
-    checkboxTheme: _checkboxThemeData(updatedColors),
-    unselectedWidgetColor: updatedColors.grey800,
-    scaffoldBackgroundColor: updatedColors.grey900,
-    fontFamily: ChipAssets.fonts.pretendardRegular,
-    appBarTheme: appBarTheme(context, updatedColors, false),
-    elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
-    textButtonTheme: textButtonTheme(updatedColors),
-    bottomSheetTheme: bottomSheetTheme(updatedColors),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: updatedColors.main),
-    inputDecorationTheme: inputDecorationTheme(updatedColors),
-    bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    extensions: [
-      updatedColors,
-      isDarkMode,
-    ],
+    colors: updatedColors,
   );
 }
 
+/// 다크 테마 생성
 ThemeData fitDarkTheme(
   BuildContext context, {
   Color? mainColor,
   Color? subColor,
 }) {
-  final FitColors updatedColors = darkFitColors.copyWith(
-    main: mainColor ?? darkFitColors.main,
-    sub: subColor ?? darkFitColors.sub,
+  final updatedColors = darkFitColors.copyWith(
+    main: mainColor,
+    sub: subColor,
   );
 
-  final isDarkMode = FitThemeModeExtension(brightness: Brightness.dark);
+  return _buildThemeData(
+    context,
+    brightness: Brightness.dark,
+    colors: updatedColors,
+  );
+}
+
+/// 공통 ThemeData 생성 (중복 코드 제거)
+ThemeData _buildThemeData(
+  BuildContext context, {
+  required Brightness brightness,
+  required FitColors colors,
+}) {
+  final isDarkMode = FitThemeModeExtension(brightness: brightness);
+  final isDark = brightness == Brightness.dark;
 
   return ThemeData(
-    brightness: Brightness.dark,
+    brightness: brightness,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
-    checkboxTheme: _checkboxThemeData(updatedColors),
-    unselectedWidgetColor: updatedColors.grey800,
-    scaffoldBackgroundColor: updatedColors.grey900,
+    checkboxTheme: _checkboxThemeData(colors),
+    unselectedWidgetColor: colors.grey800,
+    scaffoldBackgroundColor: colors.grey900,
     fontFamily: ChipAssets.fonts.pretendardRegular,
-    appBarTheme: appBarTheme(context, updatedColors, true),
-    elevatedButtonTheme: elevatedButtonTheme(context, updatedColors),
-    textButtonTheme: textButtonTheme(updatedColors),
-    bottomSheetTheme: bottomSheetTheme(updatedColors),
-    textSelectionTheme: TextSelectionThemeData(
-      cursorColor: updatedColors.main,
-      selectionHandleColor: updatedColors.sub,
-    ),
-    inputDecorationTheme: inputDecorationTheme(updatedColors),
-    bottomNavigationBarTheme: bottomNavigationBarTheme(updatedColors),
+    appBarTheme: _appBarTheme(context, colors, isDark),
+    elevatedButtonTheme: _elevatedButtonTheme(context, colors),
+    textButtonTheme: _textButtonTheme(colors),
+    bottomSheetTheme: _bottomSheetTheme(colors),
+    textSelectionTheme: _textSelectionTheme(colors, isDark),
+    inputDecorationTheme: _inputDecorationTheme(colors),
+    bottomNavigationBarTheme: _bottomNavigationBarTheme(colors),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    extensions: [updatedColors, isDarkMode],
+    extensions: [colors, isDarkMode],
   );
 }
 
-_checkboxThemeData(FitColors fitColors) {
+/// 체크박스 테마
+CheckboxThemeData _checkboxThemeData(FitColors fitColors) {
   return CheckboxThemeData(
-    side: BorderSide(
-      width: 1.5,
-      color: fitColors.grey400,
-    ),
+    side: BorderSide(width: 1.5, color: fitColors.grey400),
     splashRadius: 0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4.r),
-    ),
-    checkColor: MaterialStateProperty.resolveWith<Color>((states) => Colors.black),
-    fillColor: MaterialStateProperty.resolveWith<Color>(
-      (states) {
-        if (!states.contains(MaterialState.selected)) {
-          return fitColors.grey400; // 체크박스가 선택된경우.
-        }
-        return fitColors.main; // 체크박스가 활성화된 경우
-      },
-    ),
-    overlayColor: MaterialStateProperty.resolveWith<Color>(
-      (states) {
-        if (states.contains(MaterialState.pressed)) {
-          return fitColors.main; // 체크박스가 눌린 경우
-        }
-        return Colors.transparent; // 체크박스가 눌리지 않은 경우
-      },
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+    checkColor: MaterialStateProperty.all(Colors.black),
+    fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+      return states.contains(MaterialState.selected) ? fitColors.main : fitColors.grey400;
+    }),
+    overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
+      return states.contains(MaterialState.pressed) ? fitColors.main : Colors.transparent;
+    }),
   );
 }
 
-bottomSheetTheme(FitColors fitColors) {
-  return BottomSheetThemeData(
-    backgroundColor: fitColors.grey800,
-  );
+/// 바텀 시트 테마
+BottomSheetThemeData _bottomSheetTheme(FitColors fitColors) {
+  return BottomSheetThemeData(backgroundColor: fitColors.grey800);
 }
 
-elevatedButtonTheme(BuildContext context, FitColors fitColors) {
+/// 엘리베이티드 버튼 테마
+ElevatedButtonThemeData _elevatedButtonTheme(BuildContext context, FitColors fitColors) {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       minimumSize: const Size.fromHeight(56),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100.r),
-      ),
-      // Enabled button color
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
       backgroundColor: fitColors.main,
-      // Disabled button color
       disabledBackgroundColor: fitColors.grey600,
-      // Enabled text color
       foregroundColor: fitColors.grey900,
-      // Disabled text color
       disabledForegroundColor: fitColors.grey400,
       textStyle: context.button1().copyWith(color: fitColors.grey0),
     ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.transparent), // 리플 효과 제거
-      shadowColor: MaterialStateProperty.all(Colors.transparent), // 그림자 제거
-      surfaceTintColor: MaterialStateProperty.all(Colors.transparent), // 클릭 시 잔여 색상 제거
+      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
     ),
   );
 }
 
-bottomNavigationBarTheme(FitColors fitColors) {
+/// 바텀 네비게이션 바 테마
+BottomNavigationBarThemeData _bottomNavigationBarTheme(FitColors fitColors) {
+  final baseLabelStyle = TextStyle(
+    fontFamily: ChipAssets.fonts.pretendardRegular,
+    fontSize: 13.sp,
+  );
+
   return BottomNavigationBarThemeData(
     backgroundColor: Colors.black,
-    selectedLabelStyle: TextStyle(
-      fontFamily: ChipAssets.fonts.pretendardRegular,
-      color: Colors.white,
-      fontSize: 13.sp,
-    ),
-    unselectedLabelStyle: TextStyle(
-      fontFamily: ChipAssets.fonts.pretendardRegular,
-      color: fitColors.grey700,
-      fontSize: 13.sp,
-    ),
+    selectedLabelStyle: baseLabelStyle.copyWith(color: Colors.white),
+    unselectedLabelStyle: baseLabelStyle.copyWith(color: fitColors.grey700),
     type: BottomNavigationBarType.fixed,
     selectedItemColor: Colors.white,
     unselectedItemColor: fitColors.grey700,
@@ -159,54 +131,59 @@ bottomNavigationBarTheme(FitColors fitColors) {
   );
 }
 
-inputDecorationTheme(FitColors fitColors) {
+/// 입력 필드 데코레이션 테마
+InputDecorationTheme _inputDecorationTheme(FitColors fitColors) {
+  final baseBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(16.r),
+  );
+
   return InputDecorationTheme(
     floatingLabelBehavior: FloatingLabelBehavior.auto,
-    // contentPadding: const EdgeInsets.fromLTRB(20, 16, 0, 16),
-    disabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
+    disabledBorder: baseBorder.copyWith(
       borderSide: BorderSide(color: fitColors.dividerSecondary),
     ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
+    enabledBorder: baseBorder.copyWith(
       borderSide: BorderSide(color: fitColors.dividerSecondary),
     ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
+    focusedBorder: baseBorder.copyWith(
       borderSide: BorderSide(color: fitColors.main),
     ),
-    errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
+    errorBorder: baseBorder.copyWith(
       borderSide: BorderSide(color: fitColors.redBase),
     ),
-    focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
+    focusedErrorBorder: baseBorder.copyWith(
       borderSide: BorderSide(color: fitColors.redBase),
     ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
+    border: baseBorder.copyWith(
       borderSide: BorderSide(color: fitColors.dividerSecondary),
     ),
     counterStyle: TextStyle(color: fitColors.main),
   );
 }
 
-textButtonTheme(FitColors fitColors) {
+/// 텍스트 버튼 테마
+TextButtonThemeData _textButtonTheme(FitColors fitColors) {
   return TextButtonThemeData(
     style: TextButton.styleFrom(
-      // 버튼의 텍스트 색상을 변경
       foregroundColor: Colors.white,
-      // 버튼의 배경색을 변경
       backgroundColor: fitColors.grey800,
       disabledBackgroundColor: fitColors.grey700,
-      // 버튼의 최소 크기 설정
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
     ),
   );
 }
 
-appBarTheme(BuildContext context, FitColors fitColors, bool isDark) {
+/// 텍스트 선택 테마
+TextSelectionThemeData _textSelectionTheme(FitColors fitColors, bool isDark) {
+  return TextSelectionThemeData(
+    cursorColor: fitColors.main,
+    selectionHandleColor: isDark ? fitColors.sub : null,
+  );
+}
+
+/// AppBar 테마
+AppBarTheme _appBarTheme(BuildContext context, FitColors fitColors, bool isDark) {
   return AppBarTheme(
     color: fitColors.grey900,
     elevation: 0,
@@ -224,6 +201,7 @@ appBarTheme(BuildContext context, FitColors fitColors, bool isDark) {
   );
 }
 
+/// 시스템 UI 오버레이 스타일 (상태바, 네비게이션 바)
 SystemUiOverlayStyle customSystemUiOverlayStyle({
   required bool isDark,
   required Color systemNavigationBarColor,
@@ -232,15 +210,13 @@ SystemUiOverlayStyle customSystemUiOverlayStyle({
   return SystemUiOverlayStyle(
     statusBarColor: statusBarColor,
     statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
-    // iOS 상태바 아이콘 밝기
     statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
-    // Android 상태바 아이콘 밝기
     systemNavigationBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
-    // 내비게이션 바 아이콘 밝기
-    systemNavigationBarColor: systemNavigationBarColor, // 내비게이션 바 색상
+    systemNavigationBarColor: systemNavigationBarColor,
   );
 }
 
+/// 테마 모드 확장 (다크/라이트 모드 판별)
 class FitThemeModeExtension extends ThemeExtension<FitThemeModeExtension> {
   final Brightness brightness;
 
@@ -252,28 +228,24 @@ class FitThemeModeExtension extends ThemeExtension<FitThemeModeExtension> {
 
   @override
   FitThemeModeExtension copyWith({Brightness? brightness}) {
-    return FitThemeModeExtension(
-      brightness: brightness ?? this.brightness,
-    );
+    return FitThemeModeExtension(brightness: brightness ?? this.brightness);
   }
 
   @override
   ThemeExtension<FitThemeModeExtension> lerp(
-      covariant ThemeExtension<FitThemeModeExtension>? other, double t) {
-    if (other is! FitThemeModeExtension) {
-      return this;
-    }
+    covariant ThemeExtension<FitThemeModeExtension>? other,
+    double t,
+  ) {
+    if (other is! FitThemeModeExtension) return this;
     return FitThemeModeExtension(
       brightness: t < 0.5 ? brightness : other.brightness,
     );
   }
 }
 
-/// **BuildContext에서 ThemeExtension을 쉽게 가져오는 확장 메서드**
+/// BuildContext에서 ThemeExtension을 쉽게 가져오는 확장 메서드
 extension FitThemeModeExtensionOnContext on BuildContext {
   FitThemeModeExtension get fitThemeMode {
-    final theme = Theme.of(this);
-    final brightness = theme.brightness; // 현재 밝기 상태 가져오기
-    return FitThemeModeExtension(brightness: brightness);
+    return FitThemeModeExtension(brightness: Theme.of(this).brightness);
   }
 }
