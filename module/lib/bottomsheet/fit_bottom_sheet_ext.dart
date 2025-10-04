@@ -4,7 +4,14 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foundation/colors.dart';
 
+/// 공통 Bottom Sheet 유틸리티
 class FitBottomSheet {
+  /// 기본 Bottom Sheet 표시
+  ///
+  /// [content] - 표시할 내용 위젯 빌더
+  /// [isShowCloseButton] - 닫기 버튼 표시 여부
+  /// [isDismissible] - 외부 터치로 닫기 가능 여부
+  /// [isShowTopBar] - 상단 드래그 바 표시 여부
   static Future<T?> show<T>(
     BuildContext context, {
     required Widget Function(BuildContext bottomSheetContext) content,
@@ -24,6 +31,11 @@ class FitBottomSheet {
     );
   }
 
+  /// 전체 화면 Bottom Sheet 표시
+  ///
+  /// [scrollContent] - 스크롤 가능한 내용 위젯 빌더
+  /// [topContent] - 상단 고정 위젯 빌더
+  /// [heightFactor] - 화면 비율 (기본값: 0.97)
   static Future<T?> showFull<T>(
     BuildContext context, {
     required Widget Function(BuildContext) scrollContent,
@@ -38,24 +50,27 @@ class FitBottomSheet {
       isDismissible: isDismissible,
       builder: (context) {
         final adjustedHeightFactor = _calculateHeightFactor(context, heightFactor);
-        return DraggableScrollableSheet(
-          expand: false,
+        return _buildDraggableSheet(
+          context,
+          scrollContent: scrollContent,
+          topContent: topContent,
+          isShowCloseButton: isShowCloseButton,
+          isShowTopBar: isShowTopBar,
           initialChildSize: adjustedHeightFactor,
           maxChildSize: adjustedHeightFactor,
           minChildSize: 0.1,
-          builder: (context, scrollController) => _buildFullSheetContent(
-            context,
-            scrollController: scrollController,
-            scrollContent: scrollContent,
-            topContent: topContent,
-            isShowCloseButton: isShowCloseButton,
-            isShowTopBar: isShowTopBar,
-          ),
         );
       },
     );
   }
 
+  /// 드래그 가능한 Bottom Sheet 표시
+  ///
+  /// [scrollContent] - 스크롤 가능한 내용 위젯 빌더
+  /// [topContent] - 상단 고정 위젯 빌더
+  /// [initialHeightFactor] - 초기 높이 비율 (기본값: 0.5)
+  /// [maxHeightFactor] - 최대 높이 비율 (기본값: 0.97)
+  /// [minHeightFactor] - 최소 높이 비율 (기본값: 0.2)
   static Future<T?> showDraggable<T>(
     BuildContext context, {
     required Widget Function(BuildContext) scrollContent,
@@ -71,26 +86,22 @@ class FitBottomSheet {
       context: context,
       isDismissible: isDismissible,
       builder: (context) {
-        final initialFactor = _calculateHeightFactor(context, initialHeightFactor);
-        return DraggableScrollableSheet(
-          expand: false,
-          initialChildSize: initialFactor,
+        final adjustedInitialFactor = _calculateHeightFactor(context, initialHeightFactor);
+        return _buildDraggableSheet(
+          context,
+          scrollContent: scrollContent,
+          topContent: topContent,
+          isShowCloseButton: isShowCloseButton,
+          isShowTopBar: isShowTopBar,
+          initialChildSize: adjustedInitialFactor,
           maxChildSize: maxHeightFactor,
           minChildSize: minHeightFactor,
-          builder: (context, scrollController) => _buildFullSheetContent(
-            context,
-            scrollController: scrollController,
-            scrollContent: scrollContent,
-            topContent: topContent,
-            isShowCloseButton: isShowCloseButton,
-            isShowTopBar: isShowTopBar,
-          ),
         );
       },
     );
   }
 
-  /// 공통적인 Modal Bottom Sheet 설정
+  /// 공통 Modal Bottom Sheet 설정
   static Future<T?> _showBaseModalBottomSheet<T>({
     required BuildContext context,
     required WidgetBuilder builder,
@@ -134,6 +145,33 @@ class FitBottomSheet {
     );
   }
 
+  /// DraggableScrollableSheet 생성
+  static Widget _buildDraggableSheet(
+    BuildContext context, {
+    required Widget Function(BuildContext) scrollContent,
+    required Widget Function(BuildContext) topContent,
+    required bool isShowCloseButton,
+    required bool isShowTopBar,
+    required double initialChildSize,
+    required double maxChildSize,
+    required double minChildSize,
+  }) {
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: initialChildSize,
+      maxChildSize: maxChildSize,
+      minChildSize: minChildSize,
+      builder: (context, scrollController) => _buildFullSheetContent(
+        context,
+        scrollController: scrollController,
+        scrollContent: scrollContent,
+        topContent: topContent,
+        isShowCloseButton: isShowCloseButton,
+        isShowTopBar: isShowTopBar,
+      ),
+    );
+  }
+
   /// 풀스크린 및 드래그 가능한 Sheet Content 생성
   static Widget _buildFullSheetContent(
     BuildContext context, {
@@ -161,7 +199,7 @@ class FitBottomSheet {
     );
   }
 
-  /// Top Bar 생성
+  /// Top Bar 생성 (드래그 인디케이터)
   static Widget _buildTopBar(BuildContext context, bool isShowCloseButton) {
     return Column(
       children: [
@@ -199,7 +237,9 @@ class FitBottomSheet {
     );
   }
 
-  /// Height Factor 계산
+  /// Height Factor 계산 (상태바 높이 보정)
+  ///
+  /// 상태바 높이를 제외한 실제 화면 비율 계산
   static double _calculateHeightFactor(BuildContext context, double heightFactor) {
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final screenHeight = MediaQuery.of(context).size.height;

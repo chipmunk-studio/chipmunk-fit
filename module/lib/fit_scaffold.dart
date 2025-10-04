@@ -9,17 +9,46 @@ import 'package:foundation/textstyle.dart';
 import 'package:foundation/theme.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+/// 앱 전체에서 사용되는 공통 Scaffold 위젯
+///
+/// 플랫폼별 AppBar 처리, 로딩 상태 관리, SafeArea 등을 제공
 class FitScaffold extends StatelessWidget {
+  /// Scaffold의 본문 내용
   final Widget body;
+
+  /// 하단 SafeArea 적용 여부 (기본값: true)
   final bool? bottom;
+
+  /// 상단 SafeArea 적용 여부 (기본값: true)
   final bool? top;
+
+  /// 배경색 (기본값: backgroundAlternative)
   final Color? backgroundColor;
+
+  /// 상단 AppBar 위젯
   final PreferredSizeWidget? appBar;
+
+  /// 키보드 표시 시 화면 크기 조정 여부
   final bool resizeToAvoidBottomInset;
+
+  /// AppBar 완전 제거 여부 (true: AppBar 없음, false: 기본 동작)
+  ///
+  /// - true: AppBar를 완전히 제거 (상태바 제어 없음)
+  /// - false: appBar가 null이면 플랫폼별 기본 AppBar 사용
+  ///   - Android: FitEmptyAppBar (상태바 색상 제어용)
+  ///   - iOS: AppBar 없음
   final bool? isRemoveAppBar;
+
+  /// 로딩 상태 표시 여부
   final bool isLoading;
+
+  /// 로딩 시 표시할 위젯 (기본값: FitDotLoading)
   final Widget? loadingView;
+
+  /// 하단 시트 위젯
   final Widget? bottomSheet;
+
+  /// 본문 패딩 (기본값: 좌우 20)
   final EdgeInsets? padding;
 
   const FitScaffold({
@@ -39,81 +68,123 @@ class FitScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveBackgroundColor = backgroundColor ?? context.fitColors.backgroundAlternative;
+    final effectiveBottom = bottom ?? true;
+    final effectiveTop = top ?? true;
+
     return CupertinoScaffold(
       body: Scaffold(
-        backgroundColor: backgroundColor ?? context.fitColors.backgroundAlternative,
-        appBar: isRemoveAppBar == false
-            ? _buildPlatformSpecificAppBar(
-                appBar: appBar,
-                backgroundColor: backgroundColor,
-                context: context,
-              )
-            : null,
+        backgroundColor: effectiveBackgroundColor,
+        appBar: _buildAppBar(context, effectiveBackgroundColor),
         bottomSheet: bottomSheet,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         body: SafeArea(
-          bottom: bottom ?? true,
-          top: top ?? true,
+          bottom: effectiveBottom,
+          top: effectiveTop,
           child: Padding(
-            padding: padding ??
-                EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  bottom: bottom == true ? MediaQuery.of(context).padding.bottom : 0.0,
-                ),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              switchInCurve: Curves.easeIn,
-              switchOutCurve: Curves.easeOut,
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                // topStart 정렬을 유지하기 위해 Align 추가
-                return FadeTransition(
-                  opacity: animation,
-                  child: Align(
-                    alignment: Alignment.topLeft, // Always align to topStart
-                    child: child,
-                  ),
-                );
-              },
-              child: isLoading
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(key: const ValueKey('loading'), child: loadingView),
-                        const SizedBox(height: 56),
-                      ],
-                    )
-                  : SizedBox(key: const ValueKey('body'), child: body),
-            ),
+            padding: padding ?? _getDefaultPadding(context, effectiveBottom),
+            child: _buildBodyWithLoadingState(),
           ),
         ),
       ),
     );
   }
 
+  /// AppBar 빌드 (플랫폼별 처리)
+  ///
+  /// 우선순위:
+  /// 1. isRemoveAppBar == true → null 반환 (AppBar 완전 제거)
+  /// 2. appBar != null → 제공된 AppBar 사용
+  /// 3. Android → FitEmptyAppBar (상태바 색상 제어)
+  /// 4. iOS → null (기본 동작)
+  PreferredSizeWidget? _buildAppBar(BuildContext context, Color backgroundColor) {
+    if (isRemoveAppBar == true) return null;
+
+    return _buildPlatformSpecificAppBar(
+      appBar: appBar,
+      backgroundColor: backgroundColor,
+      context: context,
+    );
+  }
+
+  /// 기본 패딩 계산
+  EdgeInsets _getDefaultPadding(BuildContext context, bool includeBottom) {
+    return EdgeInsets.only(
+      left: 20,
+      right: 20,
+      bottom: includeBottom ? MediaQuery.of(context).padding.bottom : 0.0,
+    );
+  }
+
+  /// 로딩 상태에 따른 본문 빌드
+  Widget _buildBodyWithLoadingState() {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      switchInCurve: Curves.easeIn,
+      switchOutCurve: Curves.easeOut,
+      transitionBuilder: _buildTransition,
+      child: isLoading ? _buildLoadingWidget() : _buildBodyWidget(),
+    );
+  }
+
+  /// 페이드 전환 효과
+  Widget _buildTransition(Widget child, Animation<double> animation) {
+    return FadeTransition(
+      opacity: animation,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: child,
+      ),
+    );
+  }
+
+  /// 로딩 위젯
+  Widget _buildLoadingWidget() {
+    return Column(
+      key: const ValueKey('loading'),
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        loadingView ?? const SizedBox.shrink(),
+        const SizedBox(height: 56),
+      ],
+    );
+  }
+
+  /// 본문 위젯
+  Widget _buildBodyWidget() {
+    return SizedBox(
+      key: const ValueKey('body'),
+      child: body,
+    );
+  }
+
+  /// 플랫폼별 AppBar 생성
+  ///
+  /// Android: 상태바 색상 제어를 위해 FitEmptyAppBar 사용
+  /// iOS: 기본적으로 AppBar 없음 (제공된 appBar만 사용)
   PreferredSizeWidget? _buildPlatformSpecificAppBar({
     PreferredSizeWidget? appBar,
     Color? backgroundColor,
     required BuildContext context,
   }) {
     if (Platform.isAndroid) {
-      return appBar ??
-          FitEmptyAppBar(
-            backgroundColor ?? context.fitColors.backgroundAlternative,
-          );
-    } else if (Platform.isIOS) {
-      return appBar;
+      return appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.backgroundAlternative);
     }
     return appBar;
   }
 }
 
+/// 빈 AppBar (상태바 색상 제어 전용)
+///
+/// Android에서 상태바와 네비게이션바 색상을 제어하기 위해 사용
+/// 시각적으로는 높이 0인 투명한 AppBar
 class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color statusBarColor;
   final Color systemNavigationBarColor;
   final Color backgroundColor;
 
+  /// 단일 색상으로 모든 바 색상 설정
   const FitEmptyAppBar(
     Color color, {
     super.key,
@@ -121,6 +192,7 @@ class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor = color,
         systemNavigationBarColor = color;
 
+  /// 각 바의 색상을 개별 설정
   const FitEmptyAppBar.navigationBarColors({
     super.key,
     required this.statusBarColor,
@@ -144,7 +216,18 @@ class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size(0.0, 0.0);
 }
 
+/// 공통 AppBar 스타일 생성 유틸리티
 abstract class FitCustomAppBar {
+  /// 뒤로가기 버튼이 있는 AppBar 생성
+  ///
+  /// [title] - AppBar 제목
+  /// [onPressed] - 뒤로가기 버튼 콜백 (기본값: Navigator.pop)
+  /// [leadingIcon] - 커스텀 leading 아이콘
+  /// [actions] - 우측 액션 버튼들
+  /// [backgroundColor] - 배경색
+  /// [titleColor] - 제목 색상
+  /// [centerTitle] - 제목 중앙 정렬 여부
+  /// [leftAlignTitle] - 제목 좌측 정렬 여부
   static AppBar leadingAppBar(
     BuildContext context, {
     String title = "",
@@ -152,32 +235,50 @@ abstract class FitCustomAppBar {
     Widget? leadingIcon,
     List<Widget>? actions,
     Color? backgroundColor,
-    Color? titleColor, // 텍스트 컬러 추가
+    Color? titleColor,
     bool centerTitle = false,
     bool leftAlignTitle = true,
   }) {
+    final effectiveBackgroundColor = backgroundColor ?? context.fitColors.backgroundAlternative;
+
     return AppBar(
       toolbarHeight: 56,
       systemOverlayStyle: customSystemUiOverlayStyle(
-        statusBarColor: backgroundColor ?? context.fitColors.backgroundAlternative,
+        statusBarColor: effectiveBackgroundColor,
         isDark: context.fitThemeMode.isDarkMode,
-        systemNavigationBarColor: backgroundColor ?? context.fitColors.backgroundAlternative,
+        systemNavigationBarColor: effectiveBackgroundColor,
       ),
-      backgroundColor: backgroundColor ?? context.fitColors.backgroundAlternative,
-      leading: IconButton(
-        icon: leadingIcon ?? ChipAssets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
-        onPressed: onPressed ?? () => Navigator.pop(context, true),
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        iconSize: 24,
-      ),
-      title: Text(
-        title,
-        style: context.subtitle2().copyWith(color: titleColor ?? context.fitColors.grey900),
-      ),
+      backgroundColor: effectiveBackgroundColor,
+      leading: _buildLeadingButton(context, leadingIcon, onPressed),
+      title: _buildTitle(context, title, titleColor),
       centerTitle: centerTitle,
       titleSpacing: leftAlignTitle ? 0.0 : NavigationToolbar.kMiddleSpacing,
       actions: actions,
+    );
+  }
+
+  /// leading 버튼 빌드
+  static Widget _buildLeadingButton(
+    BuildContext context,
+    Widget? leadingIcon,
+    Function0? onPressed,
+  ) {
+    return IconButton(
+      icon: leadingIcon ?? ChipAssets.icons.icArrowLeft.svg(color: context.fitColors.grey900),
+      onPressed: onPressed ?? () => Navigator.pop(context, true),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      iconSize: 24,
+    );
+  }
+
+  /// 제목 텍스트 빌드
+  static Widget _buildTitle(BuildContext context, String title, Color? titleColor) {
+    return Text(
+      title,
+      style: context.subtitle2().copyWith(
+            color: titleColor ?? context.fitColors.grey900,
+          ),
     );
   }
 }

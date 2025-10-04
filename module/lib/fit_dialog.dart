@@ -5,7 +5,14 @@ import 'package:foundation/buttonstyle.dart';
 import 'package:foundation/colors.dart';
 import 'package:foundation/textstyle.dart';
 
+/// 공통 다이얼로그 생성 유틸리티
 class FitDialog {
+  /// 에러 메시지를 표시하는 다이얼로그 생성
+  ///
+  /// [message] - 에러 메시지
+  /// [description] - 상세 설명 (제공 시 message 대신 표시)
+  /// [onPress] - 확인 버튼 콜백
+  /// [onDismissCallback] - 다이얼로그 닫힐 때 콜백
   static AwesomeDialog makeErrorDialog({
     required BuildContext context,
     required String message,
@@ -24,38 +31,28 @@ class FitDialog {
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
-      // Error dialog usually only has OK, so this style applies to it.
-      buttonsTextStyle:
-          buttonTextStyle ?? context.button1().copyWith(color: context.fitColors.staticBlack),
+      buttonsTextStyle: buttonTextStyle ?? _getDefaultButtonTextStyle(context),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
       onDismissCallback: onDismissCallback,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            Text(
-              description?.isNotEmpty == true ? description! : message,
-              style: textStyle ?? context.body1().copyWith(color: context.fitColors.grey700),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+      body: _buildErrorDialogBody(context, message, description, textStyle),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
       btnOkColor: btnOkColor ?? context.fitColors.main,
       btnOkText: btnOkText ?? '확인',
       btnOkOnPress: onPress,
-      // No cancel button in the typical error dialog
     );
   }
 
+  /// 커스터마이징 가능한 범용 다이얼로그 생성
+  ///
+  /// [title] - 제목
+  /// [subTitle] - 부제목
+  /// [btnOkText] - 확인 버튼 텍스트
+  /// [btnOkPressed] - 확인 버튼 콜백
+  /// [btnCancelPressed] - 취소 버튼 콜백
+  /// [topContent] - 상단 커스텀 위젯
+  /// [bottomContent] - 하단 커스텀 위젯
   static AwesomeDialog makeFitDialog({
     required BuildContext context,
     String? title,
@@ -76,37 +73,6 @@ class FitDialog {
     FitButtonType? okButtonType,
     FitButtonType? cancelButtonType,
   }) {
-    const int delayMilliseconds = 100;
-    Widget? okButtonWidget;
-
-    if (btnOkPressed != null || btnOkText != null) {
-      okButtonWidget = FitButton(
-        onPress: () async {
-          await Future.delayed(const Duration(milliseconds: delayMilliseconds));
-          Navigator.pop(context);
-          btnOkPressed?.call();
-        },
-        type: okButtonType ?? FitButtonType.primary,
-        isExpand: true,
-        text: btnOkText ?? '확인',
-      );
-    }
-
-    Widget? cancelButtonWidget;
-    if (btnCancelPressed != null || btnCancelText != null) {
-      cancelButtonWidget = FitButton(
-        type: cancelButtonType ?? FitButtonType.secondary,
-        isExpand: true,
-        isEnabled: false,
-        text: btnCancelText ?? '취소',
-        onDisablePress: () async {
-          await Future.delayed(const Duration(milliseconds: delayMilliseconds));
-          Navigator.pop(context);
-          btnCancelPressed?.call();
-        },
-      );
-    }
-
     return AwesomeDialog(
       context: context,
       width: MediaQuery.of(context).size.width,
@@ -116,41 +82,151 @@ class FitDialog {
       dismissOnTouchOutside: dismissOnTouchOutside,
       dismissOnBackKeyPress: dismissOnBackKeyPress,
       onDismissCallback: onDismissCallback,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (topContent != null) topContent,
-            if (title != null) const SizedBox(height: 20),
-            if (title != null)
-              Text(
-                title,
-                style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey900),
-                textAlign: TextAlign.center,
-              ),
-            if (subTitle != null) ...[
-              const SizedBox(height: 12),
-              Text(
-                subTitle,
-                style:
-                    context.body1().copyWith(color: subTitleTextColor ?? context.fitColors.grey700),
-                textAlign: TextAlign.center,
-              ),
-            ],
-            if (bottomContent != null) bottomContent,
-            const SizedBox(height: 20),
-          ],
-        ),
+      body: _buildDialogBody(
+        context,
+        title: title,
+        subTitle: subTitle,
+        titleTextColor: titleTextColor,
+        subTitleTextColor: subTitleTextColor,
+        topContent: topContent,
+        bottomContent: bottomContent,
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOk: okButtonWidget,
-      btnCancel: cancelButtonWidget,
+      btnOk: _buildOkButton(context, btnOkPressed, btnOkText, okButtonType),
+      btnCancel: _buildCancelButton(context, btnCancelPressed, btnCancelText, cancelButtonType),
       btnOkOnPress: null,
       btnCancelOnPress: null,
     );
+  }
+
+  /// 에러 다이얼로그 본문 빌드
+  static Widget _buildErrorDialogBody(
+    BuildContext context,
+    String message,
+    String? description,
+    TextStyle? textStyle,
+  ) {
+    final displayText = description?.isNotEmpty == true ? description! : message;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 20),
+          Text(
+            displayText,
+            style: textStyle ?? context.body1().copyWith(color: context.fitColors.grey700),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  /// 다이얼로그 본문 빌드
+  static Widget _buildDialogBody(
+    BuildContext context, {
+    String? title,
+    String? subTitle,
+    Color? titleTextColor,
+    Color? subTitleTextColor,
+    Widget? topContent,
+    Widget? bottomContent,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (topContent != null) topContent,
+          if (title != null) ...[
+            const SizedBox(height: 20),
+            _buildTitle(context, title, titleTextColor),
+          ],
+          if (subTitle != null) ...[
+            const SizedBox(height: 12),
+            _buildSubTitle(context, subTitle, subTitleTextColor),
+          ],
+          if (bottomContent != null) bottomContent,
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  /// 제목 텍스트 빌드
+  static Widget _buildTitle(BuildContext context, String title, Color? titleTextColor) {
+    return Text(
+      title,
+      style: context.h2().copyWith(color: titleTextColor ?? context.fitColors.grey900),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  /// 부제목 텍스트 빌드
+  static Widget _buildSubTitle(BuildContext context, String subTitle, Color? subTitleTextColor) {
+    return Text(
+      subTitle,
+      style: context.body1().copyWith(color: subTitleTextColor ?? context.fitColors.grey700),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  /// 확인 버튼 빌드
+  static Widget? _buildOkButton(
+    BuildContext context,
+    VoidCallback? btnOkPressed,
+    String? btnOkText,
+    FitButtonType? okButtonType,
+  ) {
+    if (btnOkPressed == null && btnOkText == null) return null;
+
+    return FitButton(
+      onPress: () => _handleButtonPress(context, btnOkPressed),
+      type: okButtonType ?? FitButtonType.primary,
+      isExpand: true,
+      text: btnOkText ?? '확인',
+    );
+  }
+
+  /// 취소 버튼 빌드
+  static Widget? _buildCancelButton(
+    BuildContext context,
+    VoidCallback? btnCancelPressed,
+    String? btnCancelText,
+    FitButtonType? cancelButtonType,
+  ) {
+    if (btnCancelPressed == null && btnCancelText == null) return null;
+
+    return FitButton(
+      type: cancelButtonType ?? FitButtonType.secondary,
+      isExpand: true,
+      isEnabled: false,
+      text: btnCancelText ?? '취소',
+      onDisablePress: () => _handleButtonPress(context, btnCancelPressed),
+    );
+  }
+
+  /// 버튼 클릭 처리 (지연 후 다이얼로그 닫고 콜백 실행)
+  static _handleButtonPress(
+    BuildContext context,
+    VoidCallback? callback,
+  ) async {
+    if (context.mounted) {
+      Navigator.pop(context);
+      callback?.call();
+    }
+  }
+
+  /// 기본 버튼 텍스트 스타일
+  static TextStyle _getDefaultButtonTextStyle(BuildContext context) {
+    return context.button1().copyWith(color: context.fitColors.staticBlack);
   }
 }
