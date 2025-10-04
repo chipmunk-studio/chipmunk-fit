@@ -10,8 +10,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  assets:
-    path: ../assets
+  chip_assets:
+    path: ../chip_assets
   foundation:
     path: ../foundation
   dependencies:

@@ -11,14 +11,14 @@ workspace:
   - component
   - foundation
   - module
-  - assets
+  - chip_assets
   - dependencies
 
 dependencies:
   flutter:
     sdk: flutter
-  assets:
-    path: ./assets
+  chip_assets:
+    path: ./chip_assets
   foundation:
     path: ./foundation
   component:
@@ -59,10 +59,6 @@ melos:
     build:module:
       run: melos exec --scope="module" -- "dart run build_runner build --delete-conflicting-outputs"
       description: Run build_runner in the module module.
-
-    build:assets:
-      run: melos exec --scope="assets" -- "dart run build_runner build --delete-conflicting-outputs"
-      description: Run build_runner in the assets module.
     build:catalog:
       run: melos exec --scope="catalog" -- "dart run build_runner build --delete-conflicting-outputs"
       description: Run build_runner in the assets module.
@@ -100,8 +96,8 @@ melos:
       description: Run lint analysis on module package.
 
     gen:
-      run: melos exec --scope="assets" -- "fluttergen -c pubspec.yaml"
-      description: Run flutter_gen for assets module.
+      run: melos exec --scope="chip_assets" -- "fluttergen -c pubspec.yaml"
+      description: Run flutter_gen for chip_assets module.
 
     build:main:
       run: dart run build_runner build --delete-conflicting-outputs

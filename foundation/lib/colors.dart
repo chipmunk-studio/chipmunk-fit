@@ -1,4 +1,4 @@
-import 'package:assets/gen/colors.gen.dart';
+import 'package:chip_assets/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 @immutable

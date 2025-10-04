@@ -1,1 +1,1 @@
-export 'package:assets/gen/colors.gen.dart';
+export 'package:chip_assets/gen/colors.gen.dart';

@@ -10,8 +10,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  assets:
-    path: ../assets
+  chip_assets:
+    path: ../chip_assets
 dev_dependencies:
   flutter_test:
     sdk: flutter

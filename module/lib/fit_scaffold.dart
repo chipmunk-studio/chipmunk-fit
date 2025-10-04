@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:assets/gen/assets.gen.dart';
+import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:component/fit_dot_loading.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';

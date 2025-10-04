@@ -1,4 +1,4 @@
-import 'package:assets/gen/assets.gen.dart';
+import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:component/fit_dot_loading.dart';
 import 'package:component/fit_lottie_widget.dart';

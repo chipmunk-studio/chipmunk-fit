@@ -1,1 +1,1 @@
-export 'package:assets/gen/assets.gen.dart';
+export 'package:chip_assets/gen/assets.gen.dart';
