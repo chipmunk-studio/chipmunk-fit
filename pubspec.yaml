@@ -21,7 +21,6 @@ dependencies:
   foundation:
   component:
   module:
-  catalog:
   awesome_dialog:
   flutter_screenutil:
   dartz:
