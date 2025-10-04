@@ -10,9 +10,12 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  foundation:
   assets:
+    path: ../assets
+  foundation:
+    path: ../foundation
   dependencies:
+    path: ../dependencies
   dartz:
   flutter_cache_manager:
   cached_network_image:

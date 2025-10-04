@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   assets:
+    path: ../assets
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -11,9 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   assets:
+    path: ../assets
   foundation:
+    path: ../foundation
   component:
+    path: ../component
   dependencies:
+    path: ../dependencies
   flutter_screenutil:
   flutter_bounceable:
   awesome_dialog:

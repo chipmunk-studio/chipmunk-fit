@@ -18,6 +18,7 @@ dependencies:
   flutter:
     sdk: flutter
   assets:
+    path: ./assets
   foundation:
     path: ./foundation
   component:
