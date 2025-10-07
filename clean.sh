@@ -1,72 +1,179 @@
 #!/bin/bash
 
 # =================================================================================
-# Melos Flutter 프로젝트 완전 소거 및 재빌드 스크립트 (Ultimate Reset V2)
+# Melos Flutter 프로젝트 - 최적화된 초기화 및 재빌드 스크립트 (V2)
 #
-# 이 스크립트는 프로젝트를 소스 코드만 남기고 모두 초기화합니다.
-# freezed, json_serializable(.g.dart) 뿐만 아니라 Chopper(.chopper.dart)가
-# 생성한 네트워크 계층 코드까지 모두 삭제하고 재빌드합니다.
+# [설명]
+#   다른 프로젝트의 사례를 참고하여 초기화 및 빌드 과정을 개선했습니다.
+#   - Chopper 생성 파일(*.chopper.dart) 삭제 로직 추가
+#   - 분리되어 있던 모듈 및 메인 앱 빌드 과정을 'melos run build' 명령어로 통합
 #
 # [실행 과정]
-# 1. 모든 코드 생성 파일(*.g.dart, *.freezed.dart, *.chopper.dart)을 삭제합니다.
-# 2. 모든 'pubspec.lock' 파일을 삭제하여 의존성을 리셋합니다.
-# 3. Melos를 통해 모든 패키지를 clean 합니다 (.dart_tool, build 폴더 등 삭제).
-# 4. Flutter SDK를 최신 버전으로 업그레이드합니다 (flutter upgrade).
-# 5. Flutter 업그레이드 후 모든 패키지를 최신 상태로 업데이트합니다 (고정 버전 제외).
-# 6. 모든 패키지의 의존성을 처음부터 다시 설치하고 연결합니다 (bootstrap).
-# 7. 모든 패키지를 빌드하여 코드 생성 파일을 다시 만듭니다 (build).
+#   1. 생성된 모든 파일(*.g.dart, *.freezed.dart, *.chopper.dart) 및 pubspec.lock 삭제
+#   2. 빌드 캐시 정리 (melos clean)
+#   3. (선택) Flutter SDK 및 패키지 업그레이드
+#   4. 의존성 재설치 및 연결 (melos bootstrap)
+#   5. 전체 코드 생성 (melos run build)
 #
-# [경고] 프로젝트 규모에 따라 전체 실행 시간이 매우 길어질 수 있습니다.
-#
-# 사용법:
-#   프로젝트 최상위 디렉토리에서 스크립트 파일을 저장하고 실행하세요.
+# [사용법]
+#   ./reset_and_rebuild.sh                    # 업그레이드 없이 실행
+#   ./reset_and_rebuild.sh --upgrade          # Flutter SDK만 업그레이드
+#   ./reset_and_rebuild.sh --upgrade-packages # 패키지만 업그레이드
+#   ./reset_and_rebuild.sh --upgrade-all      # 전체 업그레이드
 # =================================================================================
 
-# 스크립트 실행 중 오류가 발생하면 즉시 중단하도록 설정합니다.
+# --- 스크립트 설정 ---
+# 명령어 실행 중 오류 발생 시 즉시 중단
 set -e
 
-# --- 1. 모든 코드 생성 파일 삭제 ---
-# 'find' 명령어를 사용하여 프로젝트 전체에서 패턴과 일치하는 파일을 찾아 삭제합니다.
-# 오래되거나 불필요하게 남은 생성 파일을 제거하여 충돌을 방지합니다.
-echo "🧹 모든 코드 생성 파일(*.g.dart, *.freezed.dart, *.chopper.dart)을 삭제합니다..."
-find . -name "*.g.dart" -type f -delete
-find . -name "*.freezed.dart" -type f -delete
-find . -name "*.chopper.dart" -type f -delete # Chopper 생성 파일 삭제 추가
+# --- 터미널 출력 스타일 ---
+# 터미널 출력에 사용할 ANSI 색상 코드 정의
+readonly COLOR_BLUE='\033[1;34m'
+readonly COLOR_GREEN='\033[1;32m'
+readonly COLOR_RED='\033[1;31m'
+readonly COLOR_YELLOW='\033[1;33m'
+readonly COLOR_RESET='\033[0m'
 
-# --- 2. 모든 pubspec.lock 파일 삭제 ---
-# 의존성 해석을 처음부터 다시 시작하도록 모든 lock 파일을 삭제합니다.
-echo "🧹 모든 패키지의 pubspec.lock 파일을 삭제합니다..."
-find . -name "pubspec.lock" -type f -delete
+# --- 옵션 플래그 ---
+UPGRADE_FLUTTER=false
+UPGRADE_PACKAGES=false
 
-# --- 3. Melos 기본 Clean 실행 ---
-# .dart_tool, build 폴더 등 기본적인 빌드 캐시를 삭제합니다.
-echo "🧹 Melos 프로젝트를 초기화합니다 (flutter clean)..."
-melos clean
+# =================================================================================
+# 유틸리티 함수
+# =================================================================================
 
-# --- 4. Flutter SDK 업그레이드 ---
-# Flutter SDK를 최신 버전으로 업그레이드합니다.
-echo "🚀 Flutter SDK를 최신 버전으로 업그레이드합니다..."
-flutter upgrade
+# 단계별 진행 상황을 알려주는 헤더 출력
+print_step() {
+  echo -e "\n${COLOR_BLUE}▶ $1${COLOR_RESET}"
+}
 
-# --- 5. Flutter 업그레이드 후 패키지 업데이트 ---
-# Flutter SDK가 업그레이드된 후 모든 패키지를 최신 상태로 업데이트합니다 (고정 버전 제외).
-echo "🔄 Flutter 업그레이드 후 모든 패키지를 업데이트합니다 (고정 버전 제외)..."
-melos exec --concurrency=10 -- "flutter pub upgrade"
+# 작업 성공 메시지 출력
+print_success() {
+  echo -e "${COLOR_GREEN}✅ $1${COLOR_RESET}"
+}
 
-# --- 6. Melos 부트스트랩 (Bootstrap) ---
-# 모든 의존성을 깨끗한 상태에서 다시 설치하고 로컬 패키지를 연결합니다.
-echo "🔗 모든 의존성을 처음부터 다시 설치하고 연결합니다 (bootstrap)..."
-melos bootstrap
+# 오류 메시지 출력 후 스크립트 종료
+print_error() {
+  echo -e "${COLOR_RED}❌ 오류: $1${COLOR_RESET}"
+  exit 1
+}
 
-# --- 7. 전체 워크플로우 빌드 (Complete Build Workflow) ---
-# 모든 패키지와 메인 앱의 코드 생성 파일을 빌드합니다.
-echo "🚀 전체 빌드 워크플로우를 실행합니다 (모든 패키지 + 메인 앱)..."
-melos run build:all # 모든 패키지 빌드 (dev_dependencies 포함)
+# 도움말 출력
+print_help() {
+  echo "사용법: $0 [OPTIONS]"
+  echo ""
+  echo "옵션:"
+  echo "  --upgrade, -u          Flutter SDK만 업그레이드합니다."
+  echo "  --upgrade-packages, -p 패키지만 업그레이드합니다."
+  echo "  --upgrade-all, -a      Flutter SDK와 모든 패키지를 업그레이드합니다."
+  echo "  --help, -h             이 도움말을 표시합니다."
+  exit 0
+}
 
-# 개별 모듈 빌드 (확실히 하기 위해)
-echo "🔧 개별 모듈 빌드를 실행합니다..."
-melos run build:main # 메인 앱 빌드
-melos run build:features # features 모듈 빌드
+# =================================================================================
+# 실행 단계별 함수
+# =================================================================================
 
-# --- 완료 ---
-echo "✅ 모든 작업이 성공적으로 완료되었습니다! 프로젝트가 소스 코드 외 모든 것을 초기화하고 재빌드했습니다."
+# 스크립트 실행 인자(옵션) 파싱
+parse_arguments() {
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      --upgrade|-u) UPGRADE_FLUTTER=true; shift ;;
+      --upgrade-packages|-p) UPGRADE_PACKAGES=true; shift ;;
+      --upgrade-all|-a) UPGRADE_FLUTTER=true; UPGRADE_PACKAGES=true; shift ;;
+      --help|-h) print_help ;;
+      *)
+        echo "알 수 없는 옵션: $1"
+        print_help
+        exit 1
+        ;;
+    esac
+  done
+}
+
+# 생성된 모든 파일 삭제 (Chopper 파일 포함)
+clean_generated_files() {
+  print_step "생성된 파일을 모두 삭제합니다..."
+  echo "   - *.g.dart, *.freezed.dart, *.chopper.dart, pubspec.lock 파일을 찾아서 삭제합니다..."
+  find . -type f \( -name "*.g.dart" -o -name "*.freezed.dart" -o -name "*.chopper.dart" -o -name "pubspec.lock" \) -delete
+  print_success "모든 생성 파일이 삭제되었습니다."
+}
+
+# 빌드 캐시 정리
+clean_build_cache() {
+  print_step "빌드 캐시를 정리합니다..."
+  melos clean
+  print_success "빌드 캐시 정리가 완료되었습니다."
+}
+
+# Flutter SDK 업그레이드 (옵션)
+upgrade_sdk() {
+  if [ "$UPGRADE_FLUTTER" = true ]; then
+    print_step "Flutter SDK를 업그레이드합니다..."
+    flutter upgrade
+    print_success "Flutter SDK 업그레이드가 완료되었습니다."
+  else
+    print_step "Flutter SDK 업그레이드를 건너뜁니다."
+  fi
+}
+
+# 의존성 재설치
+bootstrap_dependencies() {
+  print_step "의존성을 재설치 및 연결합니다..."
+  melos bootstrap
+  print_success "의존성 설치가 완료되었습니다."
+}
+
+# 패키지 업그레이드 (옵션)
+upgrade_all_packages() {
+  if [ "$UPGRADE_PACKAGES" = true ]; then
+    print_step "모든 패키지를 업그레이드합니다..."
+    melos exec --concurrency=10 -- "flutter pub upgrade"
+    print_success "패키지 업그레이드가 완료되었습니다."
+  else
+    print_step "패키지 업그레이드를 건너뜁니다."
+  fi
+}
+
+# 모든 모듈 및 메인 앱 빌드 통합
+run_full_build() {
+  print_step "프로젝트 전체 빌드를 실행합니다 (모든 모듈 + 메인 앱)..."
+  # melos.yaml에 정의된 'build' 스크립트는 모든 하위 모듈과 메인 앱의 코드 생성을 포함합니다.
+  melos run build
+  print_success "프로젝트 전체 빌드가 완료되었습니다."
+}
+
+# 최종 요약 및 팁 출력
+summarize_reset() {
+  echo -e "\n${COLOR_YELLOW}=======================================================${COLOR_RESET}"
+  echo -e "${COLOR_GREEN}🎉 프로젝트 초기화 및 재빌드가 성공적으로 완료되었습니다! 🎉${COLOR_RESET}"
+  echo -e "${COLOR_YELLOW}=======================================================${COLOR_RESET}"
+
+  if [ "$UPGRADE_FLUTTER" = false ] && [ "$UPGRADE_PACKAGES" = false ]; then
+    echo -e "\n💡 Tip: 다음 옵션을 사용하여 SDK 또는 패키지를 업그레이드할 수 있습니다."
+    echo "  $0 --upgrade          (Flutter SDK만 업그레이드)"
+    echo "  $0 --upgrade-packages (패키지만 업그레이드)"
+    echo "  $0 --upgrade-all      (전체 업그레이드)"
+  fi
+}
+
+# =================================================================================
+# 메인 실행 함수
+# =================================================================================
+
+main() {
+  echo "🚀 Melos Flutter 프로젝트 초기화를 시작합니다..."
+
+  parse_arguments "$@"
+  clean_generated_files
+  clean_build_cache
+  upgrade_sdk
+  bootstrap_dependencies
+  upgrade_all_packages
+  run_full_build
+  summarize_reset
+}
+
+# 메인 함수 실행 (스크립트 인자 전달)
+main "$@"
+
