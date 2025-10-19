@@ -17,12 +17,14 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
   void showSuccessSnackBar(
     String message, {
     String buttonText = "바로가기",
+    EdgeInsetsGeometry? margin,
     VoidCallback? onTap,
   }) {
     final context = currentContext;
     if (context != null) {
       _showFitSnackBar(
         message: message,
+        margin: margin,
         onTap: onTap,
         buttonText: buttonText,
         icon: Icons.check,
@@ -35,11 +37,15 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
   /// 에러 메시지를 표시하는 스낵바 함수
   ///
   /// [message] - 표시할 에러 메시지
-  void showErrorSnackBar(String message) {
+  void showErrorSnackBar(
+    String message, {
+    EdgeInsetsGeometry? margin,
+  }) {
     final context = currentContext;
     if (context != null) {
       _showFitSnackBar(
         message: message,
+        margin: margin,
         icon: Icons.error_outline,
         iconColor: context.fitColors.staticWhite,
         iconBackgroundColor: context.fitColors.red50,
@@ -52,6 +58,7 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
     required String message,
     required IconData icon,
     required Color iconColor,
+    EdgeInsetsGeometry? margin,
     required Color iconBackgroundColor,
     VoidCallback? onTap,
     String? buttonText,
@@ -70,7 +77,7 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
         SnackBar(
           backgroundColor: const Color(0xFFF5F5F5),
           elevation: 0,
-          margin: const EdgeInsets.only(left: 16, right: 16, bottom: 64),
+          margin: margin ?? const EdgeInsets.only(left: 16, right: 16, bottom: 64),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(24)),
