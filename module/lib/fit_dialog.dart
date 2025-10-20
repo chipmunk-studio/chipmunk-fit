@@ -95,8 +95,8 @@ class FitDialog {
       dialogBorderRadius: BorderRadius.circular(borderRadius),
       btnOk: _buildOkButton(context, btnOkPressed, btnOkText, okButtonType),
       btnCancel: _buildCancelButton(context, btnCancelPressed, btnCancelText, cancelButtonType),
-      btnOkOnPress: null,
-      btnCancelOnPress: null,
+      btnOkOnPress: btnOkPressed,
+      btnCancelOnPress: btnCancelPressed,
     );
   }
 
