@@ -1,6 +1,5 @@
-import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:component/fit_dot_loading.dart';
+import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:component/fit_lottie_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -56,20 +55,20 @@ class FitCachedNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     try {
-      final effectivePlaceholder = placeholder ?? const FitDotLoading();
+      final effectivePlaceholder = placeholder ?? _buildDefaultError(context);
       final effectiveErrorWidget = errorWidget ?? _buildDefaultError(context);
 
       final imageWidget = imageUrl.isNotEmpty
           ? CachedNetworkImage(
-        imageUrl: imageUrl,
-        width: width,
-        height: height,
-        fit: fit,
-        cacheManager: cacheManager,
-        fadeInDuration: fadeInDuration,
-        placeholder: (_, __) => effectivePlaceholder,
-        errorWidget: (_, __, ___) => effectiveErrorWidget,
-      )
+              imageUrl: imageUrl,
+              width: width,
+              height: height,
+              fit: fit,
+              cacheManager: cacheManager,
+              fadeInDuration: fadeInDuration,
+              placeholder: (_, __) => effectivePlaceholder,
+              errorWidget: (_, __, ___) => effectiveErrorWidget,
+            )
           : effectiveErrorWidget;
 
       return Padding(
