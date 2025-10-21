@@ -16,11 +16,6 @@ class FitCacheHelper {
   static CacheManager _getCacheManager(Duration? stalePeriod) {
     // stalePeriod가 없으면 기본 캐시 매니저 사용
     if (stalePeriod == null) {
-      // FitCachedNetworkImage.cacheManager가 BaseCacheManager의 기본 인스턴스를 사용한다고 가정합니다.
-      // 만약 FitCachedNetworkImage.cacheManager가 null일 수 있거나
-      // 기본 stalePeriod가 다르다면 아래 로직을 사용해야 합니다.
-      //
-      // stalePeriod ??= const Duration(days: 30); // 기본값 설정
       return FitCachedNetworkImage.cacheManager;
     }
 
@@ -81,6 +76,7 @@ class FitCacheHelper {
 
       if (response.statusCode == 200) {
         final Uint8List bytes = response.bodyBytes;
+        // [수정] 수정된 확장자 추출 함수 사용
         final String fileExtension = _extractFileExtension(url);
 
         // 다운로드한 바이트를 캐시 매니저에 직접 주입
@@ -91,7 +87,7 @@ class FitCacheHelper {
           // eTag: response.headers['etag'], // ETag가 있다면 제공
         );
 
-        debugPrint('FitCacheHelper: 다운로드 및 캐시 저장 완료 - ${file.path}');
+        debugPrint('FitCacheHelper: 다운로드 및 캐시 저장 완료 (${fileExtension}) - ${file.path}');
         return file;
       } else {
         debugPrint('FitCacheHelper: 다운로드 실패 (HTTP ${response.statusCode}) - $url');
@@ -105,43 +101,60 @@ class FitCacheHelper {
     }
   }
 
-  /// [신규] URL에서 파일 확장자 추출 (e.g., "json", "png", "lottie")
+  /// [⭐️ 수정됨] URL에서 파일 확장자 추출 (e.g., "json", "png", "lottie")
+  ///
+  /// 기존 로직은 URL의 마지막 경로 세그먼트(pathSegments.last)만 확인하여
+  /// 확장자가 없는 URL(e.g., /api/getLottie)에 대응하지 못했습니다.
+  ///
+  /// 수정된 로직:
+  /// 1. URL의 전체 'path' (e.g., /api/resource.json)에서 확장자를 먼저 찾습니다.
+  /// 2. 'path'에 확장자가 없다면, '전체 URL' (쿼리 파라미터 포함)에서 힌트를 찾습니다.
+  ///    (e.g., ?type=lottie, ?format=json)
   static String _extractFileExtension(String url) {
     try {
       final uri = Uri.parse(url);
-      String path = uri.pathSegments.isNotEmpty ? uri.pathSegments.last : '';
+      // 1. 쿼리 파라미터가 제외된 'path' (e.g., /path/to/file.json)
+      final String path = uri.path;
 
-      if (path.isEmpty) {
-        path = url;
-      }
+      // 2. path에서 마지막 '.'의 위치를 찾습니다.
+      final int extensionIndex = path.lastIndexOf('.');
 
-      final extensionIndex = path.lastIndexOf('.');
+      // 3. '.'이 존재하고, path의 마지막 글자가 아닌 경우
       if (extensionIndex != -1 && extensionIndex < path.length - 1) {
+        // 4. 확장자 부분만 추출 (e.g., "json")
         String extension = path.substring(extensionIndex + 1);
 
-        // 쿼리 파라미터 제거 (e.g., file.json?v=1)
-        final queryIndex = extension.indexOf('?');
-        if (queryIndex != -1) {
-          extension = extension.substring(0, queryIndex);
+        // 5. 확장자에 '/'가 포함되어 있지 않은지 확인 (e.g. /path/file.v1/other)
+        if (!extension.contains('/')) {
+          debugPrint('FitCacheHelper: Path에서 확장자 찾음: $extension');
+          return extension.toLowerCase();
         }
-
-        // 프래그먼트 제거 (e.g., file.json#abc)
-        final fragmentIndex = extension.indexOf('#');
-        if (fragmentIndex != -1) {
-          extension = extension.substring(0, fragmentIndex);
-        }
-
-        return extension.toLowerCase().isEmpty ? 'bin' : extension.toLowerCase();
       }
     } catch (e) {
-      debugPrint('FitCacheHelper: 확장자 추출 실패 - $e');
+      debugPrint('FitCacheHelper: URI path에서 확장자 추출 실패 (URL: $url) - $e');
     }
 
-    // 확장자 구분이 어려운 경우 URL 자체에서 힌트 찾기
-    if (url.contains('.lottie')) return 'lottie';
-    if (url.contains('.json')) return 'json';
+    // 6. Path에서 확장자를 못찾은 경우, URL 전체(쿼리 파라미터 포함)에서 힌트를 찾습니다.
+    final lowerUrl = url.toLowerCase();
 
-    // 알 수 없는 경우 바이너리 파일로 처리
+    // .lottie 힌트 (바이너리 Lottie)
+    if (lowerUrl.contains('.lottie') ||
+        lowerUrl.contains('format=lottie') ||
+        lowerUrl.contains('type=lottie')) {
+      debugPrint('FitCacheHelper: URL 힌트에서 "lottie" 확장자 찾음');
+      return 'lottie';
+    }
+
+    // .json 힌트 (JSON Lottie)
+    if (lowerUrl.contains('.json') ||
+        lowerUrl.contains('format=json') ||
+        lowerUrl.contains('type=json')) {
+      debugPrint('FitCacheHelper: URL 힌트에서 "json" 확장자 찾음');
+      return 'json';
+    }
+
+    // 7. 힌트도 없으면 'bin' (바이너리)로 처리
+    debugPrint('FitCacheHelper: 확장자를 알 수 없어 "bin"으로 처리 - $url');
     return 'bin';
   }
 
@@ -161,6 +174,9 @@ class FitCacheHelper {
       return false;
     }
   }
+
+  // ... (removeFromCache, clearCache, clearAllCaches, preloadFiles, getCachedFilePath, touchCache 함수 동일) ...
+  // ... (FitCacheMixin 동일) ...
 
   /// 특정 URL 캐시 삭제
   static Future<void> removeFromCache(
