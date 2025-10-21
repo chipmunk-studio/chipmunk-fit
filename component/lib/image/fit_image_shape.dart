@@ -1,34 +1,39 @@
+/// 이미지 타입 Enum
 enum FitImageType {
-  LOTTIE, // 로띠.
-  IMAGE, // 웹피.
-  NONE
+  LOTTIE,
+  IMAGE,
+  NONE;
+
+  static FitImageType fromString(String? type) {
+    if (type == null) return NONE;
+
+    return FitImageType.values.firstWhere(
+          (e) => e.name == type,
+      orElse: () => NONE,
+    );
+  }
 }
 
+/// 이미지 형태 Enum
 enum FitImageShape {
-  RECTANGLE, // 직사각형.
-  SQUIRCLE, // 스쿼클.
-  CIRCLE, // 원.
-  NONE
-}
+  RECTANGLE,
+  SQUIRCLE,
+  CIRCLE,
+  NONE;
 
-FitImageType getImageType(String? type) {
-  if (FitImageType.LOTTIE.name == type) {
-    return FitImageType.LOTTIE;
-  } else if (FitImageType.IMAGE.name == type) {
-    return FitImageType.IMAGE;
-  } else {
-    return FitImageType.NONE;
+  static FitImageShape fromString(String? shape) {
+    if (shape == null) return SQUIRCLE;
+
+    return FitImageShape.values.firstWhere(
+          (e) => e.name == shape,
+      orElse: () => SQUIRCLE,
+    );
   }
 }
 
-FitImageShape getImageShape(String? shape) {
-  if (FitImageShape.CIRCLE.name == shape) {
-    return FitImageShape.CIRCLE;
-  } else if (FitImageShape.RECTANGLE.name == shape) {
-    return FitImageShape.RECTANGLE;
-  } else if (FitImageShape.SQUIRCLE.name == shape) {
-    return FitImageShape.SQUIRCLE;
-  } else {
-    return FitImageShape.SQUIRCLE;
-  }
-}
+/// Legacy 호환성을 위한 헬퍼 함수
+@Deprecated('Use FitImageType.fromString instead')
+FitImageType getImageType(String? type) => FitImageType.fromString(type);
+
+@Deprecated('Use FitImageShape.fromString instead')
+FitImageShape getImageShape(String? shape) => FitImageShape.fromString(shape);

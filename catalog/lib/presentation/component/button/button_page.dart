@@ -1,5 +1,4 @@
 import 'package:chipfit/component/button/fit_button.dart';
-import 'package:chipfit/component/fit_snackbar.dart';
 import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
@@ -35,7 +34,7 @@ class ButtonPage extends StatelessWidget {
                   type: FitButtonType.primary,
                   isEnabled: false,
                   text: '비활성화 Primary 버튼',
-                  onDisablePress: () => context.showSnackBar('Primary 버튼 비활성 클릭'),
+                  onDisablePress: () {},
                 ),
                 FitButton(
                   type: FitButtonType.primary,
@@ -59,7 +58,7 @@ class ButtonPage extends StatelessWidget {
                   type: FitButtonType.secondary,
                   isEnabled: false,
                   text: '비활성화 Secondary 버튼',
-                  onDisablePress: () => context.showSnackBar('Secondary 버튼 비활성 클릭'),
+                  onDisablePress: () {},
                 ),
               ],
             ),
@@ -77,7 +76,7 @@ class ButtonPage extends StatelessWidget {
                   type: FitButtonType.tertiary,
                   isEnabled: false,
                   text: '비활성화 Tertiary 버튼',
-                  onDisablePress: () => context.showSnackBar('Tertiary 버튼 비활성 클릭'),
+                  onDisablePress: () {},
                 ),
               ],
             ),
@@ -95,7 +94,7 @@ class ButtonPage extends StatelessWidget {
                   type: FitButtonType.ghost,
                   isEnabled: false,
                   text: '비활성화 Line 버튼',
-                  onDisablePress: () => context.showSnackBar('Line 버튼 비활성 클릭'),
+                  onDisablePress: () {},
                 ),
               ],
             ),
@@ -113,7 +112,7 @@ class ButtonPage extends StatelessWidget {
                   type: FitButtonType.destructive,
                   isEnabled: false,
                   text: '비활성화 Destructive 버튼',
-                  onDisablePress: () => context.showSnackBar('Destructive 버튼 비활성 클릭'),
+                  onDisablePress: () {},
                 ),
               ],
             ),

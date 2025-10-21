@@ -11,21 +11,23 @@ import 'fit_image_shape.dart';
 import 'fit_squircle_border_painter.dart';
 import 'fit_squircle_clipper.dart';
 
+/// 캐시된 네트워크 이미지 위젯
 class FitCachedNetworkImage extends StatelessWidget {
   final String imageUrl;
   final BoxFit fit;
-  final Widget placeholder;
+  final Widget? placeholder;
   final Widget? errorWidget;
   final double? width;
   final double? height;
   final FitImageShape imageShape;
   final double? borderWidth;
   final Color? borderColor;
-  final EdgeInsetsGeometry? itemPadding; // 추가된 파라미터
+  final EdgeInsetsGeometry? padding;
+  final Duration fadeInDuration;
 
   static const _cacheKey = 'Lar_marker';
 
-  static CacheManager cacheManager = CacheManager(
+  static final CacheManager cacheManager = CacheManager(
     Config(
       _cacheKey,
       stalePeriod: const Duration(days: 30),
@@ -36,105 +38,110 @@ class FitCachedNetworkImage extends StatelessWidget {
     ),
   );
 
-  FitCachedNetworkImage({
+  const FitCachedNetworkImage({
     super.key,
+    required this.imageUrl,
     this.width,
     this.height,
-    required this.imageUrl,
     this.fit = BoxFit.cover,
     this.imageShape = FitImageShape.RECTANGLE,
+    this.placeholder,
     this.errorWidget,
-    Widget? placeholder,
     this.borderWidth,
     this.borderColor,
-    this.itemPadding,
-  }) : placeholder = placeholder ?? const FitDotLoading();
+    this.padding,
+    this.fadeInDuration = const Duration(seconds: 1),
+  });
 
   @override
   Widget build(BuildContext context) {
-    // 에러 위젯을 BuildContext를 사용하여 초기화
-    final isDarkMode = context.fitThemeMode.isDarkMode;
-    final Widget defaultErrorWidget = errorWidget ??
-        (isDarkMode
-            ? ChipAssets.icons.icProfileDefaultDark.svg(width: width)
-            : ChipAssets.icons.icProfileDefaultLight.svg(width: width));
-
     try {
-      Widget imageWidget = imageUrl.isNotEmpty
-          ? CachedNetworkImage(
-              imageUrl: imageUrl,
-              width: width,
-              height: height,
-              fit: fit,
-              cacheManager: cacheManager,
-              fadeInDuration: const Duration(seconds: 1),
-              placeholder: (context, url) => placeholder,
-              errorWidget: (context, url, error) => defaultErrorWidget,
-            )
-          : defaultErrorWidget;
+      final effectivePlaceholder = placeholder ?? const FitDotLoading();
+      final effectiveErrorWidget = errorWidget ?? _buildDefaultError(context);
 
-      // 패딩이 이미지 외부에만 적용되도록 설정
-      switch (imageShape) {
-        case FitImageShape.SQUIRCLE:
-          return Padding(
-            padding: itemPadding ?? EdgeInsets.zero,
-            child: SizedBox(
-              width: width,
-              height: height,
-              child: CustomPaint(
-                painter: FitSquircleBorderPainter(
-                  borderWidth: borderWidth,
-                  borderColor: borderColor,
-                ),
-                child: ClipPath(
-                  clipper: FitSquircleClipper(),
-                  child: imageWidget,
-                ),
-              ),
-            ),
-          );
-        case FitImageShape.CIRCLE:
-          return Padding(
-            padding: itemPadding ?? EdgeInsets.zero,
-            child: Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                border: borderWidth != null && borderColor != null
-                    ? Border.all(color: borderColor!, width: borderWidth!)
-                    : null,
-                shape: BoxShape.circle,
-              ),
-              child: ClipOval(
-                child: imageWidget,
-              ),
-            ),
-          );
-        case FitImageShape.RECTANGLE:
-          return Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              border: borderWidth != null && borderColor != null
-                  ? Border.all(color: borderColor!, width: borderWidth!)
-                  : null,
-              shape: BoxShape.rectangle,
-            ),
-            child: imageWidget,
-          );
-        default:
-          return Padding(
-            padding: itemPadding ?? EdgeInsets.zero,
-            child: imageWidget,
-          );
-      }
+      final imageWidget = imageUrl.isNotEmpty
+          ? CachedNetworkImage(
+        imageUrl: imageUrl,
+        width: width,
+        height: height,
+        fit: fit,
+        cacheManager: cacheManager,
+        fadeInDuration: fadeInDuration,
+        placeholder: (_, __) => effectivePlaceholder,
+        errorWidget: (_, __, ___) => effectiveErrorWidget,
+      )
+          : effectiveErrorWidget;
+
+      return Padding(
+        padding: padding ?? EdgeInsets.zero,
+        child: _buildShapedImage(imageWidget),
+      );
     } catch (e) {
-      print(e);
+      debugPrint('FitCachedNetworkImage: 이미지 로드 실패 - $e');
       return const SizedBox.shrink();
     }
   }
+
+  Widget _buildDefaultError(BuildContext context) {
+    final isDarkMode = context.fitThemeMode.isDarkMode;
+    return isDarkMode
+        ? ChipAssets.icons.icProfileDefaultDark.svg(width: width)
+        : ChipAssets.icons.icProfileDefaultLight.svg(width: width);
+  }
+
+  Widget _buildShapedImage(Widget imageWidget) {
+    final border = _buildBorder();
+
+    switch (imageShape) {
+      case FitImageShape.SQUIRCLE:
+        return SizedBox(
+          width: width,
+          height: height,
+          child: CustomPaint(
+            painter: FitSquircleBorderPainter(
+              borderWidth: borderWidth,
+              borderColor: borderColor,
+            ),
+            child: ClipPath(
+              clipper: FitSquircleClipper(),
+              child: imageWidget,
+            ),
+          ),
+        );
+
+      case FitImageShape.CIRCLE:
+        return Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            border: border,
+            shape: BoxShape.circle,
+          ),
+          child: ClipOval(child: imageWidget),
+        );
+
+      case FitImageShape.RECTANGLE:
+        return Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(border: border),
+          child: imageWidget,
+        );
+
+      default:
+        return imageWidget;
+    }
+  }
+
+  BoxBorder? _buildBorder() {
+    if (borderWidth != null && borderColor != null) {
+      return Border.all(color: borderColor!, width: borderWidth!);
+    }
+    return null;
+  }
 }
 
+/// 이미지 빌더 헬퍼 함수
 Widget buildFitImage({
   required String url,
   FitImageType type = FitImageType.IMAGE,
@@ -142,33 +149,37 @@ Widget buildFitImage({
   double? height,
   Widget? placeholder,
   Widget? errorWidget,
-  FitImageShape? imageShape,
-  BoxFit? fit,
+  FitImageShape imageShape = FitImageShape.SQUIRCLE,
+  BoxFit fit = BoxFit.contain,
   double? borderWidth,
   Color? borderColor,
-  EdgeInsetsGeometry? itemPadding, // 추가된 파라미터
+  EdgeInsetsGeometry? padding,
 }) {
   switch (type) {
     case FitImageType.LOTTIE:
       return FitLottieWidget(
         key: ValueKey(url),
-        lottieUrl: url,
+        source: url,
         width: width,
         height: height,
       );
-    default:
+
+    case FitImageType.IMAGE:
       return FitCachedNetworkImage(
         key: ValueKey(url),
+        imageUrl: url,
         width: width,
         height: height,
-        imageUrl: url,
-        imageShape: imageShape ?? FitImageShape.SQUIRCLE,
-        placeholder: placeholder ?? const SizedBox.shrink(),
+        imageShape: imageShape,
+        fit: fit,
+        placeholder: placeholder,
         errorWidget: errorWidget,
-        fit: fit ?? BoxFit.contain,
         borderWidth: borderWidth,
         borderColor: borderColor,
-        itemPadding: itemPadding, // 패딩 추가
+        padding: padding,
       );
+
+    default:
+      return const SizedBox.shrink();
   }
 }

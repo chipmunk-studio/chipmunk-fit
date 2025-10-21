@@ -1,1 +1,1 @@
-export 'package:component/card/fit_card.dart';
+export 'package:component/fit_card.dart';

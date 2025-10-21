@@ -1,32 +1,43 @@
-
-
 import 'package:flutter/material.dart';
 
+/// Squircle 형태의 테두리를 그리는 Painter
 class FitSquircleBorderPainter extends CustomPainter {
   final double? borderWidth;
   final Color? borderColor;
 
-  FitSquircleBorderPainter({this.borderWidth, this.borderColor});
+  const FitSquircleBorderPainter({
+    this.borderWidth,
+    this.borderColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final path = Path()
-      ..moveTo(0, size.height * 0.5000000)
-      ..cubicTo(0, size.height * 0.1250000, size.width * 0.1250000, 0, size.width * 0.5000000, 0)
-      ..cubicTo(size.width * 0.8750000, 0, size.width, size.height * 0.1250000, size.width, size.height * 0.5000000)
-      ..cubicTo(size.width, size.height * 0.8750000, size.width * 0.8750000, size.height, size.width * 0.5000000, size.height)
-      ..cubicTo(size.width * 0.1250000, size.height, 0, size.height * 0.8750000, 0, size.height * 0.5000000)
-      ..close();
+    if (borderWidth == null || borderColor == null) return;
 
-    if (borderWidth != null && borderColor != null) {
-      final paint = Paint()
-        ..color = borderColor!
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = borderWidth!;
-      canvas.drawPath(path, paint);
-    }
+    final path = _createSquirclePath(size);
+    final paint = Paint()
+      ..color = borderColor!
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth!;
+
+    canvas.drawPath(path, paint);
+  }
+
+  Path _createSquirclePath(Size size) {
+    final w = size.width;
+    final h = size.height;
+
+    return Path()
+      ..moveTo(0, h * 0.5)
+      ..cubicTo(0, h * 0.125, w * 0.125, 0, w * 0.5, 0)
+      ..cubicTo(w * 0.875, 0, w, h * 0.125, w, h * 0.5)
+      ..cubicTo(w, h * 0.875, w * 0.875, h, w * 0.5, h)
+      ..cubicTo(w * 0.125, h, 0, h * 0.875, 0, h * 0.5)
+      ..close();
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant FitSquircleBorderPainter oldDelegate) {
+    return borderWidth != oldDelegate.borderWidth || borderColor != oldDelegate.borderColor;
+  }
 }

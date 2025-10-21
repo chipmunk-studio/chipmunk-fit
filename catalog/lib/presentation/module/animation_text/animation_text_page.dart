@@ -58,7 +58,7 @@ class AnimationText extends StatelessWidget {
                   textStyle: context.subtitle3().copyWith(color: context.fitColors.main),
                   duration: const Duration(milliseconds: 100),
                   onAnimationComplete: () {
-                    context.showSnackBar("애니메이션 완료!");
+
                   },
                 ),
               ],

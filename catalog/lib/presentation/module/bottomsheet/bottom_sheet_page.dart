@@ -1,4 +1,3 @@
-import 'package:chipfit/component/fit_snackbar.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_bottomsheet.dart';
@@ -56,7 +55,6 @@ class BottomSheetPage extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.pop(bottomSheetContext);
-                                  context.showSnackBar("바텀시트가 닫혔습니다!");
                                 },
                                 child: const Text("닫기"),
                               ),
@@ -96,7 +94,6 @@ class BottomSheetPage extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.pop(bottomSheetContext);
-                                  context.showSnackBar("닫았습니다.");
                                 },
                                 child: const Text("닫기"),
                               ),

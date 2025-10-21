@@ -1,1 +1,1 @@
-export 'package:component/painter/fit_squircle_painter.dart';
+export 'package:component/image/fit_squircle_painter.dart';
