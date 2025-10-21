@@ -25,7 +25,7 @@ class FitCachedNetworkImage extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Duration fadeInDuration;
 
-  static const _cacheKey = 'Lar_marker';
+  static const _cacheKey = 'fortune_caching_key';
 
   static final CacheManager cacheManager = CacheManager(
     Config(
