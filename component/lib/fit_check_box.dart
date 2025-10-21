@@ -1,59 +1,50 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
+/// 커스텀 체크박스 위젯 (크기 조절 가능)
 class FitCheckBox extends StatelessWidget {
   final bool state;
   final Function1<bool, void>? onCheck;
-
-  // 스타일 관련 속성들
-  final Color? color;
-  final Color? checkColor;
   final Color? activeColor;
+  final Color? checkColor;
   final Color? hoverColor;
   final Color? focusColor;
-  final Color? overlayColor;
   final BorderSide? side;
   final OutlinedBorder? shape;
-
-  // 동작 관련 속성들
-  final MaterialTapTargetSize? materialTapTargetSize;
+  final MaterialTapTargetSize materialTapTargetSize;
   final VisualDensity? visualDensity;
   final bool autofocus;
-
-  // 크기 설정
-  final double width;
-  final double height;
+  final double size;
 
   const FitCheckBox({
     super.key,
     required this.state,
     this.onCheck,
-    this.color,
-    this.checkColor,
     this.activeColor,
+    this.checkColor,
     this.hoverColor,
     this.focusColor,
-    this.overlayColor,
     this.side,
     this.shape,
     this.materialTapTargetSize = MaterialTapTargetSize.shrinkWrap,
     this.visualDensity,
     this.autofocus = false,
-    this.width = 16.0, // 기본 너비
-    this.height = 16.0, // 기본 높이
+    this.size = 16.0,
   });
 
   @override
   Widget build(BuildContext context) {
-    final double scaleFactor = width / 16.0; // 기본 크기(16.0)에 비례한 스케일링
+    const baseSize = 16.0;
+    final scaleFactor = size / baseSize;
+
     return Transform.scale(
       scale: scaleFactor,
       child: SizedBox(
-        width: width,
-        height: height,
+        width: size,
+        height: size,
         child: Checkbox(
           value: state,
-          onChanged: onCheck != null ? (value) => onCheck!(value!) : null,
+          onChanged: onCheck != null ? (value) => onCheck!(value ?? false) : null,
           activeColor: activeColor,
           checkColor: checkColor,
           hoverColor: hoverColor,
@@ -61,9 +52,8 @@ class FitCheckBox extends StatelessWidget {
           side: side,
           shape: shape,
           materialTapTargetSize: materialTapTargetSize,
-          visualDensity: visualDensity ?? VisualDensity(horizontal: -4, vertical: -4),
+          visualDensity: visualDensity ?? const VisualDensity(horizontal: -4, vertical: -4),
           autofocus: autofocus,
-          overlayColor: overlayColor != null ? WidgetStateProperty.all(overlayColor) : null,
         ),
       ),
     );

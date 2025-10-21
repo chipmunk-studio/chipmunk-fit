@@ -1,29 +1,50 @@
-import 'package:dartz/dartz.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:foundation/textstyle.dart';
 
-import 'fit_bottom_button.dart';
-
-class FitTextButton extends StatelessWidget {
-  final Function0? onPress;
+/// 텍스트 버튼 (디바운스 적용)
+class FitTextButton extends StatefulWidget {
+  final Function()? onPress;
   final String text;
-  final _deBouncer = FitButtonDeBouncer(milliseconds: 3000);
   final TextStyle? textStyle;
+  final Duration debounceDuration;
 
-  FitTextButton({
+  const FitTextButton({
     super.key,
     required this.onPress,
     required this.text,
     this.textStyle,
+    this.debounceDuration = const Duration(seconds: 3),
   });
+
+  @override
+  State<FitTextButton> createState() => _FitTextButtonState();
+}
+
+class _FitTextButtonState extends State<FitTextButton> {
+  Timer? _debounceTimer;
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
+
+  void _handlePress() {
+    if (_debounceTimer?.isActive ?? false) return;
+
+    widget.onPress?.call();
+    _debounceTimer = Timer(widget.debounceDuration, () {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPress != null ? () => _deBouncer.run(onPress) : null,
+      onPressed: widget.onPress != null ? _handlePress : null,
       child: Text(
-        text,
-        style: textStyle ?? context.body4(),
+        widget.text,
+        style: widget.textStyle ?? context.body4(),
       ),
     );
   }

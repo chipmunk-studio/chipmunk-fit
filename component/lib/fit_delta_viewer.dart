@@ -3,23 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
+/// Quill Delta JSON 뷰어 위젯
 class FitDeltaViewer extends StatefulWidget {
-  const FitDeltaViewer({
-    super.key,
-    required this.deltaJson,
-    this.isReadOnly = true,
-    this.showCursor = false,
-    this.scrollable = true,
-    this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-    this.autoFocus = false,
-    this.enableSelectionToolbar = false,
-    this.expands = true,
-    this.maxContentWidth = 800,
-  });
-
   final String deltaJson;
   final bool isReadOnly;
-  final bool showCursor; // 커서 표시 여부를 제어하는 매개변수
+  final bool showCursor;
   final bool scrollable;
   final EdgeInsets padding;
   final bool autoFocus;
@@ -27,16 +15,33 @@ class FitDeltaViewer extends StatefulWidget {
   final bool expands;
   final double maxContentWidth;
 
+  const FitDeltaViewer({
+    super.key,
+    required this.deltaJson,
+    this.isReadOnly = true,
+    this.showCursor = false,
+    this.scrollable = true,
+    this.padding = EdgeInsets.zero,
+    this.autoFocus = false,
+    this.enableSelectionToolbar = false,
+    this.expands = true,
+    this.maxContentWidth = 800,
+  });
+
   @override
   State<FitDeltaViewer> createState() => _FitDeltaViewerState();
 }
 
 class _FitDeltaViewerState extends State<FitDeltaViewer> {
   late QuillController _controller;
+  late FocusNode _focusNode;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
+    _scrollController = ScrollController();
     _initializeController();
   }
 
@@ -50,16 +55,18 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
 
   void _initializeController() {
     try {
-      final List<dynamic> deltaOps = jsonDecode(widget.deltaJson)['ops'];
+      final deltaOps = jsonDecode(widget.deltaJson)['ops'] as List<dynamic>;
       final document = Document.fromJson(deltaOps);
+
       _controller = QuillController(
         document: document,
         selection: const TextSelection.collapsed(offset: 0),
         readOnly: widget.isReadOnly,
       );
-      setState(() {});
+
+      if (mounted) setState(() {});
     } catch (e) {
-      debugPrint('DeltaViewer: Error initializing controller - $e');
+      debugPrint('FitDeltaViewer: Delta 파싱 실패 - $e');
       _controller = QuillController.basic();
     }
   }
@@ -67,6 +74,8 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -74,8 +83,8 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
   Widget build(BuildContext context) {
     return QuillEditor.basic(
       controller: _controller,
-      focusNode: FocusNode(),
-      scrollController: ScrollController(),
+      focusNode: _focusNode,
+      scrollController: _scrollController,
       config: QuillEditorConfig(
         scrollable: widget.scrollable,
         padding: widget.padding,
@@ -84,46 +93,7 @@ class _FitDeltaViewerState extends State<FitDeltaViewer> {
         expands: widget.expands,
         maxContentWidth: widget.maxContentWidth,
         showCursor: widget.showCursor,
-        // 커서 표시 여부 설정
-        embedBuilders: [
-          // _ImageEmbedBuilder(widget.maxContentWidth),
-        ],
       ),
     );
   }
 }
-//
-// class _ImageEmbedBuilder extends EmbedBuilder {
-//   _ImageEmbedBuilder(this.maxContentWidth);
-//
-//   final double? maxContentWidth;
-//
-//   @override
-//   String get key => BlockEmbed.imageType;
-//
-//   @override
-//   Widget build(
-//     BuildContext context,
-//     EmbedContext embedContext,
-//   ) {
-//     final url = node.value.data as String;
-//     final image = buildFitImage(
-//       url: url,
-//       fit: BoxFit.scaleDown,
-//       imageShape: FitImageShape.RECTANGLE,
-//     );
-//
-//     final alignment = node.parent?.style.attributes['align'];
-//     return ConstrainedBox(
-//       constraints: BoxConstraints(maxWidth: maxContentWidth ?? double.infinity),
-//       child: Align(
-//         alignment: alignment?.value == 'right'
-//             ? Alignment.topRight
-//             : alignment?.value == 'center'
-//                 ? Alignment.topCenter
-//                 : Alignment.topLeft,
-//         child: image,
-//       ),
-//     );
-//   }
-// }

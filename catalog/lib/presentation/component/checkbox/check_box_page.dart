@@ -114,8 +114,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
                 _buildCheckBox(
                   "customSize",
                   "커스텀 크기",
-                  width: 36.0,
-                  height: 36.0,
+                  size: 36.0,
                 ),
                 _buildCheckBox(
                   "customBorderColor",
@@ -142,8 +141,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   side: BorderSide(color: Colors.red, width: 2.0),
-                  width: 24.0,
-                  height: 24.0,
+                  size: 24.0,
                 ),
               ],
             ),
@@ -216,8 +214,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
     Color? checkColor,
     OutlinedBorder? shape,
     BorderSide? side,
-    double width = 16.0,
-    double height = 16.0,
+    double size = 16.0,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,13 +229,11 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
           },
           hoverColor: hoverColor,
           focusColor: focusColor,
-          overlayColor: overlayColor,
           activeColor: activeColor,
           checkColor: checkColor,
           shape: shape,
           side: side,
-          width: width,
-          height: height,
+          size: size,
         ),
       ],
     );
@@ -253,7 +248,6 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
         FitCheckBox(
           state: _checkBoxStates[key]!,
           onCheck: null, // 비활성화 상태
-          color: context.fitColors.grey700,
         ),
       ],
     );

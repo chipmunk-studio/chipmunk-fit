@@ -1,13 +1,15 @@
-import 'package:dartz/dartz.dart' as dartz;
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:foundation/buttonstyle.dart';
 import 'package:foundation/colors.dart';
 import 'package:foundation/textstyle.dart';
 import 'package:sprung/sprung.dart';
 
+/// 커스텀 버튼 위젯 (스케일 애니메이션 및 디바운스 기능)
 class FitButton extends StatefulWidget {
-  final dartz.Function0? onPress;
-  final dartz.Function0? onDisablePress;
+  final Function()? onPress;
+  final Function()? onDisablePress;
   final ButtonStyle? style;
   final FitButtonType type;
   final FitTextSp textSp;
@@ -16,8 +18,11 @@ class FitButton extends StatefulWidget {
   final bool isEnabled;
   final bool isRipple;
   final EdgeInsets? padding;
-  final Widget? child; // 기존 child 유지
-  final String? text; // 추가된 텍스트 옵션
+  final Widget? child;
+  final String? text;
+  final Duration debounceDuration;
+  final Duration animationDuration;
+  final double pressedScale;
 
   const FitButton({
     super.key,
@@ -29,10 +34,13 @@ class FitButton extends StatefulWidget {
     this.isExpand = false,
     this.isRipple = false,
     this.textSp = FitTextSp.SP,
-    this.textStyle = null,
+    this.textStyle,
     this.padding,
     this.child,
     this.text,
+    this.debounceDuration = const Duration(seconds: 1),
+    this.animationDuration = const Duration(milliseconds: 600),
+    this.pressedScale = 0.95,
   });
 
   @override
@@ -40,21 +48,68 @@ class FitButton extends StatefulWidget {
 }
 
 class _FitButtonState extends State<FitButton> {
-  bool isPressed = false;
-  bool isClicked = false; // 두 번 클릭 방지를 위한 플래그
+  bool _isPressed = false;
+  final _debouncer = _Debouncer();
+
+  @override
+  void dispose() {
+    _debouncer.dispose();
+    super.dispose();
+  }
+
+  void _handlePress() {
+    _debouncer.run(
+      action: widget.onPress,
+      duration: widget.debounceDuration,
+    );
+  }
+
+  void _onTapDown(TapDownDetails details) {
+    if (widget.onPress != null && mounted) {
+      setState(() => _isPressed = true);
+    }
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    if (widget.onPress != null && mounted) {
+      setState(() => _isPressed = false);
+    }
+  }
+
+  void _onTapCancel() {
+    if (widget.onPress != null && mounted) {
+      setState(() => _isPressed = false);
+    }
+  }
+
+  void _onDisableTap(TapDownDetails details) {
+    widget.onDisablePress?.call();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final effectivePadding = widget.padding ??
+        EdgeInsets.symmetric(
+          vertical: widget.isExpand ? 20 : 12,
+          horizontal: widget.isExpand ? 0 : 14,
+        );
+
+    final buttonContent = widget.child ??
+        Text(
+          widget.text ?? '',
+          textAlign: TextAlign.center,
+          style: widget.textStyle ?? _getTextStyle(context),
+        );
+
     final button = GestureDetector(
-      onTapDown: widget.onPress != null ? _onTapDown : _onDisableTap,
-      onTapUp: widget.onPress != null ? _onTapUp : null,
-      onTapCancel: widget.onPress != null ? _onTapCancel : null,
+      onTapDown: widget.isEnabled ? _onTapDown : _onDisableTap,
+      onTapUp: widget.isEnabled ? _onTapUp : null,
+      onTapCancel: widget.isEnabled ? _onTapCancel : null,
       child: AnimatedContainer(
-        alignment: Alignment.center,
-        duration: const Duration(milliseconds: 600),
-        curve: isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
+        duration: widget.animationDuration,
+        curve: _isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
+        transform: Matrix4.identity()..scale(_isPressed ? widget.pressedScale : 1.0),
         transformAlignment: Alignment.center,
-        transform: Matrix4.identity()..scale(isPressed ? 0.95 : 1.0),
         child: ElevatedButton(
           style: widget.style ??
               context.getButtonStyle(
@@ -62,70 +117,27 @@ class _FitButtonState extends State<FitButton> {
                 isRipple: widget.isRipple,
                 isEnabled: widget.isEnabled,
               ),
-          onPressed: widget.isEnabled ? _handlePress : null, // _handlePress로 변경
+          onPressed: widget.isEnabled ? _handlePress : null,
           child: Container(
             alignment: Alignment.center,
             width: double.infinity,
-            padding: widget.padding ??
-                EdgeInsets.symmetric(
-                  vertical: widget.isExpand ? 20 : 12,
-                  horizontal: widget.isExpand ? 0 : 14,
-                ),
-            child: widget.child ??
-                Text(
-                  widget.text ?? '',
-                  textAlign: TextAlign.center,
-                  style: widget.textStyle ??
-                      _getTextStyle(
-                        context,
-                        widget.isEnabled,
-                        widget.textSp,
-                      ),
-                ),
+            padding: effectivePadding,
+            child: buttonContent,
           ),
         ),
       ),
     );
 
-    if (widget.isExpand) {
-      return SizedBox(
-        width: double.infinity,
-        child: button,
-      );
-    } else {
-      return Align(
-        alignment: Alignment.center,
-        child: IntrinsicWidth(
-          child: button,
-        ),
-      );
-    }
+    return widget.isExpand
+        ? SizedBox(width: double.infinity, child: button)
+        : Align(
+            alignment: Alignment.center,
+            child: IntrinsicWidth(child: button),
+          );
   }
 
-  void _handlePress() {
-    if (isClicked) return; // 이미 클릭된 상태라면 무시
-    setState(() {
-      isClicked = true; // 클릭 상태 설정
-    });
-
-    widget.onPress?.call(); // onPress 호출
-
-    // 일정 시간 후 클릭 가능하도록 설정 (예: 1초)
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) {
-        setState(() {
-          isClicked = false; // 클릭 가능 상태로 복구
-        });
-      }
-    });
-  }
-
-  TextStyle _getTextStyle(
-    BuildContext context,
-    bool isEnabled,
-    FitTextSp type,
-  ) {
-    final color = isEnabled
+  TextStyle _getTextStyle(BuildContext context) {
+    final colorMap = widget.isEnabled
         ? {
             FitButtonType.secondary: context.fitColors.inverseText,
             FitButtonType.tertiary: context.fitColors.grey900,
@@ -141,33 +153,28 @@ class _FitButtonState extends State<FitButton> {
             FitButtonType.destructive: context.fitColors.inverseDisabled,
           };
 
-    return context.button1(type: type).copyWith(
-          color: color[widget.type] ?? context.fitColors.grey0,
+    return context.button1(type: widget.textSp).copyWith(
+          color: colorMap[widget.type] ?? context.fitColors.grey0,
           height: 1.0,
         );
   }
+}
 
-  void _onTapDown(TapDownDetails details) {
-    setState(() {
-      isPressed = true;
-    });
+/// 디바운스 헬퍼 클래스
+class _Debouncer {
+  Timer? _timer;
+
+  void run({
+    required Function()? action,
+    required Duration duration,
+  }) {
+    if (_timer?.isActive ?? false) return;
+
+    action?.call();
+    _timer = Timer(duration, () {});
   }
 
-  void _onTapUp(TapUpDetails details) {
-    setState(() {
-      isPressed = false;
-    });
-  }
-
-  void _onTapCancel() {
-    setState(() {
-      isPressed = false;
-    });
-  }
-
-  void _onDisableTap(TapDownDetails details) {
-    if (widget.onDisablePress != null) {
-      widget.onDisablePress?.call();
-    }
+  void dispose() {
+    _timer?.cancel();
   }
 }

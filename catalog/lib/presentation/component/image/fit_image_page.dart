@@ -169,7 +169,7 @@ class FitImagePage extends StatelessWidget {
             imageShape: shape,
             placeholder: placeholder ?? const CircularProgressIndicator(),
             errorWidget: errorWidget ?? const Icon(Icons.error, size: 40),
-            itemPadding: itemPadding,
+            padding: itemPadding,
             borderWidth: borderWidth,
             borderColor: borderColor,
             fit: fit ?? BoxFit.cover,

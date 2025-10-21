@@ -2,39 +2,35 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+/// 물결 효과 도트 로딩 애니메이션
 class FitDotLoading extends StatefulWidget {
   final double dotSize;
   final Color? color;
+  final int dotCount;
+  final Duration duration;
 
   const FitDotLoading({
+    super.key,
     this.dotSize = 12,
     this.color,
-    super.key,
+    this.dotCount = 3,
+    this.duration = const Duration(seconds: 1),
   });
 
   @override
   State<FitDotLoading> createState() => _FitDotLoadingState();
 }
 
-class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+class _FitDotLoadingState extends State<FitDotLoading> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-
-    // 애니메이션 컨트롤러 초기화
     _controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: widget.duration,
       vsync: this,
     )..repeat();
-
-    // 애니메이션 정의
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
   }
 
   @override
@@ -45,44 +41,73 @@ class _FitDotLoadingState extends State<FitDotLoading> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultColor = widget.color ?? Colors.green; // 기본 색상 설정
+    final effectiveColor = widget.color ?? Colors.green;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(3, (i) => _buildDot(i, defaultColor)),
-    );
-  }
-
-  Widget _buildDot(int index, Color color) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        // 물결 애니메이션이 진행됨에 따라 점진적으로 정렬 상태로 돌아감
-        final double normalizedValue = math.sin(_animation.value * math.pi);
-        final double offset =
-            math.sin((_animation.value * 2 * math.pi) + (index * 0.5 * math.pi)) * 8 * normalizedValue;
-
-        return Transform.translate(
-          offset: Offset(0, offset), // Y축으로만 움직임
-          child: _Dot(widget.dotSize, color),
-        );
-      },
+      children: List.generate(
+        widget.dotCount,
+        (index) => _AnimatedDot(
+          index: index,
+          animation: _controller,
+          dotSize: widget.dotSize,
+          color: effectiveColor,
+        ),
+      ),
     );
   }
 }
 
-class _Dot extends StatelessWidget {
+/// 개별 도트 애니메이션 위젯
+class _AnimatedDot extends StatelessWidget {
+  final int index;
+  final Animation<double> animation;
   final double dotSize;
   final Color color;
 
-  const _Dot(this.dotSize, this.color);
+  const _AnimatedDot({
+    required this.index,
+    required this.animation,
+    required this.dotSize,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final normalizedValue = math.sin(animation.value * math.pi);
+        final phaseOffset = index * 0.5 * math.pi;
+        final waveValue = math.sin((animation.value * 2 * math.pi) + phaseOffset);
+        final offset = waveValue * 8 * normalizedValue;
+
+        return Transform.translate(
+          offset: Offset(0, offset),
+          child: child,
+        );
+      },
+      child: _Dot(size: dotSize, color: color),
+    );
+  }
+}
+
+/// 정적 도트 위젯
+class _Dot extends StatelessWidget {
+  final double size;
+  final Color color;
+
+  const _Dot({
+    required this.size,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: dotSize * 0.3), // 점 간 간격
-      width: dotSize,
-      height: dotSize,
+      margin: EdgeInsets.symmetric(horizontal: size * 0.3),
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: color,

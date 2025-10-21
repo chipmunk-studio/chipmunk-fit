@@ -3,14 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foundation/colors.dart';
 
+/// 커스텀 스위치 버튼 (디바운스 적용)
 class FitSwitchButton extends StatefulWidget {
   final dartz.Function1<bool, void> onToggle;
   final bool isOn;
+  final Duration debounceDuration;
+  final Color? activeColor;
+  final Color? inactiveColor;
 
   const FitSwitchButton({
     super.key,
     required this.onToggle,
     required this.isOn,
+    this.debounceDuration = const Duration(milliseconds: 1000),
+    this.activeColor,
+    this.inactiveColor,
   });
 
   @override
@@ -18,50 +25,44 @@ class FitSwitchButton extends StatefulWidget {
 }
 
 class _FitSwitchButtonState extends State<FitSwitchButton> {
-  late DateTime _lastToggleTime;
+  DateTime _lastToggleTime = DateTime.now();
 
-  @override
-  void initState() {
-    _lastToggleTime = DateTime.now();
-    super.initState();
-  }
-
-  void _toggleSwitch() {
+  void _handleToggle() {
     final now = DateTime.now();
 
-    // 토글버튼은 1초 디바운스 타임을 가짐.
-    if (now.difference(_lastToggleTime) < const Duration(milliseconds: 1000)) {
+    if (now.difference(_lastToggleTime) < widget.debounceDuration) {
       return;
     }
 
     widget.onToggle(widget.isOn);
-
     _lastToggleTime = now;
   }
 
   @override
   Widget build(BuildContext context) {
+    final effectiveActiveColor = widget.activeColor ?? context.fitColors.sub;
+    final effectiveInactiveColor = widget.inactiveColor ?? Colors.grey;
+
     return GestureDetector(
-      onTap: _toggleSwitch,
+      onTap: _handleToggle,
       child: Container(
         width: 56,
+        height: 32,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.r),
-          color: widget.isOn ? context.fitColors.sub : Colors.grey,
+          color: widget.isOn ? effectiveActiveColor : effectiveInactiveColor,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-          child: AnimatedAlign(
-            duration: const Duration(milliseconds: 150),
-            curve: Curves.easeInOut,
-            alignment: widget.isOn ? Alignment.centerRight : Alignment.centerLeft,
-            child: Container(
-              width: 24,
-              height: 24,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-              ),
+        padding: const EdgeInsets.all(4),
+        child: AnimatedAlign(
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeInOut,
+          alignment: widget.isOn ? Alignment.centerRight : Alignment.centerLeft,
+          child: Container(
+            width: 24,
+            height: 24,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
             ),
           ),
         ),
