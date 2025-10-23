@@ -130,10 +130,7 @@ class _FitButtonState extends State<FitButton> {
 
     return widget.isExpand
         ? SizedBox(width: double.infinity, child: button)
-        : Align(
-            alignment: Alignment.center,
-            child: IntrinsicWidth(child: button),
-          );
+        : IntrinsicWidth(child: button);
   }
 
   TextStyle _getTextStyle(BuildContext context) {
