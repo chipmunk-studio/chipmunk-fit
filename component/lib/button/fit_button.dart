@@ -120,7 +120,7 @@ class _FitButtonState extends State<FitButton> {
           onPressed: widget.isEnabled ? _handlePress : null,
           child: Container(
             alignment: Alignment.center,
-            width: double.infinity,
+            width: widget.isExpand ? double.infinity : null,
             padding: effectivePadding,
             child: buttonContent,
           ),
