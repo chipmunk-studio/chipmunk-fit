@@ -58,6 +58,8 @@ class FitDialog {
   /// [bottomContent] - 하단 커스텀 위젯
   /// [btnOkColor] - 확인 버튼 배경색 (기본값: mainColor)
   /// [btnCancelColor] - 취소 버튼 배경색 (기본값: grey200)
+  /// [btnOkTextColor] - 확인 버튼 텍스트 색상 (기본값: staticBlack)
+  /// [btnCancelTextColor] - 취소 버튼 텍스트 색상 (기본값: inverseText)
   static AwesomeDialog makeFitDialog({
     required BuildContext context,
     String? title,
@@ -79,6 +81,8 @@ class FitDialog {
     FitButtonType? cancelButtonType,
     Color? btnOkColor,
     Color? btnCancelColor,
+    Color? btnOkTextColor,
+    Color? btnCancelTextColor,
   }) {
     return AwesomeDialog(
       context: context,
@@ -106,6 +110,7 @@ class FitDialog {
         btnOkText,
         okButtonType,
         btnOkColor,
+        btnOkTextColor,
       ),
       btnCancel: _buildCancelButton(
         context,
@@ -113,6 +118,7 @@ class FitDialog {
         btnCancelText,
         cancelButtonType,
         btnCancelColor,
+        btnCancelTextColor,
       ),
       btnOkOnPress: btnOkPressed,
       btnCancelOnPress: btnCancelPressed,
@@ -205,10 +211,12 @@ class FitDialog {
     String? btnOkText,
     FitButtonType? okButtonType,
     Color? btnOkColor,
+    Color? btnOkTextColor,
   ) {
     if (btnOkPressed == null && btnOkText == null) return null;
 
     final effectiveButtonColor = btnOkColor ?? context.fitColors.main;
+    final effectiveTextColor = btnOkTextColor ?? context.fitColors.staticBlack;
 
     return FitButton(
       onPress: () => _handleButtonPress(context, btnOkPressed),
@@ -216,6 +224,7 @@ class FitDialog {
       isExpand: true,
       text: btnOkText ?? '확인',
       backgroundColor: effectiveButtonColor,
+      textStyle: context.button1().copyWith(color: effectiveTextColor),
     );
   }
 
@@ -226,10 +235,12 @@ class FitDialog {
     String? btnCancelText,
     FitButtonType? cancelButtonType,
     Color? btnCancelColor,
+    Color? btnCancelTextColor,
   ) {
     if (btnCancelPressed == null && btnCancelText == null) return null;
 
     final effectiveButtonColor = btnCancelColor ?? context.fitColors.grey200;
+    final effectiveTextColor = btnCancelTextColor ?? context.fitColors.inverseText;
 
     return FitButton(
       type: cancelButtonType ?? FitButtonType.secondary,
@@ -237,6 +248,7 @@ class FitDialog {
       isEnabled: false,
       text: btnCancelText ?? '취소',
       backgroundColor: effectiveButtonColor,
+      textStyle: context.button1().copyWith(color: effectiveTextColor),
       onDisablePress: () => _handleButtonPress(context, btnCancelPressed),
     );
   }
