@@ -45,9 +45,12 @@ class FitBottomButton extends StatelessWidget {
 
     final buttonChild = Center(
       child: isShowLoading
-          ? const SizedBox(
+          ? SizedBox(
               height: 24,
-              child: FitDotLoading(dotSize: 12),
+              child: FitDotLoading(
+                dotSize: 8,
+                color: context.fitColors.grey0,
+              ),
             )
           : Text(
               text,
