@@ -2,6 +2,7 @@ import 'package:component/fit_dot_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foundation/colors.dart';
+import 'package:foundation/textstyle.dart';
 
 import 'fit_button.dart';
 
@@ -39,6 +40,9 @@ class FitBottomButton extends StatelessWidget {
     final effectiveDisabledColor =
         disabledBackgroundColor ?? effectiveBackgroundColor.withValues(alpha: 0.5);
 
+    final effectiveTextStyle =
+        textStyle ?? context.button1().copyWith(color: context.fitColors.grey0);
+
     final buttonChild = Center(
       child: isShowLoading
           ? const SizedBox(
@@ -48,7 +52,7 @@ class FitBottomButton extends StatelessWidget {
           : Text(
               text,
               textAlign: TextAlign.center,
-              style: textStyle,
+              style: effectiveTextStyle,
             ),
     );
 
