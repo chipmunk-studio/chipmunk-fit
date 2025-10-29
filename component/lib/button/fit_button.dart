@@ -23,6 +23,8 @@ class FitButton extends StatefulWidget {
   final Duration debounceDuration;
   final Duration animationDuration;
   final double pressedScale;
+  final Color? backgroundColor;
+  final Color? disabledBackgroundColor;
 
   const FitButton({
     super.key,
@@ -41,6 +43,8 @@ class FitButton extends StatefulWidget {
     this.debounceDuration = const Duration(seconds: 1),
     this.animationDuration = const Duration(milliseconds: 600),
     this.pressedScale = 0.95,
+    this.backgroundColor,
+    this.disabledBackgroundColor,
   });
 
   @override
@@ -111,12 +115,7 @@ class _FitButtonState extends State<FitButton> {
         transform: Matrix4.identity()..scale(_isPressed ? widget.pressedScale : 1.0),
         transformAlignment: Alignment.center,
         child: ElevatedButton(
-          style: widget.style ??
-              context.getButtonStyle(
-                widget.type,
-                isRipple: widget.isRipple,
-                isEnabled: widget.isEnabled,
-              ),
+          style: _getButtonStyle(context),
           onPressed: widget.isEnabled ? _handlePress : null,
           child: Container(
             alignment: Alignment.center,
@@ -131,6 +130,39 @@ class _FitButtonState extends State<FitButton> {
     return widget.isExpand
         ? SizedBox(width: double.infinity, child: button)
         : IntrinsicWidth(child: button);
+  }
+
+  /// 버튼 스타일 생성 (backgroundColor 지원)
+  ButtonStyle _getButtonStyle(BuildContext context) {
+    // style이 명시적으로 제공된 경우 우선 사용
+    if (widget.style != null) {
+      return widget.style!;
+    }
+
+    // backgroundColor가 제공된 경우 커스텀 스타일 생성
+    if (widget.backgroundColor != null) {
+      final baseStyle = context.getButtonStyle(
+        widget.type,
+        isRipple: widget.isRipple,
+        isEnabled: widget.isEnabled,
+      );
+
+      return baseStyle.copyWith(
+        backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return widget.disabledBackgroundColor ?? widget.backgroundColor!.withValues(alpha: 0.5);
+          }
+          return widget.backgroundColor!;
+        }),
+      );
+    }
+
+    // 기본 스타일 사용
+    return context.getButtonStyle(
+      widget.type,
+      isRipple: widget.isRipple,
+      isEnabled: widget.isEnabled,
+    );
   }
 
   TextStyle _getTextStyle(BuildContext context) {

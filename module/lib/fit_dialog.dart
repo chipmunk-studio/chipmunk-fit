@@ -13,6 +13,7 @@ class FitDialog {
   /// [description] - 상세 설명 (제공 시 message 대신 표시)
   /// [onPress] - 확인 버튼 콜백
   /// [onDismissCallback] - 다이얼로그 닫힐 때 콜백
+  /// [btnOkColor] - 확인 버튼 배경색 (기본값: mainColor)
   static AwesomeDialog makeErrorDialog({
     required BuildContext context,
     required String message,
@@ -26,6 +27,8 @@ class FitDialog {
     String? btnOkText,
     double borderRadius = 32.0,
   }) {
+    final effectiveBtnOkColor = btnOkColor ?? context.fitColors.main;
+
     return AwesomeDialog(
       context: context,
       animType: AnimType.scale,
@@ -38,7 +41,7 @@ class FitDialog {
       body: _buildErrorDialogBody(context, message, description, textStyle),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: btnOkColor ?? context.fitColors.main,
+      btnOkColor: effectiveBtnOkColor,
       btnOkText: btnOkText ?? '확인',
       btnOkOnPress: onPress,
     );
@@ -53,6 +56,8 @@ class FitDialog {
   /// [btnCancelPressed] - 취소 버튼 콜백
   /// [topContent] - 상단 커스텀 위젯
   /// [bottomContent] - 하단 커스텀 위젯
+  /// [btnOkColor] - 확인 버튼 배경색 (기본값: mainColor)
+  /// [btnCancelColor] - 취소 버튼 배경색 (기본값: grey200)
   static AwesomeDialog makeFitDialog({
     required BuildContext context,
     String? title,
@@ -72,6 +77,8 @@ class FitDialog {
     Color? dialogBackgroundColor,
     FitButtonType? okButtonType,
     FitButtonType? cancelButtonType,
+    Color? btnOkColor,
+    Color? btnCancelColor,
   }) {
     return AwesomeDialog(
       context: context,
@@ -93,8 +100,20 @@ class FitDialog {
       ),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOk: _buildOkButton(context, btnOkPressed, btnOkText, okButtonType),
-      btnCancel: _buildCancelButton(context, btnCancelPressed, btnCancelText, cancelButtonType),
+      btnOk: _buildOkButton(
+        context,
+        btnOkPressed,
+        btnOkText,
+        okButtonType,
+        btnOkColor,
+      ),
+      btnCancel: _buildCancelButton(
+        context,
+        btnCancelPressed,
+        btnCancelText,
+        cancelButtonType,
+        btnCancelColor,
+      ),
       btnOkOnPress: btnOkPressed,
       btnCancelOnPress: btnCancelPressed,
     );
@@ -185,14 +204,18 @@ class FitDialog {
     VoidCallback? btnOkPressed,
     String? btnOkText,
     FitButtonType? okButtonType,
+    Color? btnOkColor,
   ) {
     if (btnOkPressed == null && btnOkText == null) return null;
+
+    final effectiveButtonColor = btnOkColor ?? context.fitColors.main;
 
     return FitButton(
       onPress: () => _handleButtonPress(context, btnOkPressed),
       type: okButtonType ?? FitButtonType.primary,
       isExpand: true,
       text: btnOkText ?? '확인',
+      backgroundColor: effectiveButtonColor,
     );
   }
 
@@ -202,14 +225,18 @@ class FitDialog {
     VoidCallback? btnCancelPressed,
     String? btnCancelText,
     FitButtonType? cancelButtonType,
+    Color? btnCancelColor,
   ) {
     if (btnCancelPressed == null && btnCancelText == null) return null;
+
+    final effectiveButtonColor = btnCancelColor ?? context.fitColors.grey200;
 
     return FitButton(
       type: cancelButtonType ?? FitButtonType.secondary,
       isExpand: true,
       isEnabled: false,
       text: btnCancelText ?? '취소',
+      backgroundColor: effectiveButtonColor,
       onDisablePress: () => _handleButtonPress(context, btnCancelPressed),
     );
   }
