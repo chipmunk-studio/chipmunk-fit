@@ -1,6 +1,7 @@
 import 'package:component/fit_dot_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foundation/colors.dart';
 
 import 'fit_button.dart';
 
@@ -33,9 +34,10 @@ class FitBottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveDisabledColor = disabledBackgroundColor ??
-        backgroundColor?.withOpacity(0.5) ??
-        Theme.of(context).disabledColor;
+    final effectiveBackgroundColor = backgroundColor ?? context.fitColors.main;
+
+    final effectiveDisabledColor =
+        disabledBackgroundColor ?? effectiveBackgroundColor.withValues(alpha: 0.5);
 
     final buttonChild = Center(
       child: isShowLoading
@@ -55,7 +57,7 @@ class FitBottomButton extends StatelessWidget {
       isEnabled: isEnabled && !isShowLoading,
       debounceDuration: debounceDuration,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
+        backgroundColor: effectiveBackgroundColor,
         disabledBackgroundColor: effectiveDisabledColor,
         shape: RoundedRectangleBorder(
           borderRadius:

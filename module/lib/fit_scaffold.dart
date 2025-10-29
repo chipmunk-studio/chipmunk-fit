@@ -1,8 +1,9 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:component/fit_dot_loading.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:foundation/colors.dart';
 import 'package:foundation/textstyle.dart';
@@ -168,6 +169,11 @@ class FitScaffold extends StatelessWidget {
     Color? backgroundColor,
     required BuildContext context,
   }) {
+    // 웹에서는 Platform API를 사용할 수 없으므로 기본 appBar 반환
+    if (kIsWeb) {
+      return appBar;
+    }
+
     if (Platform.isAndroid) {
       return appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.backgroundAlternative);
     }

@@ -977,10 +977,10 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: e1d7ffb0db475e6e845eb58b44768f50b830e23960e3df6908924acd8f7f70ea
+      sha256: d8f590a69729f719177ea68eb1e598295e8dbc41bbc247fed78b2c8a25660d7c
       url: "https://pub.dev"
     source: hosted
-    version: "16.2.5"
+    version: "16.3.0"
   graphs:
     dependency: transitive
     description:
@@ -1001,10 +1001,10 @@ packages:
     dependency: transitive
     description:
       name: hive_ce
-      sha256: e3a9d2608350ca5ae1fcaa594bbc24c443cf8e67cd16b89ec258fb0bcccb0847
+      sha256: "81d39a03c4c0ba5938260a8c3547d2e71af59defecea21793d57fc3551f0d230"
       url: "https://pub.dev"
     source: hosted
-    version: "2.15.0"
+    version: "2.15.1"
   hive_ce_generator:
     dependency: transitive
     description:
@@ -1225,10 +1225,10 @@ packages:
     dependency: "direct dev"
     description:
       name: melos
-      sha256: "485fcfd86916cff975d3309b96efccc43e2581150f6498ea957b4b8889f51939"
+      sha256: ff2da25990d83b0db883eb257e4fa25eb78150a329e7bfab7a379499d0f5f6f7
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.0"
+    version: "7.3.0"
   meta:
     dependency: transitive
     description:
@@ -1273,10 +1273,10 @@ packages:
     dependency: transitive
     description:
       name: mustache_template
-      sha256: d9aa84d114368b7f1727b7014b85bb0b234daeafe1518824c82d32703b3964f6
+      sha256: daa42be75f2ccfb287c24a75e7ac594f2ea0b32bf9ebe7c15154aa45b2dfb2de
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   nested:
     dependency: transitive
     description:
@@ -1609,18 +1609,18 @@ packages:
     dependency: transitive
     description:
       name: rive
-      sha256: "7fb6efeae1e105d7231cf8fd6ad99ec33369c0c8285d19a299af43acf34065b8"
+      sha256: "8c6059dfc1aa0e89d9f1107f735f3114f9d1d06dcba798f823aeac55e7584295"
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.0-dev.11"
+    version: "0.14.0-dev.12"
   rive_native:
     dependency: transitive
     description:
       name: rive_native
-      sha256: "9458cbc8e31184b05b1b091030a7ad50c46c8473da54f7e8f197298166c5397e"
+      sha256: f9c258c28b65e97e442290637b87de6eb0910665584269263153af56045a0ef7
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.14"
+    version: "0.0.15"
   riverpod:
     dependency: transitive
     description:
