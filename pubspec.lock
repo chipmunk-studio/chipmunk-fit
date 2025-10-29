@@ -349,10 +349,10 @@ packages:
     dependency: transitive
     description:
       name: cross_file
-      sha256: "7caf6a750a0c04effbb52a676dce9a4a592e10ad35c34d6d2d0e4811160d5670"
+      sha256: "942a4791cd385a68ccb3b32c71c427aba508a1bb949b86dff2adbe4049f16239"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.4+2"
+    version: "0.3.5"
   crypto:
     dependency: transitive
     description:
@@ -897,10 +897,10 @@ packages:
     dependency: transitive
     description:
       name: fpdart
-      sha256: "1b84ce64453974159f08046f5d05592020d1fcb2099d7fe6ec58da0e7337af77"
+      sha256: f8e9d0989ba293946673e382c59ac513e30cb6746a9452df195f29e3357a73d4
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   freezed:
     dependency: transitive
     description:
@@ -1609,18 +1609,18 @@ packages:
     dependency: transitive
     description:
       name: rive
-      sha256: "8c6059dfc1aa0e89d9f1107f735f3114f9d1d06dcba798f823aeac55e7584295"
+      sha256: "20d91e17b1bae5f4030d252336227f990782c942cb44e41685a13ae5f885e641"
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.0-dev.12"
+    version: "0.14.0-dev.13"
   rive_native:
     dependency: transitive
     description:
       name: rive_native
-      sha256: f9c258c28b65e97e442290637b87de6eb0910665584269263153af56045a0ef7
+      sha256: "1b65b473939b008feb30c1f43785996063cefaf4ceddfa1a2ffe6051201e8d3a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.15"
+    version: "0.0.16"
   riverpod:
     dependency: transitive
     description:
