@@ -13,10 +13,7 @@ enum FitTextSp {
   MAX,
 
   /// 화면 비율 적용
-  SP,
-
-  /// 웹 반응형 (데스크톱/태블릿/모바일 자동)
-  RESPONSIVE
+  SP
 }
 
 /// BuildContext에 텍스트 스타일 생성 기능 추가
@@ -26,14 +23,6 @@ extension FitTextStyleExtension on BuildContext {
   static const double _defaultLineHeight = 1.4;
   static const double _captionLineHeight = 1.0;
 
-  // 반응형 체크 헬퍼
-  bool get _isDesktop => MediaQuery.of(this).size.width > 900;
-
-  bool get _isTablet =>
-      MediaQuery.of(this).size.width > 600 && MediaQuery.of(this).size.width <= 900;
-
-  bool get _isMobile => MediaQuery.of(this).size.width <= 600;
-
   // Heading Styles
   TextStyle h1({FitTextSp type = FitTextSp.MIN}) {
     return _createTextStyle(
@@ -41,9 +30,6 @@ extension FitTextStyleExtension on BuildContext {
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
       color: this.fitColors.grey900,
-      // 반응형일 때 데스크톱/태블릿/모바일 크기
-      desktopSize: 40,
-      tabletSize: 32,
     );
   }
 
@@ -53,8 +39,6 @@ extension FitTextStyleExtension on BuildContext {
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
       color: this.fitColors.grey900,
-      desktopSize: 32,
-      tabletSize: 28,
     );
   }
 
@@ -64,8 +48,6 @@ extension FitTextStyleExtension on BuildContext {
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
       color: this.fitColors.grey900,
-      desktopSize: 24,
-      tabletSize: 22,
     );
   }
 
@@ -75,8 +57,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 20,
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
-      desktopSize: 22,
-      tabletSize: 21,
     );
   }
 
@@ -85,8 +65,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 20,
       type: type,
       fontFamily: FontFamily.pretendardMedium,
-      desktopSize: 22,
-      tabletSize: 21,
     );
   }
 
@@ -95,8 +73,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 18,
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
-      desktopSize: 20,
-      tabletSize: 19,
     );
   }
 
@@ -105,8 +81,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 16,
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
-      desktopSize: 18,
-      tabletSize: 17,
     );
   }
 
@@ -115,8 +89,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 15,
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
-      desktopSize: 17,
-      tabletSize: 16,
     );
   }
 
@@ -125,8 +97,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 14,
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
-      desktopSize: 15,
-      tabletSize: 14,
     );
   }
 
@@ -136,8 +106,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 18,
       type: type,
       fontFamily: FontFamily.pretendardRegular,
-      desktopSize: 19,
-      tabletSize: 18,
     );
   }
 
@@ -146,8 +114,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 16,
       type: type,
       fontFamily: FontFamily.pretendardRegular,
-      desktopSize: 17,
-      tabletSize: 16,
     );
   }
 
@@ -156,8 +122,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 15,
       type: type,
       fontFamily: FontFamily.pretendardRegular,
-      desktopSize: 16,
-      tabletSize: 15,
     );
   }
 
@@ -166,8 +130,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 14,
       type: type,
       fontFamily: FontFamily.pretendardRegular,
-      desktopSize: 15,
-      tabletSize: 14,
     );
   }
 
@@ -177,8 +139,6 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 18,
       type: type,
       fontFamily: FontFamily.pretendardMedium,
-      desktopSize: 19,
-      tabletSize: 18,
     );
   }
 
@@ -189,8 +149,6 @@ extension FitTextStyleExtension on BuildContext {
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
       lineHeight: _captionLineHeight,
-      desktopSize: 13,
-      tabletSize: 12,
     );
   }
 
@@ -200,8 +158,6 @@ extension FitTextStyleExtension on BuildContext {
       type: type,
       fontFamily: FontFamily.pretendardSemiBold,
       lineHeight: _captionLineHeight,
-      desktopSize: 11,
-      tabletSize: 10,
     );
   }
 
@@ -212,36 +168,19 @@ extension FitTextStyleExtension on BuildContext {
       type: type,
       fontFamily: FontFamily.neodgm,
       lineHeight: _captionLineHeight,
-      desktopSize: 32,
-      tabletSize: 31,
     );
   }
 
-  /// 공통 텍스트 스타일 생성
-  ///
-  /// [fontSize] - 모바일 기본 폰트 크기
-  /// [type] - 폰트 크기 타입
-  /// [fontFamily] - 폰트 패밀리
-  /// [lineHeight] - 줄 높이
-  /// [color] - 텍스트 색상
-  /// [desktopSize] - 데스크톱 폰트 크기 (RESPONSIVE일 때만 사용)
-  /// [tabletSize] - 태블릿 폰트 크기 (RESPONSIVE일 때만 사용)
+  /// 공통 텍스트 스타일 생성 (중복 코드 제거)
   TextStyle _createTextStyle({
     required double fontSize,
     required FitTextSp type,
     required String fontFamily,
     double lineHeight = _defaultLineHeight,
     Color? color,
-    double? desktopSize,
-    double? tabletSize,
   }) {
     return TextStyle(
-      fontSize: _getFontSize(
-        baseSize: fontSize,
-        type: type,
-        desktopSize: desktopSize,
-        tabletSize: tabletSize,
-      ),
+      fontSize: _getFontSize(fontSize, type),
       letterSpacing: _defaultLetterSpacing,
       height: lineHeight,
       color: color,
@@ -251,12 +190,7 @@ extension FitTextStyleExtension on BuildContext {
   }
 
   /// 폰트 크기 계산 (타입별 처리)
-  double _getFontSize({
-    required double baseSize,
-    required FitTextSp type,
-    double? desktopSize,
-    double? tabletSize,
-  }) {
+  double _getFontSize(double baseSize, FitTextSp type) {
     switch (type) {
       case FitTextSp.MIN:
         return baseSize.spMin;
@@ -264,78 +198,33 @@ extension FitTextStyleExtension on BuildContext {
         return baseSize.spMax;
       case FitTextSp.SP:
         return baseSize.sp;
-      case FitTextSp.RESPONSIVE:
-        // 웹 반응형: 화면 크기에 따라 다른 폰트 사이즈 반환
-        if (_isDesktop && desktopSize != null) return desktopSize;
-        if (_isTablet && tabletSize != null) return tabletSize;
-        return baseSize;
     }
   }
 }
 
-/// 반응형 값을 쉽게 가져오는 Extension
-extension ResponsiveSizeExtension on BuildContext {
-  /// 반응형 값 반환 헬퍼
-  T responsiveValue<T>({
-    required T mobile,
-    T? tablet,
-    T? desktop,
-  }) {
-    final width = MediaQuery.of(this).size.width;
-    if (width > 900 && desktop != null) return desktop;
-    if (width > 600 && width <= 900 && tablet != null) return tablet;
-    return mobile;
-  }
+/// 웹 레이아웃 헬퍼 (Threads 스타일)
+extension WebLayoutExtension on BuildContext {
+  /// 웹 여부 확인
+  bool get isWeb => MediaQuery.of(this).size.width > 600;
 
-  /// 반응형 double 값 (숫자만 필요할 때)
-  double responsiveDouble({
-    required double mobile,
-    double? tablet,
-    double? desktop,
-  }) {
-    final width = MediaQuery.of(this).size.width;
-    if (width > 900 && desktop != null) return desktop;
-    if (width > 600 && width <= 900 && tablet != null) return tablet;
-    return mobile;
-  }
+  /// 컨텐츠 최대 너비 (웹일 때만 제한)
+  double get contentMaxWidth => isWeb ? 600 : double.infinity;
 
-  /// 반응형 EdgeInsets
-  EdgeInsets responsivePadding({
-    required EdgeInsets mobile,
-    EdgeInsets? tablet,
-    EdgeInsets? desktop,
-  }) {
-    final width = MediaQuery.of(this).size.width;
-    if (width > 900 && desktop != null) return desktop;
-    if (width > 600 && width <= 900 && tablet != null) return tablet;
-    return mobile;
-  }
-
-  /// 간단한 대칭 패딩
-  EdgeInsets responsiveSymmetricPadding({
-    double? mobileH,
-    double? mobileV,
-    double? tabletH,
-    double? tabletV,
-    double? desktopH,
-    double? desktopV,
-  }) {
-    final width = MediaQuery.of(this).size.width;
-    if (width > 900) {
-      return EdgeInsets.symmetric(
-        horizontal: desktopH ?? 60,
-        vertical: desktopV ?? 40,
+  /// 컨텐츠 패딩 (웹: 좌우만, 모바일: 기본)
+  EdgeInsets get contentPadding => EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: isWeb ? 0 : 24,
       );
-    }
-    if (width > 600 && width <= 900) {
-      return EdgeInsets.symmetric(
-        horizontal: tabletH ?? 40,
-        vertical: tabletV ?? 32,
-      );
-    }
-    return EdgeInsets.symmetric(
-      horizontal: mobileH ?? 24,
-      vertical: mobileV ?? 24,
+
+  /// 웹 센터 래퍼 (Threads 스타일)
+  Widget webCenter({required Widget child}) {
+    if (!isWeb) return child;
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: contentMaxWidth),
+        child: child,
+      ),
     );
   }
 }
