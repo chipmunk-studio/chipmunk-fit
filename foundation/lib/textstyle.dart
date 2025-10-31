@@ -201,30 +201,3 @@ extension FitTextStyleExtension on BuildContext {
     }
   }
 }
-
-/// 웹 레이아웃 헬퍼 (Threads 스타일)
-extension WebLayoutExtension on BuildContext {
-  /// 웹 여부 확인
-  bool get isWeb => MediaQuery.of(this).size.width > 600;
-
-  /// 컨텐츠 최대 너비 (웹일 때만 제한)
-  double get contentMaxWidth => isWeb ? 600 : double.infinity;
-
-  /// 컨텐츠 패딩 (웹: 좌우만, 모바일: 기본)
-  EdgeInsets get contentPadding => EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: isWeb ? 0 : 24,
-      );
-
-  /// 웹 센터 래퍼 (Threads 스타일)
-  Widget webCenter({required Widget child}) {
-    if (!isWeb) return child;
-
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: contentMaxWidth),
-        child: child,
-      ),
-    );
-  }
-}
