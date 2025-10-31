@@ -1,6 +1,7 @@
 import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'colors.dart';
 import 'textstyle.dart';
@@ -76,13 +77,13 @@ CheckboxThemeData _checkboxThemeData(FitColors fitColors) {
   return CheckboxThemeData(
     side: BorderSide(width: 1.5, color: fitColors.grey400),
     splashRadius: 0,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-    checkColor: MaterialStateProperty.all(Colors.black),
-    fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-      return states.contains(MaterialState.selected) ? fitColors.main : fitColors.grey400;
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+    checkColor: WidgetStateProperty.all(Colors.black),
+    fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+      return states.contains(WidgetState.selected) ? fitColors.main : fitColors.grey400;
     }),
-    overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
-      return states.contains(MaterialState.pressed) ? fitColors.main : Colors.transparent;
+    overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
+      return states.contains(WidgetState.pressed) ? fitColors.main : Colors.transparent;
     }),
   );
 }
@@ -97,16 +98,16 @@ ElevatedButtonThemeData _elevatedButtonTheme(BuildContext context, FitColors fit
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       minimumSize: const Size.fromHeight(56),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
       backgroundColor: fitColors.main,
       disabledBackgroundColor: fitColors.grey600,
       foregroundColor: fitColors.grey900,
       disabledForegroundColor: fitColors.grey400,
       textStyle: context.button1().copyWith(color: fitColors.grey0),
     ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
-      shadowColor: MaterialStateProperty.all(Colors.transparent),
-      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     ),
   );
 }
@@ -115,7 +116,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(BuildContext context, FitColors fit
 BottomNavigationBarThemeData _bottomNavigationBarTheme(FitColors fitColors) {
   final baseLabelStyle = TextStyle(
     fontFamily: ChipAssets.fonts.pretendardRegular,
-    fontSize: 13,
+    fontSize: 13.sp,
   );
 
   return BottomNavigationBarThemeData(
@@ -133,7 +134,7 @@ BottomNavigationBarThemeData _bottomNavigationBarTheme(FitColors fitColors) {
 /// 입력 필드 데코레이션 테마
 InputDecorationTheme _inputDecorationTheme(FitColors fitColors) {
   final baseBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16),
+    borderRadius: BorderRadius.circular(16.r),
   );
 
   return InputDecorationTheme(
@@ -184,7 +185,7 @@ TextSelectionThemeData _textSelectionTheme(FitColors fitColors, bool isDark) {
 /// AppBar 테마
 AppBarTheme _appBarTheme(BuildContext context, FitColors fitColors, bool isDark) {
   return AppBarTheme(
-    color: fitColors.grey900,
+    backgroundColor: fitColors.grey900,
     elevation: 0,
     surfaceTintColor: Colors.transparent,
     iconTheme: IconThemeData(color: fitColors.grey0),
