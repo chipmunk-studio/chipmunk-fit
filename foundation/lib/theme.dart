@@ -1,7 +1,6 @@
 import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'colors.dart';
 import 'textstyle.dart';
@@ -98,7 +97,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(BuildContext context, FitColors fit
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       minimumSize: const Size.fromHeight(56),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       backgroundColor: fitColors.main,
       disabledBackgroundColor: fitColors.grey600,
       foregroundColor: fitColors.grey900,
@@ -116,7 +115,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(BuildContext context, FitColors fit
 BottomNavigationBarThemeData _bottomNavigationBarTheme(FitColors fitColors) {
   final baseLabelStyle = TextStyle(
     fontFamily: ChipAssets.fonts.pretendardRegular,
-    fontSize: 13.sp,
+    fontSize: 13,
   );
 
   return BottomNavigationBarThemeData(
@@ -134,7 +133,7 @@ BottomNavigationBarThemeData _bottomNavigationBarTheme(FitColors fitColors) {
 /// 입력 필드 데코레이션 테마
 InputDecorationTheme _inputDecorationTheme(FitColors fitColors) {
   final baseBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16.r),
+    borderRadius: BorderRadius.circular(16),
   );
 
   return InputDecorationTheme(
