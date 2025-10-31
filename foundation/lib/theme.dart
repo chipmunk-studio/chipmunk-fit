@@ -76,7 +76,7 @@ CheckboxThemeData _checkboxThemeData(FitColors fitColors) {
   return CheckboxThemeData(
     side: BorderSide(width: 1.5, color: fitColors.grey400),
     splashRadius: 0,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     checkColor: MaterialStateProperty.all(Colors.black),
     fillColor: MaterialStateProperty.resolveWith<Color>((states) {
       return states.contains(MaterialState.selected) ? fitColors.main : fitColors.grey400;
