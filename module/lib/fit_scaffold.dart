@@ -18,10 +18,10 @@ class FitScaffold extends StatelessWidget {
   final Widget body;
 
   /// 하단 SafeArea 적용 여부 (기본값: true)
-  final bool? bottom;
+  final bool bottom;
 
   /// 상단 SafeArea 적용 여부 (기본값: true)
-  final bool? top;
+  final bool top;
 
   /// 배경색 (기본값: backgroundAlternative)
   final Color? backgroundColor;
@@ -38,7 +38,7 @@ class FitScaffold extends StatelessWidget {
   /// - false: appBar가 null이면 플랫폼별 기본 AppBar 사용
   ///   - Android: FitEmptyAppBar (상태바 색상 제어용)
   ///   - iOS: AppBar 없음
-  final bool? isRemoveAppBar;
+  final bool isRemoveAppBar;
 
   /// 로딩 상태 표시 여부
   final bool isLoading;
@@ -49,42 +49,45 @@ class FitScaffold extends StatelessWidget {
   /// 하단 시트 위젯
   final Widget? bottomSheet;
 
+  /// 하단 네비게이션 바 위젯
+  final Widget? bottomNavigationBar;
+
   /// 본문 패딩 (기본값: 좌우 20)
   final EdgeInsets? padding;
 
   const FitScaffold({
     super.key,
     required this.body,
-    this.bottom,
-    this.top,
+    this.bottom = true,
+    this.top = true,
     this.appBar,
     this.resizeToAvoidBottomInset = false,
     this.isRemoveAppBar = false,
     this.isLoading = false,
-    this.loadingView = const Center(child: FitDotLoading()),
+    this.loadingView,
     this.backgroundColor,
     this.bottomSheet,
+    this.bottomNavigationBar,
     this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     final effectiveBackgroundColor = backgroundColor ?? context.fitColors.backgroundAlternative;
-    final effectiveBottom = bottom ?? true;
-    final effectiveTop = top ?? true;
 
     return CupertinoScaffold(
       body: Scaffold(
         backgroundColor: effectiveBackgroundColor,
         appBar: _buildAppBar(context, effectiveBackgroundColor),
         bottomSheet: bottomSheet,
+        bottomNavigationBar: bottomNavigationBar,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         body: SafeArea(
-          bottom: effectiveBottom,
-          top: effectiveTop,
+          bottom: bottom,
+          top: top,
           child: Padding(
-            padding: padding ?? _getDefaultPadding(context, effectiveBottom),
-            child: _buildBodyWithLoadingState(),
+            padding: padding ?? _getDefaultPadding(context),
+            child: _buildBodyWithLoadingState(context),
           ),
         ),
       ),
@@ -99,32 +102,29 @@ class FitScaffold extends StatelessWidget {
   /// 3. Android → FitEmptyAppBar (상태바 색상 제어)
   /// 4. iOS → null (기본 동작)
   PreferredSizeWidget? _buildAppBar(BuildContext context, Color backgroundColor) {
-    if (isRemoveAppBar == true) return null;
+    if (isRemoveAppBar) return null;
+    if (appBar != null) return appBar;
 
-    return _buildPlatformSpecificAppBar(
-      appBar: appBar,
-      backgroundColor: backgroundColor,
-      context: context,
-    );
+    return _buildPlatformSpecificAppBar(backgroundColor, context);
   }
 
   /// 기본 패딩 계산
-  EdgeInsets _getDefaultPadding(BuildContext context, bool includeBottom) {
+  EdgeInsets _getDefaultPadding(BuildContext context) {
     return EdgeInsets.only(
       left: 20,
       right: 20,
-      bottom: includeBottom ? MediaQuery.of(context).padding.bottom : 0.0,
+      bottom: bottom ? MediaQuery.of(context).padding.bottom : 0.0,
     );
   }
 
   /// 로딩 상태에 따른 본문 빌드
-  Widget _buildBodyWithLoadingState() {
+  Widget _buildBodyWithLoadingState(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       switchInCurve: Curves.easeIn,
       switchOutCurve: Curves.easeOut,
       transitionBuilder: _buildTransition,
-      child: isLoading ? _buildLoadingWidget() : _buildBodyWidget(),
+      child: isLoading ? _buildLoadingWidget(context) : _buildBodyWidget(),
     );
   }
 
@@ -140,13 +140,16 @@ class FitScaffold extends StatelessWidget {
   }
 
   /// 로딩 위젯
-  Widget _buildLoadingWidget() {
+  Widget _buildLoadingWidget(BuildContext context) {
     return Column(
       key: const ValueKey('loading'),
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        loadingView ?? const SizedBox.shrink(),
+        loadingView ??
+            Center(
+              child: FitDotLoading(color: context.fitColors.main),
+            ),
         const SizedBox(height: 56),
       ],
     );
@@ -163,21 +166,16 @@ class FitScaffold extends StatelessWidget {
   /// 플랫폼별 AppBar 생성
   ///
   /// Android: 상태바 색상 제어를 위해 FitEmptyAppBar 사용
-  /// iOS: 기본적으로 AppBar 없음 (제공된 appBar만 사용)
-  PreferredSizeWidget? _buildPlatformSpecificAppBar({
-    PreferredSizeWidget? appBar,
-    Color? backgroundColor,
-    required BuildContext context,
-  }) {
-    // 웹에서는 Platform API를 사용할 수 없으므로 기본 appBar 반환
-    if (kIsWeb) {
-      return appBar;
-    }
+  /// iOS/Web: AppBar 없음
+  PreferredSizeWidget? _buildPlatformSpecificAppBar(
+    Color backgroundColor,
+    BuildContext context,
+  ) {
+    // 웹이거나 iOS면 null 반환
+    if (kIsWeb || !Platform.isAndroid) return null;
 
-    if (Platform.isAndroid) {
-      return appBar ?? FitEmptyAppBar(backgroundColor ?? context.fitColors.backgroundAlternative);
-    }
-    return appBar;
+    // Android만 FitEmptyAppBar 반환
+    return FitEmptyAppBar(backgroundColor);
   }
 }
 
@@ -215,11 +213,13 @@ class FitEmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
         systemNavigationBarColor: systemNavigationBarColor,
       ),
       backgroundColor: backgroundColor,
+      toolbarHeight: 0,
+      elevation: 0,
     );
   }
 
   @override
-  Size get preferredSize => const Size(0.0, 0.0);
+  Size get preferredSize => Size.zero;
 }
 
 /// 공통 AppBar 스타일 생성 유틸리티
@@ -249,6 +249,7 @@ abstract class FitCustomAppBar {
 
     return AppBar(
       toolbarHeight: 56,
+      elevation: 0,
       systemOverlayStyle: customSystemUiOverlayStyle(
         statusBarColor: effectiveBackgroundColor,
         isDark: context.fitThemeMode.isDarkMode,
@@ -275,16 +276,21 @@ abstract class FitCustomAppBar {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       iconSize: 24,
+      padding: EdgeInsets.zero,
     );
   }
 
   /// 제목 텍스트 빌드
   static Widget _buildTitle(BuildContext context, String title, Color? titleColor) {
+    if (title.isEmpty) return const SizedBox.shrink();
+
     return Text(
       title,
       style: context.subtitle2().copyWith(
             color: titleColor ?? context.fitColors.grey900,
           ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
