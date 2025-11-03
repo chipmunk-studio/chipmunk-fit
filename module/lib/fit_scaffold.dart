@@ -55,6 +55,9 @@ class FitScaffold extends StatelessWidget {
   /// 본문 패딩 (기본값: 좌우 20)
   final EdgeInsets? padding;
 
+  /// 플로팅 액션 버튼 (신규 추가)
+  final Widget? floatingActionButton;
+
   const FitScaffold({
     super.key,
     required this.body,
@@ -69,6 +72,7 @@ class FitScaffold extends StatelessWidget {
     this.bottomSheet,
     this.bottomNavigationBar,
     this.padding,
+    this.floatingActionButton,
   });
 
   @override
@@ -82,6 +86,7 @@ class FitScaffold extends StatelessWidget {
         bottomSheet: bottomSheet,
         bottomNavigationBar: bottomNavigationBar,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+        floatingActionButton: floatingActionButton,
         body: SafeArea(
           bottom: bottom,
           top: top,
