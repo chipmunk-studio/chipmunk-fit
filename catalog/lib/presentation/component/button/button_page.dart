@@ -5,8 +5,41 @@ import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class ButtonPage extends StatelessWidget {
+class ButtonPage extends StatefulWidget {
   const ButtonPage({super.key});
+
+  @override
+  State<ButtonPage> createState() => _ButtonPageState();
+}
+
+class _ButtonPageState extends State<ButtonPage> {
+  bool _isLoading1 = false;
+  bool _isLoading2 = false;
+  bool _isLoading3 = false;
+  bool _isLoading4 = false;
+  bool _isLoading5 = false;
+
+  void _toggleLoading(int index) {
+    setState(() {
+      switch (index) {
+        case 1:
+          _isLoading1 = !_isLoading1;
+          break;
+        case 2:
+          _isLoading2 = !_isLoading2;
+          break;
+        case 3:
+          _isLoading3 = !_isLoading3;
+          break;
+        case 4:
+          _isLoading4 = !_isLoading4;
+          break;
+        case 5:
+          _isLoading5 = !_isLoading5;
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +77,7 @@ class ButtonPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSection(
               context,
               title: "2. Secondary 버튼 테스트",
@@ -62,7 +95,7 @@ class ButtonPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSection(
               context,
               title: "3. Tertiary 버튼 테스트",
@@ -80,25 +113,25 @@ class ButtonPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSection(
               context,
-              title: "4. Line 버튼 테스트",
+              title: "4. Ghost 버튼 테스트",
               buttons: [
                 FitButton(
                   type: FitButtonType.ghost,
-                  text: '기본 Line 버튼',
-                  onPress: () => print('Line 버튼 클릭됨'),
+                  text: '기본 Ghost 버튼',
+                  onPress: () => print('Ghost 버튼 클릭됨'),
                 ),
                 FitButton(
                   type: FitButtonType.ghost,
                   isEnabled: false,
-                  text: '비활성화 Line 버튼',
+                  text: '비활성화 Ghost 버튼',
                   onDisablePress: () {},
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSection(
               context,
               title: "5. Destructive 버튼 테스트",
@@ -116,7 +149,7 @@ class ButtonPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSection(
               context,
               title: "6. 커스텀 스타일 버튼 테스트",
@@ -131,6 +164,79 @@ class ButtonPage extends StatelessWidget {
                   ),
                   text: '커스텀 스타일',
                   onPress: () => print('커스텀 스타일 버튼 클릭됨'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildSection(
+              context,
+              title: "7. 로딩 상태 테스트",
+              buttons: [
+                FitButton(
+                  type: FitButtonType.primary,
+                  text: 'Primary 로딩',
+                  isLoading: _isLoading1,
+                  onPress: () => _toggleLoading(1),
+                  isExpand: true,
+                ),
+                FitButton(
+                  type: FitButtonType.secondary,
+                  text: 'Secondary 로딩',
+                  isLoading: _isLoading2,
+                  onPress: () => _toggleLoading(2),
+                  isExpand: true,
+                ),
+                FitButton(
+                  type: FitButtonType.tertiary,
+                  text: 'Tertiary 로딩',
+                  isLoading: _isLoading3,
+                  onPress: () => _toggleLoading(3),
+                  isExpand: true,
+                ),
+                FitButton(
+                  type: FitButtonType.ghost,
+                  text: 'Ghost 로딩',
+                  isLoading: _isLoading4,
+                  onPress: () => _toggleLoading(4),
+                  isExpand: true,
+                ),
+                FitButton(
+                  type: FitButtonType.destructive,
+                  text: 'Destructive 로딩',
+                  isLoading: _isLoading5,
+                  onPress: () => _toggleLoading(5),
+                  isExpand: true,
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildSection(
+              context,
+              title: "8. 커스텀 로딩 색상 테스트",
+              buttons: [
+                FitButton(
+                  type: FitButtonType.primary,
+                  text: '빨간 로딩',
+                  isLoading: true,
+                  loadingColor: Colors.red,
+                  isExpand: true,
+                  onPress: () {},
+                ),
+                FitButton(
+                  type: FitButtonType.secondary,
+                  text: '녹색 로딩',
+                  isLoading: true,
+                  loadingColor: Colors.green,
+                  isExpand: true,
+                  onPress: () {},
+                ),
+                FitButton(
+                  type: FitButtonType.ghost,
+                  text: '파란 로딩',
+                  isLoading: true,
+                  loadingColor: Colors.blue,
+                  isExpand: true,
+                  onPress: () {},
                 ),
               ],
             ),
@@ -151,7 +257,7 @@ class ButtonPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionTitle(context, title),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildButtonExample(context, buttons),
           ],
         ),
@@ -163,7 +269,7 @@ class ButtonPage extends StatelessWidget {
     return Row(
       children: [
         Icon(Icons.touch_app, color: context.fitColors.grey900, size: 24),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text(
           title,
           style: context.h2().copyWith(color: context.fitColors.grey900),
@@ -178,7 +284,7 @@ class ButtonPage extends StatelessWidget {
       children: [
         for (var button in buttons) ...[
           button,
-          const SizedBox(height: 12), // 버튼 간 간격 추가
+          const SizedBox(height: 12),
         ]
       ],
     );

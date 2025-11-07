@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:component/fit_dot_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:foundation/buttonstyle.dart';
 import 'package:foundation/colors.dart';
@@ -17,6 +18,7 @@ class FitButton extends StatefulWidget {
   final bool isExpand;
   final bool isEnabled;
   final bool isRipple;
+  final bool isLoading;
   final EdgeInsets? padding;
   final Widget? child;
   final String? text;
@@ -25,6 +27,7 @@ class FitButton extends StatefulWidget {
   final double pressedScale;
   final Color? backgroundColor;
   final Color? disabledBackgroundColor;
+  final Color? loadingColor;
 
   const FitButton({
     super.key,
@@ -35,6 +38,7 @@ class FitButton extends StatefulWidget {
     this.isEnabled = true,
     this.isExpand = false,
     this.isRipple = false,
+    this.isLoading = false,
     this.textSp = FitTextSp.SP,
     this.textStyle,
     this.padding,
@@ -45,6 +49,7 @@ class FitButton extends StatefulWidget {
     this.pressedScale = 0.95,
     this.backgroundColor,
     this.disabledBackgroundColor,
+    this.loadingColor,
   });
 
   @override
@@ -105,10 +110,12 @@ class _FitButtonState extends State<FitButton> {
           style: widget.textStyle ?? _getTextStyle(context),
         );
 
+    final isInteractive = widget.isEnabled && !widget.isLoading;
+
     final button = GestureDetector(
-      onTapDown: widget.isEnabled ? _onTapDown : _onDisableTap,
-      onTapUp: widget.isEnabled ? _onTapUp : null,
-      onTapCancel: widget.isEnabled ? _onTapCancel : null,
+      onTapDown: isInteractive ? _onTapDown : _onDisableTap,
+      onTapUp: isInteractive ? _onTapUp : null,
+      onTapCancel: isInteractive ? _onTapCancel : null,
       child: AnimatedContainer(
         duration: widget.animationDuration,
         curve: _isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
@@ -116,12 +123,31 @@ class _FitButtonState extends State<FitButton> {
         transformAlignment: Alignment.center,
         child: ElevatedButton(
           style: _getButtonStyle(context),
-          onPressed: widget.isEnabled ? _handlePress : null,
+          onPressed: isInteractive ? _handlePress : null,
           child: Container(
             alignment: Alignment.center,
             width: widget.isExpand ? double.infinity : null,
             padding: effectivePadding,
-            child: buttonContent,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // 원래 컨텐츠 (로딩 중에는 투명하게)
+                Visibility(
+                  visible: !widget.isLoading,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: buttonContent,
+                ),
+
+                // 로딩 인디케이터
+                if (widget.isLoading)
+                  FitDotLoading(
+                    dotSize: 8,
+                    color: widget.loadingColor ?? _getLoadingColor(context),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -144,7 +170,7 @@ class _FitButtonState extends State<FitButton> {
       final baseStyle = context.getButtonStyle(
         widget.type,
         isRipple: widget.isRipple,
-        isEnabled: widget.isEnabled,
+        isEnabled: widget.isEnabled && !widget.isLoading,
       );
 
       return baseStyle.copyWith(
@@ -161,8 +187,21 @@ class _FitButtonState extends State<FitButton> {
     return context.getButtonStyle(
       widget.type,
       isRipple: widget.isRipple,
-      isEnabled: widget.isEnabled,
+      isEnabled: widget.isEnabled && !widget.isLoading,
     );
+  }
+
+  /// 로딩 색상 결정
+  Color _getLoadingColor(BuildContext context) {
+    final colorMap = {
+      FitButtonType.secondary: context.fitColors.inverseText,
+      FitButtonType.tertiary: context.fitColors.grey900,
+      FitButtonType.primary: context.fitColors.staticBlack,
+      FitButtonType.ghost: context.fitColors.grey900,
+      FitButtonType.destructive: context.fitColors.staticWhite,
+    };
+
+    return colorMap[widget.type] ?? context.fitColors.staticWhite;
   }
 
   TextStyle _getTextStyle(BuildContext context) {
