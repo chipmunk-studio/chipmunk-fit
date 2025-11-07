@@ -63,7 +63,7 @@
     <color name="brick600_dark">#FFD44A27</color>
     <color name="brick700_dark">#FFB64023</color>
 
-    <!-- Blue Colors -->
+    <!-- Green Colors -->
     <color name="green50">#FFE0FFED</color>
     <color name="green200">#FFC2FFDB</color>
     <color name="green500">#FF24F97D</color>
@@ -74,6 +74,19 @@
     <color name="green500_dark">#FF47FF94</color>
     <color name="green600_dark">#FF31ED7F</color>
     <color name="green700_dark">#FF12D363</color>
+
+    <!-- Leaf Green Colors -->
+    <color name="leaf_green50">#FFE7F8EA</color>
+    <color name="leaf_green200">#FFBFEDC6</color>
+    <color name="leaf_green500">#FF27C840</color>
+    <color name="leaf_green600">#FF23B339</color>
+    <color name="leaf_green700">#FF20A234</color>
+    <color name="leaf_green50_dark">#FF183825</color>
+    <color name="leaf_green200_dark">#FF22603C</color>
+    <color name="leaf_green500_dark">#FF47FF94</color>
+    <color name="leaf_green600_dark">#FF31ED7F</color>
+    <color name="leaf_green700_dark">#FF12D363</color>
+
 
     <!-- Blue Alpha Colors -->
     <color name="blue_alpha_base">#FF149DE1</color>

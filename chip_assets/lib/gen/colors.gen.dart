@@ -152,6 +152,36 @@ class ChipColors {
   /// Color: #FFEFF0F1
   static const Color grey900Dark = Color(0xFFEFF0F1);
 
+  /// Color: #FFBFEDC6
+  static const Color leafGreen200 = Color(0xFFBFEDC6);
+
+  /// Color: #FF22603C
+  static const Color leafGreen200Dark = Color(0xFF22603C);
+
+  /// Color: #FFE7F8EA
+  static const Color leafGreen50 = Color(0xFFE7F8EA);
+
+  /// Color: #FF27C840
+  static const Color leafGreen500 = Color(0xFF27C840);
+
+  /// Color: #FF47FF94
+  static const Color leafGreen500Dark = Color(0xFF47FF94);
+
+  /// Color: #FF183825
+  static const Color leafGreen50Dark = Color(0xFF183825);
+
+  /// Color: #FF23B339
+  static const Color leafGreen600 = Color(0xFF23B339);
+
+  /// Color: #FF31ED7F
+  static const Color leafGreen600Dark = Color(0xFF31ED7F);
+
+  /// Color: #FF20A234
+  static const Color leafGreen700 = Color(0xFF20A234);
+
+  /// Color: #FF12D363
+  static const Color leafGreen700Dark = Color(0xFF12D363);
+
   /// Color: #FFC1BBFF
   static const Color periwinkle200 = Color(0xFFC1BBFF);
 

@@ -79,6 +79,13 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color greenAlpha24;
   final Color greenAlpha12;
 
+  // Leaf Green
+  final Color leafGreen50;
+  final Color leafGreen200;
+  final Color leafGreen500;
+  final Color leafGreen600;
+  final Color leafGreen700;
+
   // Alpha Colors - Periwinkle
   final Color periwinkleBase;
   final Color periwinkleAlpha72;
@@ -141,6 +148,11 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.green500,
     required this.green600,
     required this.green700,
+    required this.leafGreen50,
+    required this.leafGreen200,
+    required this.leafGreen500,
+    required this.leafGreen600,
+    required this.leafGreen700,
     required this.periwinkle50,
     required this.periwinkle200,
     required this.periwinkle500,
@@ -225,6 +237,11 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? green500,
     Color? green600,
     Color? green700,
+    Color? leafGreen50,
+    Color? leafGreen200,
+    Color? leafGreen500,
+    Color? leafGreen600,
+    Color? leafGreen700,
     Color? periwinkle50,
     Color? periwinkle200,
     Color? periwinkle500,
@@ -307,6 +324,11 @@ class FitColors extends ThemeExtension<FitColors> {
       green500: green500 ?? this.green500,
       green600: green600 ?? this.green600,
       green700: green700 ?? this.green700,
+      leafGreen50: leafGreen50 ?? this.leafGreen50,
+      leafGreen200: leafGreen200 ?? this.leafGreen200,
+      leafGreen500: leafGreen500 ?? this.leafGreen500,
+      leafGreen600: leafGreen600 ?? this.leafGreen600,
+      leafGreen700: leafGreen700 ?? this.leafGreen700,
       periwinkle50: periwinkle50 ?? this.periwinkle50,
       periwinkle200: periwinkle200 ?? this.periwinkle200,
       periwinkle500: periwinkle500 ?? this.periwinkle500,
@@ -431,6 +453,11 @@ class FitColors extends ThemeExtension<FitColors> {
       greenAlpha48: Color.lerp(greenAlpha48, other.greenAlpha48, t)!,
       greenAlpha24: Color.lerp(greenAlpha24, other.greenAlpha24, t)!,
       greenAlpha12: Color.lerp(greenAlpha12, other.greenAlpha12, t)!,
+      leafGreen50: Color.lerp(leafGreen50, other.leafGreen50, t)!,
+      leafGreen200: Color.lerp(leafGreen200, other.leafGreen200, t)!,
+      leafGreen500: Color.lerp(leafGreen500, other.leafGreen500, t)!,
+      leafGreen600: Color.lerp(leafGreen600, other.leafGreen600, t)!,
+      leafGreen700: Color.lerp(leafGreen700, other.leafGreen700, t)!,
       periwinkleBase: Color.lerp(periwinkleBase, other.periwinkleBase, t)!,
       periwinkleAlpha72: Color.lerp(periwinkleAlpha72, other.periwinkleAlpha72, t)!,
       periwinkleAlpha48: Color.lerp(periwinkleAlpha48, other.periwinkleAlpha48, t)!,
@@ -488,6 +515,11 @@ final FitColors lightFitColors = FitColors(
   green500: ChipColors.green500,
   green600: ChipColors.green600,
   green700: ChipColors.green700,
+  leafGreen50: ChipColors.leafGreen50,
+  leafGreen200: ChipColors.leafGreen200,
+  leafGreen500: ChipColors.leafGreen500,
+  leafGreen600: ChipColors.leafGreen600,
+  leafGreen700: ChipColors.leafGreen700,
   periwinkle50: ChipColors.periwinkle50,
   periwinkle200: ChipColors.periwinkle200,
   periwinkle500: ChipColors.periwinkle500,
@@ -572,6 +604,11 @@ final FitColors darkFitColors = FitColors(
   green500: ChipColors.green500Dark,
   green600: ChipColors.green600Dark,
   green700: ChipColors.green700Dark,
+  leafGreen50: ChipColors.leafGreen50Dark,
+  leafGreen200: ChipColors.leafGreen200Dark,
+  leafGreen500: ChipColors.leafGreen500Dark,
+  leafGreen600: ChipColors.leafGreen600Dark,
+  leafGreen700: ChipColors.leafGreen700Dark,
   periwinkle50: ChipColors.periwinkle50Dark,
   periwinkle200: ChipColors.periwinkle200Dark,
   periwinkle500: ChipColors.periwinkle500Dark,
