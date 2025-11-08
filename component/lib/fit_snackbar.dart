@@ -13,6 +13,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
     IconData? icon,
     Color? iconColor,
     Color? iconBackgroundColor,
+    Color? backgroundColor,
+    TextStyle? messageStyle,
+    int maxLines = 2,
   }) {
     final context = currentContext;
     if (context == null) return;
@@ -26,6 +29,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
       icon: icon ?? Icons.check,
       iconColor: iconColor ?? context.fitColors.staticWhite,
       iconBackgroundColor: iconBackgroundColor ?? context.fitColors.main,
+      backgroundColor: backgroundColor,
+      messageStyle: messageStyle,
+      maxLines: maxLines,
     );
   }
 
@@ -36,6 +42,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
     IconData? icon,
     Color? iconColor,
     Color? iconBackgroundColor,
+    Color? backgroundColor,
+    TextStyle? messageStyle,
+    int maxLines = 2,
   }) {
     final context = currentContext;
     if (context == null) return;
@@ -47,6 +56,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
       icon: icon ?? Icons.error_outline,
       iconColor: iconColor ?? context.fitColors.staticWhite,
       iconBackgroundColor: iconBackgroundColor ?? context.fitColors.red50,
+      backgroundColor: backgroundColor,
+      messageStyle: messageStyle,
+      maxLines: maxLines,
     );
   }
 
