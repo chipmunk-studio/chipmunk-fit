@@ -10,6 +10,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
     String buttonText = "바로가기",
     EdgeInsetsGeometry? margin,
     VoidCallback? onTap,
+    IconData? icon,
+    Color? iconColor,
+    Color? iconBackgroundColor,
   }) {
     final context = currentContext;
     if (context == null) return;
@@ -20,9 +23,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
       margin: margin,
       onTap: onTap,
       buttonText: buttonText,
-      icon: Icons.check,
-      iconColor: context.fitColors.staticWhite,
-      iconBackgroundColor: context.fitColors.main,
+      icon: icon ?? Icons.check,
+      iconColor: iconColor ?? context.fitColors.staticWhite,
+      iconBackgroundColor: iconBackgroundColor ?? context.fitColors.main,
     );
   }
 
@@ -30,6 +33,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
   void showErrorSnackBar(
     String message, {
     EdgeInsetsGeometry? margin,
+    IconData? icon,
+    Color? iconColor,
+    Color? iconBackgroundColor,
   }) {
     final context = currentContext;
     if (context == null) return;
@@ -38,9 +44,9 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
       context: context,
       message: message,
       margin: margin,
-      icon: Icons.error_outline,
-      iconColor: context.fitColors.staticWhite,
-      iconBackgroundColor: context.fitColors.red50,
+      icon: icon ?? Icons.error_outline,
+      iconColor: iconColor ?? context.fitColors.staticWhite,
+      iconBackgroundColor: iconBackgroundColor ?? context.fitColors.red50,
     );
   }
 
@@ -48,23 +54,36 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
   void _showFitSnackBar({
     required BuildContext context,
     required String message,
-    required IconData icon,
-    required Color iconColor,
-    required Color iconBackgroundColor,
+    IconData icon = Icons.info_outline,
+    Color? iconColor,
+    Color? iconBackgroundColor,
     EdgeInsetsGeometry? margin,
     VoidCallback? onTap,
     String? buttonText,
+    Color? backgroundColor,
+    TextStyle? messageStyle,
+    int maxLines = 2,
   }) {
     final messenger = currentState;
     if (messenger == null) return;
+
+    // 기본값 설정
+    final effectiveIconColor = iconColor ?? context.fitColors.staticWhite;
+    final effectiveIconBackgroundColor = iconBackgroundColor ?? context.fitColors.main;
+    final effectiveBackgroundColor = backgroundColor ?? const Color(0xFFF5F5F5);
+    final effectiveMargin = margin ?? const EdgeInsets.only(left: 16, right: 16, bottom: 64);
+    final effectiveMessageStyle = messageStyle ??
+        context.body3().copyWith(
+              color: context.fitColors.staticBlack,
+            );
 
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          backgroundColor: const Color(0xFFF5F5F5),
+          backgroundColor: effectiveBackgroundColor,
           elevation: 0,
-          margin: margin ?? const EdgeInsets.only(left: 16, right: 16, bottom: 64),
+          margin: effectiveMargin,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -76,18 +95,16 @@ extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {
             children: [
               _IconBadge(
                 icon: icon,
-                iconColor: iconColor,
-                backgroundColor: iconBackgroundColor,
+                iconColor: effectiveIconColor,
+                backgroundColor: effectiveIconBackgroundColor,
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   message,
-                  style: context.body3().copyWith(
-                        color: context.fitColors.staticBlack,
-                      ),
+                  style: effectiveMessageStyle,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                  maxLines: maxLines,
                 ),
               ),
               if (onTap != null && buttonText != null) ...[
