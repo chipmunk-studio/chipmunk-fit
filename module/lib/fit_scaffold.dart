@@ -43,7 +43,9 @@ class FitScaffold extends StatelessWidget {
   /// 로딩 상태 표시 여부
   final bool isLoading;
 
-  /// 로딩 시 표시할 위젯 (기본값: FitDotLoading)
+  /// 로딩 시 표시할 전체 화면 위젯 (수정됨)
+  ///
+  /// null일 경우, FitDotLoading이 포함된 기본 로딩 화면을 표시
   final Widget? loadingView;
 
   /// 하단 시트 위젯
@@ -145,16 +147,29 @@ class FitScaffold extends StatelessWidget {
   }
 
   /// 로딩 위젯
+  ///
+  /// [loadingView]가 제공되면 해당 위젯을 전체 로딩 화면으로 사용
+  /// [loadingView]가 null이면 기본 FitDotLoading 화면을 사용
   Widget _buildLoadingWidget(BuildContext context) {
+    // 1. loadingView가 null이 아니면,
+    //    제공된 위젯을 그대로 로딩 화면으로 사용
+    if (loadingView != null) {
+      return SizedBox(
+        key: const ValueKey('loading'),
+        child: loadingView,
+      );
+    }
+
+    // 2. loadingView가 null이면,
+    //    기존의 기본 로딩 화면(FitDotLoading + Sizedbox)을 사용
     return Column(
       key: const ValueKey('loading'),
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        loadingView ??
-            Center(
-              child: FitDotLoading(color: context.fitColors.main),
-            ),
+        Center(
+          child: FitDotLoading(color: context.fitColors.main),
+        ),
         const SizedBox(height: 56),
       ],
     );
