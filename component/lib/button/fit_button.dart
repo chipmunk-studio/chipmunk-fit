@@ -28,6 +28,7 @@ class FitButton extends StatefulWidget {
   final Color? backgroundColor;
   final Color? disabledBackgroundColor;
   final Color? loadingColor;
+  final double? borderRadius;
 
   const FitButton({
     super.key,
@@ -50,6 +51,7 @@ class FitButton extends StatefulWidget {
     this.backgroundColor,
     this.disabledBackgroundColor,
     this.loadingColor,
+    this.borderRadius,
   });
 
   @override
@@ -158,37 +160,52 @@ class _FitButtonState extends State<FitButton> {
         : IntrinsicWidth(child: button);
   }
 
-  /// 버튼 스타일 생성 (backgroundColor 지원)
+  /// 버튼 스타일 생성 (backgroundColor, borderRadius 지원)
   ButtonStyle _getButtonStyle(BuildContext context) {
     // style이 명시적으로 제공된 경우 우선 사용
     if (widget.style != null) {
       return widget.style!;
     }
 
-    // backgroundColor가 제공된 경우 커스텀 스타일 생성
-    if (widget.backgroundColor != null) {
-      final baseStyle = context.getButtonStyle(
-        widget.type,
-        isRipple: widget.isRipple,
-        isEnabled: widget.isEnabled && !widget.isLoading,
-      );
-
-      return baseStyle.copyWith(
-        backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
-          if (states.contains(WidgetState.disabled)) {
-            return widget.disabledBackgroundColor ?? widget.backgroundColor!.withValues(alpha: 0.5);
-          }
-          return widget.backgroundColor!;
-        }),
-      );
-    }
-
-    // 기본 스타일 사용
-    return context.getButtonStyle(
+    // 기본 스타일 가져오기
+    final baseStyle = context.getButtonStyle(
       widget.type,
       isRipple: widget.isRipple,
       isEnabled: widget.isEnabled && !widget.isLoading,
     );
+
+    // backgroundColor 또는 borderRadius가 제공된 경우 커스텀 스타일 생성
+    if (widget.backgroundColor != null || widget.borderRadius != null) {
+      // 기존 shape에서 borderSide 가져오기 (ghost 버튼 등을 위해)
+      BorderSide? existingBorder;
+      if (baseStyle.shape?.resolve({}) is RoundedRectangleBorder) {
+        final shape = baseStyle.shape?.resolve({}) as RoundedRectangleBorder;
+        existingBorder = shape.side;
+      }
+
+      return baseStyle.copyWith(
+        backgroundColor: widget.backgroundColor != null
+            ? WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.disabled)) {
+                  return widget.disabledBackgroundColor ??
+                      widget.backgroundColor!.withValues(alpha: 0.5);
+                }
+                return widget.backgroundColor!;
+              })
+            : null,
+        shape: widget.borderRadius != null
+            ? WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(widget.borderRadius!),
+                  side: existingBorder ?? BorderSide.none,
+                ),
+              )
+            : null,
+      );
+    }
+
+    // 기본 스타일 사용
+    return baseStyle;
   }
 
   /// 로딩 색상 결정
