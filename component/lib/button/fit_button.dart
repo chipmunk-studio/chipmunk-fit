@@ -9,49 +9,76 @@ import 'package:sprung/sprung.dart';
 
 /// 커스텀 버튼 위젯 (스케일 애니메이션 및 디바운스 기능)
 class FitButton extends StatefulWidget {
-  final Function()? onPress;
-  final Function()? onDisablePress;
-  final ButtonStyle? style;
+  /// 버튼 클릭 콜백
+  final VoidCallback? onPressed;
+
+  /// 비활성화 상태에서 클릭 시 콜백
+  final VoidCallback? onDisabledPressed;
+
+  /// 버튼 타입 (primary, secondary, tertiary, ghost, destructive)
   final FitButtonType type;
-  final FitTextSp textSp;
-  final TextStyle? textStyle;
-  final bool isExpand;
-  final bool isEnabled;
-  final bool isRipple;
-  final bool isLoading;
-  final EdgeInsets? padding;
+
+  /// 커스텀 버튼 스타일 (type 기본 스타일을 오버라이드)
+  final ButtonStyle? style;
+
+  /// 버튼 내부 위젯
   final Widget? child;
+
+  /// 버튼 텍스트 (child가 없을 때 사용)
   final String? text;
-  final Duration debounceDuration;
-  final Duration animationDuration;
-  final double pressedScale;
-  final Color? backgroundColor;
-  final Color? disabledBackgroundColor;
+
+  /// 텍스트 스타일
+  final TextStyle? textStyle;
+
+  /// 텍스트 SP 타입
+  final FitTextSp textSp;
+
+  /// 버튼 패딩
+  final EdgeInsets? padding;
+
+  /// 가로 전체 확장 여부
+  final bool isExpanded;
+
+  /// 활성화 상태
+  final bool isEnabled;
+
+  /// 로딩 상태
+  final bool isLoading;
+
+  /// 리플 효과 활성화
+  final bool enableRipple;
+
+  /// 로딩 인디케이터 색상
   final Color? loadingColor;
-  final double? borderRadius;
+
+  /// 디바운스 시간
+  final Duration debounceDuration;
+
+  /// 스케일 애니메이션 시간
+  final Duration animationDuration;
+
+  /// 눌렸을 때 스케일
+  final double pressedScale;
 
   const FitButton({
     super.key,
-    this.onPress,
-    this.onDisablePress,
+    this.onPressed,
+    this.onDisabledPressed,
     this.type = FitButtonType.primary,
     this.style,
-    this.isEnabled = true,
-    this.isExpand = false,
-    this.isRipple = false,
-    this.isLoading = false,
-    this.textSp = FitTextSp.SP,
-    this.textStyle,
-    this.padding,
     this.child,
     this.text,
+    this.textStyle,
+    this.textSp = FitTextSp.SP,
+    this.padding,
+    this.isExpanded = false,
+    this.isEnabled = true,
+    this.isLoading = false,
+    this.enableRipple = false,
+    this.loadingColor,
     this.debounceDuration = const Duration(seconds: 1),
     this.animationDuration = const Duration(milliseconds: 600),
     this.pressedScale = 0.95,
-    this.backgroundColor,
-    this.disabledBackgroundColor,
-    this.loadingColor,
-    this.borderRadius,
   });
 
   @override
@@ -60,206 +87,129 @@ class FitButton extends StatefulWidget {
 
 class _FitButtonState extends State<FitButton> {
   bool _isPressed = false;
-  final _debouncer = _Debouncer();
+  Timer? _debounceTimer;
 
   @override
   void dispose() {
-    _debouncer.dispose();
+    _debounceTimer?.cancel();
     super.dispose();
   }
 
+  bool get _isInteractive => widget.isEnabled && !widget.isLoading;
+
   void _handlePress() {
-    _debouncer.run(
-      action: widget.onPress,
-      duration: widget.debounceDuration,
-    );
+    if (_debounceTimer?.isActive ?? false) return;
+    widget.onPressed?.call();
+    _debounceTimer = Timer(widget.debounceDuration, () {});
   }
 
   void _onTapDown(TapDownDetails details) {
-    if (widget.onPress != null && mounted) {
+    if (_isInteractive && mounted) {
       setState(() => _isPressed = true);
+    } else {
+      widget.onDisabledPressed?.call();
     }
   }
 
   void _onTapUp(TapUpDetails details) {
-    if (widget.onPress != null && mounted) {
+    if (_isInteractive && mounted) {
       setState(() => _isPressed = false);
     }
   }
 
   void _onTapCancel() {
-    if (widget.onPress != null && mounted) {
+    if (_isInteractive && mounted) {
       setState(() => _isPressed = false);
     }
-  }
-
-  void _onDisableTap(TapDownDetails details) {
-    widget.onDisablePress?.call();
   }
 
   @override
   Widget build(BuildContext context) {
     final effectivePadding = widget.padding ??
         EdgeInsets.symmetric(
-          vertical: widget.isExpand ? 20 : 12,
-          horizontal: widget.isExpand ? 0 : 14,
+          vertical: widget.isExpanded ? 20 : 12,
+          horizontal: widget.isExpanded ? 0 : 14,
         );
 
-    final buttonContent = widget.child ??
-        Text(
-          widget.text ?? '',
-          textAlign: TextAlign.center,
-          style: widget.textStyle ?? _getTextStyle(context),
-        );
-
-    final isInteractive = widget.isEnabled && !widget.isLoading;
+    final buttonStyle = _resolveButtonStyle(context);
+    final buttonContent = _buildContent(context);
 
     final button = GestureDetector(
-      onTapDown: isInteractive ? _onTapDown : _onDisableTap,
-      onTapUp: isInteractive ? _onTapUp : null,
-      onTapCancel: isInteractive ? _onTapCancel : null,
+      onTapDown: _onTapDown,
+      onTapUp: _isInteractive ? _onTapUp : null,
+      onTapCancel: _isInteractive ? _onTapCancel : null,
       child: AnimatedContainer(
         duration: widget.animationDuration,
         curve: _isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
         transform: Matrix4.identity()..scale(_isPressed ? widget.pressedScale : 1.0),
         transformAlignment: Alignment.center,
         child: ElevatedButton(
-          style: _getButtonStyle(context),
-          onPressed: isInteractive ? _handlePress : null,
+          style: buttonStyle,
+          onPressed: _isInteractive ? _handlePress : null,
           child: Container(
             alignment: Alignment.center,
-            width: widget.isExpand ? double.infinity : null,
+            width: widget.isExpanded ? double.infinity : null,
             padding: effectivePadding,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // 원래 컨텐츠 (로딩 중에는 투명하게)
-                Visibility(
-                  visible: !widget.isLoading,
-                  maintainSize: true,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  child: buttonContent,
-                ),
-
-                // 로딩 인디케이터
-                if (widget.isLoading)
-                  FitDotLoading(
-                    dotSize: 8,
-                    color: widget.loadingColor ?? _getLoadingColor(context),
-                  ),
-              ],
-            ),
+            child: buttonContent,
           ),
         ),
       ),
     );
 
-    return widget.isExpand
+    return widget.isExpanded
         ? SizedBox(width: double.infinity, child: button)
         : IntrinsicWidth(child: button);
   }
 
-  /// 버튼 스타일 생성 (backgroundColor, borderRadius 지원)
-  ButtonStyle _getButtonStyle(BuildContext context) {
-    // style이 명시적으로 제공된 경우 우선 사용
-    if (widget.style != null) {
-      return widget.style!;
-    }
-
-    // 기본 스타일 가져오기
-    final baseStyle = context.getButtonStyle(
+  ButtonStyle _resolveButtonStyle(BuildContext context) {
+    final baseStyle = FitButtonStyle.of(
+      context,
       widget.type,
-      isRipple: widget.isRipple,
-      isEnabled: widget.isEnabled && !widget.isLoading,
+      isRipple: widget.enableRipple,
     );
 
-    // backgroundColor 또는 borderRadius가 제공된 경우 커스텀 스타일 생성
-    if (widget.backgroundColor != null || widget.borderRadius != null) {
-      // 기존 shape에서 borderSide 가져오기 (ghost 버튼 등을 위해)
-      BorderSide? existingBorder;
-      if (baseStyle.shape?.resolve({}) is RoundedRectangleBorder) {
-        final shape = baseStyle.shape?.resolve({}) as RoundedRectangleBorder;
-        existingBorder = shape.side;
-      }
-
-      return baseStyle.copyWith(
-        backgroundColor: widget.backgroundColor != null
-            ? WidgetStateProperty.resolveWith<Color>((states) {
-                if (states.contains(WidgetState.disabled)) {
-                  return widget.disabledBackgroundColor ??
-                      widget.backgroundColor!.withValues(alpha: 0.5);
-                }
-                return widget.backgroundColor!;
-              })
-            : null,
-        shape: widget.borderRadius != null
-            ? WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(widget.borderRadius!),
-                  side: existingBorder ?? BorderSide.none,
-                ),
-              )
-            : null,
-      );
-    }
-
-    // 기본 스타일 사용
-    return baseStyle;
+    if (widget.style == null) return baseStyle;
+    return baseStyle.merge(widget.style);
   }
 
-  /// 로딩 색상 결정
-  Color _getLoadingColor(BuildContext context) {
-    final colorMap = {
-      FitButtonType.secondary: context.fitColors.inverseText,
-      FitButtonType.tertiary: context.fitColors.grey900,
-      FitButtonType.primary: context.fitColors.staticBlack,
-      FitButtonType.ghost: context.fitColors.grey900,
-      FitButtonType.destructive: context.fitColors.staticWhite,
-    };
+  Widget _buildContent(BuildContext context) {
+    final content = widget.child ??
+        Text(
+          widget.text ?? '',
+          textAlign: TextAlign.center,
+          style: widget.textStyle ?? _getTextStyle(context),
+        );
 
-    return colorMap[widget.type] ?? context.fitColors.staticWhite;
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Visibility(
+          visible: !widget.isLoading,
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          child: content,
+        ),
+        if (widget.isLoading)
+          FitDotLoading(
+            dotSize: 8,
+            color: widget.loadingColor ??
+                FitButtonStyle.loadingColorOf(context, widget.type),
+          ),
+      ],
+    );
   }
 
   TextStyle _getTextStyle(BuildContext context) {
-    final colorMap = widget.isEnabled
-        ? {
-            FitButtonType.secondary: context.fitColors.inverseText,
-            FitButtonType.tertiary: context.fitColors.grey900,
-            FitButtonType.primary: context.fitColors.staticBlack,
-            FitButtonType.ghost: context.fitColors.grey900,
-            FitButtonType.destructive: context.fitColors.staticWhite,
-          }
-        : {
-            FitButtonType.secondary: context.fitColors.textSecondary,
-            FitButtonType.tertiary: context.fitColors.textDisabled,
-            FitButtonType.primary: context.fitColors.inverseDisabled,
-            FitButtonType.ghost: context.fitColors.grey300,
-            FitButtonType.destructive: context.fitColors.inverseDisabled,
-          };
+    final color = FitButtonStyle.textColorOf(
+      context,
+      widget.type,
+      isEnabled: widget.isEnabled,
+    );
 
     return context.button1(type: widget.textSp).copyWith(
-          color: colorMap[widget.type] ?? context.fitColors.grey0,
+          color: color,
           height: 1.0,
         );
-  }
-}
-
-/// 디바운스 헬퍼 클래스
-class _Debouncer {
-  Timer? _timer;
-
-  void run({
-    required Function()? action,
-    required Duration duration,
-  }) {
-    if (_timer?.isActive ?? false) return;
-
-    action?.call();
-    _timer = Timer(duration, () {});
-  }
-
-  void dispose() {
-    _timer?.cancel();
   }
 }

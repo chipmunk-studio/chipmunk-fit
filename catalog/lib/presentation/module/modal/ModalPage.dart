@@ -29,7 +29,7 @@ class ModalPage extends StatelessWidget {
               description: "간단한 에러 메시지를 표시합니다.",
               actions: [
                 FitButton(
-                  onPress: () {
+                  onPressed: () {
                     FitDialog.makeErrorDialog(
                       context: context,
                       message: "에러가 발생했습니다!",
@@ -37,7 +37,7 @@ class ModalPage extends StatelessWidget {
                       onPress: () => print("확인 버튼 클릭됨"),
                     ).show();
                   },
-                  isExpand: true,
+                  isExpanded: true,
                   text: "에러 대화상자 표시",
                 ),
               ],

@@ -1,6 +1,7 @@
 import 'package:component/fit_dot_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foundation/buttonstyle.dart';
 import 'package:foundation/colors.dart';
 import 'package:foundation/textstyle.dart';
 
@@ -10,7 +11,7 @@ import 'fit_button.dart';
 class FitBottomButton extends StatelessWidget {
   final bool isEnabled;
   final bool isShowLoading;
-  final Function() onPress;
+  final VoidCallback onPressed;
   final String text;
   final TextStyle? textStyle;
   final Color? backgroundColor;
@@ -22,7 +23,7 @@ class FitBottomButton extends StatelessWidget {
   const FitBottomButton({
     super.key,
     required this.isEnabled,
-    required this.onPress,
+    required this.onPressed,
     required this.text,
     required this.isKeyboardVisible,
     this.isShowLoading = false,
@@ -60,18 +61,15 @@ class FitBottomButton extends StatelessWidget {
     );
 
     return FitButton(
-      isExpand: true,
+      isExpanded: true,
       isEnabled: isEnabled && !isShowLoading,
       debounceDuration: debounceDuration,
-      style: ElevatedButton.styleFrom(
+      style: FitButtonStyle.styleFrom(
         backgroundColor: effectiveBackgroundColor,
         disabledBackgroundColor: effectiveDisabledColor,
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              isKeyboardVisible ? BorderRadius.zero : BorderRadius.circular(borderRadius.r),
-        ),
+        borderRadius: isKeyboardVisible ? 0 : borderRadius.r,
       ),
-      onPress: isShowLoading ? null : onPress,
+      onPressed: isShowLoading ? null : onPressed,
       child: buttonChild,
     );
   }

@@ -219,11 +219,13 @@ class FitDialog {
     final effectiveTextColor = btnOkTextColor ?? context.fitColors.staticBlack;
 
     return FitButton(
-      onPress: () => _handleButtonPress(context, btnOkPressed),
+      onPressed: () => _handleButtonPress(context, btnOkPressed),
       type: okButtonType ?? FitButtonType.primary,
-      isExpand: true,
+      isExpanded: true,
       text: btnOkText ?? '확인',
-      backgroundColor: effectiveButtonColor,
+      style: FitButtonStyle.styleFrom(
+        backgroundColor: effectiveButtonColor,
+      ),
       textStyle: context.button1().copyWith(color: effectiveTextColor),
     );
   }
@@ -244,12 +246,14 @@ class FitDialog {
 
     return FitButton(
       type: cancelButtonType ?? FitButtonType.secondary,
-      isExpand: true,
+      isExpanded: true,
       isEnabled: false,
       text: btnCancelText ?? '취소',
-      backgroundColor: effectiveButtonColor,
+      style: FitButtonStyle.styleFrom(
+        backgroundColor: effectiveButtonColor,
+      ),
       textStyle: context.button1().copyWith(color: effectiveTextColor),
-      onDisablePress: () => _handleButtonPress(context, btnCancelPressed),
+      onDisabledPressed: () => _handleButtonPress(context, btnCancelPressed),
     );
   }
 
