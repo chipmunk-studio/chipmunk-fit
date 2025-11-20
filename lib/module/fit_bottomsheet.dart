@@ -1,1 +1,1 @@
-export 'package:module/bottomsheet/fit_bottom_sheet_ext.dart';
+export 'package:chip_module/bottomsheet/fit_bottom_sheet_ext.dart';

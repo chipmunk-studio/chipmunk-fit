@@ -1,4 +1,5 @@
 import 'package:chipfit/component/button/fit_button.dart';
+import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_dialog.dart';
@@ -38,7 +39,16 @@ class ModalPage extends StatelessWidget {
                     ).show();
                   },
                   isExpanded: true,
-                  text: "에러 대화상자 표시",
+                  child: Text(
+                    "에러 대화상자 표시",
+                    style: context.button1().copyWith(
+                          color: FitButtonStyle.textColorOf(
+                            context,
+                            FitButtonType.primary,
+                            isEnabled: true,
+                          ),
+                        ),
+                  ),
                 ),
               ],
             ),

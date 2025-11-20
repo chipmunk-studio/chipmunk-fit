@@ -8,11 +8,11 @@ environment:
   sdk: ^3.5.3
 
 workspace:
-  - component
-  - foundation
-  - module
+  - chip_component
+  - chip_foundation
+  - chip_module
   - chip_assets
-  - dependencies
+  - chip_dependencies
   - catalog
 
 dependencies:
@@ -20,14 +20,14 @@ dependencies:
     sdk: flutter
   chip_assets:
     path: ./chip_assets
-  foundation:
-    path: ./foundation
-  component:
-    path: ./component
-  module:
-    path: ./module
-  dependencies:
-    path: ./dependencies
+  chip_foundation:
+    path: ./chip_foundation
+  chip_component:
+    path: ./chip_component
+  chip_module:
+    path: ./chip_module
+  chip_dependencies:
+    path: ./chip_dependencies
 
 dev_dependencies:
   flutter_test:
@@ -50,15 +50,15 @@ melos:
       description: Run build_runner for all packages including those with build_runner in dev_dependencies.
 
     build:component:
-      run: melos exec --scope="component" -- "dart run build_runner build --delete-conflicting-outputs"
+      run: melos exec --scope="chip_component" -- "dart run build_runner build --delete-conflicting-outputs"
       description: Run build_runner in the component module.
 
     build:foundation:
-      run: melos exec --scope="foundation" -- "dart run build_runner build --delete-conflicting-outputs"
+      run: melos exec --scope="chip_foundation" -- "dart run build_runner build --delete-conflicting-outputs"
       description: Run build_runner in the foundation module.
 
     build:module:
-      run: melos exec --scope="module" -- "dart run build_runner build --delete-conflicting-outputs"
+      run: melos exec --scope="chip_module" -- "dart run build_runner build --delete-conflicting-outputs"
       description: Run build_runner in the module module.
 
     build:assets:
@@ -90,15 +90,15 @@ melos:
       description: Automatically fix lint issues where possible.
 
     lint:component:
-      run: melos exec --scope="component" -- "flutter analyze"
+      run: melos exec --scope="chip_component" -- "flutter analyze"
       description: Run lint analysis on component package.
 
     lint:foundation:
-      run: melos exec --scope="foundation" -- "flutter analyze"
+      run: melos exec --scope="chip_foundation" -- "flutter analyze"
       description: Run lint analysis on foundation package.
 
     lint:module:
-      run: melos exec --scope="module" -- "flutter analyze"
+      run: melos exec --scope="chip_module" -- "flutter analyze"
       description: Run lint analysis on module package.
 
     gen:

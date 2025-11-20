@@ -1,1 +1,1 @@
-export 'package:module/skeletons/skeletons.dart';
+export 'package:chip_module/skeletons/skeletons.dart';

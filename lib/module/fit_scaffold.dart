@@ -1,1 +1,1 @@
-export 'package:module/fit_scaffold.dart';
+export 'package:chip_module/fit_scaffold.dart';

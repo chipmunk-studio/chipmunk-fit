@@ -13,7 +13,6 @@ class ButtonPage extends StatefulWidget {
 }
 
 class _ButtonPageState extends State<ButtonPage> {
-  // 버튼 옵션 상태
   FitButtonType _selectedType = FitButtonType.primary;
   bool _isEnabled = true;
   bool _isLoading = false;
@@ -34,19 +33,30 @@ class _ButtonPageState extends State<ButtonPage> {
       ),
       body: Column(
         children: [
-          // 미리보기 영역
           _buildPreviewSection(context, colors),
-          // 구분선
-          Container(
-            height: 8,
-            color: colors.backgroundAlternative,
-          ),
-          // 옵션 컨트롤 패널
-          Expanded(
-            child: _buildControlPanel(context, colors),
-          ),
+          Container(height: 8, color: colors.backgroundAlternative),
+          Expanded(child: _buildControlPanel(context, colors)),
         ],
       ),
+    );
+  }
+
+  Widget _buildButtonText(
+    BuildContext context,
+    String text, {
+    FitButtonType? type,
+    bool? isEnabled,
+  }) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: context.button1().copyWith(
+            color: FitButtonStyle.textColorOf(
+              context,
+              type ?? _selectedType,
+              isEnabled: isEnabled ?? _isEnabled,
+            ),
+          ),
     );
   }
 
@@ -67,7 +77,6 @@ class _ButtonPageState extends State<ButtonPage> {
             alignment: Alignment.center,
             child: FitButton(
               type: _selectedType,
-              text: _buttonText,
               isEnabled: _isEnabled,
               isLoading: _isLoading,
               isExpanded: _isExpanded,
@@ -89,10 +98,10 @@ class _ButtonPageState extends State<ButtonPage> {
                   ),
                 );
               },
+              child: _buildButtonText(context, _buttonText),
             ),
           ),
           const SizedBox(height: 16),
-          // 현재 상태 표시
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
@@ -115,13 +124,10 @@ class _ButtonPageState extends State<ButtonPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 버튼 타입 선택
           _buildSectionHeader(context, colors, '버튼 타입'),
           const SizedBox(height: 12),
           _buildTypeSelector(context, colors),
           const SizedBox(height: 24),
-
-          // 토글 옵션들
           _buildSectionHeader(context, colors, '옵션'),
           const SizedBox(height: 12),
           _buildOptionCard(context, colors, [
@@ -162,20 +168,14 @@ class _ButtonPageState extends State<ButtonPage> {
             ),
           ]),
           const SizedBox(height: 24),
-
-          // 텍스트 입력
           _buildSectionHeader(context, colors, '버튼 텍스트'),
           const SizedBox(height: 12),
           _buildTextInputCard(context, colors),
           const SizedBox(height: 24),
-
-          // 타입별 비교
           _buildSectionHeader(context, colors, '타입별 비교'),
           const SizedBox(height: 12),
           _buildTypeComparisonCard(context, colors),
           const SizedBox(height: 24),
-
-          // 상태별 비교
           _buildSectionHeader(context, colors, '상태별 비교'),
           const SizedBox(height: 12),
           _buildStateComparisonCard(context, colors),
@@ -286,14 +286,12 @@ class _ButtonPageState extends State<ButtonPage> {
               children: [
                 Text(
                   title,
-                  style:
-                      context.body3().copyWith(color: colors.textPrimary),
+                  style: context.body3().copyWith(color: colors.textPrimary),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style:
-                      context.caption1().copyWith(color: colors.textTertiary),
+                  style: context.caption1().copyWith(color: colors.textTertiary),
                 ),
               ],
             ),
@@ -363,9 +361,9 @@ class _ButtonPageState extends State<ButtonPage> {
                 Expanded(
                   child: FitButton(
                     type: type,
-                    text: _buttonText,
                     isExpanded: true,
                     onPressed: () {},
+                    child: _buildButtonText(context, _buttonText, type: type),
                   ),
                 ),
               ],
@@ -386,28 +384,43 @@ class _ButtonPageState extends State<ButtonPage> {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          _buildStateRow(context, colors, '기본', FitButton(
-            type: _selectedType,
-            text: _buttonText,
-            isExpanded: true,
-            onPressed: () {},
-          )),
+          _buildStateRow(
+            context,
+            colors,
+            '기본',
+            FitButton(
+              type: _selectedType,
+              isExpanded: true,
+              onPressed: () {},
+              child: _buildButtonText(context, _buttonText),
+            ),
+          ),
           const SizedBox(height: 12),
-          _buildStateRow(context, colors, '비활성화', FitButton(
-            type: _selectedType,
-            text: _buttonText,
-            isEnabled: false,
-            isExpanded: true,
-            onPressed: () {},
-          )),
+          _buildStateRow(
+            context,
+            colors,
+            '비활성화',
+            FitButton(
+              type: _selectedType,
+              isEnabled: false,
+              isExpanded: true,
+              onPressed: () {},
+              child: _buildButtonText(context, _buttonText, isEnabled: false),
+            ),
+          ),
           const SizedBox(height: 12),
-          _buildStateRow(context, colors, '로딩', FitButton(
-            type: _selectedType,
-            text: _buttonText,
-            isLoading: true,
-            isExpanded: true,
-            onPressed: () {},
-          )),
+          _buildStateRow(
+            context,
+            colors,
+            '로딩',
+            FitButton(
+              type: _selectedType,
+              isLoading: true,
+              isExpanded: true,
+              onPressed: () {},
+              child: _buildButtonText(context, _buttonText),
+            ),
+          ),
         ],
       ),
     );

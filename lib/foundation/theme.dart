@@ -1,1 +1,1 @@
-export 'package:foundation/theme.dart';
+export 'package:chip_foundation/theme/fit_theme.dart';

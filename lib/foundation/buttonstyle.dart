@@ -1,1 +1,1 @@
-export 'package:foundation/buttonstyle.dart';
+export 'package:chip_foundation/buttonstyle.dart';

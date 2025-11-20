@@ -1,1 +1,1 @@
-export 'package:component/button/fit_button.dart';
+export 'package:chip_component/button/fit_button.dart';

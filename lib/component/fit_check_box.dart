@@ -1,1 +1,1 @@
-export 'package:component/fit_check_box.dart';
+export 'package:chip_component/fit_check_box.dart';

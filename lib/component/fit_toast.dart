@@ -1,1 +1,1 @@
-export 'package:component/fit_toast.dart';
+export 'package:chip_component/fit_toast.dart';

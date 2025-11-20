@@ -1,1 +1,1 @@
-export 'package:module/fit_dialog.dart';
+export 'package:chip_module/fit_dialog.dart';

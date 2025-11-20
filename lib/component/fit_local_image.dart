@@ -1,1 +1,1 @@
-export 'package:component/fit_local_image.dart';
+export 'package:chip_component/fit_local_image.dart';

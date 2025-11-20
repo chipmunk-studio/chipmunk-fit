@@ -1,1 +1,1 @@
-export 'package:component/fit_lottie_widget.dart';
+export 'package:chip_component/fit_lottie_widget.dart';

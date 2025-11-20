@@ -1,1 +1,1 @@
-export 'package:component/fit_card.dart';
+export 'package:chip_component/fit_card.dart';

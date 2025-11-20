@@ -10,8 +10,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  dependencies:
-    path: ../dependencies
+  chip_dependencies:
+    path: ../chip_dependencies
 
 dev_dependencies:
   flutter_test:

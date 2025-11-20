@@ -1,1 +1,1 @@
-export 'package:foundation/colors.dart';
+export 'package:chip_foundation/colors.dart';

@@ -1,1 +1,1 @@
-export 'package:foundation/textstyle.dart';
+export 'package:chip_foundation/textstyle.dart';
