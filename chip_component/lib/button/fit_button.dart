@@ -157,7 +157,7 @@ class _FitButtonState extends State<FitButton> {
     );
 
     if (widget.style == null) return baseStyle;
-    return baseStyle.merge(widget.style);
+    return widget.style!.merge(baseStyle);
   }
 
   _ButtonColors _getButtonColors(FitColors colors) {
