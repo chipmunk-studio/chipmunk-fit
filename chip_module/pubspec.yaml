@@ -1,0 +1,29 @@
+name: chip_module
+description: ChipFit Module - Scaffold, Dialog, BottomSheet
+publish_to: 'none'
+
+environment:
+  sdk: '^3.5.3'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  chip_assets:
+    path: ../chip_assets
+  chip_foundation:
+    path: ../chip_foundation
+  chip_component:
+    path: ../chip_component
+  chip_dependencies:
+    path: ../chip_dependencies
+  flutter_screenutil:
+  flutter_bounceable:
+  awesome_dialog:
+  modal_bottom_sheet:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:

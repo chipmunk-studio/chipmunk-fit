@@ -1,0 +1,33 @@
+name: chip_component
+description: ChipFit Component - UI Components
+publish_to: 'none'
+
+environment:
+  sdk: '^3.5.3'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  chip_assets:
+    path: ../chip_assets
+  chip_foundation:
+    path: ../chip_foundation
+  chip_dependencies:
+    path: ../chip_dependencies
+  dartz:
+  flutter_cache_manager:
+  cached_network_image:
+  flutter_animate:
+  lottie:
+  dotlottie_loader:
+  flutter_svg:
+  flutter_bounceable:
+  flutter_quill:
+  sprung:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
