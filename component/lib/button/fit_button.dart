@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:component/fit_dot_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:foundation/buttonstyle.dart';
-import 'package:foundation/colors.dart';
 import 'package:foundation/textstyle.dart';
 import 'package:sprung/sprung.dart';
 
@@ -174,10 +173,12 @@ class _FitButtonState extends State<FitButton> {
 
   Widget _buildContent(BuildContext context) {
     final content = widget.child ??
-        Text(
-          widget.text ?? '',
-          textAlign: TextAlign.center,
-          style: widget.textStyle ?? _getTextStyle(context),
+        Center(
+          child: Text(
+            widget.text ?? '',
+            textAlign: TextAlign.center,
+            style: widget.textStyle ?? _getTextStyle(context),
+          ),
         );
 
     return Stack(
@@ -193,8 +194,7 @@ class _FitButtonState extends State<FitButton> {
         if (widget.isLoading)
           FitDotLoading(
             dotSize: 8,
-            color: widget.loadingColor ??
-                FitButtonStyle.loadingColorOf(context, widget.type),
+            color: widget.loadingColor ?? FitButtonStyle.loadingColorOf(context, widget.type),
           ),
       ],
     );
@@ -209,7 +209,7 @@ class _FitButtonState extends State<FitButton> {
 
     return context.button1(type: widget.textSp).copyWith(
           color: color,
-          height: 1.0,
+          height: null,
         );
   }
 }

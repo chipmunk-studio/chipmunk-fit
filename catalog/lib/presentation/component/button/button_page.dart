@@ -13,36 +13,18 @@ class ButtonPage extends StatefulWidget {
 }
 
 class _ButtonPageState extends State<ButtonPage> {
-  bool _isLoading1 = false;
-  bool _isLoading2 = false;
-  bool _isLoading3 = false;
-  bool _isLoading4 = false;
-  bool _isLoading5 = false;
-
-  void _toggleLoading(int index) {
-    setState(() {
-      switch (index) {
-        case 1:
-          _isLoading1 = !_isLoading1;
-          break;
-        case 2:
-          _isLoading2 = !_isLoading2;
-          break;
-        case 3:
-          _isLoading3 = !_isLoading3;
-          break;
-        case 4:
-          _isLoading4 = !_isLoading4;
-          break;
-        case 5:
-          _isLoading5 = !_isLoading5;
-          break;
-      }
-    });
-  }
+  // 버튼 옵션 상태
+  FitButtonType _selectedType = FitButtonType.primary;
+  bool _isEnabled = true;
+  bool _isLoading = false;
+  bool _isExpanded = false;
+  bool _enableRipple = false;
+  String _buttonText = '버튼';
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.fitColors;
+
     return FitScaffold(
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
@@ -50,240 +32,401 @@ class _ButtonPageState extends State<ButtonPage> {
         title: "FitButton",
         actions: [],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-        child: Column(
-          children: [
-            _buildSection(
-              context,
-              title: "1. Primary 버튼 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.primary,
-                  text: '기본 Primary 버튼',
-                  onPressed: () => print('Primary 버튼 클릭됨'),
-                ),
-                FitButton(
-                  type: FitButtonType.primary,
-                  isEnabled: false,
-                  text: '비활성화 Primary 버튼',
-                  onDisabledPressed: () {},
-                ),
-                FitButton(
-                  type: FitButtonType.primary,
-                  isExpanded: true,
-                  text: '확장 Primary 버튼',
-                  onPressed: () => print('확장 Primary 버튼 클릭됨'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "2. Secondary 버튼 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.secondary,
-                  text: '기본 Secondary 버튼',
-                  onPressed: () => print('Secondary 버튼 클릭됨'),
-                ),
-                FitButton(
-                  type: FitButtonType.secondary,
-                  isEnabled: false,
-                  text: '비활성화 Secondary 버튼',
-                  onDisabledPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "3. Tertiary 버튼 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.tertiary,
-                  text: '기본 Tertiary 버튼',
-                  onPressed: () => print('Tertiary 버튼 클릭됨'),
-                ),
-                FitButton(
-                  type: FitButtonType.tertiary,
-                  isEnabled: false,
-                  text: '비활성화 Tertiary 버튼',
-                  onDisabledPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "4. Ghost 버튼 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.ghost,
-                  text: '기본 Ghost 버튼',
-                  onPressed: () => print('Ghost 버튼 클릭됨'),
-                ),
-                FitButton(
-                  type: FitButtonType.ghost,
-                  isEnabled: false,
-                  text: '비활성화 Ghost 버튼',
-                  onDisabledPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "5. Destructive 버튼 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.destructive,
-                  text: '기본 Destructive 버튼',
-                  onPressed: () => print('Destructive 버튼 클릭됨'),
-                ),
-                FitButton(
-                  type: FitButtonType.destructive,
-                  isEnabled: false,
-                  text: '비활성화 Destructive 버튼',
-                  onDisabledPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "6. 커스텀 스타일 버튼 테스트",
-              buttons: [
-                FitButton(
-                  style: FitButtonStyle.styleFrom(
-                    backgroundColor: Colors.orange,
-                    borderRadius: 8,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+      body: Column(
+        children: [
+          // 미리보기 영역
+          _buildPreviewSection(context, colors),
+          // 구분선
+          Container(
+            height: 8,
+            color: colors.backgroundAlternative,
+          ),
+          // 옵션 컨트롤 패널
+          Expanded(
+            child: _buildControlPanel(context, colors),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPreviewSection(BuildContext context, FitColors colors) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      color: colors.backgroundElevated,
+      child: Column(
+        children: [
+          Text(
+            '미리보기',
+            style: context.caption1().copyWith(color: colors.textTertiary),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            constraints: const BoxConstraints(minHeight: 80),
+            alignment: Alignment.center,
+            child: FitButton(
+              type: _selectedType,
+              text: _buttonText,
+              isEnabled: _isEnabled,
+              isLoading: _isLoading,
+              isExpanded: _isExpanded,
+              enableRipple: _enableRipple,
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${_selectedType.name} 버튼 클릭됨'),
+                    duration: const Duration(milliseconds: 500),
                   ),
-                  text: '커스텀 스타일',
-                  onPressed: () => print('커스텀 스타일 버튼 클릭됨'),
-                ),
-              ],
+                );
+              },
+              onDisabledPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('비활성화된 버튼 클릭됨'),
+                    backgroundColor: colors.red500,
+                    duration: const Duration(milliseconds: 500),
+                  ),
+                );
+              },
             ),
-            const SizedBox(height: 16),
-            _buildSection(
+          ),
+          const SizedBox(height: 16),
+          // 현재 상태 표시
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: colors.fillAlternative,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              'Type: ${_selectedType.name}',
+              style: context.caption1().copyWith(color: colors.textSecondary),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildControlPanel(BuildContext context, FitColors colors) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 버튼 타입 선택
+          _buildSectionHeader(context, colors, '버튼 타입'),
+          const SizedBox(height: 12),
+          _buildTypeSelector(context, colors),
+          const SizedBox(height: 24),
+
+          // 토글 옵션들
+          _buildSectionHeader(context, colors, '옵션'),
+          const SizedBox(height: 12),
+          _buildOptionCard(context, colors, [
+            _buildSwitchOption(
               context,
-              title: "7. 로딩 상태 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.primary,
-                  text: 'Primary 로딩',
-                  isLoading: _isLoading1,
-                  onPressed: () => _toggleLoading(1),
-                  isExpanded: true,
-                ),
-                FitButton(
-                  type: FitButtonType.secondary,
-                  text: 'Secondary 로딩',
-                  isLoading: _isLoading2,
-                  onPressed: () => _toggleLoading(2),
-                  isExpanded: true,
-                ),
-                FitButton(
-                  type: FitButtonType.tertiary,
-                  text: 'Tertiary 로딩',
-                  isLoading: _isLoading3,
-                  onPressed: () => _toggleLoading(3),
-                  isExpanded: true,
-                ),
-                FitButton(
-                  type: FitButtonType.ghost,
-                  text: 'Ghost 로딩',
-                  isLoading: _isLoading4,
-                  onPressed: () => _toggleLoading(4),
-                  isExpanded: true,
-                ),
-                FitButton(
-                  type: FitButtonType.destructive,
-                  text: 'Destructive 로딩',
-                  isLoading: _isLoading5,
-                  onPressed: () => _toggleLoading(5),
-                  isExpanded: true,
-                ),
-              ],
+              colors,
+              title: '활성화',
+              subtitle: 'isEnabled',
+              value: _isEnabled,
+              onChanged: (value) => setState(() => _isEnabled = value),
             ),
-            const SizedBox(height: 16),
-            _buildSection(
+            _buildDivider(colors),
+            _buildSwitchOption(
               context,
-              title: "8. 커스텀 로딩 색상 테스트",
-              buttons: [
-                FitButton(
-                  type: FitButtonType.primary,
-                  text: '빨간 로딩',
-                  isLoading: true,
-                  loadingColor: Colors.red,
-                  isExpanded: true,
-                  onPressed: () {},
+              colors,
+              title: '로딩',
+              subtitle: 'isLoading',
+              value: _isLoading,
+              onChanged: (value) => setState(() => _isLoading = value),
+            ),
+            _buildDivider(colors),
+            _buildSwitchOption(
+              context,
+              colors,
+              title: '가로 확장',
+              subtitle: 'isExpanded',
+              value: _isExpanded,
+              onChanged: (value) => setState(() => _isExpanded = value),
+            ),
+            _buildDivider(colors),
+            _buildSwitchOption(
+              context,
+              colors,
+              title: '리플 효과',
+              subtitle: 'enableRipple',
+              value: _enableRipple,
+              onChanged: (value) => setState(() => _enableRipple = value),
+            ),
+          ]),
+          const SizedBox(height: 24),
+
+          // 텍스트 입력
+          _buildSectionHeader(context, colors, '버튼 텍스트'),
+          const SizedBox(height: 12),
+          _buildTextInputCard(context, colors),
+          const SizedBox(height: 24),
+
+          // 타입별 비교
+          _buildSectionHeader(context, colors, '타입별 비교'),
+          const SizedBox(height: 12),
+          _buildTypeComparisonCard(context, colors),
+          const SizedBox(height: 24),
+
+          // 상태별 비교
+          _buildSectionHeader(context, colors, '상태별 비교'),
+          const SizedBox(height: 12),
+          _buildStateComparisonCard(context, colors),
+          const SizedBox(height: 32),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(
+      BuildContext context, FitColors colors, String title) {
+    return Text(
+      title,
+      style: context.subtitle5().copyWith(color: colors.textSecondary),
+    );
+  }
+
+  Widget _buildTypeSelector(BuildContext context, FitColors colors) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.fillAlternative,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(4),
+      child: Row(
+        children: FitButtonType.values.map((type) {
+          final isSelected = _selectedType == type;
+          return Expanded(
+            child: GestureDetector(
+              onTap: () => setState(() => _selectedType = type),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+                decoration: BoxDecoration(
+                  color:
+                      isSelected ? colors.backgroundElevated : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: isSelected
+                      ? [
+                          BoxShadow(
+                            color: colors.staticBlack.withOpacity(0.08),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ]
+                      : null,
                 ),
-                FitButton(
-                  type: FitButtonType.secondary,
-                  text: '녹색 로딩',
-                  isLoading: true,
-                  loadingColor: Colors.green,
-                  isExpanded: true,
-                  onPressed: () {},
+                child: Text(
+                  _getTypeShortName(type),
+                  textAlign: TextAlign.center,
+                  style: context.caption1().copyWith(
+                        color: isSelected
+                            ? colors.textPrimary
+                            : colors.textTertiary,
+                      ),
                 ),
-                FitButton(
-                  type: FitButtonType.ghost,
-                  text: '파란 로딩',
-                  isLoading: true,
-                  loadingColor: Colors.blue,
-                  isExpanded: true,
-                  onPressed: () {},
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  String _getTypeShortName(FitButtonType type) {
+    switch (type) {
+      case FitButtonType.primary:
+        return 'Pri';
+      case FitButtonType.secondary:
+        return 'Sec';
+      case FitButtonType.tertiary:
+        return 'Ter';
+      case FitButtonType.ghost:
+        return 'Gho';
+      case FitButtonType.destructive:
+        return 'Des';
+    }
+  }
+
+  Widget _buildOptionCard(
+      BuildContext context, FitColors colors, List<Widget> children) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.backgroundElevated,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.dividerPrimary),
+      ),
+      child: Column(children: children),
+    );
+  }
+
+  Widget _buildSwitchOption(
+    BuildContext context,
+    FitColors colors, {
+    required String title,
+    required String subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style:
+                      context.body3().copyWith(color: colors.textPrimary),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style:
+                      context.caption1().copyWith(color: colors.textTertiary),
                 ),
               ],
             ),
-          ],
+          ),
+          Switch.adaptive(
+            value: value,
+            onChanged: onChanged,
+            activeColor: colors.main,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDivider(FitColors colors) {
+    return Container(
+      height: 1,
+      margin: const EdgeInsets.only(left: 16),
+      color: colors.dividerPrimary,
+    );
+  }
+
+  Widget _buildTextInputCard(BuildContext context, FitColors colors) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.backgroundElevated,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.dividerPrimary),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: TextField(
+        controller: TextEditingController(text: _buttonText),
+        onChanged: (value) => setState(() => _buttonText = value),
+        style: context.body3().copyWith(color: colors.textPrimary),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: '버튼 텍스트 입력',
+          hintStyle: context.body3().copyWith(color: colors.textTertiary),
         ),
       ),
     );
   }
 
-  Widget _buildSection(BuildContext context,
-      {required String title, required List<Widget> buttons}) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionTitle(context, title),
-            const SizedBox(height: 16),
-            _buildButtonExample(context, buttons),
-          ],
-        ),
+  Widget _buildTypeComparisonCard(BuildContext context, FitColors colors) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.backgroundElevated,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.dividerPrimary),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: FitButtonType.values.map((type) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 80,
+                  child: Text(
+                    type.name,
+                    style: context.caption1().copyWith(
+                          color: colors.textSecondary,
+                        ),
+                  ),
+                ),
+                Expanded(
+                  child: FitButton(
+                    type: type,
+                    text: _buttonText,
+                    isExpanded: true,
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
       ),
     );
   }
 
-  Widget _buildSectionTitle(BuildContext context, String title) {
+  Widget _buildStateComparisonCard(BuildContext context, FitColors colors) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.backgroundElevated,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.dividerPrimary),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          _buildStateRow(context, colors, '기본', FitButton(
+            type: _selectedType,
+            text: _buttonText,
+            isExpanded: true,
+            onPressed: () {},
+          )),
+          const SizedBox(height: 12),
+          _buildStateRow(context, colors, '비활성화', FitButton(
+            type: _selectedType,
+            text: _buttonText,
+            isEnabled: false,
+            isExpanded: true,
+            onPressed: () {},
+          )),
+          const SizedBox(height: 12),
+          _buildStateRow(context, colors, '로딩', FitButton(
+            type: _selectedType,
+            text: _buttonText,
+            isLoading: true,
+            isExpanded: true,
+            onPressed: () {},
+          )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStateRow(
+      BuildContext context, FitColors colors, String label, Widget button) {
     return Row(
       children: [
-        Icon(Icons.touch_app, color: context.fitColors.grey900, size: 24),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: context.h2().copyWith(color: context.fitColors.grey900),
+        SizedBox(
+          width: 80,
+          child: Text(
+            label,
+            style: context.caption1().copyWith(
+                  color: colors.textSecondary,
+                ),
+          ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildButtonExample(BuildContext context, List<Widget> buttons) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        for (var button in buttons) ...[
-          button,
-          const SizedBox(height: 12),
-        ]
+        Expanded(child: button),
       ],
     );
   }

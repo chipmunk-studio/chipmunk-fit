@@ -139,6 +139,7 @@ extension FitTextStyleExtension on BuildContext {
       fontSize: 18,
       type: type,
       fontFamily: FontFamily.pretendardMedium,
+      lineHeight: 1.0,
     );
   }
 
@@ -186,6 +187,7 @@ extension FitTextStyleExtension on BuildContext {
       color: color,
       fontStyle: FontStyle.normal,
       fontFamily: fontFamily,
+      leadingDistribution: TextLeadingDistribution.even,
     );
   }
 
