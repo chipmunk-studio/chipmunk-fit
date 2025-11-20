@@ -28,21 +28,34 @@ class FitDialog {
     double borderRadius = 32.0,
   }) {
     final effectiveBtnOkColor = btnOkColor ?? context.fitColors.main;
+    final effectiveTextColor = context.fitColors.staticBlack;
 
     return AwesomeDialog(
       context: context,
       animType: AnimType.scale,
       dialogType: DialogType.noHeader,
       dialogBackgroundColor: dialogBackgroundColor ?? context.fitColors.backgroundElevated,
-      buttonsTextStyle: buttonTextStyle ?? _getDefaultButtonTextStyle(context),
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
       onDismissCallback: onDismissCallback,
       body: _buildErrorDialogBody(context, message, description, textStyle),
       padding: const EdgeInsets.only(bottom: 10),
       dialogBorderRadius: BorderRadius.circular(borderRadius),
-      btnOkColor: effectiveBtnOkColor,
-      btnOkText: btnOkText ?? '확인',
+      btnOk: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 56),
+        child: FitButton(
+          onPressed: () => _handleButtonPress(context, onPress),
+          type: FitButtonType.primary,
+          isExpanded: true,
+          style: FitButtonStyle.styleFrom(
+            backgroundColor: effectiveBtnOkColor,
+          ),
+          child: Text(
+            btnOkText ?? '확인',
+            style: context.button1().copyWith(color: effectiveTextColor),
+          ),
+        ),
+      ),
       btnOkOnPress: onPress,
     );
   }
@@ -218,16 +231,19 @@ class FitDialog {
     final effectiveButtonColor = btnOkColor ?? context.fitColors.main;
     final effectiveTextColor = btnOkTextColor ?? context.fitColors.staticBlack;
 
-    return FitButton(
-      onPressed: () => _handleButtonPress(context, btnOkPressed),
-      type: okButtonType ?? FitButtonType.primary,
-      isExpanded: true,
-      style: FitButtonStyle.styleFrom(
-        backgroundColor: effectiveButtonColor,
-      ),
-      child: Text(
-        btnOkText ?? '확인',
-        style: context.button1().copyWith(color: effectiveTextColor),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 56),
+      child: FitButton(
+        onPressed: () => _handleButtonPress(context, btnOkPressed),
+        type: okButtonType ?? FitButtonType.primary,
+        isExpanded: true,
+        style: FitButtonStyle.styleFrom(
+          backgroundColor: effectiveButtonColor,
+        ),
+        child: Text(
+          btnOkText ?? '확인',
+          style: context.button1().copyWith(color: effectiveTextColor),
+        ),
       ),
     );
   }
@@ -246,17 +262,20 @@ class FitDialog {
     final effectiveButtonColor = btnCancelColor ?? context.fitColors.grey200;
     final effectiveTextColor = btnCancelTextColor ?? context.fitColors.inverseText;
 
-    return FitButton(
-      type: cancelButtonType ?? FitButtonType.secondary,
-      isExpanded: true,
-      isEnabled: false,
-      style: FitButtonStyle.styleFrom(
-        backgroundColor: effectiveButtonColor,
-      ),
-      onDisabledPressed: () => _handleButtonPress(context, btnCancelPressed),
-      child: Text(
-        btnCancelText ?? '취소',
-        style: context.button1().copyWith(color: effectiveTextColor),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 56),
+      child: FitButton(
+        type: cancelButtonType ?? FitButtonType.secondary,
+        isExpanded: true,
+        isEnabled: false,
+        style: FitButtonStyle.styleFrom(
+          backgroundColor: effectiveButtonColor,
+        ),
+        onDisabledPressed: () => _handleButtonPress(context, btnCancelPressed),
+        child: Text(
+          btnCancelText ?? '취소',
+          style: context.button1().copyWith(color: effectiveTextColor),
+        ),
       ),
     );
   }

@@ -10,7 +10,7 @@ import 'presentation/foundation/color/color_page.dart';
 import 'presentation/foundation/textstyle/text_style_page.dart';
 import 'presentation/module/animation_text/animation_text_page.dart';
 import 'presentation/module/bottomsheet/bottom_sheet_page.dart';
-import 'presentation/module/modal/ModalPage.dart';
+import 'presentation/module/modal/dialog_page.dart';
 import 'presentation/navigation/navigation_page.dart';
 
 /// The route configuration.
@@ -61,7 +61,7 @@ final GoRouter catalogRouter = GoRouter(
         GoRoute(
           path: 'dialog',
           builder: (BuildContext context, GoRouterState state) {
-            return const ModalPage();
+            return const DialogPage();
           },
         ),
         GoRoute(
