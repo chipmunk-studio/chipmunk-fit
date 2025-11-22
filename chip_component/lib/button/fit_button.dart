@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:chip_component/fit_dot_loading.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:chip_foundation/buttonstyle.dart';
 import 'package:chip_foundation/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sprung/sprung.dart';
 
 /// 커스텀 버튼 위젯 (스케일 애니메이션 및 디바운스 기능)

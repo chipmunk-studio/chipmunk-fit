@@ -1,350 +1,678 @@
+import 'package:chipfit/component/button/fit_button.dart';
+import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_bottomsheet.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class BottomSheetPage extends StatelessWidget {
+class BottomSheetPage extends StatefulWidget {
   const BottomSheetPage({super.key});
 
   @override
+  State<BottomSheetPage> createState() => _BottomSheetPageState();
+}
+
+class _BottomSheetPageState extends State<BottomSheetPage> {
+  // 설정 상태
+  bool _isShowTopBar = true;
+  bool _isShowCloseButton = false;
+  bool _isDismissible = true;
+  bool _dismissOnBackKeyPress = true;
+  double _heightFactor = 0.97;
+  double _minHeightFactor = 0.2;
+  double _maxHeightFactor = 0.97;
+
+  @override
   Widget build(BuildContext context) {
+    final colors = context.fitColors;
+
     return FitScaffold(
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "FitBottomSheet 테스트",
+        title: "FitBottomSheet",
         actions: [],
       ),
-      bottom: true,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSection(
-              context,
-              title: "기본 바텀시트 테스트",
-              description: "기본 바텀시트를 열어 다양한 설정을 테스트합니다.",
-              actions: [
-                _buildActionButton(
-                  context,
-                  label: "기본 바텀시트 열기",
-                  description: "상단 바와 닫기 버튼이 포함된 기본 바텀시트를 테스트합니다.",
-                  onPressed: () {
-                    FitBottomSheet.show(
-                      context,
-                      isShowTopBar: true,
-                      content: (bottomSheetContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "기본 바텀시트",
-                                style: context.h2(),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                "이 바텀시트는 상단 바와 닫기 버튼이 포함되어 있습니다.",
-                                style: context.body1().copyWith(color: context.fitColors.grey300),
-                              ),
-                              const SizedBox(height: 16),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(bottomSheetContext);
-                                },
-                                child: const Text("닫기"),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-                _buildActionButton(
-                  context,
-                  label: "닫기 버튼 없는 바텀시트",
-                  description: "닫기 버튼을 제거한 바텀시트를 테스트합니다.",
-                  onPressed: () {
-                    FitBottomSheet.show(
-                      context,
-                      isShowCloseButton: false,
-                      isDismissible: false,
-                      content: (bottomSheetContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "닫기 버튼 없는 바텀시트",
-                                style: context.h2(),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                "닫기 버튼과 외부 탭으로 닫을 수 없습니다.",
-                                style: context.body1().copyWith(color: context.fitColors.grey300),
-                              ),
-                              const SizedBox(height: 16),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(bottomSheetContext);
-                                },
-                                child: const Text("닫기"),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            _buildSection(
-              context,
-              title: "풀스크린 바텀시트 테스트",
-              description: "스크롤 가능한 풀스크린 바텀시트를 테스트합니다.",
-              actions: [
-                _buildActionButton(
-                  context,
-                  label: "풀스크린 바텀시트 열기",
-                  description: "스크롤 가능한 콘텐츠를 포함한 풀스크린 바텀시트를 테스트합니다.",
-                  onPressed: () {
-                    FitBottomSheet.showFull(
-                      context,
-                      topContent: (bottomSheetContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "풀스크린 바텀시트",
-                                style: context.h2(),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                "스크롤 가능한 콘텐츠를 포함합니다.",
-                                style: context.body1().copyWith(color: context.fitColors.grey300),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      scrollContent: (scrollContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              20,
-                              (index) => Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Text(
-                                  "항목 ${index + 1}",
-                                  style: context.body1().copyWith(color: context.fitColors.grey100),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-                _buildActionButton(
-                  context,
-                  label: "50% 크기의 풀스크린 바텀시트",
-                  description: "50% 높이의 풀스크린 바텀시트를 테스트합니다.",
-                  onPressed: () {
-                    FitBottomSheet.showFull(
-                      context,
-                      heightFactor: 0.5,
-                      isShowCloseButton: true,
-                      isShowTopBar: true,
-                      topContent: (bottomSheetContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            "50% 풀스크린 바텀시트",
-                            style: context.h2(),
-                          ),
-                        );
-                      },
-                      scrollContent: (scrollContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: List.generate(
-                              10,
-                              (index) => Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.label, color: context.fitColors.main),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      "옵션 ${index + 1}",
-                                      style: context
-                                          .body1()
-                                          .copyWith(color: context.fitColors.grey100),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            _buildSection(
-              context,
-              title: "드래그 가능한 바텀시트 테스트",
-              description: "드래그 동작을 지원하는 바텀시트를 테스트합니다.",
-              actions: [
-                _buildActionButton(
-                  context,
-                  label: "드래그 바텀시트 열기",
-                  description: "사용자가 크기를 조정할 수 있는 드래그 가능한 바텀시트를 테스트합니다.",
-                  onPressed: () {
-                    FitBottomSheet.showDraggable(
-                      context,
-                      initialHeightFactor: 0.4,
-                      topContent: (bottomSheetContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "드래그 가능한 바텀시트",
-                                style: context.h2(),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                "드래그하여 크기를 조정할 수 있습니다.",
-                                style: context.body1().copyWith(color: context.fitColors.grey300),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      scrollContent: (scrollContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: List.generate(
-                              15,
-                              (index) => Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.list, color: context.fitColors.main),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      "항목 ${index + 1}",
-                                      style: context
-                                          .body1()
-                                          .copyWith(color: context.fitColors.grey100),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          _buildPreviewSection(context, colors),
+          Container(height: 8, color: colors.backgroundAlternative),
+          Expanded(child: _buildControlPanel(context, colors)),
+        ],
       ),
     );
   }
 
-  Widget _buildSection(
-    BuildContext context, {
+  Widget _buildPreviewSection(BuildContext context, FitColors colors) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      color: colors.backgroundElevated,
+      child: Column(
+        children: [
+          Text(
+            '미리보기',
+            style: context.caption1().copyWith(color: colors.textTertiary),
+          ),
+          const SizedBox(height: 20),
+          FitButton(
+            type: FitButtonType.primary,
+            isExpanded: true,
+            onPressed: () => _showTestBottomSheet(context),
+            child: Text(
+              '현재 설정으로 열기',
+              style: context.button1().copyWith(
+                    color: FitButtonStyle.textColorOf(
+                      context,
+                      FitButtonType.primary,
+                      isEnabled: true,
+                    ),
+                  ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: colors.fillAlternative,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              children: [
+                _buildStatusRow(colors, 'TopBar', _isShowTopBar),
+                _buildStatusRow(colors, 'Close Button', _isShowCloseButton),
+                _buildStatusRow(colors, 'Dismissible', _isDismissible),
+                _buildStatusRow(colors, 'Height', '${(_heightFactor * 100).toInt()}%'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatusRow(FitColors colors, String label, dynamic value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: context.caption1().copyWith(color: colors.textSecondary),
+          ),
+          Text(
+            value is bool ? (value ? 'ON' : 'OFF') : value.toString(),
+            style: context.caption1().copyWith(
+                  color: value is bool
+                      ? (value ? colors.green500 : colors.grey500)
+                      : colors.textPrimary,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildControlPanel(BuildContext context, FitColors colors) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader(context, colors, '기본 옵션'),
+          const SizedBox(height: 12),
+          _buildOptionCard(context, colors, [
+            _buildSwitchOption(
+              context,
+              colors,
+              title: '상단 드래그 바',
+              subtitle: 'isShowTopBar',
+              value: _isShowTopBar,
+              onChanged: (value) => setState(() => _isShowTopBar = value),
+            ),
+            _buildDivider(colors),
+            _buildSwitchOption(
+              context,
+              colors,
+              title: '닫기 버튼',
+              subtitle: 'isShowCloseButton',
+              value: _isShowCloseButton,
+              onChanged: (value) => setState(() => _isShowCloseButton = value),
+            ),
+            _buildDivider(colors),
+            _buildSwitchOption(
+              context,
+              colors,
+              title: '외부 터치로 닫기',
+              subtitle: 'isDismissible',
+              value: _isDismissible,
+              onChanged: (value) => setState(() => _isDismissible = value),
+            ),
+            _buildDivider(colors),
+            _buildSwitchOption(
+              context,
+              colors,
+              title: '뒤로가기로 닫기',
+              subtitle: 'dismissOnBackKeyPress',
+              value: _dismissOnBackKeyPress,
+              onChanged: (value) => setState(() => _dismissOnBackKeyPress = value),
+            ),
+          ]),
+          const SizedBox(height: 24),
+          _buildSectionHeader(context, colors, '높이 설정'),
+          const SizedBox(height: 12),
+          _buildOptionCard(context, colors, [
+            _buildSliderOption(
+              context,
+              colors,
+              title: '초기 높이',
+              subtitle: 'heightFactor',
+              value: _heightFactor,
+              onChanged: (value) => setState(() => _heightFactor = value),
+            ),
+            _buildDivider(colors),
+            _buildSliderOption(
+              context,
+              colors,
+              title: '최소 높이',
+              subtitle: 'minHeightFactor',
+              value: _minHeightFactor,
+              onChanged: (value) => setState(() => _minHeightFactor = value),
+            ),
+            _buildDivider(colors),
+            _buildSliderOption(
+              context,
+              colors,
+              title: '최대 높이',
+              subtitle: 'maxHeightFactor',
+              value: _maxHeightFactor,
+              onChanged: (value) => setState(() => _maxHeightFactor = value),
+            ),
+          ]),
+          const SizedBox(height: 24),
+          _buildSectionHeader(context, colors, '프리셋 테스트'),
+          const SizedBox(height: 12),
+          _buildPresetButtons(context, colors),
+          const SizedBox(height: 24),
+          _buildSectionHeader(context, colors, '고급 기능'),
+          const SizedBox(height: 12),
+          _buildAdvancedTests(context, colors),
+          const SizedBox(height: 32),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(BuildContext context, FitColors colors, String title) {
+    return Text(
+      title,
+      style: context.subtitle5().copyWith(color: colors.textSecondary),
+    );
+  }
+
+  Widget _buildOptionCard(BuildContext context, FitColors colors, List<Widget> children) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.backgroundElevated,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.dividerPrimary),
+      ),
+      child: Column(children: children),
+    );
+  }
+
+  Widget _buildSwitchOption(
+    BuildContext context,
+    FitColors colors, {
     required String title,
-    required String description,
-    required List<Widget> actions,
+    required String subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
   }) {
-    return Card(
-      elevation: 6,
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionTitle(context, title),
-            const SizedBox(height: 12),
-            Text(
-              description,
-              style: context.body1().copyWith(color: context.fitColors.grey500),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: context.body3().copyWith(color: colors.textPrimary),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: context.caption1().copyWith(color: colors.textTertiary),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            ...actions,
-          ],
-        ),
+          ),
+          Switch.adaptive(
+            value: value,
+            onChanged: onChanged,
+            activeColor: colors.main,
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Row(
+  Widget _buildSliderOption(
+    BuildContext context,
+    FitColors colors, {
+    required String title,
+    required String subtitle,
+    required double value,
+    required ValueChanged<double> onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: context.body3().copyWith(color: colors.textPrimary),
+                  ),
+                  Text(
+                    subtitle,
+                    style: context.caption1().copyWith(color: colors.textTertiary),
+                  ),
+                ],
+              ),
+              Text(
+                '${(value * 100).toInt()}%',
+                style: context.body3().copyWith(color: colors.main),
+              ),
+            ],
+          ),
+          Slider(
+            value: value,
+            onChanged: onChanged,
+            activeColor: colors.main,
+            inactiveColor: colors.fillStrong,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDivider(FitColors colors) {
+    return Container(
+      height: 1,
+      margin: const EdgeInsets.only(left: 16),
+      color: colors.dividerPrimary,
+    );
+  }
+
+  Widget _buildPresetButtons(BuildContext context, FitColors colors) {
+    return Column(
       children: [
-        Icon(Icons.format_align_center, color: context.fitColors.main, size: 24),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: context.h2().copyWith(color: context.fitColors.grey100),
+        _buildPresetButton(
+          context,
+          colors,
+          '기본 바텀시트',
+          () => _showBasicBottomSheet(context),
+        ),
+        const SizedBox(height: 8),
+        _buildPresetButton(
+          context,
+          colors,
+          '풀스크린 바텀시트',
+          () => _showFullBottomSheet(context),
+        ),
+        const SizedBox(height: 8),
+        _buildPresetButton(
+          context,
+          colors,
+          '드래그 가능 바텀시트',
+          () => _showDraggableBottomSheet(context),
+        ),
+        const SizedBox(height: 8),
+        _buildPresetButton(
+          context,
+          colors,
+          '50% 바텀시트',
+          () => _showHalfBottomSheet(context),
         ),
       ],
     );
   }
 
-  Widget _buildActionButton(
-    BuildContext context, {
-    required String label,
-    required String description,
-    required VoidCallback onPressed,
-  }) {
+  Widget _buildPresetButton(
+    BuildContext context,
+    FitColors colors,
+    String label,
+    VoidCallback onPressed,
+  ) {
+    return FitButton(
+      onPressed: onPressed,
+      isExpanded: true,
+      type: FitButtonType.secondary,
+      child: Text(
+        label,
+        style: context.button1().copyWith(
+              color: FitButtonStyle.textColorOf(
+                context,
+                FitButtonType.secondary,
+                isEnabled: true,
+              ),
+            ),
+      ),
+    );
+  }
+
+  Widget _buildAdvancedTests(BuildContext context, FitColors colors) {
+    return Column(
+      children: [
+        _buildPresetButton(
+          context,
+          colors,
+          '스냅 포인트 테스트',
+          () => _showSnapBottomSheet(context),
+        ),
+        const SizedBox(height: 8),
+        _buildPresetButton(
+          context,
+          colors,
+          '중첩 바텀시트 테스트',
+          () => _showNestedBottomSheet(context),
+        ),
+        const SizedBox(height: 8),
+        _buildPresetButton(
+          context,
+          colors,
+          '긴 콘텐츠 테스트',
+          () => _showLongContentBottomSheet(context),
+        ),
+      ],
+    );
+  }
+
+  // 현재 설정으로 바텀시트 표시
+  void _showTestBottomSheet(BuildContext context) {
+    final config = FitBottomSheetConfig(
+      isShowTopBar: _isShowTopBar,
+      isShowCloseButton: _isShowCloseButton,
+      isDismissible: _isDismissible,
+      dismissOnBackKeyPress: _dismissOnBackKeyPress,
+      heightFactor: _heightFactor,
+      minHeightFactor: _minHeightFactor,
+      maxHeightFactor: _maxHeightFactor,
+    );
+
+    if (_heightFactor > 0.8) {
+      FitBottomSheet.showFull(
+        context,
+        config: config,
+        topContent: (ctx) => _buildSampleTopContent(ctx),
+        scrollContent: (ctx) => _buildSampleScrollContent(ctx),
+        onClosed: () => _showClosedSnackBar(context),
+      );
+    } else {
+      FitBottomSheet.showDraggable(
+        context,
+        config: config,
+        topContent: (ctx) => _buildSampleTopContent(ctx),
+        scrollContent: (ctx) => _buildSampleScrollContent(ctx),
+        onClosed: () => _showClosedSnackBar(context),
+      );
+    }
+  }
+
+  // 기본 바텀시트
+  void _showBasicBottomSheet(BuildContext context) {
+    FitBottomSheet.show(
+      context,
+      config: const FitBottomSheetConfig(
+        isShowTopBar: true,
+        isShowCloseButton: false,
+      ),
+      content: (ctx) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('기본 바텀시트', style: context.h2()),
+            const SizedBox(height: 12),
+            Text(
+              '간단한 콘텐츠를 표시하는 기본 바텀시트입니다.',
+              style: context.body1().copyWith(color: context.fitColors.grey300),
+            ),
+            const SizedBox(height: 20),
+            FitButton(
+              onPressed: () => Navigator.pop(ctx),
+              isExpanded: true,
+              child: Text(
+                '닫기',
+                style: context.button1().copyWith(
+                      color: FitButtonStyle.textColorOf(
+                        context,
+                        FitButtonType.primary,
+                        isEnabled: true,
+                      ),
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 풀스크린 바텀시트
+  void _showFullBottomSheet(BuildContext context) {
+    FitBottomSheet.showFull(
+      context,
+      config: const FitBottomSheetConfig(
+        isShowCloseButton: true,
+        heightFactor: 0.97,
+      ),
+      topContent: (ctx) => _buildSampleTopContent(ctx),
+      scrollContent: (ctx) => _buildSampleScrollContent(ctx, itemCount: 30),
+    );
+  }
+
+  // 드래그 가능 바텀시트
+  void _showDraggableBottomSheet(BuildContext context) {
+    FitBottomSheet.showDraggable(
+      context,
+      config: const FitBottomSheetConfig(
+        isShowCloseButton: true,
+        heightFactor: 0.5,
+        minHeightFactor: 0.2,
+        maxHeightFactor: 0.97,
+      ),
+      topContent: (ctx) => _buildSampleTopContent(ctx),
+      scrollContent: (ctx) => _buildSampleScrollContent(ctx),
+    );
+  }
+
+  // 50% 바텀시트
+  void _showHalfBottomSheet(BuildContext context) {
+    FitBottomSheet.showFull(
+      context,
+      config: const FitBottomSheetConfig(
+        isShowCloseButton: true,
+        isShowTopBar: true,
+        heightFactor: 0.5,
+      ),
+      topContent: (ctx) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text('50% 바텀시트', style: context.h2()),
+      ),
+      scrollContent: (ctx) => _buildSampleScrollContent(ctx, itemCount: 10),
+    );
+  }
+
+  // 스냅 포인트 바텀시트
+  void _showSnapBottomSheet(BuildContext context) {
+    FitBottomSheet.showDraggable(
+      context,
+      config: const FitBottomSheetConfig(
+        isShowCloseButton: true,
+        heightFactor: 0.4,
+        minHeightFactor: 0.2,
+        maxHeightFactor: 0.97,
+      ),
+      snapSizes: [0.2, 0.4, 0.7, 0.97],
+      topContent: (ctx) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('스냅 포인트 테스트', style: context.h2()),
+            const SizedBox(height: 8),
+            Text(
+              '20%, 40%, 70%, 97% 지점에 스냅됩니다',
+              style: context.body1().copyWith(color: context.fitColors.grey400),
+            ),
+          ],
+        ),
+      ),
+      scrollContent: (ctx) => _buildSampleScrollContent(ctx),
+    );
+  }
+
+  // 중첩 바텀시트
+  void _showNestedBottomSheet(BuildContext context) {
+    FitBottomSheet.show(
+      context,
+      content: (ctx) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('첫 번째 바텀시트', style: context.h2()),
+            const SizedBox(height: 20),
+            FitButton(
+              onPressed: () => _showSecondBottomSheet(ctx),
+              isExpanded: true,
+              child: Text(
+                '두 번째 바텀시트 열기',
+                style: context.button1().copyWith(
+                      color: FitButtonStyle.textColorOf(
+                        context,
+                        FitButtonType.primary,
+                        isEnabled: true,
+                      ),
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showSecondBottomSheet(BuildContext context) {
+    FitBottomSheet.show(
+      context,
+      content: (ctx) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('두 번째 바텀시트', style: context.h2()),
+            const SizedBox(height: 20),
+            FitButton(
+              onPressed: () => Navigator.pop(ctx),
+              isExpanded: true,
+              type: FitButtonType.secondary,
+              child: Text(
+                '닫기',
+                style: context.button1().copyWith(
+                      color: FitButtonStyle.textColorOf(
+                        context,
+                        FitButtonType.secondary,
+                        isEnabled: true,
+                      ),
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 긴 콘텐츠 바텀시트
+  void _showLongContentBottomSheet(BuildContext context) {
+    FitBottomSheet.showFull(
+      context,
+      config: const FitBottomSheetConfig(
+        isShowCloseButton: true,
+        heightFactor: 0.97,
+      ),
+      topContent: (ctx) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text('긴 콘텐츠 테스트', style: context.h2()),
+      ),
+      scrollContent: (ctx) => _buildSampleScrollContent(ctx, itemCount: 50),
+    );
+  }
+
+  // 샘플 상단 콘텐츠
+  Widget _buildSampleTopContent(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            description,
-            style: context.body1().copyWith(color: context.fitColors.grey400),
-          ),
+          Text('샘플 바텀시트', style: context.h2()),
           const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-            ),
-            child: Text(label),
+          Text(
+            '현재 설정으로 표시된 바텀시트입니다.',
+            style: context.body1().copyWith(color: context.fitColors.grey300),
           ),
         ],
+      ),
+    );
+  }
+
+  // 샘플 스크롤 콘텐츠
+  Widget _buildSampleScrollContent(BuildContext context, {int itemCount = 20}) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          itemCount,
+          (index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              children: [
+                Icon(Icons.list, color: context.fitColors.main),
+                const SizedBox(width: 12),
+                Text(
+                  '항목 ${index + 1}',
+                  style: context.body1().copyWith(color: context.fitColors.grey100),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showClosedSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('바텀시트가 닫혔습니다'),
+        duration: const Duration(milliseconds: 1000),
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }

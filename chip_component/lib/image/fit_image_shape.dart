@@ -30,10 +30,3 @@ enum FitImageShape {
     );
   }
 }
-
-/// Legacy 호환성을 위한 헬퍼 함수
-@Deprecated('Use FitImageType.fromString instead')
-FitImageType getImageType(String? type) => FitImageType.fromString(type);
-
-@Deprecated('Use FitImageShape.fromString instead')
-FitImageShape getImageShape(String? shape) => FitImageShape.fromString(shape);

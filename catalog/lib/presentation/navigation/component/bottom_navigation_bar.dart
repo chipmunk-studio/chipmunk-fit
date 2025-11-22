@@ -183,38 +183,6 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
     );
   }
 
-  Widget _buildNavCenterItem({required SvgPicture icon, required int index}) {
-    return Expanded(
-      child: Bounceable(
-        onTap: () => widget.onItemTapped(index),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 4),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              if (widget.selectedIndex == 2)
-                Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: context.fitColors.main.withOpacity(0.6),
-                        spreadRadius: 5,
-                        blurRadius: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              icon,
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   String _getLabel(int index) {
     switch (index) {
       case 0:
