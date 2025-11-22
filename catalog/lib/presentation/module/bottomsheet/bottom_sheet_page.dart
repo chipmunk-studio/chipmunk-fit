@@ -170,7 +170,18 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
               title: '초기 높이',
               subtitle: 'heightFactor',
               value: _heightFactor,
-              onChanged: (value) => setState(() => _heightFactor = value),
+              onChanged: (value) {
+                setState(() {
+                  _heightFactor = value;
+                  // min <= height <= max 유지
+                  if (_minHeightFactor > _heightFactor) {
+                    _minHeightFactor = _heightFactor;
+                  }
+                  if (_maxHeightFactor < _heightFactor) {
+                    _maxHeightFactor = _heightFactor;
+                  }
+                });
+              },
             ),
             _buildDivider(colors),
             _buildSliderOption(
@@ -179,7 +190,18 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
               title: '최소 높이',
               subtitle: 'minHeightFactor',
               value: _minHeightFactor,
-              onChanged: (value) => setState(() => _minHeightFactor = value),
+              onChanged: (value) {
+                setState(() {
+                  _minHeightFactor = value;
+                  // min <= height <= max 유지
+                  if (_heightFactor < _minHeightFactor) {
+                    _heightFactor = _minHeightFactor;
+                  }
+                  if (_maxHeightFactor < _minHeightFactor) {
+                    _maxHeightFactor = _minHeightFactor;
+                  }
+                });
+              },
             ),
             _buildDivider(colors),
             _buildSliderOption(
@@ -188,7 +210,18 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
               title: '최대 높이',
               subtitle: 'maxHeightFactor',
               value: _maxHeightFactor,
-              onChanged: (value) => setState(() => _maxHeightFactor = value),
+              onChanged: (value) {
+                setState(() {
+                  _maxHeightFactor = value;
+                  // min <= height <= max 유지
+                  if (_heightFactor > _maxHeightFactor) {
+                    _heightFactor = _maxHeightFactor;
+                  }
+                  if (_minHeightFactor > _maxHeightFactor) {
+                    _minHeightFactor = _maxHeightFactor;
+                  }
+                });
+              },
             ),
           ]),
           const SizedBox(height: 24),

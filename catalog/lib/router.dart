@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'presentation/component/animation_text/animation_text_page.dart';
 import 'presentation/component/button/button_page.dart';
-import 'presentation/component/card/card_page.dart';
 import 'presentation/component/checkbox/check_box_page.dart';
 import 'presentation/component/image/fit_image_page.dart';
 import 'presentation/foundation/animation/animation_page.dart';
 import 'presentation/foundation/color/color_page.dart';
 import 'presentation/foundation/textstyle/text_style_page.dart';
-import 'presentation/module/animation_text/animation_text_page.dart';
 import 'presentation/module/bottomsheet/bottom_sheet_page.dart';
 import 'presentation/module/modal/dialog_page.dart';
 import 'presentation/navigation/navigation_page.dart';
@@ -49,7 +48,7 @@ final GoRouter catalogRouter = GoRouter(
         GoRoute(
           path: 'animation_text',
           builder: (BuildContext context, GoRouterState state) {
-            return const AnimationText();
+            return const AnimationTextPage();
           },
         ),
         GoRoute(
@@ -68,12 +67,6 @@ final GoRouter catalogRouter = GoRouter(
           path: 'bottom_sheet',
           builder: (BuildContext context, GoRouterState state) {
             return const BottomSheetPage();
-          },
-        ),
-        GoRoute(
-          path: 'card',
-          builder: (BuildContext context, GoRouterState state) {
-            return const CardPage();
           },
         ),
         GoRoute(

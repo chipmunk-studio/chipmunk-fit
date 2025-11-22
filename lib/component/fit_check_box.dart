@@ -1,1 +1,4 @@
-export 'package:chip_component/fit_check_box.dart';
+/// FitCheckBox 위젯 export
+export 'checkbox/fit_check_box.dart';
+export 'checkbox/fit_check_box_style.dart';
+export 'checkbox/fit_check_box_painter.dart';

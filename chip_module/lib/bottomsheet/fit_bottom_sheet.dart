@@ -217,11 +217,16 @@ class FitBottomSheet {
     required bool expand,
     List<double>? snapSizes,
   }) {
+    // min <= initial <= max 관계를 보장
+    final minSize = config.minHeightFactor.clamp(0.0, 1.0);
+    final maxSize = config.maxHeightFactor.clamp(minSize, 1.0);
+    final initialSize = config.heightFactor.clamp(minSize, maxSize);
+
     return DraggableScrollableSheet(
       expand: expand,
-      initialChildSize: config.heightFactor,
-      maxChildSize: config.maxHeightFactor,
-      minChildSize: config.minHeightFactor,
+      initialChildSize: initialSize,
+      maxChildSize: maxSize,
+      minChildSize: minSize,
       snap: snapSizes != null,
       snapSizes: snapSizes,
       builder: (context, scrollController) => _buildFullSheetContent(

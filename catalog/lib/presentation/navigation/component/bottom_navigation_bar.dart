@@ -1,13 +1,11 @@
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/gen/assets.gen.dart';
-import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:flutter_svg/svg.dart';
 
 class FitBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
-  final dartz.Function1<int, void> onItemTapped;
+  final void Function(int) onItemTapped;
 
   const FitBottomNavigationBar({
     super.key,
@@ -66,91 +64,61 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 96,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: SizedBox(
-              height: 96,
-              child: widget.selectedIndex == 2
-                  ? ChipAssets.images.bgBottomNavSelected.svg(
-                      fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.width,
-                      color: context.fitColors.grey0,
-                    )
-                  : ChipAssets.images.bgBottomNavUnselected.svg(
-                      fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.width,
-                      color: context.fitColors.grey0,
-                    ),
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: _buildNavigationItem(),
+    return Container(
+      decoration: BoxDecoration(
+        color: context.fitColors.grey0,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
         ],
+      ),
+      child: SafeArea(
+        child: SizedBox(
+          height: 60,
+          child: _buildNavigationItem(),
+        ),
       ),
     );
   }
 
-  _buildNavigationItem() {
+  Widget _buildNavigationItem() {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         _buildNavItem(
-          icon: ChipAssets.icons.icCatSelected.svg(
-            width: 28,
-            height: 28,
-            color: widget.selectedIndex == 0 ? context.fitColors.main : Color(0xFFD7D8D9),
+          icon: Icon(
+            Icons.grid_on,
+            size: 28,
+            color: widget.selectedIndex == 0 ? context.fitColors.main : const Color(0xFFD7D8D9),
           ),
           index: 0,
         ),
         _buildNavItem(
-          icon: ChipAssets.icons.icGiftSoild24.svg(
-            width: 28,
-            height: 28,
-            color: widget.selectedIndex == 1 ? context.fitColors.main : Color(0xFFD7D8D9),
+          icon: Icon(
+            Icons.widgets,
+            size: 28,
+            color: widget.selectedIndex == 1 ? context.fitColors.main : const Color(0xFFD7D8D9),
           ),
           index: 1,
         ),
         _buildNavItem(
-          icon: ChipAssets.icons.icHome.svg(
-            width: 28,
-            height: 28,
-            color: widget.selectedIndex == 2 ? context.fitColors.main : Color(0xFFD7D8D9),
+          icon: Icon(
+            Icons.view_module,
+            size: 28,
+            color: widget.selectedIndex == 2 ? context.fitColors.main : const Color(0xFFD7D8D9),
           ),
           index: 2,
-        ),
-        _buildNavItem(
-          icon: ChipAssets.icons.icFeedSoild24.svg(
-            width: 28,
-            height: 28,
-            color: widget.selectedIndex == 3 ? context.fitColors.main : Color(0xFFD7D8D9),
-          ),
-          index: 3,
-        ),
-        _buildNavItem(
-          icon: ChipAssets.icons.icProfileDefaultDark.svg(
-            width: 28,
-            height: 28,
-            color: widget.selectedIndex == 4 ? context.fitColors.main : Color(0xFFD7D8D9),
-          ),
-          index: 4,
         ),
       ],
     );
   }
 
-  Widget _buildNavItem({required SvgPicture icon, required int index}) {
+  Widget _buildNavItem({required Widget icon, required int index}) {
     return Expanded(
-      child: GestureDetector(
+      child: Bounceable(
         onTap: () => widget.onItemTapped(index),
         child: Container(
           decoration: const BoxDecoration(
@@ -158,8 +126,8 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 28),
               if (widget.selectedIndex == index)
                 ScaleTransition(
                   scale: _animation,
@@ -171,8 +139,9 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
               Text(
                 _getLabel(index),
                 style: TextStyle(
-                  color: widget.selectedIndex == index ? context.fitColors.main : Color(0xFFD7D8D9),
-                  fontSize: 13,
+                  color: widget.selectedIndex == index ? context.fitColors.main : const Color(0xFFD7D8D9),
+                  fontSize: 11,
+                  fontWeight: widget.selectedIndex == index ? FontWeight.w600 : FontWeight.w400,
                   fontFamily: ChipAssets.fonts.pretendardRegular,
                 ),
               ),
@@ -186,15 +155,11 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
   String _getLabel(int index) {
     switch (index) {
       case 0:
-        return 'foundation';
+        return 'Foundation';
       case 1:
-        return 'component';
+        return 'Component';
       case 2:
-        return 'module';
-      case 3:
-        return 'template';
-      case 4:
-        return 'develop';
+        return 'Module';
       default:
         return '';
     }

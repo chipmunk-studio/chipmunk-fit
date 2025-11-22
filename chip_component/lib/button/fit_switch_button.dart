@@ -1,11 +1,10 @@
-import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:chip_foundation/colors.dart';
 
 /// 커스텀 스위치 버튼 (디바운스 적용)
 class FitSwitchButton extends StatefulWidget {
-  final dartz.Function1<bool, void> onToggle;
+  final void Function(bool) onToggle;
   final bool isOn;
   final Duration debounceDuration;
   final Color? activeColor;

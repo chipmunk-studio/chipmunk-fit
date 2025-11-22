@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 class FitLinearBounceAnimation extends StatefulWidget {
   final Widget child;
   final int duration;
+  final double distance;
 
   const FitLinearBounceAnimation({
     super.key,
     required this.child,
     this.duration = 2000,
+    this.distance = 8.0,
   });
 
   @override
@@ -38,7 +40,7 @@ class _FitLinearBounceAnimationState extends State<FitLinearBounceAnimation> wit
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, child) {
-        final double offset = math.sin(_animation.value * math.pi) * 8;
+        final double offset = math.sin(_animation.value * math.pi) * widget.distance;
         return Transform.translate(
           offset: Offset(0, offset),
           child: widget.child,

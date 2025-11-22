@@ -12,66 +12,52 @@ abstract class NavigationState with _$NavigationState {
 
   factory NavigationState.initial() => NavigationState(
         isLoading: true,
-        currentTab: NavigationTab.main,
+        currentTab: NavigationTab.foundation,
         tabVisited: {
-          NavigationTab.feed: false,
-          NavigationTab.benefit: false,
-          NavigationTab.main: true,
-          NavigationTab.friends: false,
-          NavigationTab.my_page: false,
+          NavigationTab.foundation: true,
+          NavigationTab.component: false,
+          NavigationTab.module: false,
         },
       );
 }
 
-enum NavigationTab { feed, benefit, main, friends, my_page }
+enum NavigationTab { foundation, component, module }
 
 extension NavigationTabExtension on NavigationTab {
   int get index {
     switch (this) {
-      case NavigationTab.feed:
+      case NavigationTab.foundation:
         return 0;
-      case NavigationTab.benefit:
+      case NavigationTab.component:
         return 1;
-      case NavigationTab.main:
+      case NavigationTab.module:
         return 2;
-      case NavigationTab.friends:
-        return 3;
-      case NavigationTab.my_page:
-        return 4;
     }
   }
 
   static NavigationTab fromIndex(int index) {
     switch (index) {
       case 0:
-        return NavigationTab.feed;
+        return NavigationTab.foundation;
       case 1:
-        return NavigationTab.benefit;
+        return NavigationTab.component;
       case 2:
-        return NavigationTab.main;
-      case 3:
-        return NavigationTab.friends;
-      case 4:
-        return NavigationTab.my_page;
+        return NavigationTab.module;
       default:
-        return NavigationTab.main;
+        return NavigationTab.foundation;
     }
   }
 
   static NavigationTab fromString(String value) {
     switch (value) {
-      case 'feed':
-        return NavigationTab.feed;
-      case 'benefit':
-        return NavigationTab.benefit;
-      case 'main':
-        return NavigationTab.main;
-      case 'friends':
-        return NavigationTab.friends;
-      case 'my_page':
-        return NavigationTab.my_page;
+      case 'foundation':
+        return NavigationTab.foundation;
+      case 'component':
+        return NavigationTab.component;
+      case 'module':
+        return NavigationTab.module;
       default:
-        return NavigationTab.main;
+        return NavigationTab.foundation;
     }
   }
 
@@ -81,11 +67,9 @@ extension NavigationTabExtension on NavigationTab {
 
   static bool isTab(String value) {
     return [
-      NavigationTab.main.name,
-      NavigationTab.friends.name,
-      NavigationTab.benefit.name,
-      NavigationTab.my_page.name,
-      NavigationTab.feed.name,
+      NavigationTab.foundation.name,
+      NavigationTab.component.name,
+      NavigationTab.module.name,
     ].contains(value);
   }
 }

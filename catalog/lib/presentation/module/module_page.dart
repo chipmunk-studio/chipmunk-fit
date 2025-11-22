@@ -55,13 +55,6 @@ class ModulePage extends StatelessWidget {
   Widget _buildModuleList(BuildContext context) {
     final modules = [
       _ModuleItem(
-        icon: Icons.text_rotation_none,
-        iconColor: const Color(0xFF9B51E0),
-        title: 'AnimationText',
-        subtitle: '애니메이션 텍스트',
-        route: '/animation_text',
-      ),
-      _ModuleItem(
         icon: Icons.chat_bubble_outline,
         iconColor: const Color(0xFFE91E63),
         title: 'Dialog',

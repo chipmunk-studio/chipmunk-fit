@@ -3,7 +3,9 @@ import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// FitCheckBox 테스트 페이지
 class CheckBoxPage extends StatefulWidget {
   const CheckBoxPage({super.key});
 
@@ -12,19 +14,23 @@ class CheckBoxPage extends StatefulWidget {
 }
 
 class _CheckBoxPageState extends State<CheckBoxPage> {
-  // 상태 관리
-  final Map<String, bool> _checkBoxStates = {
-    'default': false,
-    'hover': false,
-    'focus': false,
-    'overlay': true,
-    'customShape': false,
-    'customSize': true,
-    'customBorderColor': false,
-    'complexCustom': true,
-    'activeColor': false,
-    'checkColor': true,
-    'disabled': false,
+  // 기본 설정
+  FitCheckBoxStyle _selectedStyle = FitCheckBoxStyle.material;
+  double _size = 24.0;
+  int _animationSpeed = 200;
+
+  // 테스트 상태
+  bool _basicChecked = false;
+  bool _labelChecked = true;
+  bool _errorChecked = false;
+  bool _disabledChecked = true;
+
+  // 다중 선택 예제
+  final Map<String, bool> _multipleChoices = {
+    'option1': true,
+    'option2': false,
+    'option3': true,
+    'option4': false,
   };
 
   @override
@@ -36,220 +42,490 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
         title: "FitCheckBox",
         actions: [],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSection(
-              context,
-              title: "기본 테스트",
-              description: "기본값으로 동작하는 체크박스를 테스트합니다.",
-              examples: [
-                _buildCheckBox("default", "기본 체크박스"),
-              ],
+      body: Column(
+        children: [
+          _buildControls(context),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+              child: Column(
+                children: [
+                  _buildBasicSection(context),
+                  const SizedBox(height: 16),
+                  _buildStylesSection(context),
+                  const SizedBox(height: 16),
+                  _buildSizesSection(context),
+                  const SizedBox(height: 16),
+                  _buildLabelSection(context),
+                  const SizedBox(height: 16),
+                  _buildStatesSection(context),
+                  const SizedBox(height: 16),
+                  _buildMultipleChoiceSection(context),
+                ],
+              ),
             ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "호버 및 포커스 색상 테스트",
-              description: "호버 및 포커스 색상이 적용된 체크박스를 테스트합니다.",
-              examples: [
-                _buildCheckBox(
-                  "hover",
-                  "호버 색상",
-                  hoverColor: Colors.blue.withOpacity(0.5),
-                ),
-                _buildCheckBox(
-                  "focus",
-                  "포커스 색상",
-                  focusColor: Colors.orange.withOpacity(0.5),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "오버레이 색상 테스트",
-              description: "클릭 시 오버레이 색상이 적용된 체크박스를 테스트합니다.",
-              examples: [
-                _buildCheckBox(
-                  "overlay",
-                  "오버레이 색상",
-                  overlayColor: Colors.green.withOpacity(0.3),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "활성화 및 체크 색상 테스트",
-              description: "활성화 색상 및 체크박스 내부 체크 색상을 테스트합니다.",
-              examples: [
-                _buildCheckBox(
-                  "activeColor",
-                  "활성화 색상",
-                  activeColor: Colors.purple,
-                ),
-                _buildCheckBox(
-                  "checkColor",
-                  "체크 색상",
-                  checkColor: Colors.yellow,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "모양 및 크기 테스트",
-              description: "체크박스의 크기와 외곽 모양을 커스터마이징하여 테스트합니다.",
-              examples: [
-                _buildCheckBox(
-                  "customShape",
-                  "커스텀 모양",
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                _buildCheckBox(
-                  "customSize",
-                  "커스텀 크기",
-                  size: 36.0,
-                ),
-                _buildCheckBox(
-                  "customBorderColor",
-                  "커스텀 테두리",
-                  side: BorderSide(color: Colors.red, width: 2.0),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "복합 커스터마이징 테스트",
-              description: "모든 속성을 조합하여 테스트합니다.",
-              examples: [
-                _buildCheckBox(
-                  "complexCustom",
-                  "복합 커스터마이징",
-                  activeColor: Colors.purple,
-                  checkColor: Colors.yellow,
-                  hoverColor: Colors.blue.withOpacity(0.5),
-                  focusColor: Colors.orange.withOpacity(0.5),
-                  overlayColor: Colors.green.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  side: BorderSide(color: Colors.red, width: 2.0),
-                  size: 24.0,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSection(
-              context,
-              title: "비활성화 상태 테스트",
-              description: "체크박스가 비활성화 상태일 때 동작을 테스트합니다.",
-              examples: [
-                _buildDisabledCheckBox("disabled", "비활성화 체크박스"),
-              ],
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  /// 섹션 구성
+  /// 컨트롤 패널
+  Widget _buildControls(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.fitColors.backgroundElevated,
+        border: Border(
+          bottom: BorderSide(
+            color: context.fitColors.dividerPrimary,
+            width: 1,
+          ),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "글로벌 설정",
+            style: context.subtitle5().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 12),
+          // 스타일 선택
+          Wrap(
+            spacing: 8,
+            children: FitCheckBoxStyle.values.map((style) {
+              final isSelected = _selectedStyle == style;
+              return ChoiceChip(
+                label: Text(
+                  style.name,
+                  style: context.caption1().copyWith(
+                        color: isSelected ? Colors.white : context.fitColors.textSecondary,
+                      ),
+                ),
+                selected: isSelected,
+                onSelected: (selected) {
+                  if (selected) setState(() => _selectedStyle = style);
+                },
+                selectedColor: context.fitColors.main,
+                backgroundColor: context.fitColors.backgroundBase,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  side: BorderSide(
+                    color: isSelected ? context.fitColors.main : context.fitColors.dividerPrimary,
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 12),
+          // 크기 슬라이더
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Size",
+                          style: context.caption1().copyWith(
+                                color: context.fitColors.textSecondary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: context.fitColors.main.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          child: Text(
+                            "${_size.toStringAsFixed(0)}px",
+                            style: context.caption1().copyWith(
+                                  color: context.fitColors.main,
+                                  fontFamily: 'monospace',
+                                  fontSize: 10,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      value: _size,
+                      min: 16,
+                      max: 48,
+                      divisions: 16,
+                      activeColor: context.fitColors.main,
+                      onChanged: (value) => setState(() => _size = value),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Animation Speed",
+                          style: context.caption1().copyWith(
+                                color: context.fitColors.textSecondary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: context.fitColors.main.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          child: Text(
+                            "${_animationSpeed}ms",
+                            style: context.caption1().copyWith(
+                                  color: context.fitColors.main,
+                                  fontFamily: 'monospace',
+                                  fontSize: 10,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      value: _animationSpeed.toDouble(),
+                      min: 100,
+                      max: 1000,
+                      divisions: 18,
+                      activeColor: context.fitColors.main,
+                      onChanged: (value) => setState(() => _animationSpeed = value.toInt()),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 기본 사용 섹션
+  Widget _buildBasicSection(BuildContext context) {
+    return _buildSection(
+      context,
+      title: "Basic Usage",
+      icon: Icons.check_box_outlined,
+      description: "기본적인 체크박스 사용 예제",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              FitCheckBox(
+                value: _basicChecked,
+                onChanged: (value) => setState(() => _basicChecked = value),
+                style: _selectedStyle,
+                size: _size,
+                animationDuration: Duration(milliseconds: _animationSpeed),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                _basicChecked ? "Checked" : "Unchecked",
+                style: context.caption1().copyWith(
+                      color: context.fitColors.textTertiary,
+                    ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 스타일 비교 섹션
+  Widget _buildStylesSection(BuildContext context) {
+    return _buildSection(
+      context,
+      title: "Styles",
+      icon: Icons.palette_outlined,
+      description: "다양한 스타일 비교",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildStyleExample(context, FitCheckBoxStyle.material, "Material"),
+          _buildStyleExample(context, FitCheckBoxStyle.rounded, "Rounded"),
+          _buildStyleExample(context, FitCheckBoxStyle.outlined, "Outlined"),
+        ],
+      ),
+    );
+  }
+
+  /// 스타일 예제
+  Widget _buildStyleExample(BuildContext context, FitCheckBoxStyle style, String label) {
+    return Column(
+      children: [
+        FitCheckBox(
+          value: true,
+          onChanged: (_) {},
+          style: style,
+          size: 28,
+          activeColor: context.fitColors.main,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: context.caption1().copyWith(
+                color: context.fitColors.textTertiary,
+              ),
+        ),
+      ],
+    );
+  }
+
+  /// 크기 섹션
+  Widget _buildSizesSection(BuildContext context) {
+    return _buildSection(
+      context,
+      title: "Sizes",
+      icon: Icons.format_size,
+      description: "다양한 크기 비교",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildSizeExample(context, 16, "Small"),
+          _buildSizeExample(context, 24, "Medium"),
+          _buildSizeExample(context, 32, "Large"),
+          _buildSizeExample(context, 40, "X-Large"),
+        ],
+      ),
+    );
+  }
+
+  /// 크기 예제
+  Widget _buildSizeExample(BuildContext context, double size, String label) {
+    return Column(
+      children: [
+        FitCheckBox(
+          value: true,
+          onChanged: (_) {},
+          style: _selectedStyle,
+          size: size,
+          activeColor: context.fitColors.main,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: context.caption1().copyWith(
+                color: context.fitColors.textTertiary,
+                fontSize: 10,
+              ),
+        ),
+        Text(
+          "${size.toInt()}px",
+          style: context.caption1().copyWith(
+                color: context.fitColors.textTertiary,
+                fontSize: 9,
+                fontFamily: 'monospace',
+              ),
+        ),
+      ],
+    );
+  }
+
+  /// 라벨 섹션
+  Widget _buildLabelSection(BuildContext context) {
+    return _buildSection(
+      context,
+      title: "With Label",
+      icon: Icons.label_outlined,
+      description: "라벨이 있는 체크박스",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FitCheckBox(
+            value: _labelChecked,
+            onChanged: (value) => setState(() => _labelChecked = value),
+            style: _selectedStyle,
+            size: _size,
+            label: "약관에 동의합니다",
+            labelStyle: context.body3().copyWith(
+                  color: context.fitColors.textPrimary,
+                ),
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 12),
+          FitCheckBox(
+            value: !_labelChecked,
+            onChanged: (value) => setState(() => _labelChecked = !value),
+            style: _selectedStyle,
+            size: _size,
+            label: "라벨이 왼쪽에 위치",
+            labelOnLeft: true,
+            labelStyle: context.body3().copyWith(
+                  color: context.fitColors.textPrimary,
+                ),
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 상태 섹션
+  Widget _buildStatesSection(BuildContext context) {
+    return _buildSection(
+      context,
+      title: "States",
+      icon: Icons.toggle_on_outlined,
+      description: "다양한 상태 (에러, 비활성화)",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 에러 상태
+          FitCheckBox(
+            value: _errorChecked,
+            onChanged: (value) => setState(() => _errorChecked = value),
+            style: _selectedStyle,
+            size: _size,
+            hasError: true,
+            label: "에러 상태 체크박스",
+            labelStyle: context.body3().copyWith(
+                  color: Colors.red,
+                ),
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 12),
+          // 비활성화 상태
+          FitCheckBox(
+            value: _disabledChecked,
+            onChanged: null,
+            style: _selectedStyle,
+            size: _size,
+            label: "비활성화 상태 체크박스",
+            labelStyle: context.body3().copyWith(
+                  color: context.fitColors.textDisabled,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 다중 선택 섹션
+  Widget _buildMultipleChoiceSection(BuildContext context) {
+    final allChecked = _multipleChoices.values.every((v) => v);
+    final someChecked = _multipleChoices.values.any((v) => v) && !allChecked;
+
+    return _buildSection(
+      context,
+      title: "Multiple Choice",
+      icon: Icons.checklist,
+      description: "다중 선택 예제 (전체 선택 포함)",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 전체 선택
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.fitColors.backgroundBase,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(color: context.fitColors.dividerPrimary),
+            ),
+            child: FitCheckBox(
+              value: allChecked,
+              onChanged: (value) {
+                setState(() {
+                  _multipleChoices.updateAll((key, _) => value);
+                });
+              },
+              style: _selectedStyle,
+              size: _size,
+              label: "전체 선택",
+              labelStyle: context.subtitle5().copyWith(
+                    color: context.fitColors.textPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
+              activeColor: someChecked ? context.fitColors.main.withOpacity(0.5) : null,
+              animationDuration: Duration(milliseconds: _animationSpeed),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // 개별 옵션
+          ..._multipleChoices.entries.map((entry) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8, left: 16),
+              child: FitCheckBox(
+                value: entry.value,
+                onChanged: (value) {
+                  setState(() {
+                    _multipleChoices[entry.key] = value;
+                  });
+                },
+                style: _selectedStyle,
+                size: _size - 4,
+                label: "옵션 ${entry.key.replaceAll('option', '')}",
+                labelStyle: context.body3().copyWith(
+                      color: context.fitColors.textSecondary,
+                    ),
+                animationDuration: Duration(milliseconds: _animationSpeed),
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  /// 섹션 래퍼
   Widget _buildSection(
     BuildContext context, {
     required String title,
+    required IconData icon,
     required String description,
-    required List<Widget> examples,
+    required Widget child,
   }) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionTitle(context, title),
-            const SizedBox(height: 8),
-            Text(
-              description,
-              style: context.body1().copyWith(color: context.fitColors.grey500),
-            ),
-            const SizedBox(height: 16),
-            Column(children: examples),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: context.fitColors.backgroundElevated,
+        borderRadius: BorderRadius.circular(12.r),
       ),
-    );
-  }
-
-  /// 섹션 제목 구성
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Row(
-      children: [
-        Icon(Icons.check_box, color: context.fitColors.main, size: 24),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: context.h2().copyWith(color: context.fitColors.grey100),
-        ),
-      ],
-    );
-  }
-
-  /// 체크박스 생성
-  Widget _buildCheckBox(
-    String key,
-    String label, {
-    Color? hoverColor,
-    Color? focusColor,
-    Color? overlayColor,
-    Color? activeColor,
-    Color? checkColor,
-    OutlinedBorder? shape,
-    BorderSide? side,
-    double size = 16.0,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(label, style: context.body1().copyWith(color: context.fitColors.grey400)),
-        FitCheckBox(
-          state: _checkBoxStates[key]!,
-          onCheck: (value) {
-            setState(() {
-              _checkBoxStates[key] = value;
-            });
-          },
-          hoverColor: hoverColor,
-          focusColor: focusColor,
-          activeColor: activeColor,
-          checkColor: checkColor,
-          shape: shape,
-          side: side,
-          size: size,
-        ),
-      ],
-    );
-  }
-
-  /// 비활성화 체크박스 생성
-  Widget _buildDisabledCheckBox(String key, String label) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(label, style: context.body1().copyWith(color: context.fitColors.grey400)),
-        FitCheckBox(
-          state: _checkBoxStates[key]!,
-          onCheck: null, // 비활성화 상태
-        ),
-      ],
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: context.fitColors.main, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                title,
+                style: context.subtitle4().copyWith(
+                      color: context.fitColors.textPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            description,
+            style: context.caption1().copyWith(
+                  color: context.fitColors.textTertiary,
+                ),
+          ),
+          const SizedBox(height: 16),
+          child,
+        ],
+      ),
     );
   }
 }

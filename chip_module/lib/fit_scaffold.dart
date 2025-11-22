@@ -2,7 +2,6 @@ import 'dart:io' show Platform;
 
 import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:chip_component/fit_dot_loading.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:chip_foundation/colors.dart';
@@ -257,7 +256,7 @@ abstract class FitCustomAppBar {
   static AppBar leadingAppBar(
     BuildContext context, {
     String title = "",
-    Function0? onPressed,
+    void Function()? onPressed,
     Widget? leadingIcon,
     List<Widget>? actions,
     Color? backgroundColor,
@@ -288,7 +287,7 @@ abstract class FitCustomAppBar {
   static Widget _buildLeadingButton(
     BuildContext context,
     Widget? leadingIcon,
-    Function0? onPressed,
+    void Function()? onPressed,
   ) {
     return IconButton(
       icon: leadingIcon ?? ChipAssets.icons.icArrowLeft.svg(color: context.fitColors.grey900),

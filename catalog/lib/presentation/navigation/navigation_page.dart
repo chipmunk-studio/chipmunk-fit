@@ -2,7 +2,6 @@ import 'package:catalog/presentation/component/component_page.dart';
 import 'package:catalog/presentation/foundation/foundation_page.dart';
 import 'package:catalog/presentation/module/module_page.dart';
 import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/fit_skeletons.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +53,6 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
     FoundationPage(),
     ComponentPage(),
     ModulePage(),
-    _DevelopPage(),
-    _SettingsPage(),
   ];
 
   @override
@@ -139,11 +136,9 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
   /// 탭 재개 처리
   void _handleTabResume(NavigationTab tab) {
     switch (tab) {
-      case NavigationTab.feed:
-      case NavigationTab.benefit:
-      case NavigationTab.main:
-      case NavigationTab.friends:
-      case NavigationTab.my_page:
+      case NavigationTab.foundation:
+      case NavigationTab.component:
+      case NavigationTab.module:
         // 필요시 각 탭별 초기화 로직 추가
         break;
     }
@@ -156,74 +151,6 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
       onItemTapped: (index) {
         _navigationBloc.add(NavigationSelectTabEvent(index));
       },
-    );
-  }
-}
-
-/// 개발 페이지 (임시)
-class _DevelopPage extends StatelessWidget {
-  const _DevelopPage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: context.fitColors.backgroundBase,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.code,
-              size: 64,
-              color: context.fitColors.grey400,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '개발 도구',
-              style: context.h2().copyWith(color: context.fitColors.grey700),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '준비 중입니다',
-              style: context.body1().copyWith(color: context.fitColors.grey500),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// 설정 페이지 (임시)
-class _SettingsPage extends StatelessWidget {
-  const _SettingsPage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: context.fitColors.backgroundBase,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.settings,
-              size: 64,
-              color: context.fitColors.grey400,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '설정',
-              style: context.h2().copyWith(color: context.fitColors.grey700),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '준비 중입니다',
-              style: context.body1().copyWith(color: context.fitColors.grey500),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
