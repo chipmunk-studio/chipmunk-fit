@@ -1,0 +1,22 @@
+name: chip_core
+description: ChipFit Core - Core utilities (Cache, Delta Viewer, etc.)
+publish_to: 'none'
+
+environment:
+  sdk: '^3.5.3'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  chip_dependencies:
+    path: ../chip_dependencies
+  flutter_cache_manager:
+  http:
+  flutter_quill:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:

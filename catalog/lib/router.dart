@@ -5,6 +5,8 @@ import 'presentation/component/animation_text/animation_text_page.dart';
 import 'presentation/component/button/button_page.dart';
 import 'presentation/component/checkbox/check_box_page.dart';
 import 'presentation/component/image/fit_image_page.dart';
+import 'presentation/core/component/cache_helper_page.dart';
+import 'presentation/core/component/delta_viewer_page.dart';
 import 'presentation/foundation/animation/animation_page.dart';
 import 'presentation/foundation/color/color_page.dart';
 import 'presentation/foundation/textstyle/text_style_page.dart';
@@ -73,6 +75,18 @@ final GoRouter catalogRouter = GoRouter(
           path: 'color',
           builder: (BuildContext context, GoRouterState state) {
             return const ColorPage();
+          },
+        ),
+        GoRoute(
+          path: 'cache_helper',
+          builder: (BuildContext context, GoRouterState state) {
+            return const CacheHelperPage();
+          },
+        ),
+        GoRoute(
+          path: 'delta_viewer',
+          builder: (BuildContext context, GoRouterState state) {
+            return const DeltaViewerPage();
           },
         ),
       ],

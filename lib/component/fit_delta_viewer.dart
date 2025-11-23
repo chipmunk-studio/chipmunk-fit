@@ -1,1 +1,1 @@
-export 'package:chip_component/fit_delta_viewer.dart';
+export 'package:chip_core/fit_delta_viewer.dart';

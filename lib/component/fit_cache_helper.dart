@@ -1,1 +1,1 @@
-export 'package:chip_component/fit_cache_helper.dart';
+export 'package:chip_core/fit_cache_helper.dart';

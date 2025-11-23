@@ -112,6 +112,14 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
           ),
           index: 2,
         ),
+        _buildNavItem(
+          icon: Icon(
+            Icons.build_circle,
+            size: 28,
+            color: widget.selectedIndex == 3 ? context.fitColors.main : const Color(0xFFD7D8D9),
+          ),
+          index: 3,
+        ),
       ],
     );
   }
@@ -160,6 +168,8 @@ class _FitBottomNavigationBarState extends State<FitBottomNavigationBar> with Si
         return 'Component';
       case 2:
         return 'Module';
+      case 3:
+        return 'Core';
       default:
         return '';
     }

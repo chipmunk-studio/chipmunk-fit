@@ -17,11 +17,12 @@ abstract class NavigationState with _$NavigationState {
           NavigationTab.foundation: true,
           NavigationTab.component: false,
           NavigationTab.module: false,
+          NavigationTab.core: false,
         },
       );
 }
 
-enum NavigationTab { foundation, component, module }
+enum NavigationTab { foundation, component, module, core }
 
 extension NavigationTabExtension on NavigationTab {
   int get index {
@@ -32,6 +33,8 @@ extension NavigationTabExtension on NavigationTab {
         return 1;
       case NavigationTab.module:
         return 2;
+      case NavigationTab.core:
+        return 3;
     }
   }
 
@@ -43,6 +46,8 @@ extension NavigationTabExtension on NavigationTab {
         return NavigationTab.component;
       case 2:
         return NavigationTab.module;
+      case 3:
+        return NavigationTab.core;
       default:
         return NavigationTab.foundation;
     }
@@ -56,6 +61,8 @@ extension NavigationTabExtension on NavigationTab {
         return NavigationTab.component;
       case 'module':
         return NavigationTab.module;
+      case 'core':
+        return NavigationTab.core;
       default:
         return NavigationTab.foundation;
     }
@@ -70,6 +77,7 @@ extension NavigationTabExtension on NavigationTab {
       NavigationTab.foundation.name,
       NavigationTab.component.name,
       NavigationTab.module.name,
+      NavigationTab.core.name,
     ].contains(value);
   }
 }

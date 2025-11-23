@@ -1,4 +1,5 @@
 import 'package:catalog/presentation/component/component_page.dart';
+import 'package:catalog/presentation/core/core_page.dart';
 import 'package:catalog/presentation/foundation/foundation_page.dart';
 import 'package:catalog/presentation/module/module_page.dart';
 import 'package:chipfit/foundation/colors.dart';
@@ -53,6 +54,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
     FoundationPage(),
     ComponentPage(),
     ModulePage(),
+    CorePage(),
   ];
 
   @override
@@ -139,6 +141,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
       case NavigationTab.foundation:
       case NavigationTab.component:
       case NavigationTab.module:
+      case NavigationTab.core:
         // 필요시 각 탭별 초기화 로직 추가
         break;
     }

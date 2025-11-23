@@ -13,6 +13,7 @@ workspace:
   - chip_module
   - chip_assets
   - chip_dependencies
+  - chip_core
   - catalog
 
 dependencies:
@@ -26,6 +27,8 @@ dependencies:
     path: ./chip_component
   chip_module:
     path: ./chip_module
+  chip_core:
+    path: ./chip_core
   chip_dependencies:
     path: ./chip_dependencies
 
