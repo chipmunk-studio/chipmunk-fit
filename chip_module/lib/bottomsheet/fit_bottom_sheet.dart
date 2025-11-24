@@ -3,57 +3,113 @@ import 'package:chip_foundation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'fit_bottom_sheet.freezed.dart';
 
 /// Bottom Sheet 설정 옵션
-@freezed
-abstract class FitBottomSheetConfig with _$FitBottomSheetConfig {
-  const factory FitBottomSheetConfig({
-    /// 닫기 버튼 표시 여부
-    @Default(false) bool isShowCloseButton,
+class FitBottomSheetConfig {
+  /// 닫기 버튼 표시 여부
+  final bool isShowCloseButton;
 
-    /// 외부 터치로 닫기 가능 여부
-    @Default(true) bool isDismissible,
+  /// 외부 터치로 닫기 가능 여부
+  final bool isDismissible;
 
-    /// 상단 드래그 바 표시 여부
-    @Default(true) bool isShowTopBar,
+  /// 상단 드래그 바 표시 여부
+  final bool isShowTopBar;
 
-    /// 뒤로가기 버튼으로 닫기 가능 여부
-    @Default(true) bool dismissOnBackKeyPress,
+  /// 뒤로가기 버튼으로 닫기 가능 여부
+  final bool dismissOnBackKeyPress;
 
-    /// 화면 높이 비율 (0.0 ~ 1.0)
-    @Default(0.97) double heightFactor,
+  /// 화면 높이 비율 (0.0 ~ 1.0)
+  final double heightFactor;
 
-    /// 최소 높이 비율 (드래그 가능 시트 전용)
-    @Default(0.2) double minHeightFactor,
+  /// 최소 높이 비율 (드래그 가능 시트 전용)
+  final double minHeightFactor;
 
-    /// 최대 높이 비율 (드래그 가능 시트 전용)
-    @Default(0.97) double maxHeightFactor,
+  /// 최대 높이 비율 (드래그 가능 시트 전용)
+  final double maxHeightFactor;
 
-    /// 배경색
+  /// 배경색
+  final Color? backgroundColor;
+
+  const FitBottomSheetConfig({
+    this.isShowCloseButton = false,
+    this.isDismissible = true,
+    this.isShowTopBar = true,
+    this.dismissOnBackKeyPress = true,
+    this.heightFactor = 0.97,
+    this.minHeightFactor = 0.2,
+    this.maxHeightFactor = 0.97,
+    this.backgroundColor,
+  });
+
+  /// 설정 복사
+  FitBottomSheetConfig copyWith({
+    bool? isShowCloseButton,
+    bool? isDismissible,
+    bool? isShowTopBar,
+    bool? dismissOnBackKeyPress,
+    double? heightFactor,
+    double? minHeightFactor,
+    double? maxHeightFactor,
     Color? backgroundColor,
+  }) {
+    return FitBottomSheetConfig(
+      isShowCloseButton: isShowCloseButton ?? this.isShowCloseButton,
+      isDismissible: isDismissible ?? this.isDismissible,
+      isShowTopBar: isShowTopBar ?? this.isShowTopBar,
+      dismissOnBackKeyPress: dismissOnBackKeyPress ?? this.dismissOnBackKeyPress,
+      heightFactor: heightFactor ?? this.heightFactor,
+      minHeightFactor: minHeightFactor ?? this.minHeightFactor,
+      maxHeightFactor: maxHeightFactor ?? this.maxHeightFactor,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+    );
+  }
 
-    /// 모서리 반경
-    @Default(32.0) double borderRadius,
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    /// 상단 여백
-    EdgeInsets? topPadding,
+    return other is FitBottomSheetConfig &&
+        other.isShowCloseButton == isShowCloseButton &&
+        other.isDismissible == isDismissible &&
+        other.isShowTopBar == isShowTopBar &&
+        other.dismissOnBackKeyPress == dismissOnBackKeyPress &&
+        other.heightFactor == heightFactor &&
+        other.minHeightFactor == minHeightFactor &&
+        other.maxHeightFactor == maxHeightFactor &&
+        other.backgroundColor == backgroundColor;
+  }
 
-    /// 애니메이션 지속 시간
-    @Default(Duration(milliseconds: 300)) Duration transitionDuration,
-  }) = _FitBottomSheetConfig;
+  @override
+  int get hashCode {
+    return Object.hash(
+      isShowCloseButton,
+      isDismissible,
+      isShowTopBar,
+      dismissOnBackKeyPress,
+      heightFactor,
+      minHeightFactor,
+      maxHeightFactor,
+      backgroundColor,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'FitBottomSheetConfig(isShowCloseButton: $isShowCloseButton, isDismissible: $isDismissible, '
+        'isShowTopBar: $isShowTopBar, dismissOnBackKeyPress: $dismissOnBackKeyPress, '
+        'heightFactor: $heightFactor, minHeightFactor: $minHeightFactor, maxHeightFactor: $maxHeightFactor, '
+        'backgroundColor: $backgroundColor)';
+  }
 }
 
-/// 공통 Bottom Sheet 유틸리티
+/// Bottom Sheet 유틸리티
 class FitBottomSheet {
   FitBottomSheet._();
 
   /// 기본 Bottom Sheet 표시
   ///
-  /// [content] - 표시할 내용 위젯 빌더
-  /// [config] - Bottom Sheet 설정 옵션
+  /// [content] - 표시할 내용
+  /// [config] - 설정 옵션
   /// [onClosed] - 닫힐 때 콜백
   static Future<T?> show<T>(
     BuildContext context, {
@@ -77,9 +133,9 @@ class FitBottomSheet {
 
   /// 전체 화면 Bottom Sheet 표시
   ///
-  /// [scrollContent] - 스크롤 가능한 내용 위젯 빌더
-  /// [topContent] - 상단 고정 위젯 빌더
-  /// [config] - Bottom Sheet 설정 옵션
+  /// [scrollContent] - 스크롤 가능한 내용
+  /// [topContent] - 상단 고정 위젯
+  /// [config] - 설정 옵션
   /// [onClosed] - 닫힐 때 콜백
   static Future<T?> showFull<T>(
     BuildContext context, {
@@ -116,9 +172,9 @@ class FitBottomSheet {
 
   /// 드래그 가능한 Bottom Sheet 표시
   ///
-  /// [scrollContent] - 스크롤 가능한 내용 위젯 빌더
-  /// [topContent] - 상단 고정 위젯 빌더
-  /// [config] - Bottom Sheet 설정 옵션
+  /// [scrollContent] - 스크롤 가능한 내용
+  /// [topContent] - 상단 고정 위젯
+  /// [config] - 설정 옵션
   /// [onClosed] - 닫힐 때 콜백
   /// [snapSizes] - 스냅 포인트 (비율 리스트)
   static Future<T?> showDraggable<T>(
@@ -155,7 +211,7 @@ class FitBottomSheet {
     return result;
   }
 
-  /// 공통 Modal Bottom Sheet 설정
+  /// Modal Bottom Sheet 기본 설정
   static Future<T?> _showBaseModalBottomSheet<T>({
     required BuildContext context,
     required WidgetBuilder builder,
@@ -174,7 +230,7 @@ class FitBottomSheet {
     );
   }
 
-  /// 기본 BottomSheet Content 생성
+  /// 기본 Bottom Sheet 내용 생성
   static Widget _buildBottomSheetContent(
     BuildContext context, {
     required Widget Function(BuildContext) content,
@@ -184,22 +240,22 @@ class FitBottomSheet {
       decoration: BoxDecoration(
         color: config.backgroundColor ?? context.fitColors.backgroundElevated,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(config.borderRadius.r),
-          topRight: Radius.circular(config.borderRadius.r),
+          topLeft: Radius.circular(32.r),
+          topRight: Radius.circular(32.r),
         ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (config.isShowTopBar) _buildTopBar(context, config),
-          if (config.isShowCloseButton) _buildCloseButton(context, config),
+          if (config.isShowTopBar) _buildTopBar(context),
+          if (config.isShowCloseButton) _buildCloseButton(context),
           content(context),
         ],
       ),
     );
 
-    // 기본 바텀시트는 SafeArea 없이 키보드만 처리
+    // 키보드 높이만큼 패딩 추가
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -217,7 +273,7 @@ class FitBottomSheet {
     required bool expand,
     List<double>? snapSizes,
   }) {
-    // min <= initial <= max 관계를 보장
+    // min <= initial <= max 관계 보장
     final minSize = config.minHeightFactor.clamp(0.0, 1.0);
     final maxSize = config.maxHeightFactor.clamp(minSize, 1.0);
     final initialSize = config.heightFactor.clamp(minSize, maxSize);
@@ -239,7 +295,7 @@ class FitBottomSheet {
     );
   }
 
-  /// 풀스크린 및 드래그 가능한 Sheet Content 생성
+  /// 전체 화면 Sheet 내용 생성
   static Widget _buildFullSheetContent(
     BuildContext context, {
     required ScrollController scrollController,
@@ -247,21 +303,20 @@ class FitBottomSheet {
     required Widget Function(BuildContext)? topContent,
     required FitBottomSheetConfig config,
   }) {
-    // 풀스크린/드래그는 SafeArea 없이 상태바까지 올라감
     return Container(
       decoration: BoxDecoration(
         color: config.backgroundColor ?? context.fitColors.backgroundElevated,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(config.borderRadius.r),
-          topRight: Radius.circular(config.borderRadius.r),
+          topLeft: Radius.circular(32.r),
+          topRight: Radius.circular(32.r),
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          if (config.isShowTopBar) _buildTopBar(context, config),
-          if (config.isShowCloseButton) _buildCloseButton(context, config),
+          if (config.isShowTopBar) _buildTopBar(context),
+          if (config.isShowCloseButton) _buildCloseButton(context),
           if (topContent != null) topContent(context),
           Expanded(
             child: SingleChildScrollView(
@@ -275,11 +330,11 @@ class FitBottomSheet {
     );
   }
 
-  /// Top Bar 생성 (드래그 인디케이터)
-  static Widget _buildTopBar(BuildContext context, FitBottomSheetConfig config) {
+  /// 상단 드래그 바 생성
+  static Widget _buildTopBar(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: config.topPadding?.top ?? 8),
+        const SizedBox(height: 8),
         Row(
           children: [
             const Spacer(),
@@ -294,13 +349,13 @@ class FitBottomSheet {
             const Spacer(),
           ],
         ),
-        if (!config.isShowCloseButton) const SizedBox(height: 36),
+        const SizedBox(height: 36),
       ],
     );
   }
 
-  /// Close 버튼 생성
-  static Widget _buildCloseButton(BuildContext context, FitBottomSheetConfig config) {
+  /// 닫기 버튼 생성
+  static Widget _buildCloseButton(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: Padding(
@@ -313,9 +368,7 @@ class FitBottomSheet {
     );
   }
 
-  /// Height Factor 계산 (상태바 높이 보정)
-  ///
-  /// 상태바 높이를 제외한 실제 화면 비율 계산
+  /// 화면 높이 비율 계산 (상태바 높이 보정)
   static double _calculateHeightFactor(BuildContext context, double heightFactor) {
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final screenHeight = MediaQuery.of(context).size.height;
