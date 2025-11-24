@@ -202,10 +202,8 @@ class _FitButtonState extends State<FitButton> {
   }
 
   Widget _buildContent() {
-    final content = FittedBox(
-      fit: BoxFit.scaleDown,
-      child: widget.child,
-    );
+    // FittedBox 제거 - child를 직접 사용
+    final content = widget.child;
 
     if (!widget.isLoading) return content;
 
