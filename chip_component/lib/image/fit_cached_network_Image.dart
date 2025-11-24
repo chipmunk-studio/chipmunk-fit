@@ -63,7 +63,7 @@ class FitCachedNetworkImage extends StatelessWidget {
     this.width,
     this.height,
     this.fit = BoxFit.cover,
-    this.imageShape = FitImageShape.RECTANGLE,
+    this.imageShape = FitImageShape.SQUIRCLE,
     this.borderWidth,
     this.borderColor,
     this.fadeInDuration = const Duration(seconds: 1),
@@ -91,7 +91,7 @@ class FitCachedNetworkImage extends StatelessWidget {
     return _buildShapedImage(image);
   }
 
-  /// 형태에 맞게 이미지 래핑
+  /// 형태에 맞게 이미지 래핑.
   Widget _buildShapedImage(Widget child) {
     switch (imageShape) {
       case FitImageShape.SQUIRCLE:
