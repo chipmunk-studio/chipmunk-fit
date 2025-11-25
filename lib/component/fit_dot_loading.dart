@@ -1,1 +1,3 @@
+library;
+
 export 'package:chip_component/fit_dot_loading.dart';

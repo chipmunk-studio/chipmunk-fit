@@ -1,1 +1,3 @@
+library;
+
 export 'package:chip_module/skeletons/skeletons.dart';

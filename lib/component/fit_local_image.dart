@@ -1,1 +1,0 @@
-export 'package:chip_component/fit_local_image.dart';

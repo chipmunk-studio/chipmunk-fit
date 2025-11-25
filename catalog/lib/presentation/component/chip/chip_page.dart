@@ -193,36 +193,112 @@ class _ChipPageState extends State<ChipPage> {
       sectionKey: 'basic',
       title: "Basic Chip",
       icon: Icons.label_outline,
-      description: "기본적인 칩 (레이블만)",
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
+      description: "기본적인 정보 표시용 칩",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FitChip(
-            type: FitChipType.basic,
-            label: "전체",
-            onTap: () => debugPrint("전체 탭"),
+          // 상태 표시
+          Text(
+            "프로젝트 상태",
+            style: context.subtitle6().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
-          FitChip(
-            type: FitChipType.basic,
-            label: "진행중",
-            backgroundColor: context.fitColors.periwinkle50,
-            labelColor: context.fitColors.periwinkle500,
-            onTap: () => debugPrint("진행중 탭"),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              FitChip(
+                backgroundColor: context.fitColors.periwinkle50,
+                child: Text(
+                  "진행중",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.periwinkle500,
+                  ),
+                ),
+              ),
+              FitChip(
+                backgroundColor: context.fitColors.yellowAlpha12,
+                child: Text(
+                  "검토중",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.yellowBase,
+                  ),
+                ),
+              ),
+              FitChip(
+                backgroundColor: context.fitColors.green50,
+                child: Text(
+                  "완료",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.green500,
+                  ),
+                ),
+              ),
+              FitChip(
+                backgroundColor: context.fitColors.grey200,
+                child: Text(
+                  "보류",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.grey700,
+                  ),
+                ),
+              ),
+            ],
           ),
-          FitChip(
-            type: FitChipType.basic,
-            label: "완료",
-            backgroundColor: context.fitColors.green50,
-            labelColor: context.fitColors.green500,
-            onTap: () => debugPrint("완료 탭"),
+          const SizedBox(height: 20),
+          // 우선순위
+          Text(
+            "우선순위 레벨",
+            style: context.subtitle6().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
-          FitChip(
-            type: FitChipType.basic,
-            label: "대기",
-            backgroundColor: context.fitColors.grey200,
-            labelColor: context.fitColors.grey700,
-            onTap: () => debugPrint("대기 탭"),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              FitChip(
+                backgroundColor: context.fitColors.red50,
+                child: Text(
+                  "긴급",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.red500,
+                  ),
+                ),
+              ),
+              FitChip(
+                backgroundColor: context.fitColors.brick50,
+                child: Text(
+                  "높음",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.brick500,
+                  ),
+                ),
+              ),
+              FitChip(
+                backgroundColor: context.fitColors.periwinkle50,
+                child: Text(
+                  "보통",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.periwinkle500,
+                  ),
+                ),
+              ),
+              FitChip(
+                backgroundColor: context.fitColors.grey200,
+                child: Text(
+                  "낮음",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.grey600,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -271,25 +347,51 @@ class _ChipPageState extends State<ChipPage> {
             spacing: 8,
             runSpacing: 8,
             children: sizes.map((size) {
+              final isSelected = _selectedSize == size;
               return FitChip(
-                type: FitChipType.choice,
-                label: size,
-                isSelected: _selectedSize == size,
+                isSelected: isSelected,
                 onSelected: (selected) {
                   setState(() => _selectedSize = size);
                 },
                 selectedBackgroundColor: context.fitColors.main,
-                selectedLabelColor: context.fitColors.staticBlack,
+                child: Text(
+                  size,
+                  style: context.caption1().copyWith(
+                    color: isSelected ? context.fitColors.staticBlack : context.fitColors.textPrimary,
+                  ),
+                ),
               );
             }).toList(),
           ),
-          const SizedBox(height: 8),
-          Text(
-            "선택됨: $_selectedSize",
-            style: context.caption1().copyWith(
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: context.fitColors.main.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: context.fitColors.main.withOpacity(0.3),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  CupertinoIcons.checkmark_circle_fill,
+                  size: 16,
                   color: context.fitColors.main,
-                  fontWeight: FontWeight.bold,
                 ),
+                const SizedBox(width: 6),
+                Text(
+                  "선택: $_selectedSize",
+                  style: context.caption1().copyWith(
+                        color: context.fitColors.main,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -298,17 +400,21 @@ class _ChipPageState extends State<ChipPage> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: sizes.map((size) {
+            final isSelected = _selectedSize == size;
             return Padding(
               padding: const EdgeInsets.only(right: 8),
               child: FitChip(
-                type: FitChipType.choice,
-                label: size,
-                isSelected: _selectedSize == size,
+                isSelected: isSelected,
                 onSelected: (selected) {
                   setState(() => _selectedSize = size);
                 },
                 selectedBackgroundColor: context.fitColors.main,
-                selectedLabelColor: context.fitColors.staticBlack,
+                child: Text(
+                  size,
+                  style: context.caption1().copyWith(
+                    color: isSelected ? context.fitColors.staticBlack : context.fitColors.textPrimary,
+                  ),
+                ),
               ),
             );
           }).toList(),
@@ -364,10 +470,9 @@ class _ChipPageState extends State<ChipPage> {
             spacing: 8,
             runSpacing: 8,
             children: filters.map((filter) {
+              final isSelected = _selectedFilters.contains(filter);
               return FitChip(
-                type: FitChipType.filter,
-                label: filter,
-                isSelected: _selectedFilters.contains(filter),
+                isSelected: isSelected,
                 onSelected: (selected) {
                   setState(() {
                     if (selected) {
@@ -378,18 +483,75 @@ class _ChipPageState extends State<ChipPage> {
                   });
                 },
                 selectedBackgroundColor: context.fitColors.periwinkle50,
-                selectedLabelColor: context.fitColors.periwinkle500,
                 selectedBorderColor: context.fitColors.periwinkle500,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (isSelected) ...[
+                      Icon(
+                        CupertinoIcons.checkmark,
+                        size: 16,
+                        color: context.fitColors.periwinkle500,
+                      ),
+                      const SizedBox(width: 6),
+                    ],
+                    Text(
+                      filter,
+                      style: context.caption1().copyWith(
+                        color: isSelected
+                            ? context.fitColors.periwinkle500
+                            : context.fitColors.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
               );
             }).toList(),
           ),
-          const SizedBox(height: 8),
-          Text(
-            "선택됨: ${_selectedFilters.join(', ')}",
-            style: context.caption1().copyWith(
-                  color: context.fitColors.periwinkle500,
-                  fontWeight: FontWeight.bold,
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.fitColors.periwinkle50,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: context.fitColors.periwinkle500.withOpacity(0.3),
+                width: 1,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      CupertinoIcons.slider_horizontal_3,
+                      size: 16,
+                      color: context.fitColors.periwinkle500,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      "선택된 필터 (${_selectedFilters.length}개)",
+                      style: context.caption1().copyWith(
+                            color: context.fitColors.periwinkle500,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
                 ),
+                if (_selectedFilters.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    _selectedFilters.join(', '),
+                    style: context.caption2().copyWith(
+                          color: context.fitColors.periwinkle500.withOpacity(0.8),
+                        ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ],
+            ),
           ),
         ],
       ),
@@ -398,12 +560,11 @@ class _ChipPageState extends State<ChipPage> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: filters.map((filter) {
+            final isSelected = _selectedFilters.contains(filter);
             return Padding(
               padding: const EdgeInsets.only(right: 8),
               child: FitChip(
-                type: FitChipType.filter,
-                label: filter,
-                isSelected: _selectedFilters.contains(filter),
+                isSelected: isSelected,
                 onSelected: (selected) {
                   setState(() {
                     if (selected) {
@@ -414,8 +575,28 @@ class _ChipPageState extends State<ChipPage> {
                   });
                 },
                 selectedBackgroundColor: context.fitColors.periwinkle50,
-                selectedLabelColor: context.fitColors.periwinkle500,
                 selectedBorderColor: context.fitColors.periwinkle500,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (isSelected) ...[
+                      Icon(
+                        CupertinoIcons.checkmark,
+                        size: 16,
+                        color: context.fitColors.periwinkle500,
+                      ),
+                      const SizedBox(width: 6),
+                    ],
+                    Text(
+                      filter,
+                      style: context.caption1().copyWith(
+                        color: isSelected
+                            ? context.fitColors.periwinkle500
+                            : context.fitColors.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }).toList(),
@@ -427,51 +608,139 @@ class _ChipPageState extends State<ChipPage> {
 
   /// Input Chip 섹션
   Widget _buildInputSection(BuildContext context) {
+    final predefinedTags = ['디자인', 'Flutter', 'iOS', 'Android', 'Backend', 'Frontend', 'UX/UI'];
+
     return _buildSection(
       context,
       sectionKey: 'input',
       title: "Input Chip",
-      icon: Icons.cancel_outlined,
-      description: "입력 칩 (삭제 버튼 포함)",
+      icon: Icons.label,
+      description: "삭제 가능한 태그 칩",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              Text(
+                "내 관심 태그",
+                style: context.subtitle6().copyWith(
+                      color: context.fitColors.textPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Spacer(),
+              Text(
+                "${_tags.length}개",
+                style: context.caption1().copyWith(
+                      color: context.fitColors.textTertiary,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.fitColors.backgroundAlternative,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: context.fitColors.dividerPrimary,
+                width: 1,
+              ),
+            ),
+            child: _tags.isEmpty
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        "아래에서 태그를 추가해보세요",
+                        style: context.caption1().copyWith(
+                              color: context.fitColors.textTertiary,
+                            ),
+                      ),
+                    ),
+                  )
+                : Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: _tags.map((tag) {
+                      return FitChip(
+                        backgroundColor: context.fitColors.backgroundElevated,
+                        borderColor: context.fitColors.dividerPrimary,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              tag,
+                              style: context.caption1().copyWith(
+                                color: context.fitColors.textPrimary,
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() => _tags.remove(tag));
+                              },
+                              child: Icon(
+                                CupertinoIcons.xmark_circle_fill,
+                                size: 16,
+                                color: context.fitColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+          ),
+          const SizedBox(height: 16),
           Text(
-            "태그 관리",
-            style: context.subtitle6().copyWith(
-                  color: context.fitColors.textPrimary,
-                  fontWeight: FontWeight.bold,
+            "추천 태그",
+            style: context.caption1().copyWith(
+                  color: context.fitColors.textSecondary,
+                  fontWeight: FontWeight.w600,
                 ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _tags.map((tag) {
-              return FitChip(
-                type: FitChipType.input,
-                label: tag,
-                backgroundColor: context.fitColors.backgroundElevated,
-                labelColor: context.fitColors.textPrimary,
-                borderColor: context.fitColors.dividerPrimary,
-                onDeleted: () {
-                  setState(() => _tags.remove(tag));
+            spacing: 6,
+            runSpacing: 6,
+            children: predefinedTags.where((tag) => !_tags.contains(tag)).map((tag) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() => _tags.add(tag));
                 },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: context.fitColors.fillBase,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: context.fitColors.dividerPrimary,
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        CupertinoIcons.add_circled,
+                        size: 14,
+                        color: context.fitColors.textSecondary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        tag,
+                        style: context.caption2().copyWith(
+                              color: context.fitColors.textSecondary,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
               );
             }).toList(),
-          ),
-          const SizedBox(height: 12),
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() => _tags.add('새 태그 ${_tags.length + 1}'));
-            },
-            icon: const Icon(CupertinoIcons.add, size: 16),
-            label: const Text("태그 추가"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: context.fitColors.main,
-              foregroundColor: context.fitColors.staticBlack,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            ),
           ),
         ],
       ),
@@ -491,52 +760,88 @@ class _ChipPageState extends State<ChipPage> {
         runSpacing: 8,
         children: [
           FitChip(
-            type: FitChipType.action,
-            label: "공유하기",
-            leadingIcon: Icon(
-              CupertinoIcons.share,
-              size: 16,
-              color: context.fitColors.periwinkle500,
-            ),
             backgroundColor: context.fitColors.periwinkle50,
-            labelColor: context.fitColors.periwinkle500,
             onTap: () => debugPrint("공유하기"),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  CupertinoIcons.share,
+                  size: 16,
+                  color: context.fitColors.periwinkle500,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "공유하기",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.periwinkle500,
+                  ),
+                ),
+              ],
+            ),
           ),
           FitChip(
-            type: FitChipType.action,
-            label: "즐겨찾기",
-            leadingIcon: Icon(
-              CupertinoIcons.star_fill,
-              size: 16,
-              color: context.fitColors.yellowBase,
-            ),
             backgroundColor: context.fitColors.yellowAlpha12,
-            labelColor: context.fitColors.yellowBase,
             onTap: () => debugPrint("즐겨찾기"),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  CupertinoIcons.star_fill,
+                  size: 16,
+                  color: context.fitColors.yellowBase,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "즐겨찾기",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.yellowBase,
+                  ),
+                ),
+              ],
+            ),
           ),
           FitChip(
-            type: FitChipType.action,
-            label: "다운로드",
-            leadingIcon: Icon(
-              CupertinoIcons.arrow_down_circle_fill,
-              size: 16,
-              color: context.fitColors.green500,
-            ),
             backgroundColor: context.fitColors.green50,
-            labelColor: context.fitColors.green500,
             onTap: () => debugPrint("다운로드"),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  CupertinoIcons.arrow_down_circle_fill,
+                  size: 16,
+                  color: context.fitColors.green500,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "다운로드",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.green500,
+                  ),
+                ),
+              ],
+            ),
           ),
           FitChip(
-            type: FitChipType.action,
-            label: "삭제",
-            leadingIcon: Icon(
-              CupertinoIcons.trash_fill,
-              size: 16,
-              color: context.fitColors.red500,
-            ),
             backgroundColor: context.fitColors.red50,
-            labelColor: context.fitColors.red500,
             onTap: () => debugPrint("삭제"),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  CupertinoIcons.trash_fill,
+                  size: 16,
+                  color: context.fitColors.red500,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "삭제",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.red500,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -556,58 +861,93 @@ class _ChipPageState extends State<ChipPage> {
         runSpacing: 8,
         children: [
           FitChip(
-            type: FitChipType.basic,
-            label: "김철수",
-            avatar: CircleAvatar(
-              radius: 12,
-              backgroundColor: context.fitColors.periwinkle500,
-              child: Text(
-                "김",
-                style: context.caption1().copyWith(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-              ),
-            ),
             backgroundColor: context.fitColors.periwinkle50,
-            labelColor: context.fitColors.periwinkle500,
             onTap: () => debugPrint("김철수"),
-          ),
-          FitChip(
-            type: FitChipType.basic,
-            label: "이영희",
-            avatar: CircleAvatar(
-              radius: 12,
-              backgroundColor: context.fitColors.periwinkle500,
-              child: Text(
-                "이",
-                style: context.caption1().copyWith(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 12,
+                  backgroundColor: context.fitColors.periwinkle500,
+                  child: Text(
+                    "김",
+                    style: context.caption1().copyWith(
                       color: Colors.white,
                       fontSize: 10,
                     ),
-              ),
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "김철수",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.periwinkle500,
+                  ),
+                ),
+              ],
             ),
+          ),
+          FitChip(
             backgroundColor: context.fitColors.periwinkle50,
-            labelColor: context.fitColors.periwinkle500,
             onTap: () => debugPrint("이영희"),
-          ),
-          FitChip(
-            type: FitChipType.input,
-            label: "박민수",
-            avatar: CircleAvatar(
-              radius: 12,
-              backgroundColor: context.fitColors.green500,
-              child: Text(
-                "박",
-                style: context.caption1().copyWith(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 12,
+                  backgroundColor: context.fitColors.periwinkle500,
+                  child: Text(
+                    "이",
+                    style: context.caption1().copyWith(
                       color: Colors.white,
                       fontSize: 10,
                     ),
-              ),
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "이영희",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.periwinkle500,
+                  ),
+                ),
+              ],
             ),
+          ),
+          FitChip(
             backgroundColor: context.fitColors.green50,
-            labelColor: context.fitColors.green500,
-            onDeleted: () => debugPrint("박민수 삭제"),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 12,
+                  backgroundColor: context.fitColors.green500,
+                  child: Text(
+                    "박",
+                    style: context.caption1().copyWith(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "박민수",
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.green500,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                GestureDetector(
+                  onTap: () => debugPrint("박민수 삭제"),
+                  child: Icon(
+                    CupertinoIcons.xmark_circle_fill,
+                    size: 16,
+                    color: context.fitColors.green500,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -638,15 +978,19 @@ class _ChipPageState extends State<ChipPage> {
             runSpacing: 8,
             children: [
               FitChip(
-                type: FitChipType.basic,
-                label: "비활성화",
                 isEnabled: false,
+                child: Text(
+                  "비활성화",
+                  style: context.caption1(),
+                ),
               ),
               FitChip(
-                type: FitChipType.choice,
-                label: "선택됨",
                 isSelected: true,
                 isEnabled: false,
+                child: Text(
+                  "선택됨",
+                  style: context.caption1(),
+                ),
               ),
             ],
           ),
@@ -664,31 +1008,39 @@ class _ChipPageState extends State<ChipPage> {
             runSpacing: 8,
             children: [
               FitChip(
-                type: FitChipType.basic,
-                label: "Elevation 0",
                 elevation: 0,
                 onTap: () {},
+                child: Text(
+                  "Elevation 0",
+                  style: context.caption1(),
+                ),
               ),
               FitChip(
-                type: FitChipType.basic,
-                label: "Elevation 2",
                 elevation: 2,
                 backgroundColor: Colors.white,
                 onTap: () {},
+                child: Text(
+                  "Elevation 2",
+                  style: context.caption1(),
+                ),
               ),
               FitChip(
-                type: FitChipType.basic,
-                label: "Elevation 4",
                 elevation: 4,
                 backgroundColor: Colors.white,
                 onTap: () {},
+                child: Text(
+                  "Elevation 4",
+                  style: context.caption1(),
+                ),
               ),
               FitChip(
-                type: FitChipType.basic,
-                label: "Elevation 8",
                 elevation: 8,
                 backgroundColor: Colors.white,
                 onTap: () {},
+                child: Text(
+                  "Elevation 8",
+                  style: context.caption1(),
+                ),
               ),
             ],
           ),

@@ -1,28 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'fit_chip_type.dart';
-
-/// iOS 쿠퍼티노 스타일의 Chip 위젯
+/// iOS 쿠퍼티노 스타일의 Chip 컨테이너 위젯
+///
+/// FitChip은 칩 형태의 컨테이너만 제공합니다.
+/// 내부 컨텐츠는 child로 자유롭게 커스터마이징할 수 있습니다.
 ///
 /// 기능:
-/// - 다양한 타입 (basic, choice, filter, input, action)
-/// - iOS 네이티브 디자인 스타일
-/// - 부드러운 애니메이션
-/// - 아이콘 지원 (leading, trailing)
-/// - 삭제 버튼 지원
-/// - 아바타 지원
+/// - 칩 모양의 컨테이너 (배경색, 테두리, 패딩, 그림자)
+/// - 탭 제스처 및 애니메이션
+/// - 선택 상태 관리
+/// - 내부 컨텐츠는 child로 완전히 커스터마이징
 class FitChip extends StatefulWidget {
-  /// 칩 타입
-  final FitChipType type;
+  /// 칩 내부 컨텐츠
+  final Widget child;
 
-  /// 레이블 텍스트
-  final String label;
-
-  /// 레이블 스타일
-  final TextStyle? labelStyle;
-
-  /// 선택 상태 (choice, filter 타입에서 사용)
+  /// 선택 상태
   final bool isSelected;
 
   /// 선택 상태 변경 콜백
@@ -31,26 +23,11 @@ class FitChip extends StatefulWidget {
   /// 탭 콜백
   final VoidCallback? onTap;
 
-  /// 삭제 버튼 콜백 (input 타입에서 사용)
-  final VoidCallback? onDeleted;
-
-  /// Leading 아이콘
-  final Widget? leadingIcon;
-
-  /// 아바타 (이미지 또는 텍스트)
-  final Widget? avatar;
-
   /// 배경색
   final Color? backgroundColor;
 
   /// 선택된 배경색
   final Color? selectedBackgroundColor;
-
-  /// 레이블 색상
-  final Color? labelColor;
-
-  /// 선택된 레이블 색상
-  final Color? selectedLabelColor;
 
   /// 테두리 색상
   final Color? borderColor;
@@ -58,11 +35,17 @@ class FitChip extends StatefulWidget {
   /// 선택된 테두리 색상
   final Color? selectedBorderColor;
 
-  /// 삭제 아이콘 색상
-  final Color? deleteIconColor;
+  /// 테두리 두께
+  final double borderWidth;
+
+  /// 선택된 테두리 두께
+  final double? selectedBorderWidth;
 
   /// 패딩
-  final EdgeInsets? padding;
+  final EdgeInsets padding;
+
+  /// 모서리 반경
+  final double borderRadius;
 
   /// 활성화 상태
   final bool isEnabled;
@@ -73,28 +56,27 @@ class FitChip extends StatefulWidget {
   /// 고도 (그림자)
   final double elevation;
 
+  /// 탭 시 스케일 배율
+  final double pressedScale;
+
   const FitChip({
     super.key,
-    this.type = FitChipType.basic,
-    required this.label,
-    this.labelStyle,
+    required this.child,
     this.isSelected = false,
     this.onSelected,
     this.onTap,
-    this.onDeleted,
-    this.leadingIcon,
-    this.avatar,
     this.backgroundColor,
     this.selectedBackgroundColor,
-    this.labelColor,
-    this.selectedLabelColor,
     this.borderColor,
     this.selectedBorderColor,
-    this.deleteIconColor,
-    this.padding,
+    this.borderWidth = 1.0,
+    this.selectedBorderWidth,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    this.borderRadius = 16.0,
     this.isEnabled = true,
     this.animationDuration = const Duration(milliseconds: 200),
     this.elevation = 0,
+    this.pressedScale = 0.95,
   });
 
   @override
@@ -118,27 +100,11 @@ class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
-      end: 0.95,
+      end: widget.pressedScale,
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.easeInOut,
     ));
-
-    if (widget.isSelected) {
-      _controller.value = 1.0;
-    }
-  }
-
-  @override
-  void didUpdateWidget(FitChip oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.isSelected != widget.isSelected) {
-      if (widget.isSelected) {
-        _controller.forward();
-      } else {
-        _controller.reverse();
-      }
-    }
   }
 
   @override
@@ -150,24 +116,29 @@ class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
   void _onTapDown(TapDownDetails details) {
     if (_isEnabled && mounted) {
       setState(() => _isPressed = true);
+      _controller.forward();
     }
   }
 
   void _onTapUp(TapUpDetails details) {
     if (mounted) {
+      _controller.reverse();
       setState(() => _isPressed = false);
       _handleTap();
     }
   }
 
   void _onTapCancel() {
-    if (mounted) setState(() => _isPressed = false);
+    if (mounted) {
+      _controller.reverse();
+      setState(() => _isPressed = false);
+    }
   }
 
   void _handleTap() {
     if (!_isEnabled) return;
 
-    if (widget.type == FitChipType.choice || widget.type == FitChipType.filter) {
+    if (widget.onSelected != null) {
       widget.onSelected?.call(!widget.isSelected);
     } else {
       widget.onTap?.call();
@@ -183,34 +154,33 @@ class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
         ? (widget.selectedBackgroundColor ?? theme.primaryColor.withOpacity(0.1))
         : (widget.backgroundColor ?? theme.chipTheme.backgroundColor ?? Colors.grey.shade200);
 
-    final Color labelColor = widget.isSelected
-        ? (widget.selectedLabelColor ?? theme.primaryColor)
-        : (widget.labelColor ?? theme.textTheme.bodyMedium?.color ?? Colors.black87);
-
     final Color borderColor = widget.isSelected
         ? (widget.selectedBorderColor ?? theme.primaryColor)
         : (widget.borderColor ?? Colors.transparent);
+
+    final double borderWidth = widget.isSelected
+        ? (widget.selectedBorderWidth ?? widget.borderWidth)
+        : widget.borderWidth;
 
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       onTapCancel: _onTapCancel,
       child: AnimatedBuilder(
-        animation: _controller,
+        animation: _scaleAnimation,
         builder: (context, child) {
           return Transform.scale(
             scale: _isPressed ? _scaleAnimation.value : 1.0,
             child: AnimatedContainer(
               duration: widget.animationDuration,
               curve: Curves.easeInOut,
-              padding: widget.padding ??
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: widget.padding,
               decoration: BoxDecoration(
                 color: backgroundColor.withOpacity(_isEnabled ? 1.0 : 0.5),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
                 border: Border.all(
                   color: borderColor,
-                  width: widget.isSelected ? 1.5 : 1,
+                  width: borderWidth,
                 ),
                 boxShadow: widget.elevation > 0
                     ? [
@@ -222,51 +192,7 @@ class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
                       ]
                     : null,
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Avatar
-                  if (widget.avatar != null) ...[
-                    widget.avatar!,
-                    const SizedBox(width: 6),
-                  ],
-                  // Leading icon
-                  if (widget.leadingIcon != null) ...[
-                    widget.leadingIcon!,
-                    const SizedBox(width: 6),
-                  ],
-                  // Filter 타입의 체크마크
-                  if (widget.type == FitChipType.filter && widget.isSelected) ...[
-                    Icon(
-                      CupertinoIcons.check_mark,
-                      size: 16,
-                      color: labelColor,
-                    ),
-                    const SizedBox(width: 6),
-                  ],
-                  // Label
-                  Text(
-                    widget.label,
-                    style: widget.labelStyle ??
-                        theme.textTheme.bodyMedium?.copyWith(
-                          color: labelColor,
-                          fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.normal,
-                        ),
-                  ),
-                  // Delete button (input 타입)
-                  if (widget.type == FitChipType.input && widget.onDeleted != null) ...[
-                    const SizedBox(width: 6),
-                    GestureDetector(
-                      onTap: widget.onDeleted,
-                      child: Icon(
-                        CupertinoIcons.xmark_circle_fill,
-                        size: 16,
-                        color: widget.deleteIconColor ?? Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
+              child: widget.child,
             ),
           );
         },
