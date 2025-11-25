@@ -1,10 +1,13 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:catalog/presentation/component/component_page.dart';
 import 'package:catalog/presentation/core/core_page.dart';
 import 'package:catalog/presentation/foundation/foundation_page.dart';
 import 'package:catalog/presentation/module/module_page.dart';
 import 'package:chipfit/foundation/colors.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
 import 'package:chipfit/module/fit_skeletons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:side_effect_bloc/side_effect_bloc.dart';
@@ -116,11 +119,51 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
                   right: 0,
                   child: _buildBottomNav(state.currentTab.index),
                 ),
+                // 테마 스위치 버튼
+                Positioned(
+                  top: 50,
+                  right: 16,
+                  child: _buildThemeSwitcher(context),
+                ),
               ],
             ),
           );
         },
       ),
+    );
+  }
+
+  /// 테마 스위처 버튼
+  Widget _buildThemeSwitcher(BuildContext context) {
+    return ThemeSwitcher(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return GestureDetector(
+          onTap: () {
+            final theme = isDark ? fitLightTheme(context) : fitDarkTheme(context);
+            ThemeSwitcher.of(context).changeTheme(theme: theme);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.fitColors.fillStrong,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Icon(
+              isDark ? CupertinoIcons.sun_max_fill : CupertinoIcons.moon_fill,
+              color: context.fitColors.textPrimary,
+              size: 24,
+            ),
+          ),
+        );
+      },
     );
   }
 

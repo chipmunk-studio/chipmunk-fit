@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,7 +28,10 @@ class _TextStylePageState extends State<TextStylePage> {
       appBar: FitCustomAppBar.leadingAppBar(
         context,
         title: "Typography",
-        actions: [],
+        actions: [
+          _buildThemeSwitcher(context),
+          const SizedBox(width: 16),
+        ],
       ),
       body: Column(
         children: [
@@ -359,4 +365,25 @@ class _StyleItem {
   final TextStyle Function(BuildContext) getStyle;
 
   const _StyleItem(this.name, this.getStyle);
+}
+
+extension on _TextStylePageState {
+  Widget _buildThemeSwitcher(BuildContext context) {
+    return ThemeSwitcher(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return GestureDetector(
+          onTap: () {
+            final theme = isDark ? fitLightTheme(context) : fitDarkTheme(context);
+            ThemeSwitcher.of(context).changeTheme(theme: theme);
+          },
+          child: Icon(
+            isDark ? CupertinoIcons.sun_max_fill : CupertinoIcons.moon_fill,
+            color: context.fitColors.textPrimary,
+            size: 24,
+          ),
+        );
+      },
+    );
+  }
 }

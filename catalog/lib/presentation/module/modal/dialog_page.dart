@@ -1,9 +1,12 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:chipfit/component/button/fit_button.dart';
 import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/module/fit_dialog.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DialogPage extends StatefulWidget {
@@ -34,7 +37,10 @@ class _DialogPageState extends State<DialogPage> {
       appBar: FitCustomAppBar.leadingAppBar(
         context,
         title: "FitDialog",
-        actions: [],
+        actions: [
+          _buildThemeSwitcher(context),
+          const SizedBox(width: 16),
+        ],
       ),
       body: Column(
         children: [
@@ -596,6 +602,25 @@ class _DialogPageState extends State<DialogPage> {
         duration: const Duration(milliseconds: 1000),
         behavior: SnackBarBehavior.floating,
       ),
+    );
+  }
+
+  Widget _buildThemeSwitcher(BuildContext context) {
+    return ThemeSwitcher(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return GestureDetector(
+          onTap: () {
+            final theme = isDark ? fitLightTheme(context) : fitDarkTheme(context);
+            ThemeSwitcher.of(context).changeTheme(theme: theme);
+          },
+          child: Icon(
+            isDark ? CupertinoIcons.sun_max_fill : CupertinoIcons.moon_fill,
+            color: context.fitColors.textPrimary,
+            size: 24,
+          ),
+        );
+      },
     );
   }
 }

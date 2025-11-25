@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:catalog/router.dart';
 import 'package:chipfit/foundation/theme.dart';
 import 'package:flutter/material.dart';
@@ -49,32 +50,38 @@ class CatalogApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 상태바 스타일 설정
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       splitScreenMode: false,
       minTextAdapt: true,
       rebuildFactor: RebuildFactors.change,
       builder: (context, child) {
-        return MaterialApp.router(
-          title: 'ChipFit Design System',
-          routerConfig: catalogRouter,
-          debugShowCheckedModeBanner: false,
-          theme: fitLightTheme(context),
-          darkTheme: fitDarkTheme(context),
-          themeMode: ThemeMode.light,
-          // 기본 라이트 모드
-          builder: (context, child) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: child ?? const SizedBox.shrink(),
+        final lightTheme = fitLightTheme(context);
+        final darkTheme = fitDarkTheme(context);
+
+        return ThemeProvider(
+          initTheme: lightTheme,
+          builder: (context, myTheme) {
+            // 상태바 스타일 설정 (테마에 따라 동적 변경)
+            final isDark = myTheme.brightness == Brightness.dark;
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+              ),
+            );
+
+            return MaterialApp.router(
+              title: 'ChipFit Design System',
+              routerConfig: catalogRouter,
+              debugShowCheckedModeBanner: false,
+              theme: myTheme,
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: child ?? const SizedBox.shrink(),
+                );
+              },
             );
           },
         );

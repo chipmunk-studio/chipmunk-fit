@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'presentation/component/animation_text/animation_text_page.dart';
 import 'presentation/component/button/button_page.dart';
 import 'presentation/component/checkbox/check_box_page.dart';
+import 'presentation/component/chip/chip_page.dart';
 import 'presentation/component/image/fit_image_page.dart';
+import 'presentation/component/radio/radio_button_page.dart';
 import 'presentation/core/component/cache_helper_page.dart';
 import 'presentation/core/component/delta_viewer_page.dart';
 import 'presentation/foundation/animation/animation_page.dart';
@@ -57,6 +59,18 @@ final GoRouter catalogRouter = GoRouter(
           path: 'check_box',
           builder: (BuildContext context, GoRouterState state) {
             return const CheckBoxPage();
+          },
+        ),
+        GoRoute(
+          path: 'radio_button',
+          builder: (BuildContext context, GoRouterState state) {
+            return const RadioButtonPage();
+          },
+        ),
+        GoRoute(
+          path: 'chip',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ChipPage();
           },
         ),
         GoRoute(

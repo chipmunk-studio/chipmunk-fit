@@ -1,6 +1,9 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +27,8 @@ class _ColorPageState extends State<ColorPage> {
         context,
         title: "Color System",
         actions: [
+          _buildThemeSwitcher(context),
+          const SizedBox(width: 8),
           // 다크모드 토글
           Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -355,6 +360,25 @@ class _ColorPageState extends State<ColorPage> {
       _ColorItem("Brick 600", colors.brick600),
       _ColorItem("Brick 700", colors.brick700),
     ];
+  }
+
+  Widget _buildThemeSwitcher(BuildContext context) {
+    return ThemeSwitcher(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return GestureDetector(
+          onTap: () {
+            final theme = isDark ? fitLightTheme(context) : fitDarkTheme(context);
+            ThemeSwitcher.of(context).changeTheme(theme: theme);
+          },
+          child: Icon(
+            isDark ? CupertinoIcons.sun_max_fill : CupertinoIcons.moon_fill,
+            color: context.fitColors.textPrimary,
+            size: 24,
+          ),
+        );
+      },
+    );
   }
 }
 

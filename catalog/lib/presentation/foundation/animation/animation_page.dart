@@ -1,7 +1,10 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:chipfit/component/animation/fit_animation.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chipfit/foundation/theme.dart';
 import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,7 +33,10 @@ class _AnimationPageState extends State<AnimationPage> {
       appBar: FitCustomAppBar.leadingAppBar(
         context,
         title: "Animation",
-        actions: [],
+        actions: [
+          _buildThemeSwitcher(context),
+          const SizedBox(width: 16),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
@@ -385,6 +391,25 @@ class _AnimationPageState extends State<AnimationPage> {
         color: Colors.white,
         size: 32,
       ),
+    );
+  }
+
+  Widget _buildThemeSwitcher(BuildContext context) {
+    return ThemeSwitcher(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return GestureDetector(
+          onTap: () {
+            final theme = isDark ? fitLightTheme(context) : fitDarkTheme(context);
+            ThemeSwitcher.of(context).changeTheme(theme: theme);
+          },
+          child: Icon(
+            isDark ? CupertinoIcons.sun_max_fill : CupertinoIcons.moon_fill,
+            color: context.fitColors.textPrimary,
+            size: 24,
+          ),
+        );
+      },
     );
   }
 }

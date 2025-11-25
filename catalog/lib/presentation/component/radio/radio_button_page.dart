@@ -1,5 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:chipfit/component/fit_check_box.dart';
+import 'package:chipfit/component/fit_radio_button.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
 import 'package:chipfit/foundation/theme.dart';
@@ -8,33 +8,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// FitCheckBox 테스트 페이지
-class CheckBoxPage extends StatefulWidget {
-  const CheckBoxPage({super.key});
+/// FitRadioButton 테스트 페이지
+class RadioButtonPage extends StatefulWidget {
+  const RadioButtonPage({super.key});
 
   @override
-  State<CheckBoxPage> createState() => _CheckBoxPageState();
+  State<RadioButtonPage> createState() => _RadioButtonPageState();
 }
 
-class _CheckBoxPageState extends State<CheckBoxPage> {
+class _RadioButtonPageState extends State<RadioButtonPage> {
   // 기본 설정
-  FitCheckBoxStyle _selectedStyle = FitCheckBoxStyle.material;
-  double _size = 24.0;
+  FitRadioButtonStyle _selectedStyle = FitRadioButtonStyle.cupertino;
+  double _size = 22.0;
   int _animationSpeed = 200;
 
   // 테스트 상태
-  bool _basicChecked = false;
-  bool _labelChecked = true;
-  bool _errorChecked = false;
-  bool _disabledChecked = true;
+  String? _basicSelected = 'option1';
+  String? _labelSelected = 'medium';
+  String? _errorSelected;
+  String? _disabledSelected = 'disabled1';
 
-  // 다중 선택 예제
-  final Map<String, bool> _multipleChoices = {
-    'option1': true,
-    'option2': false,
-    'option3': true,
-    'option4': false,
-  };
+  // 선호도 설문 예제
+  String? _preferenceSelected = 'coffee';
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +37,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
       padding: EdgeInsets.zero,
       appBar: FitCustomAppBar.leadingAppBar(
         context,
-        title: "FitCheckBox",
+        title: "FitRadioButton",
         actions: [
           _buildThemeSwitcher(context),
           const SizedBox(width: 16),
@@ -66,7 +61,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
                   const SizedBox(height: 16),
                   _buildStatesSection(context),
                   const SizedBox(height: 16),
-                  _buildMultipleChoiceSection(context),
+                  _buildSurveySection(context),
                 ],
               ),
             ),
@@ -103,7 +98,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
           // 스타일 선택
           Wrap(
             spacing: 8,
-            children: FitCheckBoxStyle.values.map((style) {
+            children: FitRadioButtonStyle.values.map((style) {
               final isSelected = _selectedStyle == style;
               return ChoiceChip(
                 label: Text(
@@ -165,8 +160,8 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
                     Slider(
                       value: _size,
                       min: 16,
-                      max: 48,
-                      divisions: 16,
+                      max: 40,
+                      divisions: 12,
                       activeColor: context.fitColors.main,
                       onChanged: (value) => setState(() => _size = value),
                     ),
@@ -228,28 +223,44 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
     return _buildSection(
       context,
       title: "Basic Usage",
-      icon: Icons.check_box_outlined,
-      description: "기본적인 체크박스 사용 예제",
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      icon: Icons.radio_button_checked,
+      description: "기본적인 라디오 버튼 사용 예제",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            children: [
-              FitCheckBox(
-                value: _basicChecked,
-                onChanged: (value) => setState(() => _basicChecked = value),
-                style: _selectedStyle,
-                size: _size,
-                animationDuration: Duration(milliseconds: _animationSpeed),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                _basicChecked ? "Checked" : "Unchecked",
-                style: context.caption1().copyWith(
-                      color: context.fitColors.textTertiary,
-                    ),
-              ),
-            ],
+          FitRadioButton<String>(
+            value: 'option1',
+            groupValue: _basicSelected,
+            onChanged: (value) => setState(() => _basicSelected = value),
+            style: _selectedStyle,
+            size: _size,
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 12),
+          FitRadioButton<String>(
+            value: 'option2',
+            groupValue: _basicSelected,
+            onChanged: (value) => setState(() => _basicSelected = value),
+            style: _selectedStyle,
+            size: _size,
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 12),
+          FitRadioButton<String>(
+            value: 'option3',
+            groupValue: _basicSelected,
+            onChanged: (value) => setState(() => _basicSelected = value),
+            style: _selectedStyle,
+            size: _size,
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            "Selected: ${_basicSelected ?? 'None'}",
+            style: context.caption1().copyWith(
+                  color: context.fitColors.main,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ],
       ),
@@ -262,24 +273,25 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
       context,
       title: "Styles",
       icon: Icons.palette_outlined,
-      description: "다양한 스타일 비교",
+      description: "다양한 스타일 비교 (iOS 쿠퍼티노, Material, Outlined)",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildStyleExample(context, FitCheckBoxStyle.material, "Material"),
-          _buildStyleExample(context, FitCheckBoxStyle.rounded, "Rounded"),
-          _buildStyleExample(context, FitCheckBoxStyle.outlined, "Outlined"),
+          _buildStyleExample(context, FitRadioButtonStyle.cupertino, "Cupertino"),
+          _buildStyleExample(context, FitRadioButtonStyle.material, "Material"),
+          _buildStyleExample(context, FitRadioButtonStyle.outlined, "Outlined"),
         ],
       ),
     );
   }
 
   /// 스타일 예제
-  Widget _buildStyleExample(BuildContext context, FitCheckBoxStyle style, String label) {
+  Widget _buildStyleExample(BuildContext context, FitRadioButtonStyle style, String label) {
     return Column(
       children: [
-        FitCheckBox(
-          value: true,
+        FitRadioButton<String>(
+          value: 'selected',
+          groupValue: 'selected',
           onChanged: (_) {},
           style: style,
           size: 28,
@@ -307,9 +319,9 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildSizeExample(context, 16, "Small"),
-          _buildSizeExample(context, 24, "Medium"),
-          _buildSizeExample(context, 32, "Large"),
-          _buildSizeExample(context, 40, "X-Large"),
+          _buildSizeExample(context, 22, "Medium"),
+          _buildSizeExample(context, 28, "Large"),
+          _buildSizeExample(context, 36, "X-Large"),
         ],
       ),
     );
@@ -319,8 +331,9 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
   Widget _buildSizeExample(BuildContext context, double size, String label) {
     return Column(
       children: [
-        FitCheckBox(
-          value: true,
+        FitRadioButton<String>(
+          value: 'selected',
+          groupValue: 'selected',
           onChanged: (_) {},
           style: _selectedStyle,
           size: size,
@@ -352,28 +365,43 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
       context,
       title: "With Label",
       icon: Icons.label_outlined,
-      description: "라벨이 있는 체크박스",
+      description: "라벨이 있는 라디오 버튼",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FitCheckBox(
-            value: _labelChecked,
-            onChanged: (value) => setState(() => _labelChecked = value),
+          FitRadioButton<String>(
+            value: 'small',
+            groupValue: _labelSelected,
+            onChanged: (value) => setState(() => _labelSelected = value),
             style: _selectedStyle,
             size: _size,
-            label: "약관에 동의합니다",
+            label: "Small Size",
             labelStyle: context.body3().copyWith(
                   color: context.fitColors.textPrimary,
                 ),
             animationDuration: Duration(milliseconds: _animationSpeed),
           ),
           const SizedBox(height: 12),
-          FitCheckBox(
-            value: !_labelChecked,
-            onChanged: (value) => setState(() => _labelChecked = !value),
+          FitRadioButton<String>(
+            value: 'medium',
+            groupValue: _labelSelected,
+            onChanged: (value) => setState(() => _labelSelected = value),
             style: _selectedStyle,
             size: _size,
-            label: "라벨이 왼쪽에 위치",
+            label: "Medium Size",
+            labelStyle: context.body3().copyWith(
+                  color: context.fitColors.textPrimary,
+                ),
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 12),
+          FitRadioButton<String>(
+            value: 'large',
+            groupValue: _labelSelected,
+            onChanged: (value) => setState(() => _labelSelected = value),
+            style: _selectedStyle,
+            size: _size,
+            label: "Large Size",
             labelOnLeft: true,
             labelStyle: context.body3().copyWith(
                   color: context.fitColors.textPrimary,
@@ -396,26 +424,70 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 에러 상태
-          FitCheckBox(
-            value: _errorChecked,
-            onChanged: (value) => setState(() => _errorChecked = value),
+          Text(
+            "에러 상태",
+            style: context.subtitle6().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 8),
+          FitRadioButton<String>(
+            value: 'error1',
+            groupValue: _errorSelected,
+            onChanged: (value) => setState(() => _errorSelected = value),
             style: _selectedStyle,
             size: _size,
             hasError: true,
-            label: "에러 상태 체크박스",
+            label: "에러 옵션 1",
             labelStyle: context.body3().copyWith(
                   color: Colors.red,
                 ),
             animationDuration: Duration(milliseconds: _animationSpeed),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
+          FitRadioButton<String>(
+            value: 'error2',
+            groupValue: _errorSelected,
+            onChanged: (value) => setState(() => _errorSelected = value),
+            style: _selectedStyle,
+            size: _size,
+            hasError: true,
+            label: "에러 옵션 2",
+            labelStyle: context.body3().copyWith(
+                  color: Colors.red,
+                ),
+            animationDuration: Duration(milliseconds: _animationSpeed),
+          ),
+          const SizedBox(height: 20),
           // 비활성화 상태
-          FitCheckBox(
-            value: _disabledChecked,
+          Text(
+            "비활성화 상태",
+            style: context.subtitle6().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 8),
+          FitRadioButton<String>(
+            value: 'disabled1',
+            groupValue: _disabledSelected,
             onChanged: null,
             style: _selectedStyle,
             size: _size,
-            label: "비활성화 상태 체크박스",
+            label: "비활성화 옵션 1 (선택됨)",
+            labelStyle: context.body3().copyWith(
+                  color: context.fitColors.textDisabled,
+                ),
+          ),
+          const SizedBox(height: 8),
+          FitRadioButton<String>(
+            value: 'disabled2',
+            groupValue: _disabledSelected,
+            onChanged: null,
+            style: _selectedStyle,
+            size: _size,
+            label: "비활성화 옵션 2",
             labelStyle: context.body3().copyWith(
                   color: context.fitColors.textDisabled,
                 ),
@@ -425,70 +497,154 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
     );
   }
 
-  /// 다중 선택 섹션
-  Widget _buildMultipleChoiceSection(BuildContext context) {
-    final allChecked = _multipleChoices.values.every((v) => v);
-    final someChecked = _multipleChoices.values.any((v) => v) && !allChecked;
-
+  /// 설문 조사 섹션
+  Widget _buildSurveySection(BuildContext context) {
     return _buildSection(
       context,
-      title: "Multiple Choice",
-      icon: Icons.checklist,
-      description: "다중 선택 예제 (전체 선택 포함)",
+      title: "Survey Example",
+      icon: Icons.poll_outlined,
+      description: "실제 사용 예제: 선호도 설문",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 전체 선택
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: context.fitColors.backgroundBase,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: context.fitColors.dividerPrimary),
-            ),
-            child: FitCheckBox(
-              value: allChecked,
-              onChanged: (value) {
-                setState(() {
-                  _multipleChoices.updateAll((key, _) => value);
-                });
-              },
-              style: _selectedStyle,
-              size: _size,
-              label: "전체 선택",
-              labelStyle: context.subtitle5().copyWith(
-                    color: context.fitColors.textPrimary,
-                    fontWeight: FontWeight.bold,
-                  ),
-              activeColor: someChecked ? context.fitColors.main.withOpacity(0.5) : null,
-              animationDuration: Duration(milliseconds: _animationSpeed),
-            ),
+          Text(
+            "당신이 선호하는 음료는?",
+            style: context.subtitle5().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 16),
+          _buildSurveyOption(
+            context,
+            value: 'coffee',
+            title: "☕ 커피",
+            description: "진한 향과 쓴맛의 매력",
           ),
           const SizedBox(height: 12),
-          // 개별 옵션
-          ..._multipleChoices.entries.map((entry) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8, left: 16),
-              child: FitCheckBox(
-                value: entry.value,
-                onChanged: (value) {
-                  setState(() {
-                    _multipleChoices[entry.key] = value;
-                  });
-                },
-                style: _selectedStyle,
-                size: _size - 4,
-                label: "옵션 ${entry.key.replaceAll('option', '')}",
-                labelStyle: context.body3().copyWith(
-                      color: context.fitColors.textSecondary,
-                    ),
-                animationDuration: Duration(milliseconds: _animationSpeed),
+          _buildSurveyOption(
+            context,
+            value: 'tea',
+            title: "🍵 차",
+            description: "은은한 향과 부드러운 맛",
+          ),
+          const SizedBox(height: 12),
+          _buildSurveyOption(
+            context,
+            value: 'juice',
+            title: "🧃 주스",
+            description: "상큼하고 달콤한 과일의 맛",
+          ),
+          const SizedBox(height: 12),
+          _buildSurveyOption(
+            context,
+            value: 'water',
+            title: "💧 물",
+            description: "깔끔하고 건강한 선택",
+          ),
+          if (_preferenceSelected != null) ...[
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: context.fitColors.main.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(color: context.fitColors.main),
               ),
-            );
-          }),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle, color: context.fitColors.main, size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    "선택됨: ${_getSurveyLabel(_preferenceSelected!)}",
+                    style: context.body3().copyWith(
+                          color: context.fitColors.main,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ],
       ),
     );
+  }
+
+  /// 설문 옵션
+  Widget _buildSurveyOption(
+    BuildContext context, {
+    required String value,
+    required String title,
+    required String description,
+  }) {
+    final isSelected = _preferenceSelected == value;
+    return GestureDetector(
+      onTap: () => setState(() => _preferenceSelected = value),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? context.fitColors.main.withOpacity(0.05)
+              : context.fitColors.backgroundBase,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(
+            color: isSelected ? context.fitColors.main : context.fitColors.dividerPrimary,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            FitRadioButton<String>(
+              value: value,
+              groupValue: _preferenceSelected,
+              onChanged: (value) => setState(() => _preferenceSelected = value),
+              style: _selectedStyle,
+              size: _size,
+              activeColor: context.fitColors.main,
+              animationDuration: Duration(milliseconds: _animationSpeed),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: context.body3().copyWith(
+                          color: context.fitColors.textPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    description,
+                    style: context.caption1().copyWith(
+                          color: context.fitColors.textTertiary,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getSurveyLabel(String value) {
+    switch (value) {
+      case 'coffee':
+        return '☕ 커피';
+      case 'tea':
+        return '🍵 차';
+      case 'juice':
+        return '🧃 주스';
+      case 'water':
+        return '💧 물';
+      default:
+        return value;
+    }
   }
 
   /// 섹션 래퍼
@@ -512,12 +668,14 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
             children: [
               Icon(icon, color: context.fitColors.main, size: 20),
               const SizedBox(width: 8),
-              Text(
-                title,
-                style: context.subtitle4().copyWith(
-                      color: context.fitColors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Expanded(
+                child: Text(
+                  title,
+                  style: context.subtitle4().copyWith(
+                        color: context.fitColors.textPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
             ],
           ),
