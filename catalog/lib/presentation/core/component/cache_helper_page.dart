@@ -1,5 +1,5 @@
-import 'package:chip_core/chip_core.dart';
 import 'package:chipfit/component/button/fit_button.dart';
+import 'package:chipfit/core/fit_cache_helper.dart';
 import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';

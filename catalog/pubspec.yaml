@@ -17,8 +17,6 @@ dependencies:
     #    git:
     #      url: https://github.com/chipmunk-studio/chipmunk-fit.git
     #      ref: main
-  chip_core:
-    path: ../chip_core
 
   bloc_concurrency:
   flutter_bloc:

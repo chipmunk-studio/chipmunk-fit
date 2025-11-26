@@ -1,5 +1,5 @@
-import 'package:chip_core/chip_core.dart';
 import 'package:chipfit/component/button/fit_button.dart';
+import 'package:chipfit/core/fit_delta_viewer.dart';
 import 'package:chipfit/foundation/buttonstyle.dart';
 import 'package:chipfit/foundation/colors.dart';
 import 'package:chipfit/foundation/textstyle.dart';
@@ -36,6 +36,7 @@ class _DeltaViewerPageState extends State<DeltaViewerPage> {
   ];
 
   String get _currentDelta => _samples[_sampleIndex]['delta'] as String;
+
   String get _currentName => _samples[_sampleIndex]['name'] as String;
 
   void _nextSample() {
