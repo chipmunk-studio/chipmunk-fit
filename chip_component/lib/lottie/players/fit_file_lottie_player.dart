@@ -42,8 +42,7 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
   LottieComposition? _composition;
 
   /// 외부 컨트롤러가 있으면 사용, 없으면 내부 컨트롤러 사용
-  AnimationController get _effectiveController =>
-      widget.controller ?? _internalController;
+  AnimationController get _effectiveController => widget.controller ?? _internalController;
 
   @override
   void initState() {
@@ -56,8 +55,7 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
     super.didUpdateWidget(oldWidget);
 
     // animate 또는 repeat 옵션이 변경되면 애니메이션 재설정
-    if (oldWidget.animate != widget.animate ||
-        oldWidget.repeat != widget.repeat) {
+    if (oldWidget.animate != widget.animate || oldWidget.repeat != widget.repeat) {
       _applyAnimationSettings();
     }
   }
@@ -132,8 +130,7 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
           onCompositionLoaded: _configureAnimation,
         );
       },
-      errorBuilder: (_, __, ___) =>
-          widget.errorWidget ?? const SizedBox.shrink(),
+      errorBuilder: (_, __, ___) => widget.errorWidget ?? const SizedBox.shrink(),
     );
   }
 }
