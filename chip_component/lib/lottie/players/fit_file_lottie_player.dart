@@ -39,6 +39,7 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
     with SingleTickerProviderStateMixin {
   late final AnimationController _internalController;
   bool _disposed = false;
+  LottieComposition? _composition;
 
   /// 외부 컨트롤러가 있으면 사용, 없으면 내부 컨트롤러 사용
   AnimationController get _effectiveController =>
@@ -48,6 +49,17 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
   void initState() {
     super.initState();
     _internalController = AnimationController(vsync: this);
+  }
+
+  @override
+  void didUpdateWidget(FitFileLottiePlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // animate 또는 repeat 옵션이 변경되면 애니메이션 재설정
+    if (oldWidget.animate != widget.animate ||
+        oldWidget.repeat != widget.repeat) {
+      _applyAnimationSettings();
+    }
   }
 
   @override
@@ -64,12 +76,21 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
   void _configureAnimation(LottieComposition? composition) {
     if (_disposed || composition == null) return;
 
+    _composition = composition;
     final duration = composition.duration;
     if (duration.inMilliseconds <= 0) return;
 
     _effectiveController.duration = duration;
+    _applyAnimationSettings();
+  }
 
-    // 자동 재생 설정
+  /// 애니메이션 설정 적용 (옵션 변경 시 재사용)
+  void _applyAnimationSettings() {
+    if (_disposed || _composition == null) return;
+
+    _effectiveController.stop();
+    _effectiveController.reset();
+
     if (widget.animate) {
       if (widget.repeat) {
         _effectiveController.repeat();
