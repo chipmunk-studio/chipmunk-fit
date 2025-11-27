@@ -7,6 +7,8 @@ import 'package:lottie/lottie.dart';
 import 'fit_lottie_renderer.dart';
 
 /// 로컬 파일 Lottie 플레이어
+/// - 캐시된 파일 또는 로컬 파일 재생
+/// - 내부 또는 외부 컨트롤러 지원
 class FitFileLottiePlayer extends StatefulWidget {
   final String filePath;
   final double? width;
@@ -38,7 +40,9 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
   late final AnimationController _internalController;
   bool _disposed = false;
 
-  AnimationController get _effectiveController => widget.controller ?? _internalController;
+  /// 외부 컨트롤러가 있으면 사용, 없으면 내부 컨트롤러 사용
+  AnimationController get _effectiveController =>
+      widget.controller ?? _internalController;
 
   @override
   void initState() {
@@ -49,6 +53,7 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
   @override
   void dispose() {
     _disposed = true;
+    // 외부 컨트롤러는 dispose하지 않음
     if (widget.controller == null) {
       _internalController.dispose();
     }
@@ -64,6 +69,7 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
 
     _effectiveController.duration = duration;
 
+    // 자동 재생 설정
     if (widget.animate) {
       if (widget.repeat) {
         _effectiveController.repeat();
@@ -85,7 +91,13 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
     return DotLottieLoader.fromFile(
       file,
       frameBuilder: (context, dotLottie) {
-        if (dotLottie == null || dotLottie.animations.isEmpty) {
+        // 로딩 중 (dotLottie이 아직 null)
+        if (dotLottie == null) {
+          return const SizedBox.shrink(); // 로딩 중에는 빈 공간
+        }
+
+        // 애니메이션이 없는 경우 (실제 에러)
+        if (dotLottie.animations.isEmpty) {
           return widget.errorWidget ?? const SizedBox.shrink();
         }
 
@@ -99,7 +111,8 @@ class _FitFileLottiePlayerState extends State<FitFileLottiePlayer>
           onCompositionLoaded: _configureAnimation,
         );
       },
-      errorBuilder: (_, __, ___) => widget.errorWidget ?? const SizedBox.shrink(),
+      errorBuilder: (_, __, ___) =>
+          widget.errorWidget ?? const SizedBox.shrink(),
     );
   }
 }

@@ -110,6 +110,13 @@ class ComponentPage extends StatelessWidget {
                 subtitle: '타이핑 애니메이션 텍스트',
                 route: '/animation_text',
               ),
+              _ComponentItem(
+                icon: Icons.animation,
+                iconColor: const Color(0xFF00BFA5),
+                title: 'Lottie',
+                subtitle: 'Lottie 애니메이션 (Network, Asset, File)',
+                route: '/lottie',
+              ),
             ],
           ),
         ]),

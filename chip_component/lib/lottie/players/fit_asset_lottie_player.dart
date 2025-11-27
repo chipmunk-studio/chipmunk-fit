@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 import 'fit_lottie_renderer.dart';
 
 /// Asset Lottie 플레이어
+/// - .lottie 파일 로드 (DotLottie 포맷)
+/// - 내부 또는 외부 컨트롤러 지원
 class FitAssetLottiePlayer extends StatefulWidget {
   final String assetPath;
   final double? width;
@@ -36,6 +38,7 @@ class _FitAssetLottiePlayerState extends State<FitAssetLottiePlayer>
   late final AnimationController _internalController;
   bool _disposed = false;
 
+  /// 외부 컨트롤러가 있으면 사용, 없으면 내부 컨트롤러 사용
   AnimationController get _effectiveController =>
       widget.controller ?? _internalController;
 
@@ -48,6 +51,7 @@ class _FitAssetLottiePlayerState extends State<FitAssetLottiePlayer>
   @override
   void dispose() {
     _disposed = true;
+    // 외부 컨트롤러는 dispose하지 않음
     if (widget.controller == null) {
       _internalController.dispose();
     }
@@ -63,6 +67,7 @@ class _FitAssetLottiePlayerState extends State<FitAssetLottiePlayer>
 
     _effectiveController.duration = duration;
 
+    // 자동 재생 설정
     if (widget.animate) {
       if (widget.repeat) {
         _effectiveController.repeat();
@@ -77,7 +82,13 @@ class _FitAssetLottiePlayerState extends State<FitAssetLottiePlayer>
     return DotLottieLoader.fromAsset(
       widget.assetPath,
       frameBuilder: (context, dotLottie) {
-        if (dotLottie == null || dotLottie.animations.isEmpty) {
+        // 로딩 중 (dotLottie이 아직 null)
+        if (dotLottie == null) {
+          return const SizedBox.shrink(); // 로딩 중에는 빈 공간
+        }
+
+        // 애니메이션이 없는 경우 (실제 에러)
+        if (dotLottie.animations.isEmpty) {
           return widget.errorWidget ?? const SizedBox.shrink();
         }
 
@@ -92,7 +103,7 @@ class _FitAssetLottiePlayerState extends State<FitAssetLottiePlayer>
         );
       },
       errorBuilder: (_, __, ___) =>
-      widget.errorWidget ?? const SizedBox.shrink(),
+          widget.errorWidget ?? const SizedBox.shrink(),
     );
   }
 }

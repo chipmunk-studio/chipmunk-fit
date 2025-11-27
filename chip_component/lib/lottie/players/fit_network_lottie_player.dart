@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:chip_component/image/fit_cached_network_image.dart';
+import 'package:chip_core/fit_cache_helper.dart';
 import 'package:flutter/material.dart';
 
 import 'fit_file_lottie_player.dart';
 
-/// 네트워크 Lottie 플레이어 (캐싱 지원)
+/// 네트워크 Lottie 플레이어 (FitCacheHelper 캐싱)
 class FitNetworkLottiePlayer extends StatelessWidget {
   final String url;
   final double? width;
@@ -35,10 +35,12 @@ class FitNetworkLottiePlayer extends StatelessWidget {
     return FutureBuilder<File?>(
       future: _downloadAndCache(url),
       builder: (context, snapshot) {
+        // 로딩 중
         if (snapshot.connectionState == ConnectionState.waiting) {
           return placeholder ?? const SizedBox.shrink();
         }
 
+        // 에러 또는 파일 없음
         if (snapshot.hasError || !snapshot.hasData || snapshot.data == null) {
           return errorWidget ?? const SizedBox.shrink();
         }
@@ -58,13 +60,8 @@ class FitNetworkLottiePlayer extends StatelessWidget {
     );
   }
 
-  /// FitCachedNetworkImage의 캐시 매니저 활용
+  /// FitCacheHelper를 사용한 다운로드 및 캐싱
   Future<File?> _downloadAndCache(String url) async {
-    final cacheManager = FitCachedNetworkImage.cacheManager;
-    final fileInfo = await cacheManager.getFileFromCache(url);
-
-    if (fileInfo != null) return fileInfo.file;
-
-    return await cacheManager.getSingleFile(url);
+    return await FitCacheHelper.downloadAndCache(url);
   }
 }
