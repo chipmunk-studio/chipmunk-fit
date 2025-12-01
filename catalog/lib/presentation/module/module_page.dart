@@ -55,6 +55,13 @@ class ModulePage extends StatelessWidget {
   Widget _buildModuleList(BuildContext context) {
     final modules = [
       _ModuleItem(
+        icon: Icons.web_outlined,
+        iconColor: const Color(0xFF9C27B0),
+        title: 'Scaffold',
+        subtitle: '스캐폴드 & 앱바',
+        route: '/scaffold',
+      ),
+      _ModuleItem(
         icon: Icons.chat_bubble_outline,
         iconColor: const Color(0xFFE91E63),
         title: 'Dialog',

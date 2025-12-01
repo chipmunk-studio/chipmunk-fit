@@ -98,7 +98,7 @@ class _NavigationPageState extends State<_NavigationPage> with WidgetsBindingObs
           return FitScaffold(
             padding: EdgeInsets.zero,
             backgroundColor: context.fitColors.backgroundBase,
-            appBar: FitEmptyAppBar.navigationBarColors(
+            appBar: FitEmptyAppBar.custom(
               statusBarColor: context.fitColors.backgroundBase,
               systemNavigationBarColor: context.fitColors.backgroundBase,
               backgroundColor: context.fitColors.backgroundBase,

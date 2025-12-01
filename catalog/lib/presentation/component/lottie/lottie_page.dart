@@ -85,8 +85,7 @@ class _LottiePageState extends State<LottiePage> with SingleTickerProviderStateM
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitLottieWidget",
         actions: [
           _buildThemeSwitcher(context),

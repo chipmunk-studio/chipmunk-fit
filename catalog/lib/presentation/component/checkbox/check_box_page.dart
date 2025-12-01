@@ -40,8 +40,7 @@ class _CheckBoxPageState extends State<CheckBoxPage> {
   Widget build(BuildContext context) {
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitCheckBox",
         actions: [
           _buildThemeSwitcher(context),

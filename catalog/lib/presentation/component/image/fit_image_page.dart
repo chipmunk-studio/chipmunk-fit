@@ -14,8 +14,7 @@ class FitImagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitImage",
         actions: [
           _buildThemeSwitcher(context),

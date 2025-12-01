@@ -35,8 +35,7 @@ class _RadioButtonPageState extends State<RadioButtonPage> {
   Widget build(BuildContext context) {
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitRadioButton",
         actions: [
           _buildThemeSwitcher(context),

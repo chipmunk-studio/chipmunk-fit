@@ -15,6 +15,7 @@ import 'presentation/foundation/color/color_page.dart';
 import 'presentation/foundation/textstyle/text_style_page.dart';
 import 'presentation/module/bottomsheet/bottom_sheet_page.dart';
 import 'presentation/module/modal/dialog_page.dart';
+import 'presentation/module/scaffold/scaffold_page.dart';
 import 'presentation/navigation/navigation_page.dart';
 
 /// The route configuration.
@@ -78,6 +79,12 @@ final GoRouter catalogRouter = GoRouter(
           path: 'lottie',
           builder: (BuildContext context, GoRouterState state) {
             return const LottiePage();
+          },
+        ),
+        GoRoute(
+          path: 'scaffold',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ScaffoldPage();
           },
         ),
         GoRoute(

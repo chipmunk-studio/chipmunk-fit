@@ -29,8 +29,7 @@ class _ButtonPageState extends State<ButtonPage> {
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitButton",
         actions: [
           _buildThemeSwitcher(context),

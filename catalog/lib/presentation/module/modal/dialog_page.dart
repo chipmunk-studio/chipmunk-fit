@@ -34,8 +34,7 @@ class _DialogPageState extends State<DialogPage> {
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitDialog",
         actions: [
           _buildThemeSwitcher(context),

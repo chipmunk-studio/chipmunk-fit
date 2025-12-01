@@ -96,8 +96,7 @@ class _CacheHelperPageState extends State<CacheHelperPage> {
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "Cache Helper",
         actions: [],
       ),

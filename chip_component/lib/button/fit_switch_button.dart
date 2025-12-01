@@ -40,7 +40,7 @@ class _FitSwitchButtonState extends State<FitSwitchButton> {
   @override
   Widget build(BuildContext context) {
     final effectiveActiveColor = widget.activeColor ?? context.fitColors.sub;
-    final effectiveInactiveColor = widget.inactiveColor ?? Colors.grey;
+    final effectiveInactiveColor = widget.inactiveColor ?? context.fitColors.grey300;
 
     return GestureDetector(
       onTap: _handleToggle,
@@ -59,9 +59,16 @@ class _FitSwitchButtonState extends State<FitSwitchButton> {
           child: Container(
             width: 24,
             height: 24,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.15),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
           ),
         ),

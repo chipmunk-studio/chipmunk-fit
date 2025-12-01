@@ -17,6 +17,8 @@ class AnimationPage extends StatefulWidget {
 }
 
 class _AnimationPageState extends State<AnimationPage> {
+  String _selectedType = "Bounce"; // Bounce, Scale
+
   // Linear Bounce 파라미터
   int _bounceDuration = 2000;
   double _bounceDistance = 10.0;
@@ -30,71 +32,67 @@ class _AnimationPageState extends State<AnimationPage> {
   Widget build(BuildContext context) {
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "Animation",
         actions: [
           _buildThemeSwitcher(context),
           const SizedBox(width: 16),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-        child: Column(
-          children: [
-            _buildBounceSection(context),
-            const SizedBox(height: 16),
-            _buildScaleSection(context),
-            const SizedBox(height: 16),
-            _buildComparisonSection(context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Linear Bounce 애니메이션 섹션
-  Widget _buildBounceSection(BuildContext context) {
-    return _buildSection(
-      context,
-      title: "Linear Bounce Animation",
-      icon: Icons.vertical_align_center,
-      description: "위아래로 움직이는 반복 애니메이션",
-      child: Column(
+      body: Column(
         children: [
-          // 컨트롤
-          _buildControlCard(
-            context,
-            children: [
-              _buildSlider(
-                context,
-                label: "Duration (ms)",
-                value: _bounceDuration.toDouble(),
-                min: 500,
-                max: 5000,
-                divisions: 45,
-                onChanged: (value) => setState(() => _bounceDuration = value.toInt()),
-                valueLabel: "${_bounceDuration}ms",
+          // 상단: 수평 레이아웃 (프리뷰 영역 3 : 컨트롤 영역 2)
+          Container(
+            height: 220,
+            decoration: BoxDecoration(
+              color: context.fitColors.backgroundElevated,
+              border: Border(
+                bottom: BorderSide(
+                  color: context.fitColors.dividerPrimary,
+                  width: 1,
+                ),
               ),
-              _buildSlider(
-                context,
-                label: "Distance (px)",
-                value: _bounceDistance,
-                min: 5,
-                max: 50,
-                divisions: 45,
-                onChanged: (value) => setState(() => _bounceDistance = value),
-                valueLabel: "${_bounceDistance.toStringAsFixed(1)}px",
-              ),
-            ],
+            ),
+            child: Row(
+              children: [
+                // 왼쪽: 미리보기 영역 (3)
+                Expanded(
+                  flex: 3,
+                  child: _buildAnimationPreview(context),
+                ),
+                // 오른쪽: 컨트롤 (2)
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                          color: context.fitColors.dividerPrimary,
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: _buildControlSection(context),
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          // 미리보기
-          Center(
-            child: FitLinearBounceAnimation(
-              duration: _bounceDuration,
-              distance: _bounceDistance,
-              child: _buildPreviewWidget(context, "Bounce"),
+          // 하단: 스크롤 영역
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+              child: Column(
+                children: [
+                  _buildInfoSection(context),
+                  const SizedBox(height: 16),
+                  _buildTypeSelector(context),
+                  const SizedBox(height: 16),
+                  _buildParameterSection(context),
+                  const SizedBox(height: 16),
+                  _buildPresetsSection(context),
+                ],
+              ),
             ),
           ),
         ],
@@ -102,186 +100,423 @@ class _AnimationPageState extends State<AnimationPage> {
     );
   }
 
-  /// Scale 애니메이션 섹션
-  Widget _buildScaleSection(BuildContext context) {
-    return _buildSection(
-      context,
-      title: "Scale Animation",
-      icon: Icons.zoom_out_map,
-      description: "크기 변화를 반복하는 애니메이션",
-      child: Column(
-        children: [
-          // 컨트롤
-          _buildControlCard(
-            context,
-            children: [
-              _buildSlider(
-                context,
-                label: "Duration (ms)",
-                value: _scaleDuration.toDouble(),
-                min: 500,
-                max: 5000,
-                divisions: 45,
-                onChanged: (value) => setState(() => _scaleDuration = value.toInt()),
-                valueLabel: "${_scaleDuration}ms",
-              ),
-              _buildSlider(
-                context,
-                label: "Scale Begin",
-                value: _scaleBegin,
-                min: 0.5,
-                max: 1.5,
-                divisions: 20,
-                onChanged: (value) => setState(() => _scaleBegin = value),
-                valueLabel: "${_scaleBegin.toStringAsFixed(2)}x",
-              ),
-              _buildSlider(
-                context,
-                label: "Scale End",
-                value: _scaleEnd,
-                min: 0.5,
-                max: 2.0,
-                divisions: 30,
-                onChanged: (value) => setState(() => _scaleEnd = value),
-                valueLabel: "${_scaleEnd.toStringAsFixed(2)}x",
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // 미리보기
-          Center(
-            child: FitScaleAnimation(
-              duration: _scaleDuration,
-              scaleBegin: _scaleBegin,
-              scaleEnd: _scaleEnd,
-              child: _buildPreviewWidget(context, "Scale"),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// 비교 섹션
-  Widget _buildComparisonSection(BuildContext context) {
-    return _buildSection(
-      context,
-      title: "Animation Comparison",
-      icon: Icons.compare_arrows,
-      description: "다양한 설정 비교",
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Text(
-                "Fast",
-                style: context.caption1().copyWith(
-                      color: context.fitColors.textTertiary,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              FitLinearBounceAnimation(
-                duration: 800,
-                distance: 8,
-                child: _buildComparisonWidget(context),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Text(
-                "Normal",
-                style: context.caption1().copyWith(
-                      color: context.fitColors.textTertiary,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              FitLinearBounceAnimation(
-                duration: 1500,
-                distance: 12,
-                child: _buildComparisonWidget(context),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Text(
-                "Slow",
-                style: context.caption1().copyWith(
-                      color: context.fitColors.textTertiary,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              FitLinearBounceAnimation(
-                duration: 3000,
-                distance: 15,
-                child: _buildComparisonWidget(context),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// 섹션 래퍼
-  Widget _buildSection(
-    BuildContext context, {
-    required String title,
-    required IconData icon,
-    required String description,
-    required Widget child,
-  }) {
+  /// 애니메이션 미리보기 영역
+  Widget _buildAnimationPreview(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Animation Preview",
+            style: context.subtitle5().copyWith(
+              color: context.fitColors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Expanded(
+            child: Center(
+              child: _selectedType == "Bounce"
+                  ? FitLinearBounceAnimation(
+                      key: ValueKey('bounce_${_bounceDuration}_$_bounceDistance'),
+                      duration: _bounceDuration,
+                      distance: _bounceDistance,
+                      child: _buildPreviewWidget(context, "Bounce"),
+                    )
+                  : FitScaleAnimation(
+                      key: ValueKey('scale_${_scaleDuration}_${_scaleBegin}_$_scaleEnd'),
+                      duration: _scaleDuration,
+                      scaleBegin: _scaleBegin,
+                      scaleEnd: _scaleEnd,
+                      child: _buildPreviewWidget(context, "Scale"),
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 컨트롤 섹션
+  Widget _buildControlSection(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Settings",
+            style: context.subtitle5().copyWith(
+              color: context.fitColors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          // 타입 선택
+          Text(
+            "Type:",
+            style: context.caption1().copyWith(
+              color: context.fitColors.textSecondary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 6),
+          ...[
+            _AnimationType("Bounce", Icons.vertical_align_center),
+            _AnimationType("Scale", Icons.zoom_out_map),
+          ].map((type) {
+            final isSelected = _selectedType == type.name;
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: GestureDetector(
+                onTap: () => setState(() => _selectedType = type.name),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected ? context.fitColors.main.withOpacity(0.1) : null,
+                    borderRadius: BorderRadius.circular(4.r),
+                    border: Border.all(
+                      color: isSelected ? context.fitColors.main : Colors.transparent,
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        type.icon,
+                        size: 14,
+                        color: isSelected ? context.fitColors.main : context.fitColors.textTertiary,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        type.name,
+                        style: context.caption1().copyWith(
+                          color: isSelected ? context.fitColors.main : context.fitColors.textPrimary,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
+          const SizedBox(height: 12),
+          Divider(color: context.fitColors.dividerPrimary),
+          const SizedBox(height: 12),
+          // 파라미터 표시
+          if (_selectedType == "Bounce") ...[
+            _buildParamDisplay("Duration", "${_bounceDuration}ms"),
+            const SizedBox(height: 4),
+            _buildParamDisplay("Distance", "${_bounceDistance.toStringAsFixed(1)}px"),
+          ] else ...[
+            _buildParamDisplay("Duration", "${_scaleDuration}ms"),
+            const SizedBox(height: 4),
+            _buildParamDisplay("Begin", "${_scaleBegin.toStringAsFixed(2)}x"),
+            const SizedBox(height: 4),
+            _buildParamDisplay("End", "${_scaleEnd.toStringAsFixed(2)}x"),
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// 파라미터 표시
+  Widget _buildParamDisplay(String label, String value) {
+    return Row(
+      children: [
+        Text(
+          "$label:",
+          style: context.caption1().copyWith(
+            color: context.fitColors.textTertiary,
+            fontSize: 11,
+          ),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          value,
+          style: context.caption1().copyWith(
+            color: context.fitColors.main,
+            fontWeight: FontWeight.w600,
+            fontSize: 11,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// 정보 섹션
+  Widget _buildInfoSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: context.fitColors.backgroundElevated,
         borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: context.fitColors.dividerPrimary),
       ),
-      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, color: context.fitColors.main, size: 20),
+              Icon(Icons.info_outline, color: context.fitColors.main, size: 20),
               const SizedBox(width: 8),
               Text(
-                title,
-                style: context.subtitle4().copyWith(
-                      color: context.fitColors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                "애니메이션 시스템 가이드",
+                style: context.subtitle5().copyWith(
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 12),
           Text(
-            description,
-            style: context.caption1().copyWith(
-                  color: context.fitColors.textTertiary,
-                ),
+            "• Bounce: 위아래 또는 좌우로 움직이는 반복 애니메이션\n"
+            "• Scale: 크기 변화를 반복하는 애니메이션\n"
+            "• Duration: 애니메이션 주기 (ms)\n"
+            "• Distance: 이동 거리 (px) / Begin/End: 크기 배율",
+            style: context.body4().copyWith(color: context.fitColors.textSecondary),
           ),
-          const SizedBox(height: 16),
-          child,
         ],
       ),
     );
   }
 
-  /// 컨트롤 카드
-  Widget _buildControlCard(BuildContext context, {required List<Widget> children}) {
+  /// 타입 선택기
+  Widget _buildTypeSelector(BuildContext context) {
+    final types = [
+      _AnimationType("Bounce", Icons.vertical_align_center),
+      _AnimationType("Scale", Icons.zoom_out_map),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "🎬 Animation Types",
+          style: context.subtitle4().copyWith(
+            color: context.fitColors.textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: types.map((type) {
+            final isSelected = _selectedType == type.name;
+            return Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: type == types.first ? 8 : 0),
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedType = type.name),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? context.fitColors.main.withOpacity(0.15)
+                          : context.fitColors.backgroundElevated,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(
+                        color: isSelected ? context.fitColors.main : context.fitColors.dividerPrimary,
+                        width: isSelected ? 2 : 1,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(
+                          type.icon,
+                          color: isSelected ? context.fitColors.main : context.fitColors.textTertiary,
+                          size: 32,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          type.name,
+                          style: context.body3().copyWith(
+                            color: isSelected ? context.fitColors.main : context.fitColors.textPrimary,
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  /// 파라미터 섹션
+  Widget _buildParameterSection(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.fitColors.backgroundBase,
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: context.fitColors.dividerPrimary),
+        color: context.fitColors.backgroundElevated,
+        borderRadius: BorderRadius.circular(12.r),
       ),
-      child: Column(children: children),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "⚙️ Parameters",
+            style: context.subtitle4().copyWith(
+              color: context.fitColors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          if (_selectedType == "Bounce") ...[
+            _buildSlider(
+              context,
+              label: "Duration (ms)",
+              value: _bounceDuration.toDouble(),
+              min: 500,
+              max: 5000,
+              divisions: 45,
+              onChanged: (value) => setState(() => _bounceDuration = value.toInt()),
+              valueLabel: "${_bounceDuration}ms",
+            ),
+            _buildSlider(
+              context,
+              label: "Distance (px)",
+              value: _bounceDistance,
+              min: 5,
+              max: 50,
+              divisions: 45,
+              onChanged: (value) => setState(() => _bounceDistance = value),
+              valueLabel: "${_bounceDistance.toStringAsFixed(1)}px",
+            ),
+          ] else ...[
+            _buildSlider(
+              context,
+              label: "Duration (ms)",
+              value: _scaleDuration.toDouble(),
+              min: 500,
+              max: 5000,
+              divisions: 45,
+              onChanged: (value) => setState(() => _scaleDuration = value.toInt()),
+              valueLabel: "${_scaleDuration}ms",
+            ),
+            _buildSlider(
+              context,
+              label: "Scale Begin",
+              value: _scaleBegin,
+              min: 0.5,
+              max: 1.5,
+              divisions: 20,
+              onChanged: (value) => setState(() => _scaleBegin = value),
+              valueLabel: "${_scaleBegin.toStringAsFixed(2)}x",
+            ),
+            _buildSlider(
+              context,
+              label: "Scale End",
+              value: _scaleEnd,
+              min: 0.5,
+              max: 2.0,
+              divisions: 30,
+              onChanged: (value) => setState(() => _scaleEnd = value),
+              valueLabel: "${_scaleEnd.toStringAsFixed(2)}x",
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// 프리셋 섹션
+  Widget _buildPresetsSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.fitColors.backgroundElevated,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "🎯 Presets",
+            style: context.subtitle4().copyWith(
+              color: context.fitColors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildPresetBox(context, "Fast", 800, 8.0, 0.9, 1.2),
+              _buildPresetBox(context, "Normal", 1500, 12.0, 1.0, 1.3),
+              _buildPresetBox(context, "Slow", 3000, 15.0, 1.0, 1.5),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 프리셋 박스
+  Widget _buildPresetBox(
+    BuildContext context,
+    String label,
+    int duration,
+    double distance,
+    double scaleBegin,
+    double scaleEnd,
+  ) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              if (_selectedType == "Bounce") {
+                _bounceDuration = duration;
+                _bounceDistance = distance;
+              } else {
+                _scaleDuration = duration;
+                _scaleBegin = scaleBegin;
+                _scaleEnd = scaleEnd;
+              }
+            });
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.fitColors.backgroundBase,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(color: context.fitColors.dividerPrimary),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  label,
+                  style: context.caption1().copyWith(
+                    color: context.fitColors.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                _selectedType == "Bounce"
+                    ? FitLinearBounceAnimation(
+                        duration: duration,
+                        distance: distance,
+                        child: _buildComparisonWidget(context),
+                      )
+                    : FitScaleAnimation(
+                        duration: duration,
+                        scaleBegin: scaleBegin,
+                        scaleEnd: scaleEnd,
+                        child: _buildComparisonWidget(context),
+                      ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -412,4 +647,12 @@ class _AnimationPageState extends State<AnimationPage> {
       },
     );
   }
+}
+
+/// 애니메이션 타입 모델
+class _AnimationType {
+  final String name;
+  final IconData icon;
+
+  const _AnimationType(this.name, this.icon);
 }

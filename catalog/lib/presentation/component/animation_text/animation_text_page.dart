@@ -38,8 +38,7 @@ class _AnimationTextPageState extends State<AnimationTextPage> {
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitAnimatedText",
         actions: [
           _buildThemeSwitcher(context),

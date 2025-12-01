@@ -32,8 +32,7 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitBottomSheet",
         actions: [
           _buildThemeSwitcher(context),

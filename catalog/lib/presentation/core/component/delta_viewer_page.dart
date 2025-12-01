@@ -57,8 +57,7 @@ class _DeltaViewerPageState extends State<DeltaViewerPage> {
 
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "Delta Viewer",
         actions: [],
       ),

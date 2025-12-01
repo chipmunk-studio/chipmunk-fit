@@ -153,8 +153,7 @@ class _ChipPageState extends State<ChipPage> {
   Widget build(BuildContext context) {
     return FitScaffold(
       padding: EdgeInsets.zero,
-      appBar: FitCustomAppBar.leadingAppBar(
-        context,
+      appBar: FitLeadingAppBar(
         title: "FitChip",
         actions: [
           _buildThemeSwitcher(context),
