@@ -255,12 +255,15 @@ class FitBottomSheet {
       ),
     );
 
-    // 키보드 높이만큼 패딩 추가
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
+    // 키보드 높이만큼 패딩 추가 및 SafeArea bottom 적용
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 
@@ -303,29 +306,32 @@ class FitBottomSheet {
     required Widget Function(BuildContext)? topContent,
     required FitBottomSheetConfig config,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: config.backgroundColor ?? context.fitColors.backgroundElevated,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(32.r),
-          topRight: Radius.circular(32.r),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          if (config.isShowTopBar) _buildTopBar(context),
-          if (config.isShowCloseButton) _buildCloseButton(context),
-          if (topContent != null) topContent(context),
-          Expanded(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: scrollContent(context),
-            ),
+    return SafeArea(
+      top: false,
+      child: Container(
+        decoration: BoxDecoration(
+          color: config.backgroundColor ?? context.fitColors.backgroundElevated,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32.r),
+            topRight: Radius.circular(32.r),
           ),
-        ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            if (config.isShowTopBar) _buildTopBar(context),
+            if (config.isShowCloseButton) _buildCloseButton(context),
+            if (topContent != null) topContent(context),
+            Expanded(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                physics: const BouncingScrollPhysics(),
+                child: scrollContent(context),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
