@@ -236,33 +236,30 @@ class FitBottomSheet {
     required Widget Function(BuildContext) content,
     required FitBottomSheetConfig config,
   }) {
-    final child = Container(
-      decoration: BoxDecoration(
-        color: config.backgroundColor ?? context.fitColors.backgroundElevated,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(32.r),
-          topRight: Radius.circular(32.r),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (config.isShowTopBar) _buildTopBar(context),
-          if (config.isShowCloseButton) _buildCloseButton(context),
-          content(context),
-        ],
-      ),
-    );
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
 
-    // 키보드 높이만큼 패딩 추가 및 SafeArea bottom 적용
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: config.backgroundColor ?? context.fitColors.backgroundElevated,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32.r),
+            topRight: Radius.circular(32.r),
+          ),
         ),
-        child: child,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (config.isShowTopBar) _buildTopBar(context),
+            if (config.isShowCloseButton) _buildCloseButton(context),
+            content(context),
+            SizedBox(height: bottomPadding),
+          ],
+        ),
       ),
     );
   }
@@ -306,32 +303,36 @@ class FitBottomSheet {
     required Widget Function(BuildContext)? topContent,
     required FitBottomSheetConfig config,
   }) {
-    return SafeArea(
-      top: false,
-      child: Container(
-        decoration: BoxDecoration(
-          color: config.backgroundColor ?? context.fitColors.backgroundElevated,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
-          ),
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: config.backgroundColor ?? context.fitColors.backgroundElevated,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32.r),
+          topRight: Radius.circular(32.r),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            if (config.isShowTopBar) _buildTopBar(context),
-            if (config.isShowCloseButton) _buildCloseButton(context),
-            if (topContent != null) topContent(context),
-            Expanded(
-              child: SingleChildScrollView(
-                controller: scrollController,
-                physics: const BouncingScrollPhysics(),
-                child: scrollContent(context),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          if (config.isShowTopBar) _buildTopBar(context),
+          if (config.isShowCloseButton) _buildCloseButton(context),
+          if (topContent != null) topContent(context),
+          Expanded(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  scrollContent(context),
+                  SizedBox(height: bottomPadding),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
