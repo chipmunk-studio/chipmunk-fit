@@ -238,28 +238,23 @@ class FitBottomSheet {
   }) {
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
+    return Container(
+      decoration: BoxDecoration(
+        color: config.backgroundColor ?? context.fitColors.backgroundElevated,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32.r),
+          topRight: Radius.circular(32.r),
+        ),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: config.backgroundColor ?? context.fitColors.backgroundElevated,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32.r),
-            topRight: Radius.circular(32.r),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (config.isShowTopBar) _buildTopBar(context),
-            if (config.isShowCloseButton) _buildCloseButton(context),
-            content(context),
-            SizedBox(height: bottomPadding),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (config.isShowTopBar) _buildTopBar(context),
+          if (config.isShowCloseButton) _buildCloseButton(context),
+          content(context),
+          SizedBox(height: bottomPadding),
+        ],
       ),
     );
   }
