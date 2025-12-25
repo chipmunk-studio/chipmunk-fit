@@ -17,7 +17,6 @@ class BottomSheetPage extends StatefulWidget {
 }
 
 class _BottomSheetPageState extends State<BottomSheetPage> {
-  // 설정 상태
   bool _isShowTopBar = true;
   bool _isShowCloseButton = false;
   bool _isDismissible = true;
@@ -41,54 +40,60 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
       ),
       body: Column(
         children: [
-          _buildPreviewSection(context, colors),
-          Container(height: 8, color: colors.backgroundAlternative),
+          _buildCompactPreview(context, colors),
+          Container(height: 1, color: colors.dividerPrimary),
           Expanded(child: _buildControlPanel(context, colors)),
         ],
       ),
     );
   }
 
-  Widget _buildPreviewSection(BuildContext context, FitColors colors) {
+  Widget _buildCompactPreview(BuildContext context, FitColors colors) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       color: colors.backgroundElevated,
-      child: Column(
+      child: Row(
         children: [
-          Text(
-            '미리보기',
-            style: context.caption1().copyWith(color: colors.textTertiary),
-          ),
-          const SizedBox(height: 20),
-          FitButton(
-            type: FitButtonType.primary,
-            isExpanded: true,
-            onPressed: () => _showTestBottomSheet(context),
-            child: Text(
-              '현재 설정으로 열기',
-              style: context.button1().copyWith(
-                    color: FitButtonStyle.textColorOf(
-                      context,
-                      FitButtonType.primary,
-                      isEnabled: true,
+          Expanded(
+            child: FitButton(
+              type: FitButtonType.primary,
+              isExpanded: true,
+              onPressed: () => _showTestBottomSheet(context),
+              child: Text(
+                '미리보기',
+                style: context.button1().copyWith(
+                      color: FitButtonStyle.textColorOf(
+                        context,
+                        FitButtonType.primary,
+                        isEnabled: true,
+                      ),
                     ),
-                  ),
+              ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(width: 12),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: colors.fillAlternative,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Column(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                _buildStatusRow(colors, 'TopBar', _isShowTopBar),
-                _buildStatusRow(colors, 'Close Button', _isShowCloseButton),
-                _buildStatusRow(colors, 'Dismissible', _isDismissible),
-                _buildStatusRow(colors, 'Height', '${(_heightFactor * 100).toInt()}%'),
+                _buildCompactBadge(colors, 'TopBar', _isShowTopBar),
+                const SizedBox(width: 6),
+                _buildCompactBadge(colors, 'Close', _isShowCloseButton),
+                const SizedBox(width: 6),
+                _buildCompactBadge(colors, 'Dismiss', _isDismissible),
+                const SizedBox(width: 8),
+                Text(
+                  '${(_heightFactor * 100).toInt()}%',
+                  style: context.caption1().copyWith(
+                        color: colors.main,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
               ],
             ),
           ),
@@ -97,25 +102,19 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  Widget _buildStatusRow(FitColors colors, String label, dynamic value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: context.caption1().copyWith(color: colors.textSecondary),
-          ),
-          Text(
-            value is bool ? (value ? 'ON' : 'OFF') : value.toString(),
-            style: context.caption1().copyWith(
-                  color: value is bool
-                      ? (value ? colors.green500 : colors.grey500)
-                      : colors.textPrimary,
-                ),
-          ),
-        ],
+  Widget _buildCompactBadge(FitColors colors, String label, bool value) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: value ? colors.main.withOpacity(0.15) : colors.fillStrong,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        label,
+        style: context.caption2().copyWith(
+              color: value ? colors.main : colors.textTertiary,
+              fontSize: 10,
+            ),
       ),
     );
   }
@@ -178,7 +177,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
               onChanged: (value) {
                 setState(() {
                   _heightFactor = value;
-                  // min <= height <= max 유지
                   if (_minHeightFactor > _heightFactor) {
                     _minHeightFactor = _heightFactor;
                   }
@@ -198,7 +196,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
               onChanged: (value) {
                 setState(() {
                   _minHeightFactor = value;
-                  // min <= height <= max 유지
                   if (_heightFactor < _minHeightFactor) {
                     _heightFactor = _minHeightFactor;
                   }
@@ -218,7 +215,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
               onChanged: (value) {
                 setState(() {
                   _maxHeightFactor = value;
-                  // min <= height <= max 유지
                   if (_heightFactor > _maxHeightFactor) {
                     _heightFactor = _maxHeightFactor;
                   }
@@ -437,7 +433,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 현재 설정으로 바텀시트 표시
   void _showTestBottomSheet(BuildContext context) {
     final config = FitBottomSheetConfig(
       isShowTopBar: _isShowTopBar,
@@ -468,7 +463,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     }
   }
 
-  // 기본 바텀시트
   void _showBasicBottomSheet(BuildContext context) {
     FitBottomSheet.show(
       context,
@@ -477,17 +471,17 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
         isShowCloseButton: false,
       ),
       content: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('기본 바텀시트', style: context.h2()),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Text(
               '간단한 콘텐츠를 표시하는 기본 바텀시트입니다.',
               style: context.body1().copyWith(color: context.fitColors.grey300),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             FitButton(
               onPressed: () => Navigator.pop(ctx),
               isExpanded: true,
@@ -508,7 +502,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 풀스크린 바텀시트
   void _showFullBottomSheet(BuildContext context) {
     FitBottomSheet.showFull(
       context,
@@ -521,7 +514,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 드래그 가능 바텀시트
   void _showDraggableBottomSheet(BuildContext context) {
     FitBottomSheet.showDraggable(
       context,
@@ -536,7 +528,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 50% 바텀시트
   void _showHalfBottomSheet(BuildContext context) {
     FitBottomSheet.showFull(
       context,
@@ -553,7 +544,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 스냅 포인트 바텀시트
   void _showSnapBottomSheet(BuildContext context) {
     FitBottomSheet.showDraggable(
       context,
@@ -582,17 +572,16 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 중첩 바텀시트
   void _showNestedBottomSheet(BuildContext context) {
     FitBottomSheet.show(
       context,
       content: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('첫 번째 바텀시트', style: context.h2()),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             FitButton(
               onPressed: () => _showSecondBottomSheet(ctx),
               isExpanded: true,
@@ -617,12 +606,12 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     FitBottomSheet.show(
       context,
       content: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('두 번째 바텀시트', style: context.h2()),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             FitButton(
               onPressed: () => Navigator.pop(ctx),
               isExpanded: true,
@@ -644,7 +633,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 긴 콘텐츠 바텀시트
   void _showLongContentBottomSheet(BuildContext context) {
     FitBottomSheet.showFull(
       context,
@@ -660,7 +648,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 샘플 상단 콘텐츠
   Widget _buildSampleTopContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -679,7 +666,6 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
     );
   }
 
-  // 샘플 스크롤 콘텐츠
   Widget _buildSampleScrollContent(BuildContext context, {int itemCount = 20}) {
     return Padding(
       padding: const EdgeInsets.all(16),
