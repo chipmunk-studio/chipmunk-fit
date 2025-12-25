@@ -351,7 +351,7 @@ class FitBottomSheet {
             const Spacer(),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
       ],
     );
   }

@@ -471,7 +471,7 @@ class _BottomSheetPageState extends State<BottomSheetPage> {
         isShowCloseButton: false,
       ),
       content: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
