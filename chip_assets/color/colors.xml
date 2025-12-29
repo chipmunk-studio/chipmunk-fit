@@ -87,6 +87,17 @@
     <color name="leaf_green600_dark">#FF31ED7F</color>
     <color name="leaf_green700_dark">#FF12D363</color>
 
+    <!-- Violet Colors (SK Electric Brand) -->
+    <color name="violet50">#FFEDE5FF</color>
+    <color name="violet200">#FFD1BDFF</color>
+    <color name="violet500">#FF7B42FF</color>
+    <color name="violet600">#FF6B38E6</color>
+    <color name="violet700">#FF5B2FCC</color>
+    <color name="violet50_dark">#FF1A0F3D</color>
+    <color name="violet200_dark">#FF2D1966</color>
+    <color name="violet500_dark">#FF986CFF</color>
+    <color name="violet600_dark">#FF8A5EFF</color>
+    <color name="violet700_dark">#FF7B4FEE</color>
 
     <!-- Blue Alpha Colors -->
     <color name="blue_alpha_base">#FF149DE1</color>
@@ -107,6 +118,10 @@
     <!-- Focus Blue Colors -->
     <color name="periwinkle_alpha_base">#FF149DE1</color>
     <color name="periwinkle_alpha_base_dark">#FF31BAE8</color>
+
+    <!-- Focus Violet Colors -->
+    <color name="violet_alpha_base">#FF7B42FF</color>
+    <color name="violet_alpha_base_dark">#FF986CFF</color>
 
 
 </resources>

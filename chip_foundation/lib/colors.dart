@@ -37,6 +37,13 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color periwinkle600;
   final Color periwinkle700;
 
+  // Violet (Purple)
+  final Color violet50;
+  final Color violet200;
+  final Color violet500;
+  final Color violet600;
+  final Color violet700;
+
   // Red
   final Color red50;
   final Color red200;
@@ -92,6 +99,13 @@ class FitColors extends ThemeExtension<FitColors> {
   final Color periwinkleAlpha48;
   final Color periwinkleAlpha24;
   final Color periwinkleAlpha12;
+
+  // Alpha Colors - Violet
+  final Color violetBase;
+  final Color violetAlpha72;
+  final Color violetAlpha48;
+  final Color violetAlpha24;
+  final Color violetAlpha12;
 
   // Static Colors
   final Color staticBlack;
@@ -158,6 +172,11 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.periwinkle500,
     required this.periwinkle600,
     required this.periwinkle700,
+    required this.violet50,
+    required this.violet200,
+    required this.violet500,
+    required this.violet600,
+    required this.violet700,
     required this.red50,
     required this.red200,
     required this.red500,
@@ -193,6 +212,11 @@ class FitColors extends ThemeExtension<FitColors> {
     required this.periwinkleAlpha48,
     required this.periwinkleAlpha24,
     required this.periwinkleAlpha12,
+    required this.violetBase,
+    required this.violetAlpha72,
+    required this.violetAlpha48,
+    required this.violetAlpha24,
+    required this.violetAlpha12,
     required this.staticBlack,
     required this.staticWhite,
     required this.backgroundBase,
@@ -247,6 +271,11 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? periwinkle500,
     Color? periwinkle600,
     Color? periwinkle700,
+    Color? violet50,
+    Color? violet200,
+    Color? violet500,
+    Color? violet600,
+    Color? violet700,
     Color? red50,
     Color? red200,
     Color? red500,
@@ -282,6 +311,11 @@ class FitColors extends ThemeExtension<FitColors> {
     Color? periwinkleAlpha48,
     Color? periwinkleAlpha24,
     Color? periwinkleAlpha12,
+    Color? violetBase,
+    Color? violetAlpha72,
+    Color? violetAlpha48,
+    Color? violetAlpha24,
+    Color? violetAlpha12,
     Color? staticBlack,
     Color? staticWhite,
     Color? backgroundBase,
@@ -334,6 +368,11 @@ class FitColors extends ThemeExtension<FitColors> {
       periwinkle500: periwinkle500 ?? this.periwinkle500,
       periwinkle600: periwinkle600 ?? this.periwinkle600,
       periwinkle700: periwinkle700 ?? this.periwinkle700,
+      violet50: violet50 ?? this.violet50,
+      violet200: violet200 ?? this.violet200,
+      violet500: violet500 ?? this.violet500,
+      violet600: violet600 ?? this.violet600,
+      violet700: violet700 ?? this.violet700,
       red50: red50 ?? this.red50,
       red200: red200 ?? this.red200,
       red500: red500 ?? this.red500,
@@ -369,6 +408,11 @@ class FitColors extends ThemeExtension<FitColors> {
       periwinkleAlpha48: periwinkleAlpha48 ?? this.periwinkleAlpha48,
       periwinkleAlpha24: periwinkleAlpha24 ?? this.periwinkleAlpha24,
       periwinkleAlpha12: periwinkleAlpha12 ?? this.periwinkleAlpha12,
+      violetBase: violetBase ?? this.violetBase,
+      violetAlpha72: violetAlpha72 ?? this.violetAlpha72,
+      violetAlpha48: violetAlpha48 ?? this.violetAlpha48,
+      violetAlpha24: violetAlpha24 ?? this.violetAlpha24,
+      violetAlpha12: violetAlpha12 ?? this.violetAlpha12,
       staticBlack: staticBlack ?? this.staticBlack,
       staticWhite: staticWhite ?? this.staticWhite,
       backgroundBase: backgroundBase ?? this.backgroundBase,
@@ -437,6 +481,11 @@ final FitColors lightFitColors = FitColors(
   periwinkle500: ChipColors.periwinkle500,
   periwinkle600: ChipColors.periwinkle600,
   periwinkle700: ChipColors.periwinkle700,
+  violet50: ChipColors.violet50,
+  violet200: ChipColors.violet200,
+  violet500: ChipColors.violet500,
+  violet600: ChipColors.violet600,
+  violet700: ChipColors.violet700,
   red50: ChipColors.red50,
   red200: ChipColors.red200,
   red500: ChipColors.red500,
@@ -472,6 +521,11 @@ final FitColors lightFitColors = FitColors(
   periwinkleAlpha48: _withOpacity(ChipColors.periwinkleAlphaBase, 0.48),
   periwinkleAlpha24: _withOpacity(ChipColors.periwinkleAlphaBase, 0.24),
   periwinkleAlpha12: _withOpacity(ChipColors.periwinkleAlphaBase, 0.12),
+  violetBase: ChipColors.violetAlphaBase,
+  violetAlpha72: _withOpacity(ChipColors.violetAlphaBase, 0.72),
+  violetAlpha48: _withOpacity(ChipColors.violetAlphaBase, 0.48),
+  violetAlpha24: _withOpacity(ChipColors.violetAlphaBase, 0.24),
+  violetAlpha12: _withOpacity(ChipColors.violetAlphaBase, 0.12),
   staticBlack: ChipColors.staticBlack,
   staticWhite: ChipColors.staticWhite,
   backgroundBase: ChipColors.grey50,
@@ -526,6 +580,11 @@ final FitColors darkFitColors = FitColors(
   periwinkle500: ChipColors.periwinkle500Dark,
   periwinkle600: ChipColors.periwinkle600Dark,
   periwinkle700: ChipColors.periwinkle700Dark,
+  violet50: ChipColors.violet50Dark,
+  violet200: ChipColors.violet200Dark,
+  violet500: ChipColors.violet500Dark,
+  violet600: ChipColors.violet600Dark,
+  violet700: ChipColors.violet700Dark,
   red50: ChipColors.red50Dark,
   red200: ChipColors.red200Dark,
   red500: ChipColors.red500Dark,
@@ -561,6 +620,11 @@ final FitColors darkFitColors = FitColors(
   periwinkleAlpha48: _withOpacity(ChipColors.periwinkleAlphaBaseDark, 0.48),
   periwinkleAlpha24: _withOpacity(ChipColors.periwinkleAlphaBaseDark, 0.24),
   periwinkleAlpha12: _withOpacity(ChipColors.periwinkleAlphaBaseDark, 0.12),
+  violetBase: ChipColors.violetAlphaBaseDark,
+  violetAlpha72: _withOpacity(ChipColors.violetAlphaBaseDark, 0.72),
+  violetAlpha48: _withOpacity(ChipColors.violetAlphaBaseDark, 0.48),
+  violetAlpha24: _withOpacity(ChipColors.violetAlphaBaseDark, 0.24),
+  violetAlpha12: _withOpacity(ChipColors.violetAlphaBaseDark, 0.12),
   staticBlack: ChipColors.staticBlack,
   staticWhite: ChipColors.staticWhite,
   backgroundBase: ChipColors.grey0Dark,

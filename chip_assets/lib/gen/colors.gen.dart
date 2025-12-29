@@ -260,6 +260,42 @@ class ChipColors {
   /// Color: #FFFFFF
   static const Color staticWhite = Color(0xFFFFFFFF);
 
+  /// Color: #FFD1BDFF
+  static const Color violet200 = Color(0xFFD1BDFF);
+
+  /// Color: #FF2D1966
+  static const Color violet200Dark = Color(0xFF2D1966);
+
+  /// Color: #FFEDE5FF
+  static const Color violet50 = Color(0xFFEDE5FF);
+
+  /// Color: #FF7B42FF
+  static const Color violet500 = Color(0xFF7B42FF);
+
+  /// Color: #FF986CFF
+  static const Color violet500Dark = Color(0xFF986CFF);
+
+  /// Color: #FF1A0F3D
+  static const Color violet50Dark = Color(0xFF1A0F3D);
+
+  /// Color: #FF6B38E6
+  static const Color violet600 = Color(0xFF6B38E6);
+
+  /// Color: #FF8A5EFF
+  static const Color violet600Dark = Color(0xFF8A5EFF);
+
+  /// Color: #FF5B2FCC
+  static const Color violet700 = Color(0xFF5B2FCC);
+
+  /// Color: #FF7B4FEE
+  static const Color violet700Dark = Color(0xFF7B4FEE);
+
+  /// Color: #FF7B42FF
+  static const Color violetAlphaBase = Color(0xFF7B42FF);
+
+  /// Color: #FF986CFF
+  static const Color violetAlphaBaseDark = Color(0xFF986CFF);
+
   /// Color: #FFFEBD00
   static const Color yellowAlphaBase = Color(0xFFFEBD00);
 
