@@ -161,12 +161,19 @@ class _FitButtonState extends State<FitButton> {
   }
 
   _ButtonColors _getButtonColors(FitColors colors) {
+    // 테마에서 설정된 버튼 컬러 가져오기
+    final themeStyle = Theme.of(context).filledButtonTheme.style;
+    final themeDisabledBackground =
+        themeStyle?.backgroundColor?.resolve({WidgetState.disabled}) ?? colors.green50;
+    final themeForeground =
+        themeStyle?.foregroundColor?.resolve({WidgetState.selected}) ?? colors.staticBlack;
+
     switch (widget.type) {
       case FitButtonType.primary:
         return _ButtonColors(
           background: colors.main,
-          disabledBackground: colors.green50,
-          foreground: colors.staticBlack,
+          disabledBackground: themeDisabledBackground,
+          foreground: themeForeground,
           disabledForeground: colors.inverseDisabled,
         );
       case FitButtonType.secondary:
