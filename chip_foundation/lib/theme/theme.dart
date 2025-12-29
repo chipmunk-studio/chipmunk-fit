@@ -18,6 +18,8 @@ ThemeData fitLightTheme(
   BuildContext context, {
   Color? mainColor,
   Color? subColor,
+  Color? buttonForegroundColor,
+  Color? buttonDisabledBackgroundColor,
 }) {
   final updatedColors = lightFitColors.copyWith(
     main: mainColor,
@@ -28,6 +30,8 @@ ThemeData fitLightTheme(
     context,
     brightness: Brightness.light,
     colors: updatedColors,
+    buttonForegroundColor: buttonForegroundColor,
+    buttonDisabledBackgroundColor: buttonDisabledBackgroundColor,
   );
 }
 
@@ -36,6 +40,8 @@ ThemeData fitDarkTheme(
   BuildContext context, {
   Color? mainColor,
   Color? subColor,
+  Color? buttonForegroundColor,
+  Color? buttonDisabledBackgroundColor,
 }) {
   final updatedColors = darkFitColors.copyWith(
     main: mainColor,
@@ -46,6 +52,8 @@ ThemeData fitDarkTheme(
     context,
     brightness: Brightness.dark,
     colors: updatedColors,
+    buttonForegroundColor: buttonForegroundColor,
+    buttonDisabledBackgroundColor: buttonDisabledBackgroundColor,
   );
 }
 
@@ -54,6 +62,8 @@ ThemeData _buildThemeData(
   BuildContext context, {
   required Brightness brightness,
   required FitColors colors,
+  Color? buttonForegroundColor,
+  Color? buttonDisabledBackgroundColor,
 }) {
   final isDarkMode = FitThemeModeExtension(brightness: brightness);
   final isDark = brightness == Brightness.dark;
@@ -93,12 +103,22 @@ ThemeData _buildThemeData(
     ),
 
     // 버튼 테마
-    filledButtonTheme: filledButtonTheme(context, colors),
-    elevatedButtonTheme: elevatedButtonTheme(context, colors),
+    filledButtonTheme: filledButtonTheme(
+      context,
+      colors,
+      buttonForegroundColor: buttonForegroundColor,
+      buttonDisabledBackgroundColor: buttonDisabledBackgroundColor,
+    ),
+    elevatedButtonTheme: elevatedButtonTheme(
+      context,
+      colors,
+      buttonForegroundColor: buttonForegroundColor,
+      buttonDisabledBackgroundColor: buttonDisabledBackgroundColor,
+    ),
     outlinedButtonTheme: outlinedButtonTheme(colors),
     textButtonTheme: textButtonTheme(colors),
     iconButtonTheme: iconButtonTheme(colors),
-    floatingActionButtonTheme: fabTheme(colors),
+    floatingActionButtonTheme: fabTheme(colors, buttonForegroundColor: buttonForegroundColor),
 
     // 선택 테마
     checkboxTheme: checkboxTheme(colors),

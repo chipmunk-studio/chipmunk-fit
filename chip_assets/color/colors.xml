@@ -99,6 +99,18 @@
     <color name="violet600_dark">#FF8A5EFF</color>
     <color name="violet700_dark">#FF7B4FEE</color>
 
+    <!-- Blue Colors (SK Electric Secondary) -->
+    <color name="blue50">#FFF4FAFF</color>
+    <color name="blue200">#FFBDDEFF</color>
+    <color name="blue500">#FF0080FF</color>
+    <color name="blue600">#FF006FDE</color>
+    <color name="blue700">#FF0060BD</color>
+    <color name="blue50_dark">#FF0A1A2E</color>
+    <color name="blue200_dark">#FF0F2B52</color>
+    <color name="blue500_dark">#FF3399FF</color>
+    <color name="blue600_dark">#FF1A8AFF</color>
+    <color name="blue700_dark">#FF0D7AE6</color>
+
     <!-- Blue Alpha Colors -->
     <color name="blue_alpha_base">#FF149DE1</color>
     <color name="blue_alpha_base_Dark">#FF31BAE8</color>

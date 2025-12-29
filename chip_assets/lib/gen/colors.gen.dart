@@ -14,6 +14,36 @@ import 'package:flutter/material.dart';
 class ChipColors {
   ChipColors._();
 
+  /// Color: #FFBDDEFF
+  static const Color blue200 = Color(0xFFBDDEFF);
+
+  /// Color: #FF0F2B52
+  static const Color blue200Dark = Color(0xFF0F2B52);
+
+  /// Color: #FFF4FAFF
+  static const Color blue50 = Color(0xFFF4FAFF);
+
+  /// Color: #FF0080FF
+  static const Color blue500 = Color(0xFF0080FF);
+
+  /// Color: #FF3399FF
+  static const Color blue500Dark = Color(0xFF3399FF);
+
+  /// Color: #FF0A1A2E
+  static const Color blue50Dark = Color(0xFF0A1A2E);
+
+  /// Color: #FF006FDE
+  static const Color blue600 = Color(0xFF006FDE);
+
+  /// Color: #FF1A8AFF
+  static const Color blue600Dark = Color(0xFF1A8AFF);
+
+  /// Color: #FF0060BD
+  static const Color blue700 = Color(0xFF0060BD);
+
+  /// Color: #FF0D7AE6
+  static const Color blue700Dark = Color(0xFF0D7AE6);
+
   /// Color: #FF149DE1
   static const Color blueAlphaBase = Color(0xFF149DE1);
 

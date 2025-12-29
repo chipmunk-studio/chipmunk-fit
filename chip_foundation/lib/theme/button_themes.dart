@@ -5,15 +5,20 @@ import '../colors.dart';
 import '../textstyle.dart';
 
 /// FilledButton 테마
-FilledButtonThemeData filledButtonTheme(BuildContext context, FitColors colors) {
+FilledButtonThemeData filledButtonTheme(
+  BuildContext context,
+  FitColors colors, {
+  Color? buttonForegroundColor,
+  Color? buttonDisabledBackgroundColor,
+}) {
   return FilledButtonThemeData(
     style: FilledButton.styleFrom(
       minimumSize: Size.zero,
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
       backgroundColor: colors.main,
-      foregroundColor: colors.staticBlack,
-      disabledBackgroundColor: colors.green50,
+      foregroundColor: buttonForegroundColor ?? colors.staticBlack,
+      disabledBackgroundColor: buttonDisabledBackgroundColor ?? colors.green50,
       disabledForegroundColor: colors.inverseDisabled,
       textStyle: context.button1(),
     ).copyWith(
@@ -24,14 +29,19 @@ FilledButtonThemeData filledButtonTheme(BuildContext context, FitColors colors) 
 }
 
 /// ElevatedButton 테마
-ElevatedButtonThemeData elevatedButtonTheme(BuildContext context, FitColors colors) {
+ElevatedButtonThemeData elevatedButtonTheme(
+  BuildContext context,
+  FitColors colors, {
+  Color? buttonForegroundColor,
+  Color? buttonDisabledBackgroundColor,
+}) {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       minimumSize: const Size.fromHeight(56),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
       backgroundColor: colors.main,
-      foregroundColor: colors.staticBlack,
-      disabledBackgroundColor: colors.green50,
+      foregroundColor: buttonForegroundColor ?? colors.staticBlack,
+      disabledBackgroundColor: buttonDisabledBackgroundColor ?? colors.green50,
       disabledForegroundColor: colors.inverseDisabled,
       textStyle: context.button1(),
     ).copyWith(
@@ -81,10 +91,13 @@ IconButtonThemeData iconButtonTheme(FitColors colors) {
 }
 
 /// FloatingActionButton 테마
-FloatingActionButtonThemeData fabTheme(FitColors colors) {
+FloatingActionButtonThemeData fabTheme(
+  FitColors colors, {
+  Color? buttonForegroundColor,
+}) {
   return FloatingActionButtonThemeData(
     backgroundColor: colors.main,
-    foregroundColor: colors.staticBlack,
+    foregroundColor: buttonForegroundColor ?? colors.staticBlack,
     elevation: 0,
     focusElevation: 0,
     hoverElevation: 0,
