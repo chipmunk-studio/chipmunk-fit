@@ -7,13 +7,29 @@ import 'package:flutter/material.dart';
 /// FitTabBar는 탭 아이템들을 가로로 나열하고
 /// 선택된 탭 하단에 애니메이션 인디케이터를 표시합니다.
 ///
-/// 사용 예시:
+/// ## 기본 사용 (labelBuilder)
 /// ```dart
 /// FitTabBar<FaqType>(
 ///   items: FaqType.values,
 ///   selectedItem: selectedTab,
 ///   labelBuilder: (item) => item.displayName,
 ///   onTabChanged: (item) => setState(() => selectedTab = item),
+/// )
+/// ```
+///
+/// ## 커스텀 위젯 사용 (childBuilder)
+/// ```dart
+/// FitTabBar<Category>(
+///   items: categories,
+///   selectedItem: selectedCategory,
+///   childBuilder: (item, isSelected) => Row(
+///     children: [
+///       Text(item.name),
+///       SizedBox(width: 4),
+///       Badge(count: item.count),
+///     ],
+///   ),
+///   onTabChanged: onCategoryChanged,
 /// )
 /// ```
 class FitTabBar<T> extends StatefulWidget {
@@ -23,14 +39,26 @@ class FitTabBar<T> extends StatefulWidget {
   /// 선택된 아이템
   final T selectedItem;
 
-  /// 아이템에서 라벨 텍스트를 추출하는 함수
-  final String Function(T item) labelBuilder;
+  /// 아이템에서 라벨 텍스트를 추출하는 함수 (childBuilder와 함께 사용 불가)
+  final String Function(T item)? labelBuilder;
+
+  /// 커스텀 위젯 빌더 (labelBuilder와 함께 사용 불가)
+  final Widget Function(T item, bool isSelected)? childBuilder;
 
   /// 탭 변경 콜백
   final ValueChanged<T> onTabChanged;
 
+  /// 탭 바 높이
+  final double height;
+
   /// 언더라인 두께
   final double indicatorHeight;
+
+  /// 인디케이터 좌우 패딩 (내용물보다 넓게)
+  final double indicatorHorizontalPadding;
+
+  /// 인디케이터 색상 (null이면 colors.main 사용)
+  final Color? indicatorColor;
 
   /// 하단 구분선 두께
   final double dividerHeight;
@@ -54,16 +82,23 @@ class FitTabBar<T> extends StatefulWidget {
     super.key,
     required this.items,
     required this.selectedItem,
-    required this.labelBuilder,
+    this.labelBuilder,
+    this.childBuilder,
     required this.onTabChanged,
+    this.height = 52.0,
     this.indicatorHeight = 2.0,
+    this.indicatorHorizontalPadding = 4.0,
+    this.indicatorColor,
     this.dividerHeight = 1.0,
-    this.spacing = 12.0,
+    this.spacing = 24.0,
     this.horizontalPadding = 20.0,
     this.tabPadding,
     this.showDivider = true,
-    this.animationDuration = const Duration(milliseconds: 200),
-  });
+    this.animationDuration = const Duration(milliseconds: 250),
+  }) : assert(
+          labelBuilder != null || childBuilder != null,
+          'Either labelBuilder or childBuilder must be provided',
+        );
 
   @override
   State<FitTabBar<T>> createState() => _FitTabBarState<T>();
@@ -79,7 +114,6 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
   @override
   void initState() {
     super.initState();
-    // 각 탭에 대한 GlobalKey 생성
     for (int i = 0; i < widget.items.length; i++) {
       _tabKeys[i] = GlobalKey();
     }
@@ -105,18 +139,18 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
     final key = _tabKeys[selectedIndex];
     if (key?.currentContext == null) return;
 
-    final RenderBox? renderBox =
-        key!.currentContext!.findRenderObject() as RenderBox?;
+    final renderBox = key!.currentContext!.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
 
-    final RenderBox? parentBox = context.findRenderObject() as RenderBox?;
+    final parentBox = context.findRenderObject() as RenderBox?;
     if (parentBox == null) return;
 
     final position = renderBox.localToGlobal(Offset.zero, ancestor: parentBox);
 
     setState(() {
-      _indicatorLeft = position.dx;
-      _indicatorWidth = renderBox.size.width;
+      // 인디케이터 패딩 적용 (내용물보다 좌우로 넓게)
+      _indicatorLeft = position.dx - widget.indicatorHorizontalPadding;
+      _indicatorWidth = renderBox.size.width + (widget.indicatorHorizontalPadding * 2);
       _initialized = true;
     });
   }
@@ -130,35 +164,46 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
   @override
   Widget build(BuildContext context) {
     final colors = context.fitColors;
+    final indicatorColor = widget.indicatorColor ?? colors.main;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // 탭 목록 + 인디케이터
         SizedBox(
-          height: 50,
+          height: widget.height,
           child: Stack(
             children: [
               // 탭 목록
               ListView.separated(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                padding:
-                    EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
+                padding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
                 itemCount: widget.items.length,
-                separatorBuilder: (context, index) =>
-                    SizedBox(width: widget.spacing),
+                separatorBuilder: (context, index) => SizedBox(width: widget.spacing),
                 itemBuilder: (context, index) {
                   final item = widget.items[index];
                   final isSelected = item == widget.selectedItem;
 
-                  return _FitTabItem(
-                    key: _tabKeys[index],
-                    text: widget.labelBuilder(item),
-                    isSelected: isSelected,
+                  return GestureDetector(
                     onTap: () => widget.onTabChanged(item),
-                    padding: widget.tabPadding ??
-                        const EdgeInsets.symmetric(vertical: 15),
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      padding: widget.tabPadding ?? const EdgeInsets.only(top: 16, bottom: 6),
+                      alignment: Alignment.center,
+                      child: KeyedSubtree(
+                        key: _tabKeys[index],
+                        child: widget.childBuilder != null
+                            ? widget.childBuilder!(item, isSelected)
+                            : Text(
+                                widget.labelBuilder!(item),
+                                style: context.subtitle4().copyWith(
+                                      color: isSelected ? colors.textPrimary : colors.textTertiary,
+                                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                    ),
+                              ),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -166,18 +211,17 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
               if (_initialized)
                 AnimatedPositioned(
                   duration: widget.animationDuration,
-                  curve: Curves.easeInOut,
+                  curve: Curves.easeOutCubic,
                   left: _indicatorLeft,
                   bottom: 0,
                   child: AnimatedContainer(
                     duration: widget.animationDuration,
-                    curve: Curves.easeInOut,
+                    curve: Curves.easeOutCubic,
                     width: _indicatorWidth,
                     height: widget.indicatorHeight,
                     decoration: BoxDecoration(
-                      color: colors.textPrimary,
-                      borderRadius:
-                          BorderRadius.circular(widget.indicatorHeight / 2),
+                      color: indicatorColor,
+                      borderRadius: BorderRadius.circular(widget.indicatorHeight / 2),
                     ),
                   ),
                 ),
@@ -191,41 +235,6 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
             color: colors.dividerPrimary,
           ),
       ],
-    );
-  }
-}
-
-/// 개별 탭 아이템 위젯 (내부용)
-class _FitTabItem extends StatelessWidget {
-  final String text;
-  final bool isSelected;
-  final VoidCallback? onTap;
-  final EdgeInsets padding;
-
-  const _FitTabItem({
-    super.key,
-    required this.text,
-    this.isSelected = false,
-    this.onTap,
-    this.padding = const EdgeInsets.symmetric(vertical: 15),
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.fitColors;
-
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: padding,
-        child: Text(
-          text,
-          style: context.subtitle5().copyWith(
-                color: isSelected ? colors.textPrimary : colors.textSecondary,
-              ),
-        ),
-      ),
     );
   }
 }
