@@ -215,14 +215,8 @@ class _DefaultLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(child: FitDotLoading(color: color)),
-        SizedBox(height: bottomPadding),
-      ],
+    return SafeArea(
+      child: Center(child: FitDotLoading(color: color)),
     );
   }
 }
