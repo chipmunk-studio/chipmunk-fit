@@ -151,11 +151,18 @@ class FitScaffold extends StatelessWidget {
   }
 
   /// 패딩 계산 (최적화됨)
+  ///
+  /// bottom이 false일 경우, SafeArea가 적용되지 않으므로
+  /// 바텀 네비게이션 영역만큼 하단 패딩을 추가
   EdgeInsets _resolvePadding(BuildContext context) {
-    if (padding != null) return padding!;
+    final bottomPadding = bottom ? 0.0 : MediaQuery.of(context).padding.bottom;
 
-    // 기본 패딩: 좌우 20
-    return const EdgeInsets.symmetric(horizontal: 20);
+    if (padding != null) {
+      return padding!.copyWith(bottom: padding!.bottom + bottomPadding);
+    }
+
+    // 기본 패딩: 좌우 20, bottom은 SafeArea 미적용 시 시스템 패딩
+    return EdgeInsets.only(left: 20, right: 20, bottom: bottomPadding);
   }
 
   /// 로딩 상태에 따른 본문 (최적화됨)
@@ -223,12 +230,13 @@ class _DefaultLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(child: FitDotLoading(color: color)),
-        const SizedBox(height: 56),
+        SizedBox(height: bottomPadding),
       ],
     );
   }
