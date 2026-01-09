@@ -8,6 +8,11 @@ import 'package:chip_foundation/textstyle.dart';
 import 'fit_button.dart';
 
 /// 하단 고정 버튼 위젯 (키보드 대응)
+///
+/// @deprecated [FitAnimatedBottomButton]을 사용하세요.
+/// 이 위젯은 키보드 상태를 외부에서 전달받아야 하지만,
+/// [FitAnimatedBottomButton]은 내부에서 자동으로 감지하고 애니메이션 처리합니다.
+@Deprecated('FitAnimatedBottomButton을 사용하세요. 키보드 감지 및 애니메이션이 자동으로 처리됩니다.')
 class FitBottomButton extends StatelessWidget {
   final bool isEnabled;
   final bool isShowLoading;
