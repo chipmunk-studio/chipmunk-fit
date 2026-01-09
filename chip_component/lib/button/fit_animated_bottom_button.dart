@@ -60,7 +60,7 @@ class FitAnimatedBottomButton extends StatelessWidget {
 
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 10),
-      curve: Curves.easeOut,
+      curve: Curves.easeInCubic,
       tween: Tween(end: targetValue),
       builder: (_, animValue, __) {
         // 키보드 상태에 따른 borderRadius 애니메이션을 위한 shape 스타일
@@ -80,7 +80,7 @@ class FitAnimatedBottomButton extends StatelessWidget {
             boxShadow: animValue > 0.5
                 ? [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
+                      color: colors.backgroundBase.withValues(alpha: 0.08),
                       blurRadius: 8,
                       offset: const Offset(0, -2),
                     ),
