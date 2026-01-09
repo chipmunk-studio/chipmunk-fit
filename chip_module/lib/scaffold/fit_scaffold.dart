@@ -140,29 +140,21 @@ class FitScaffold extends StatelessWidget {
 
   /// SafeArea + Padding이 적용된 본문
   Widget _buildSafeBody(BuildContext context) {
+    final bottomPadding = bottom ? 0.0 : MediaQuery.of(context).padding.bottom;
+
     return SafeArea(
       bottom: bottom,
       top: top,
       child: Padding(
-        padding: _resolvePadding(context),
-        child: _buildBodyWithLoading(context),
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            Expanded(child: _buildBodyWithLoading(context)),
+            SizedBox(height: bottomPadding),
+          ],
+        ),
       ),
     );
-  }
-
-  /// 패딩 계산 (최적화됨)
-  ///
-  /// bottom이 false일 경우, SafeArea가 적용되지 않으므로
-  /// 바텀 네비게이션 영역만큼 하단 패딩을 추가
-  EdgeInsets _resolvePadding(BuildContext context) {
-    final bottomPadding = bottom ? 0.0 : MediaQuery.of(context).padding.bottom;
-
-    if (padding != null) {
-      return padding!.copyWith(bottom: padding!.bottom + bottomPadding);
-    }
-
-    // 기본 패딩: 좌우 20, bottom은 SafeArea 미적용 시 시스템 패딩
-    return EdgeInsets.only(left: 20, right: 20, bottom: bottomPadding);
   }
 
   /// 로딩 상태에 따른 본문 (최적화됨)
