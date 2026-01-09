@@ -140,19 +140,12 @@ class FitScaffold extends StatelessWidget {
 
   /// SafeArea + Padding이 적용된 본문
   Widget _buildSafeBody(BuildContext context) {
-    final bottomPadding = bottom ? 0.0 : MediaQuery.of(context).padding.bottom;
-
     return SafeArea(
       bottom: bottom,
       top: top,
       child: Padding(
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            Expanded(child: _buildBodyWithLoading(context)),
-            SizedBox(height: bottomPadding),
-          ],
-        ),
+        child: _buildBodyWithLoading(context),
       ),
     );
   }
