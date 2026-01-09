@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:chip_foundation/colors.dart';
 import 'package:flutter/material.dart';
 
 /// 물결 효과 도트 로딩 애니메이션
@@ -41,7 +42,7 @@ class _FitDotLoadingState extends State<FitDotLoading> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final effectiveColor = widget.color ?? Colors.green;
+    final effectiveColor = widget.color ?? context.fitColors.main;
 
     return Row(
       mainAxisSize: MainAxisSize.min,

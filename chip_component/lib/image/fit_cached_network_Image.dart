@@ -43,6 +43,12 @@ class FitCachedNetworkImage extends StatelessWidget {
   /// 에러 시 표시할 위젯
   final Widget? errorWidget;
 
+  /// 메모리 캐시 너비 (성능 최적화)
+  final int? memCacheWidth;
+
+  /// 메모리 캐시 높이 (성능 최적화)
+  final int? memCacheHeight;
+
   static const _cacheKey = 'fortune_caching_key';
 
   /// 공유 캐시 매니저 (30일 만료)
@@ -66,9 +72,11 @@ class FitCachedNetworkImage extends StatelessWidget {
     this.imageShape = FitImageShape.SQUIRCLE,
     this.borderWidth,
     this.borderColor,
-    this.fadeInDuration = const Duration(seconds: 1),
+    this.fadeInDuration = const Duration(milliseconds: 300),
     this.placeholder,
     this.errorWidget,
+    this.memCacheWidth,
+    this.memCacheHeight,
   });
 
   @override
@@ -84,6 +92,10 @@ class FitCachedNetworkImage extends StatelessWidget {
       fit: fit,
       cacheManager: cacheManager,
       fadeInDuration: fadeInDuration,
+      fadeOutDuration: const Duration(milliseconds: 100),
+      placeholderFadeInDuration: Duration.zero,
+      memCacheWidth: memCacheWidth,
+      memCacheHeight: memCacheHeight,
       placeholder: placeholder != null ? (_, __) => placeholder! : null,
       errorWidget: errorWidget != null ? (_, __, ___) => errorWidget! : null,
     );
