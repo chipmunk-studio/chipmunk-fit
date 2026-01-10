@@ -83,56 +83,23 @@ class FitChip extends StatefulWidget {
   State<FitChip> createState() => _FitChipState();
 }
 
-class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
+class _FitChipState extends State<FitChip> {
   bool _isPressed = false;
   bool get _isEnabled => widget.isEnabled && (widget.onTap != null || widget.onSelected != null);
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: widget.animationDuration,
-      vsync: this,
-    );
-
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: widget.pressedScale,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   void _onTapDown(TapDownDetails details) {
-    if (_isEnabled && mounted) {
+    if (_isEnabled) {
       setState(() => _isPressed = true);
-      _controller.forward();
     }
   }
 
   void _onTapUp(TapUpDetails details) {
-    if (mounted) {
-      _controller.reverse();
-      setState(() => _isPressed = false);
-      _handleTap();
-    }
+    setState(() => _isPressed = false);
+    _handleTap();
   }
 
   void _onTapCancel() {
-    if (mounted) {
-      _controller.reverse();
-      setState(() => _isPressed = false);
-    }
+    setState(() => _isPressed = false);
   }
 
   void _handleTap() {
@@ -149,7 +116,7 @@ class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // 색상 결정
+    // 색상 결정 - 사용자 지정 색상 우선
     final Color backgroundColor = widget.isSelected
         ? (widget.selectedBackgroundColor ?? theme.primaryColor.withOpacity(0.1))
         : (widget.backgroundColor ?? theme.chipTheme.backgroundColor ?? Colors.grey.shade200);
@@ -162,40 +129,41 @@ class _FitChipState extends State<FitChip> with SingleTickerProviderStateMixin {
         ? (widget.selectedBorderWidth ?? widget.borderWidth)
         : widget.borderWidth;
 
+    // disabled 상태일 때만 opacity 적용 (사용자 지정 alpha 값 보존)
+    final Color effectiveBackgroundColor = _isEnabled
+        ? backgroundColor
+        : backgroundColor.withOpacity(backgroundColor.opacity * 0.5);
+
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       onTapCancel: _onTapCancel,
-      child: AnimatedBuilder(
-        animation: _scaleAnimation,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _isPressed ? _scaleAnimation.value : 1.0,
-            child: AnimatedContainer(
-              duration: widget.animationDuration,
-              curve: Curves.easeInOut,
-              padding: widget.padding,
-              decoration: BoxDecoration(
-                color: backgroundColor.withOpacity(_isEnabled ? 1.0 : 0.5),
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-                border: Border.all(
-                  color: borderColor,
-                  width: borderWidth,
-                ),
-                boxShadow: widget.elevation > 0
-                    ? [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: widget.elevation,
-                          offset: Offset(0, widget.elevation / 2),
-                        ),
-                      ]
-                    : null,
-              ),
-              child: widget.child,
+      child: AnimatedScale(
+        scale: _isPressed ? widget.pressedScale : 1.0,
+        duration: const Duration(milliseconds: 100),
+        child: AnimatedContainer(
+          duration: widget.animationDuration,
+          curve: Curves.easeOut,
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            color: effectiveBackgroundColor,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            border: Border.all(
+              color: borderColor,
+              width: borderWidth,
             ),
-          );
-        },
+            boxShadow: widget.elevation > 0
+                ? [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: widget.elevation,
+                      offset: Offset(0, widget.elevation / 2),
+                    ),
+                  ]
+                : null,
+          ),
+          child: widget.child,
+        ),
       ),
     );
   }
