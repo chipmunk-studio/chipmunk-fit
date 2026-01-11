@@ -14,6 +14,21 @@ import 'package:flutter/material.dart';
 /// )
 /// ```
 class FitTab extends StatelessWidget {
+  const FitTab({
+    super.key,
+    required this.text,
+    this.isSelected = false,
+    this.onTap,
+    this.selectedTextColor,
+    this.unselectedTextColor,
+    this.indicatorColor,
+    this.indicatorHeight = 2.0,
+    this.textStyle,
+    this.selectedTextStyle,
+    this.padding = const EdgeInsets.symmetric(vertical: 15),
+    this.isEnabled = true,
+  });
+
   /// 탭 텍스트
   final String text;
 
@@ -47,54 +62,31 @@ class FitTab extends StatelessWidget {
   /// 활성화 상태
   final bool isEnabled;
 
-  const FitTab({
-    super.key,
-    required this.text,
-    this.isSelected = false,
-    this.onTap,
-    this.selectedTextColor,
-    this.unselectedTextColor,
-    this.indicatorColor,
-    this.indicatorHeight = 2.0,
-    this.textStyle,
-    this.selectedTextStyle,
-    this.padding = const EdgeInsets.symmetric(vertical: 15),
-    this.isEnabled = true,
-  });
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final primaryColor = theme.primaryColor;
 
     // 색상 결정
-    final Color textColor = isSelected
-        ? (selectedTextColor ?? theme.primaryColor)
+    final textColor = isSelected
+        ? (selectedTextColor ?? primaryColor)
         : (unselectedTextColor ?? Colors.grey.shade600);
 
-    final Color underlineColor =
-        indicatorColor ?? selectedTextColor ?? theme.primaryColor;
+    final underlineColor = indicatorColor ?? selectedTextColor ?? primaryColor;
 
     // 텍스트 스타일 결정
-    final TextStyle resolvedStyle = isSelected
-        ? (selectedTextStyle ??
-            textStyle?.copyWith(color: textColor) ??
-            TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: textColor,
-            ))
-        : (textStyle?.copyWith(color: textColor) ??
-            TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: textColor,
-            ));
+    final baseStyle = textStyle ?? const TextStyle(fontSize: 15, fontWeight: FontWeight.w500);
+
+    final resolvedStyle = isSelected
+        ? (selectedTextStyle ?? baseStyle).copyWith(color: textColor)
+        : baseStyle.copyWith(color: textColor);
+
+    final finalColor = isEnabled ? textColor : textColor.withValues(alpha: 0.5);
 
     return GestureDetector(
       onTap: isEnabled ? onTap : null,
       behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: padding,
+      child: DecoratedBox(
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
@@ -103,11 +95,9 @@ class FitTab extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(
-          text,
-          style: resolvedStyle.copyWith(
-            color: isEnabled ? textColor : textColor.withOpacity(0.5),
-          ),
+        child: Padding(
+          padding: padding,
+          child: Text(text, style: resolvedStyle.copyWith(color: finalColor)),
         ),
       ),
     );
