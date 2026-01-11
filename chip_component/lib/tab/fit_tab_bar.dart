@@ -147,13 +147,15 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
     final stackBox = stackContext.findRenderObject() as RenderBox?;
     if (renderBox == null || stackBox == null) return;
 
-    final position = renderBox.localToGlobal(Offset.zero, ancestor: stackBox);
     final textWidth = renderBox.size.width;
-    final textCenterX = position.dx + textWidth / 2;
+
+    // 텍스트의 실제 중심점을 직접 계산 (좌측 상단 기준이 아닌 중앙 기준)
+    final centerPoint = Offset(textWidth / 2, renderBox.size.height / 2);
+    final globalCenter = renderBox.localToGlobal(centerPoint, ancestor: stackBox);
 
     setState(() {
       _indicatorWidth = textWidth + (widget.indicatorHorizontalPadding * 2);
-      _indicatorLeft = textCenterX - _indicatorWidth / 2;
+      _indicatorLeft = globalCenter.dx - _indicatorWidth / 2;
       _initialized = true;
     });
   }
