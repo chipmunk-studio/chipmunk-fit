@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'presentation/component/animation_text/animation_text_page.dart';
+import 'presentation/component/button/animated_bottom_button_page.dart';
 import 'presentation/component/button/button_page.dart';
 import 'presentation/component/checkbox/check_box_page.dart';
 import 'presentation/component/chip/chip_page.dart';
@@ -31,6 +32,12 @@ final GoRouter catalogRouter = GoRouter(
           path: 'button',
           builder: (BuildContext context, GoRouterState state) {
             return const ButtonPage();
+          },
+        ),
+        GoRoute(
+          path: 'animated_bottom_button',
+          builder: (BuildContext context, GoRouterState state) {
+            return const AnimatedBottomButtonPage();
           },
         ),
         GoRoute(

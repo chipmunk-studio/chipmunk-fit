@@ -69,6 +69,13 @@ class ComponentPage extends StatelessWidget {
                 route: '/button',
               ),
               _ComponentItem(
+                icon: Icons.keyboard_hide_outlined,
+                iconColor: const Color(0xFF6366F1),
+                title: 'AnimatedBottomButton',
+                subtitle: '키보드 반응형 하단 버튼',
+                route: '/animated_bottom_button',
+              ),
+              _ComponentItem(
                 icon: Icons.check_box_outlined,
                 iconColor: const Color(0xFF9B51E0),
                 title: 'CheckBox',
