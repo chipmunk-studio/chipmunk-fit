@@ -219,9 +219,8 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
     final item = widget.items[index];
     final isSelected = item == widget.selectedItem;
 
-    return GestureDetector(
+    return _ScaleTabItem(
       onTap: () => widget.onTabChanged(item),
-      behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: tabPadding,
         child: KeyedSubtree(
@@ -236,6 +235,63 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
                       ),
                 ),
         ),
+      ),
+    );
+  }
+}
+
+/// 탭 아이템 스케일 애니메이션 위젯
+class _ScaleTabItem extends StatefulWidget {
+  const _ScaleTabItem({required this.onTap, required this.child});
+
+  final VoidCallback onTap;
+  final Widget child;
+
+  @override
+  State<_ScaleTabItem> createState() => _ScaleTabItemState();
+}
+
+class _ScaleTabItemState extends State<_ScaleTabItem> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTapDown(TapDownDetails details) => _controller.forward();
+
+  void _onTapUp(TapUpDetails details) {
+    _controller.reverse();
+    widget.onTap();
+  }
+
+  void _onTapCancel() => _controller.reverse();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: _onTapDown,
+      onTapUp: _onTapUp,
+      onTapCancel: _onTapCancel,
+      behavior: HitTestBehavior.opaque,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: widget.child,
       ),
     );
   }
