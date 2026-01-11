@@ -222,19 +222,17 @@ class _FitTabBarState<T> extends State<FitTabBar<T>> {
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: tabPadding,
-        child: Align(
-          child: KeyedSubtree(
-            key: _tabKeys[index],
-            child: widget.childBuilder != null
-                ? widget.childBuilder!(item, isSelected)
-                : Text(
-                    widget.labelBuilder!(item),
-                    style: context.subtitle4().copyWith(
-                          color: isSelected ? colors.textPrimary : colors.textTertiary,
-                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                        ),
-                  ),
-          ),
+        child: KeyedSubtree(
+          key: _tabKeys[index],
+          child: widget.childBuilder != null
+              ? widget.childBuilder!(item, isSelected)
+              : Text(
+                  widget.labelBuilder!(item),
+                  style: context.subtitle4().copyWith(
+                        color: isSelected ? colors.textPrimary : colors.textTertiary,
+                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                      ),
+                ),
         ),
       ),
     );
