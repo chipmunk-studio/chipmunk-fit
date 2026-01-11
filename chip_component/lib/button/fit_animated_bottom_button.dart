@@ -34,6 +34,7 @@ class FitAnimatedBottomButton extends StatelessWidget {
     this.isLoading = false,
     this.loadingColor,
     this.useSafeArea = true,
+    this.backgroundColor,
   });
 
   /// 부모 위젯의 BuildContext (MediaQuery 감지용, 필수)
@@ -54,9 +55,13 @@ class FitAnimatedBottomButton extends StatelessWidget {
   /// SafeArea 하단 패딩 사용 여부 (기본: true, 바텀시트에서는 false 권장)
   final bool useSafeArea;
 
+  /// 배경색 (기본: colors.backgroundBase)
+  final Color? backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     final colors = parentContext.fitColors;
+    final bgColor = backgroundColor ?? colors.backgroundBase;
     final keyboardHeight = MediaQuery.of(parentContext).viewInsets.bottom;
     final bottomPadding = useSafeArea ? MediaQuery.of(parentContext).padding.bottom : 0.0;
     final isKeyboardVisible = keyboardHeight > 50;
@@ -80,11 +85,11 @@ class FitAnimatedBottomButton extends StatelessWidget {
         return Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: colors.backgroundBase,
+            color: bgColor,
             boxShadow: animValue > 0.5
                 ? [
                     BoxShadow(
-                      color: colors.backgroundBase.withValues(alpha: 0.08),
+                      color: bgColor.withValues(alpha: 0.08),
                       blurRadius: 8,
                       offset: const Offset(0, -2),
                     ),
