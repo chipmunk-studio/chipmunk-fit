@@ -57,7 +57,7 @@ class FitAnimatedBottomButton extends StatefulWidget {
 class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
     with WidgetsBindingObserver {
   static const _kKeyboardThreshold = 50.0;
-  static const _kAnimDuration = Duration(milliseconds: 30);
+  static const _kAnimDuration = Duration(milliseconds: 200);
   static const _kSafeAreaPadding = 8.0;
 
   double _keyboardHeight = 0;
