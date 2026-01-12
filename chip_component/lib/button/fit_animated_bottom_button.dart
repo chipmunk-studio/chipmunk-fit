@@ -171,10 +171,15 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
   }
 
   ButtonStyle _buildButtonStyle(double animValue) {
-    final borderRadius = BorderRadius.circular(100.r * animValue);
-    final animatedShape = ButtonStyle(
-      shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: borderRadius)),
+    final animatedBorderRadius = BorderRadius.circular(100.r * animValue);
+    final animatedShape = WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: animatedBorderRadius),
     );
-    return widget.style?.merge(animatedShape) ?? animatedShape;
+
+    // 커스텀 스타일이 있어도 shape는 항상 애니메이션 값으로 덮어씌움
+    if (widget.style != null) {
+      return widget.style!.copyWith(shape: animatedShape);
+    }
+    return ButtonStyle(shape: animatedShape);
   }
 }
