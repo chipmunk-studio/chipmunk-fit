@@ -135,7 +135,7 @@ class _FitButtonState extends State<FitButton> {
       surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
 
-    return baseStyle.merge(widget.style);
+    return widget.style?.merge(baseStyle) ?? baseStyle;
   }
 
   _ButtonColors _getButtonColors(FitColors colors) {

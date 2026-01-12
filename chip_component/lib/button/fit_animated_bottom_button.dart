@@ -169,6 +169,7 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
       ),
     );
 
+    // widget.style이 있으면 shape만 animatedShape로 덮어씌움 (다른 속성은 유지)
     return widget.style?.copyWith(shape: animatedShape) ??
         ButtonStyle(shape: animatedShape);
   }

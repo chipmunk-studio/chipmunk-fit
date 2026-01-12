@@ -147,21 +147,21 @@ class FitButtonStyle {
 
 /// ButtonStyle 병합을 위한 extension
 extension ButtonStyleMerge on ButtonStyle {
-  /// 다른 ButtonStyle과 병합 (other가 우선)
+  /// 다른 ButtonStyle과 병합 (this가 우선, other는 this의 null 필드를 채움)
   ButtonStyle merge(ButtonStyle? other) {
     if (other == null) return this;
     return copyWith(
-      backgroundColor: other.backgroundColor ?? backgroundColor,
-      foregroundColor: other.foregroundColor ?? foregroundColor,
-      overlayColor: other.overlayColor ?? overlayColor,
-      shape: other.shape ?? shape,
-      padding: other.padding ?? padding,
-      textStyle: other.textStyle ?? textStyle,
-      elevation: other.elevation ?? elevation,
-      minimumSize: other.minimumSize ?? minimumSize,
-      shadowColor: other.shadowColor ?? shadowColor,
-      surfaceTintColor: other.surfaceTintColor ?? surfaceTintColor,
-      side: other.side ?? side,
+      backgroundColor: backgroundColor ?? other.backgroundColor,
+      foregroundColor: foregroundColor ?? other.foregroundColor,
+      overlayColor: overlayColor ?? other.overlayColor,
+      shape: shape ?? other.shape,
+      padding: padding ?? other.padding,
+      textStyle: textStyle ?? other.textStyle,
+      elevation: elevation ?? other.elevation,
+      minimumSize: minimumSize ?? other.minimumSize,
+      shadowColor: shadowColor ?? other.shadowColor,
+      surfaceTintColor: surfaceTintColor ?? other.surfaceTintColor,
+      side: side ?? other.side,
     );
   }
 }
