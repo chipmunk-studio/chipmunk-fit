@@ -9,37 +9,16 @@ import 'package:sprung/sprung.dart';
 
 /// 커스텀 버튼 위젯 (스케일 애니메이션 및 디바운스 기능)
 class FitButton extends StatefulWidget {
-  /// 버튼 클릭 콜백
   final VoidCallback? onPressed;
-
-  /// 비활성화 상태에서 클릭 시 콜백
   final VoidCallback? onDisabledPressed;
-
-  /// 버튼 타입 (primary, secondary, tertiary, ghost, destructive)
   final FitButtonType type;
-
-  /// 커스텀 버튼 스타일 (type 기본 스타일을 오버라이드)
   final ButtonStyle? style;
-
-  /// 버튼 내부 위젯
   final Widget child;
-
-  /// 버튼 패딩
   final EdgeInsets? padding;
-
-  /// 가로 전체 확장 여부
   final bool isExpanded;
-
-  /// 활성화 상태
   final bool isEnabled;
-
-  /// 로딩 상태
   final bool isLoading;
-
-  /// 리플 효과 활성화
   final bool enableRipple;
-
-  /// 로딩 인디케이터 색상
   final Color? loadingColor;
 
   const FitButton({
@@ -65,9 +44,13 @@ class _FitButtonState extends State<FitButton> {
   static const _debounceDuration = Duration(seconds: 1);
   static const _animationDuration = Duration(milliseconds: 600);
   static const _pressedScale = 0.95;
+  static final _pressedCurve = Sprung.custom(damping: 8);
+  static final _releasedCurve = Sprung.custom(damping: 6);
 
   bool _isPressed = false;
   Timer? _debounceTimer;
+
+  bool get _isInteractive => widget.isEnabled && !widget.isLoading;
 
   @override
   void dispose() {
@@ -75,15 +58,13 @@ class _FitButtonState extends State<FitButton> {
     super.dispose();
   }
 
-  bool get _isInteractive => widget.isEnabled && !widget.isLoading;
-
   void _handlePress() {
     if (_debounceTimer?.isActive ?? false) return;
     widget.onPressed?.call();
     _debounceTimer = Timer(_debounceDuration, () {});
   }
 
-  void _onTapDown(TapDownDetails details) {
+  void _onTapDown(TapDownDetails _) {
     if (_isInteractive && mounted) {
       setState(() => _isPressed = true);
     } else {
@@ -91,7 +72,7 @@ class _FitButtonState extends State<FitButton> {
     }
   }
 
-  void _onTapUp(TapUpDetails details) {
+  void _onTapUp(TapUpDetails _) {
     if (mounted) setState(() => _isPressed = false);
   }
 
@@ -101,13 +82,11 @@ class _FitButtonState extends State<FitButton> {
 
   @override
   Widget build(BuildContext context) {
-    final effectivePadding = widget.padding ??
+    final padding = widget.padding ??
         EdgeInsets.symmetric(
           vertical: widget.isExpanded ? 20 : 12,
           horizontal: widget.isExpanded ? 20 : 14,
         );
-
-    final buttonStyle = _resolveButtonStyle(context, effectivePadding);
 
     final button = GestureDetector(
       onTapDown: _onTapDown,
@@ -115,11 +94,11 @@ class _FitButtonState extends State<FitButton> {
       onTapCancel: _onTapCancel,
       child: AnimatedContainer(
         duration: _animationDuration,
-        curve: _isPressed ? Sprung.custom(damping: 8) : Sprung.custom(damping: 6),
+        curve: _isPressed ? _pressedCurve : _releasedCurve,
         transform: Matrix4.identity()..scale(_isPressed ? _pressedScale : 1.0),
         transformAlignment: Alignment.center,
         child: FilledButton(
-          style: buttonStyle,
+          style: _resolveButtonStyle(context, padding),
           onPressed: _isInteractive ? _handlePress : null,
           child: _buildContent(),
         ),
@@ -133,19 +112,19 @@ class _FitButtonState extends State<FitButton> {
 
   ButtonStyle _resolveButtonStyle(BuildContext context, EdgeInsets padding) {
     final colors = context.fitColors;
-    final buttonColors = _getButtonColors(colors);
+    final btnColors = _getButtonColors(colors);
 
     final baseStyle = FilledButton.styleFrom(
-      backgroundColor: buttonColors.background,
-      disabledBackgroundColor: buttonColors.disabledBackground,
-      foregroundColor: buttonColors.foreground,
-      disabledForegroundColor: buttonColors.disabledForeground,
+      backgroundColor: btnColors.bg,
+      disabledBackgroundColor: btnColors.disabledBg,
+      foregroundColor: btnColors.fg,
+      disabledForegroundColor: btnColors.disabledFg,
       padding: padding,
       minimumSize: Size.zero,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.r),
-        side: buttonColors.border ?? BorderSide.none,
+        side: btnColors.border ?? BorderSide.none,
       ),
     ).copyWith(
       overlayColor: WidgetStateProperty.all(
@@ -156,64 +135,53 @@ class _FitButtonState extends State<FitButton> {
       surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
 
-    if (widget.style == null) return baseStyle;
-    // 커스텀 스타일이 baseStyle을 덮어씌우도록 순서 변경
-    return baseStyle.merge(widget.style);
+    return widget.style?.merge(baseStyle) ?? baseStyle;
   }
 
   _ButtonColors _getButtonColors(FitColors colors) {
-    // 테마에서 설정된 버튼 컬러 가져오기
     final themeStyle = Theme.of(context).filledButtonTheme.style;
-    final themeDisabledBackground =
+    final themeDisabledBg =
         themeStyle?.backgroundColor?.resolve({WidgetState.disabled}) ?? colors.green50;
-    final themeForeground =
+    final themeFg =
         themeStyle?.foregroundColor?.resolve({WidgetState.selected}) ?? colors.staticBlack;
 
-    switch (widget.type) {
-      case FitButtonType.primary:
-        return _ButtonColors(
-          background: colors.main,
-          disabledBackground: themeDisabledBackground,
-          foreground: themeForeground,
-          disabledForeground: colors.inverseDisabled,
-        );
-      case FitButtonType.secondary:
-        return _ButtonColors(
-          background: colors.grey900,
-          disabledBackground: colors.grey300,
-          foreground: colors.inverseText,
-          disabledForeground: colors.textSecondary,
-        );
-      case FitButtonType.tertiary:
-        return _ButtonColors(
-          background: colors.fillStrong,
-          disabledBackground: colors.fillAlternative,
-          foreground: colors.textDisabled,
-          disabledForeground: colors.textTertiary,
-        );
-      case FitButtonType.ghost:
-        return _ButtonColors(
-          background: Colors.transparent,
-          disabledBackground: Colors.transparent,
-          foreground: colors.grey900,
-          disabledForeground: colors.grey300,
+    return switch (widget.type) {
+      FitButtonType.primary => _ButtonColors(
+          bg: colors.main,
+          disabledBg: themeDisabledBg,
+          fg: themeFg,
+          disabledFg: colors.inverseDisabled,
+        ),
+      FitButtonType.secondary => _ButtonColors(
+          bg: colors.grey900,
+          disabledBg: colors.grey300,
+          fg: colors.inverseText,
+          disabledFg: colors.textSecondary,
+        ),
+      FitButtonType.tertiary => _ButtonColors(
+          bg: colors.fillStrong,
+          disabledBg: colors.fillAlternative,
+          fg: colors.textDisabled,
+          disabledFg: colors.textTertiary,
+        ),
+      FitButtonType.ghost => _ButtonColors(
+          bg: Colors.transparent,
+          disabledBg: Colors.transparent,
+          fg: colors.grey900,
+          disabledFg: colors.grey300,
           border: BorderSide(color: colors.grey400, width: 1.0),
-        );
-      case FitButtonType.destructive:
-        return _ButtonColors(
-          background: colors.red500,
-          disabledBackground: colors.red50,
-          foreground: colors.staticWhite,
-          disabledForeground: colors.inverseDisabled,
-        );
-    }
+        ),
+      FitButtonType.destructive => _ButtonColors(
+          bg: colors.red500,
+          disabledBg: colors.red50,
+          fg: colors.staticWhite,
+          disabledFg: colors.inverseDisabled,
+        ),
+    };
   }
 
   Widget _buildContent() {
-    // FittedBox 제거 - child를 직접 사용
-    final content = widget.child;
-
-    if (!widget.isLoading) return content;
+    if (!widget.isLoading) return widget.child;
 
     return Stack(
       alignment: Alignment.center,
@@ -223,7 +191,7 @@ class _FitButtonState extends State<FitButton> {
           maintainSize: true,
           maintainAnimation: true,
           maintainState: true,
-          child: content,
+          child: widget.child,
         ),
         FitDotLoading(
           dotSize: 8,
@@ -235,17 +203,17 @@ class _FitButtonState extends State<FitButton> {
 }
 
 class _ButtonColors {
-  final Color background;
-  final Color disabledBackground;
-  final Color foreground;
-  final Color disabledForeground;
+  final Color bg;
+  final Color disabledBg;
+  final Color fg;
+  final Color disabledFg;
   final BorderSide? border;
 
-  _ButtonColors({
-    required this.background,
-    required this.disabledBackground,
-    required this.foreground,
-    required this.disabledForeground,
+  const _ButtonColors({
+    required this.bg,
+    required this.disabledBg,
+    required this.fg,
+    required this.disabledFg,
     this.border,
   });
 }

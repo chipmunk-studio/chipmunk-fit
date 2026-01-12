@@ -108,12 +108,13 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
   }
 
   double _resolveBaseRadius() {
-    if (widget.borderRadius != null) return widget.borderRadius!;
+    final radius = widget.borderRadius;
+    if (radius != null) return radius;
 
     final shape = widget.style?.shape?.resolve({});
     if (shape is RoundedRectangleBorder) {
-      final radius = shape.borderRadius;
-      if (radius is BorderRadius) return radius.topLeft.x;
+      final br = shape.borderRadius;
+      if (br is BorderRadius) return br.topLeft.x;
     }
 
     return 100.r;
