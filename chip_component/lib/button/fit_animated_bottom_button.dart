@@ -7,7 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// 키보드 반응형 하단 버튼
 ///
 /// 키보드 상태에 따라 radius와 padding이 자동 애니메이션 처리됩니다.
-/// [WidgetsBindingObserver]를 통해 키보드 변화를 자체적으로 감지합니다.
+/// [WidgetsBindingObserver]를 통해 키보드 변화를 감지합니다.
+/// (BlocBuilder 등 InheritedWidget이 아닌 컨텍스트에서도 동작)
 ///
 /// ## 사용 예시
 /// ```dart
@@ -38,34 +39,19 @@ class FitAnimatedBottomButton extends StatefulWidget {
     this.loadingColor,
     this.useSafeArea = true,
     this.backgroundColor,
+    this.borderRadius,
   });
 
-  /// 버튼 클릭 콜백
   final VoidCallback? onPressed;
-
-  /// 버튼 내부 위젯
   final Widget child;
-
-  /// 버튼 타입 (primary, secondary, tertiary, ghost, destructive)
   final FitButtonType type;
-
-  /// 커스텀 버튼 스타일
   final ButtonStyle? style;
-
-  /// 버튼 활성화 여부
   final bool isEnabled;
-
-  /// 로딩 상태
   final bool isLoading;
-
-  /// 로딩 인디케이터 색상
   final Color? loadingColor;
-
-  /// SafeArea 하단 패딩 사용 여부 (기본: true, 바텀시트에서는 false 권장)
   final bool useSafeArea;
-
-  /// 배경색 (기본: backgroundAlternative)
   final Color? backgroundColor;
+  final double? borderRadius;
 
   @override
   State<FitAnimatedBottomButton> createState() => _FitAnimatedBottomButtonState();
@@ -73,29 +59,30 @@ class FitAnimatedBottomButton extends StatefulWidget {
 
 class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
     with WidgetsBindingObserver {
-  /// 키보드가 표시되었다고 판단하는 최소 높이 (pixels)
   static const _kKeyboardThreshold = 50.0;
-
-  /// 애니메이션 지속 시간
   static const _kAnimationDuration = Duration(milliseconds: 70);
-
-  /// 키보드 숨김 상태 패딩
-  static const _kDefaultHorizontalPadding = 20.0;
-  static const _kDefaultTopPadding = 12.0;
-  static const _kDefaultBottomPadding = 16.0;
   static const _kSafeAreaExtraPadding = 8.0;
+  static const _kShadowOffset = Offset(0, -2);
 
-  /// 현재 키보드 높이
   double _keyboardHeight = 0;
+  double? _cachedBaseRadius;
 
-  /// 키보드 표시 여부
   bool get _isKeyboardVisible => _keyboardHeight > _kKeyboardThreshold;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _syncKeyboardHeight());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateKeyboardHeight());
+  }
+
+  @override
+  void didUpdateWidget(FitAnimatedBottomButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.borderRadius != widget.borderRadius ||
+        oldWidget.style != widget.style) {
+      _cachedBaseRadius = null;
+    }
   }
 
   @override
@@ -105,45 +92,59 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
   }
 
   @override
-  void didChangeMetrics() => _syncKeyboardHeight();
+  void didChangeMetrics() => _updateKeyboardHeight();
 
-  void _syncKeyboardHeight() {
+  void _updateKeyboardHeight() {
     if (!mounted) return;
-    final newHeight = MediaQueryData.fromView(View.of(context)).viewInsets.bottom;
+    final view = View.of(context);
+    final newHeight = view.viewInsets.bottom / view.devicePixelRatio;
     if (_keyboardHeight != newHeight) {
       setState(() => _keyboardHeight = newHeight);
     }
   }
 
+  double get _baseRadius {
+    return _cachedBaseRadius ??= _resolveBaseRadius();
+  }
+
+  double _resolveBaseRadius() {
+    if (widget.borderRadius != null) return widget.borderRadius!;
+
+    final shape = widget.style?.shape?.resolve({});
+    if (shape is RoundedRectangleBorder) {
+      final radius = shape.borderRadius;
+      if (radius is BorderRadius) return radius.topLeft.x;
+    }
+
+    return 100.r;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = context.fitColors;
-    final mediaQueryData = MediaQueryData.fromView(View.of(context));
+    final mediaQuery = MediaQuery.of(context);
     final bgColor = widget.backgroundColor ?? colors.backgroundAlternative;
-    final safeAreaBottom = widget.useSafeArea ? mediaQueryData.padding.bottom : 0.0;
+    final safeAreaBottom = widget.useSafeArea ? mediaQuery.padding.bottom : 0.0;
+    final hasSafeArea = safeAreaBottom > 0;
 
     return TweenAnimationBuilder<double>(
       duration: _kAnimationDuration,
       curve: Curves.easeOutCubic,
       tween: Tween(end: _isKeyboardVisible ? 0.0 : 1.0),
-      builder: (context, animValue, child) {
-        final horizontalPadding = _kDefaultHorizontalPadding.w * animValue;
-        final topPadding = _kDefaultTopPadding.h * animValue;
-        final bottomPadding = safeAreaBottom > 0
-            ? safeAreaBottom + _kSafeAreaExtraPadding
-            : _kDefaultBottomPadding.h * animValue;
-
+      builder: (context, animValue, _) {
         return Container(
           width: double.infinity,
           decoration: BoxDecoration(
             color: bgColor,
-            boxShadow: animValue > 0.5 ? _buildShadow(bgColor) : null,
+            boxShadow: animValue > 0.5
+                ? [BoxShadow(color: bgColor.withValues(alpha: 0.08), blurRadius: 8, offset: _kShadowOffset)]
+                : null,
           ),
           padding: EdgeInsets.only(
-            left: horizontalPadding,
-            right: horizontalPadding,
-            top: topPadding,
-            bottom: bottomPadding,
+            left: 20.w * animValue,
+            right: 20.w * animValue,
+            top: 12.h * animValue,
+            bottom: hasSafeArea ? safeAreaBottom + _kSafeAreaExtraPadding : 16.h * animValue,
           ),
           child: FitButton(
             isExpanded: true,
@@ -160,26 +161,14 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
     );
   }
 
-  List<BoxShadow> _buildShadow(Color bgColor) {
-    return [
-      BoxShadow(
-        color: bgColor.withValues(alpha: 0.08),
-        blurRadius: 8,
-        offset: const Offset(0, -2),
-      ),
-    ];
-  }
-
   ButtonStyle _buildButtonStyle(double animValue) {
-    final animatedBorderRadius = BorderRadius.circular(100.r * animValue);
     final animatedShape = WidgetStateProperty.all(
-      RoundedRectangleBorder(borderRadius: animatedBorderRadius),
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(_baseRadius * animValue),
+      ),
     );
 
-    // 커스텀 스타일이 있어도 shape는 항상 애니메이션 값으로 덮어씌움
-    if (widget.style != null) {
-      return widget.style!.copyWith(shape: animatedShape);
-    }
-    return ButtonStyle(shape: animatedShape);
+    return widget.style?.copyWith(shape: animatedShape) ??
+        ButtonStyle(shape: animatedShape);
   }
 }

@@ -157,7 +157,8 @@ class _FitButtonState extends State<FitButton> {
     );
 
     if (widget.style == null) return baseStyle;
-    return widget.style!.merge(baseStyle);
+    // 커스텀 스타일이 baseStyle을 덮어씌우도록 순서 변경
+    return baseStyle.merge(widget.style);
   }
 
   _ButtonColors _getButtonColors(FitColors colors) {
