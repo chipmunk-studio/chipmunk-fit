@@ -7,27 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sprung/sprung.dart';
 
-/// 커스텀 버튼 위젯 (스케일 애니메이션 및 디바운스 기능)
 class FitButton extends StatefulWidget {
-  final VoidCallback? onPressed;
-  final VoidCallback? onDisabledPressed;
-  final FitButtonType type;
-  final ButtonStyle? style;
-  final Widget child;
-  final EdgeInsets? padding;
-  final bool isExpanded;
-  final bool isEnabled;
-  final bool isLoading;
-  final bool enableRipple;
-  final Color? loadingColor;
-
   const FitButton({
     super.key,
+    required this.child,
     this.onPressed,
     this.onDisabledPressed,
     this.type = FitButtonType.primary,
     this.style,
-    required this.child,
     this.padding,
     this.isExpanded = false,
     this.isEnabled = true,
@@ -36,16 +23,29 @@ class FitButton extends StatefulWidget {
     this.loadingColor,
   });
 
+  final Widget child;
+  final VoidCallback? onPressed;
+  final VoidCallback? onDisabledPressed;
+  final FitButtonType type;
+  final ButtonStyle? style;
+  final EdgeInsets? padding;
+  final bool isExpanded;
+  final bool isEnabled;
+  final bool isLoading;
+  final bool enableRipple;
+  final Color? loadingColor;
+
   @override
   State<FitButton> createState() => _FitButtonState();
 }
 
 class _FitButtonState extends State<FitButton> {
-  static const _debounceDuration = Duration(seconds: 1);
-  static const _animationDuration = Duration(milliseconds: 600);
-  static const _pressedScale = 0.95;
-  static final _pressedCurve = Sprung.custom(damping: 8);
-  static final _releasedCurve = Sprung.custom(damping: 6);
+  // 애니메이션 상수
+  static const _kDebounceDuration = Duration(seconds: 1);
+  static const _kAnimDuration = Duration(milliseconds: 600);
+  static const _kPressedScale = 0.95;
+  static final _kPressedCurve = Sprung.custom(damping: 8);
+  static final _kReleasedCurve = Sprung.custom(damping: 6);
 
   bool _isPressed = false;
   Timer? _debounceTimer;
@@ -61,23 +61,11 @@ class _FitButtonState extends State<FitButton> {
   void _handlePress() {
     if (_debounceTimer?.isActive ?? false) return;
     widget.onPressed?.call();
-    _debounceTimer = Timer(_debounceDuration, () {});
+    _debounceTimer = Timer(_kDebounceDuration, () {});
   }
 
-  void _onTapDown(TapDownDetails _) {
-    if (_isInteractive && mounted) {
-      setState(() => _isPressed = true);
-    } else {
-      widget.onDisabledPressed?.call();
-    }
-  }
-
-  void _onTapUp(TapUpDetails _) {
-    if (mounted) setState(() => _isPressed = false);
-  }
-
-  void _onTapCancel() {
-    if (mounted) setState(() => _isPressed = false);
+  void _setPressed(bool pressed) {
+    if (mounted) setState(() => _isPressed = pressed);
   }
 
   @override
@@ -89,18 +77,28 @@ class _FitButtonState extends State<FitButton> {
         );
 
     final button = GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _onTapCancel,
+      onTapDown: (_) {
+        if (_isInteractive) {
+          _setPressed(true);
+        } else {
+          widget.onDisabledPressed?.call();
+        }
+      },
+      onTapUp: (_) => _setPressed(false),
+      onTapCancel: () => _setPressed(false),
       child: AnimatedContainer(
-        duration: _animationDuration,
-        curve: _isPressed ? _pressedCurve : _releasedCurve,
-        transform: Matrix4.identity()..scale(_isPressed ? _pressedScale : 1.0),
+        duration: _kAnimDuration,
+        curve: _isPressed ? _kPressedCurve : _kReleasedCurve,
+        transform: Matrix4.diagonal3Values(
+          _isPressed ? _kPressedScale : 1.0,
+          _isPressed ? _kPressedScale : 1.0,
+          1.0,
+        ),
         transformAlignment: Alignment.center,
         child: FilledButton(
-          style: _resolveButtonStyle(context, padding),
+          style: _buildStyle(context, padding),
           onPressed: _isInteractive ? _handlePress : null,
-          child: _buildContent(),
+          child: _buildContent(context),
         ),
       ),
     );
@@ -110,21 +108,22 @@ class _FitButtonState extends State<FitButton> {
         : IntrinsicWidth(child: button);
   }
 
-  ButtonStyle _resolveButtonStyle(BuildContext context, EdgeInsets padding) {
+  /// 타입별 색상과 커스텀 스타일을 병합한 ButtonStyle 반환
+  ButtonStyle _buildStyle(BuildContext context, EdgeInsets padding) {
     final colors = context.fitColors;
-    final btnColors = _getButtonColors(colors);
+    final (bg, disabledBg, fg, disabledFg, border) = _resolveColors(colors);
 
     final baseStyle = FilledButton.styleFrom(
-      backgroundColor: btnColors.bg,
-      disabledBackgroundColor: btnColors.disabledBg,
-      foregroundColor: btnColors.fg,
-      disabledForegroundColor: btnColors.disabledFg,
+      backgroundColor: bg,
+      disabledBackgroundColor: disabledBg,
+      foregroundColor: fg,
+      disabledForegroundColor: disabledFg,
       padding: padding,
       minimumSize: Size.zero,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.r),
-        side: btnColors.border ?? BorderSide.none,
+        side: border ?? BorderSide.none,
       ),
     ).copyWith(
       overlayColor: WidgetStateProperty.all(
@@ -135,57 +134,65 @@ class _FitButtonState extends State<FitButton> {
       surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
     );
 
+    // 커스텀 스타일이 있으면 병합 (커스텀 우선)
     return widget.style?.merge(baseStyle) ?? baseStyle;
   }
 
-  _ButtonColors _getButtonColors(FitColors colors) {
-    final themeStyle = Theme.of(context).filledButtonTheme.style;
+  /// 버튼 타입별 색상 반환 (bg, disabledBg, fg, disabledFg, border)
+  (Color, Color, Color, Color, BorderSide?) _resolveColors(FitColors colors) {
+    final theme = Theme.of(context).filledButtonTheme.style;
     final themeDisabledBg =
-        themeStyle?.backgroundColor?.resolve({WidgetState.disabled}) ?? colors.green50;
+        theme?.backgroundColor?.resolve({WidgetState.disabled}) ?? colors.green50;
     final themeFg =
-        themeStyle?.foregroundColor?.resolve({WidgetState.selected}) ?? colors.staticBlack;
+        theme?.foregroundColor?.resolve({WidgetState.selected}) ?? colors.staticBlack;
 
     return switch (widget.type) {
-      FitButtonType.primary => _ButtonColors(
-          bg: colors.main,
-          disabledBg: themeDisabledBg,
-          fg: themeFg,
-          disabledFg: colors.inverseDisabled,
+      FitButtonType.primary => (
+          colors.main,
+          themeDisabledBg,
+          themeFg,
+          colors.inverseDisabled,
+          null,
         ),
-      FitButtonType.secondary => _ButtonColors(
-          bg: colors.grey900,
-          disabledBg: colors.grey300,
-          fg: colors.inverseText,
-          disabledFg: colors.textSecondary,
+      FitButtonType.secondary => (
+          colors.grey900,
+          colors.grey300,
+          colors.inverseText,
+          colors.textSecondary,
+          null,
         ),
-      FitButtonType.tertiary => _ButtonColors(
-          bg: colors.fillStrong,
-          disabledBg: colors.fillAlternative,
-          fg: colors.textDisabled,
-          disabledFg: colors.textTertiary,
+      FitButtonType.tertiary => (
+          colors.fillStrong,
+          colors.fillAlternative,
+          colors.textDisabled,
+          colors.textTertiary,
+          null,
         ),
-      FitButtonType.ghost => _ButtonColors(
-          bg: Colors.transparent,
-          disabledBg: Colors.transparent,
-          fg: colors.grey900,
-          disabledFg: colors.grey300,
-          border: BorderSide(color: colors.grey400, width: 1.0),
+      FitButtonType.ghost => (
+          Colors.transparent,
+          Colors.transparent,
+          colors.grey900,
+          colors.grey300,
+          BorderSide(color: colors.grey400, width: 1.0),
         ),
-      FitButtonType.destructive => _ButtonColors(
-          bg: colors.red500,
-          disabledBg: colors.red50,
-          fg: colors.staticWhite,
-          disabledFg: colors.inverseDisabled,
+      FitButtonType.destructive => (
+          colors.red500,
+          colors.red50,
+          colors.staticWhite,
+          colors.inverseDisabled,
+          null,
         ),
     };
   }
 
-  Widget _buildContent() {
+  /// 로딩 상태일 때 로딩 인디케이터 표시
+  Widget _buildContent(BuildContext context) {
     if (!widget.isLoading) return widget.child;
 
     return Stack(
       alignment: Alignment.center,
       children: [
+        // 크기 유지용 숨김 child
         Visibility(
           visible: false,
           maintainSize: true,
@@ -200,20 +207,4 @@ class _FitButtonState extends State<FitButton> {
       ],
     );
   }
-}
-
-class _ButtonColors {
-  final Color bg;
-  final Color disabledBg;
-  final Color fg;
-  final Color disabledFg;
-  final BorderSide? border;
-
-  const _ButtonColors({
-    required this.bg,
-    required this.disabledBg,
-    required this.fg,
-    required this.disabledFg,
-    this.border,
-  });
 }
