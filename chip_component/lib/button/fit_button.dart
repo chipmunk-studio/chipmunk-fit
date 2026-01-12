@@ -43,7 +43,7 @@ class _FitButtonState extends State<FitButton> {
   // 애니메이션 상수
   static const _kDebounceDuration = Duration(seconds: 1);
   static const _kAnimDuration = Duration(milliseconds: 600);
-  static const _kPressedScale = 0.95;
+  static const _kPressedScale = 0.97;
   static final _kPressedCurve = Sprung.custom(damping: 8);
   static final _kReleasedCurve = Sprung.custom(damping: 6);
 
