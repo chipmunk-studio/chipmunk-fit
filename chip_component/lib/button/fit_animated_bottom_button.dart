@@ -57,7 +57,7 @@ class FitAnimatedBottomButton extends StatefulWidget {
 class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
     with WidgetsBindingObserver {
   static const _kKeyboardThreshold = 50.0;
-  static const _kAnimDuration = Duration(milliseconds: 70);
+  static const _kAnimDuration = Duration(milliseconds: 30);
   static const _kSafeAreaPadding = 8.0;
 
   double _keyboardHeight = 0;
@@ -76,8 +76,7 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
   void didUpdateWidget(FitAnimatedBottomButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     // borderRadius나 style 변경 시 캐시 무효화
-    if (oldWidget.borderRadius != widget.borderRadius ||
-        oldWidget.style != widget.style) {
+    if (oldWidget.borderRadius != widget.borderRadius || oldWidget.style != widget.style) {
       _cachedRadius = null;
     }
   }
@@ -130,7 +129,12 @@ class _FitAnimatedBottomButtonState extends State<FitAnimatedBottomButton>
         decoration: BoxDecoration(
           color: bgColor,
           boxShadow: anim > 0.5
-              ? [BoxShadow(color: bgColor.withValues(alpha: 0.08), blurRadius: 8, offset: const Offset(0, -2))]
+              ? [
+                  BoxShadow(
+                      color: bgColor.withValues(alpha: 0.08),
+                      blurRadius: 8,
+                      offset: const Offset(0, -2))
+                ]
               : null,
         ),
         padding: EdgeInsets.only(
