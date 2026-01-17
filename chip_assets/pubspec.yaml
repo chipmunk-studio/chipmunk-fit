@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   chip_dependencies:
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_dependencies
 
 dev_dependencies:
   flutter_test:

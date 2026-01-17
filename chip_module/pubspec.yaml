@@ -26,6 +26,10 @@ dependencies:
       ref: main
       path: chip_component
   chip_dependencies:
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_dependencies
   flutter_screenutil:
   flutter_bounceable:
   modal_bottom_sheet:
