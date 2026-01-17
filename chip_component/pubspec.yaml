@@ -11,11 +11,16 @@ dependencies:
   flutter:
     sdk: flutter
   chip_assets:
-    path: ../chip_assets
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_assets
   chip_foundation:
-    path: ../chip_foundation
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_foundation
   chip_dependencies:
-    path: ../chip_dependencies
   cached_network_image:
   flutter_animate:
   lottie:

@@ -11,13 +11,21 @@ dependencies:
   flutter:
     sdk: flutter
   chip_assets:
-    path: ../chip_assets
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_assets
   chip_foundation:
-    path: ../chip_foundation
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_foundation
   chip_component:
-    path: ../chip_component
+    git:
+      url: https://github.com/chipmunk-studio/chipmunk-fit.git
+      ref: main
+      path: chip_component
   chip_dependencies:
-    path: ../chip_dependencies
   flutter_screenutil:
   flutter_bounceable:
   modal_bottom_sheet:

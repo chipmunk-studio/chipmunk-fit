@@ -11,7 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   chip_dependencies:
-    path: ../chip_dependencies
   flutter_cache_manager:
   http:
   flutter_quill:
