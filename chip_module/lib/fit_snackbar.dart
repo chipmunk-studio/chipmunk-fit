@@ -1,6 +1,6 @@
-import 'package:chipfit/foundation/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:chip_foundation/colors.dart';
 import 'package:chip_foundation/textstyle.dart';
+import 'package:flutter/material.dart';
 
 /// GlobalKey<ScaffoldMessengerState> 확장 (스낵바)
 extension FitSnackBarExtension on GlobalKey<ScaffoldMessengerState> {

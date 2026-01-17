@@ -1,3 +1,0 @@
-library;
-
-export 'package:chip_foundation/textstyle.dart';

@@ -1,5 +1,5 @@
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/foundation/textstyle.dart';
+import 'package:chip_foundation/colors.dart';
+import 'package:chip_foundation/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';

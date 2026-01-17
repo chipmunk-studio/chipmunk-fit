@@ -1,3 +1,0 @@
-library;
-
-export 'package:chip_component/button/fit_bottom_button.dart';

@@ -1,10 +1,11 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:chipfit/component/button/fit_button.dart';
-import 'package:chipfit/foundation/buttonstyle.dart';
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/foundation/textstyle.dart';
-import 'package:chipfit/foundation/theme.dart';
-import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:chip_component/button/fit_button.dart';
+import 'package:chip_foundation/buttonstyle.dart';
+import 'package:chip_foundation/colors.dart';
+import 'package:chip_foundation/textstyle.dart';
+import 'package:chip_foundation/theme.dart';
+import 'package:chip_module/scaffold/fit_app_bar.dart';
+import 'package:chip_module/scaffold/fit_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

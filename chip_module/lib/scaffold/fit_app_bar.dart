@@ -1,7 +1,8 @@
 import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:chip_foundation/colors.dart';
 import 'package:chip_foundation/textstyle.dart';
-import 'package:chip_foundation/theme/fit_theme.dart';
+import 'package:chip_foundation/theme/other_themes.dart';
+import 'package:chip_foundation/theme/theme_mode_extension.dart';
 import 'package:flutter/material.dart';
 
 /// AppBar 설정을 위한 공통 인터페이스

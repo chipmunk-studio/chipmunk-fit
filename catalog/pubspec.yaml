@@ -12,11 +12,18 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  chipfit:
-    path: ../
-    #    git:
-    #      url: https://github.com/chipmunk-studio/chipmunk-fit.git
-    #      ref: main
+
+  # ChipFit 디자인 시스템
+  chip_foundation:
+    path: ../chip_foundation
+  chip_component:
+    path: ../chip_component
+  chip_module:
+    path: ../chip_module
+  chip_assets:
+    path: ../chip_assets
+  chip_core:
+    path: ../chip_core
 
   bloc_concurrency:
   flutter_bloc:

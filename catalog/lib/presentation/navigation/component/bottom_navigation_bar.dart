@@ -1,5 +1,5 @@
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/gen/assets.gen.dart';
+import 'package:chip_foundation/colors.dart';
+import 'package:chip_assets/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 

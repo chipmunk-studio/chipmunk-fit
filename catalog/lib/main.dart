@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:catalog/router.dart';
-import 'package:chipfit/foundation/theme.dart';
+import 'package:chip_foundation/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

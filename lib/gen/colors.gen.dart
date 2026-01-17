@@ -1,1 +1,0 @@
-export 'package:chip_assets/gen/colors.gen.dart';

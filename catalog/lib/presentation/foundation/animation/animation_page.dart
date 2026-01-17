@@ -1,9 +1,11 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:chipfit/component/fit_animation.dart';
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/foundation/textstyle.dart';
-import 'package:chipfit/foundation/theme.dart';
-import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:chip_component/animation/fit_linear_bounce_animation.dart';
+import 'package:chip_component/animation/fit_scale_animation.dart';
+import 'package:chip_foundation/colors.dart';
+import 'package:chip_foundation/textstyle.dart';
+import 'package:chip_foundation/theme.dart';
+import 'package:chip_module/scaffold/fit_app_bar.dart';
+import 'package:chip_module/scaffold/fit_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,9 +112,9 @@ class _AnimationPageState extends State<AnimationPage> {
           Text(
             "Animation Preview",
             style: context.subtitle5().copyWith(
-              color: context.fitColors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: 12),
           Expanded(
@@ -148,18 +150,18 @@ class _AnimationPageState extends State<AnimationPage> {
           Text(
             "Settings",
             style: context.subtitle5().copyWith(
-              color: context.fitColors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: 12),
           // 타입 선택
           Text(
             "Type:",
             style: context.caption1().copyWith(
-              color: context.fitColors.textSecondary,
-              fontWeight: FontWeight.w600,
-            ),
+                  color: context.fitColors.textSecondary,
+                  fontWeight: FontWeight.w600,
+                ),
           ),
           const SizedBox(height: 6),
           ...[
@@ -192,9 +194,11 @@ class _AnimationPageState extends State<AnimationPage> {
                       Text(
                         type.name,
                         style: context.caption1().copyWith(
-                          color: isSelected ? context.fitColors.main : context.fitColors.textPrimary,
-                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                        ),
+                              color: isSelected
+                                  ? context.fitColors.main
+                                  : context.fitColors.textPrimary,
+                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            ),
                       ),
                     ],
                   ),
@@ -229,18 +233,18 @@ class _AnimationPageState extends State<AnimationPage> {
         Text(
           "$label:",
           style: context.caption1().copyWith(
-            color: context.fitColors.textTertiary,
-            fontSize: 11,
-          ),
+                color: context.fitColors.textTertiary,
+                fontSize: 11,
+              ),
         ),
         const SizedBox(width: 4),
         Text(
           value,
           style: context.caption1().copyWith(
-            color: context.fitColors.main,
-            fontWeight: FontWeight.w600,
-            fontSize: 11,
-          ),
+                color: context.fitColors.main,
+                fontWeight: FontWeight.w600,
+                fontSize: 11,
+              ),
         ),
       ],
     );
@@ -265,9 +269,9 @@ class _AnimationPageState extends State<AnimationPage> {
               Text(
                 "애니메이션 시스템 가이드",
                 style: context.subtitle5().copyWith(
-                  color: context.fitColors.textPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
+                      color: context.fitColors.textPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ],
           ),
@@ -297,9 +301,9 @@ class _AnimationPageState extends State<AnimationPage> {
         Text(
           "🎬 Animation Types",
           style: context.subtitle4().copyWith(
-            color: context.fitColors.textPrimary,
-            fontWeight: FontWeight.bold,
-          ),
+                color: context.fitColors.textPrimary,
+                fontWeight: FontWeight.bold,
+              ),
         ),
         const SizedBox(height: 12),
         Row(
@@ -318,7 +322,8 @@ class _AnimationPageState extends State<AnimationPage> {
                           : context.fitColors.backgroundElevated,
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(
-                        color: isSelected ? context.fitColors.main : context.fitColors.dividerPrimary,
+                        color:
+                            isSelected ? context.fitColors.main : context.fitColors.dividerPrimary,
                         width: isSelected ? 2 : 1,
                       ),
                     ),
@@ -326,16 +331,19 @@ class _AnimationPageState extends State<AnimationPage> {
                       children: [
                         Icon(
                           type.icon,
-                          color: isSelected ? context.fitColors.main : context.fitColors.textTertiary,
+                          color:
+                              isSelected ? context.fitColors.main : context.fitColors.textTertiary,
                           size: 32,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           type.name,
                           style: context.body3().copyWith(
-                            color: isSelected ? context.fitColors.main : context.fitColors.textPrimary,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                          ),
+                                color: isSelected
+                                    ? context.fitColors.main
+                                    : context.fitColors.textPrimary,
+                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                              ),
                         ),
                       ],
                     ),
@@ -363,9 +371,9 @@ class _AnimationPageState extends State<AnimationPage> {
           Text(
             "⚙️ Parameters",
             style: context.subtitle4().copyWith(
-              color: context.fitColors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: 12),
           if (_selectedType == "Bounce") ...[
@@ -440,9 +448,9 @@ class _AnimationPageState extends State<AnimationPage> {
           Text(
             "🎯 Presets",
             style: context.subtitle4().copyWith(
-              color: context.fitColors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
+                  color: context.fitColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: 12),
           Row(
@@ -495,9 +503,9 @@ class _AnimationPageState extends State<AnimationPage> {
                 Text(
                   label,
                   style: context.caption1().copyWith(
-                    color: context.fitColors.textPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
+                        color: context.fitColors.textPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 const SizedBox(height: 8),
                 _selectedType == "Bounce"

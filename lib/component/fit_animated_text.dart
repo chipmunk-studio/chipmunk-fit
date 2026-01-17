@@ -1,3 +1,0 @@
-library;
-
-export 'package:chip_component/fit_animated_text.dart';

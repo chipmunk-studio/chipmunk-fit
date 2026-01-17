@@ -1,11 +1,12 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:chipfit/component/button/fit_button.dart';
-import 'package:chipfit/component/fit_animated_text.dart';
-import 'package:chipfit/foundation/buttonstyle.dart';
-import 'package:chipfit/foundation/colors.dart';
-import 'package:chipfit/foundation/textstyle.dart';
-import 'package:chipfit/foundation/theme.dart';
-import 'package:chipfit/module/fit_scaffold.dart';
+import 'package:chip_component/button/fit_button.dart';
+import 'package:chip_component/fit_animated_text.dart';
+import 'package:chip_foundation/buttonstyle.dart';
+import 'package:chip_foundation/colors.dart';
+import 'package:chip_foundation/textstyle.dart';
+import 'package:chip_foundation/theme.dart';
+import 'package:chip_module/scaffold/fit_app_bar.dart';
+import 'package:chip_module/scaffold/fit_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -195,27 +196,22 @@ class _AnimationTextPageState extends State<AnimationTextPage> {
           const SizedBox(height: 12),
           _buildTextInput(context, colors),
           const SizedBox(height: 24),
-
           _buildSectionHeader(context, colors, '애니메이션 설정'),
           const SizedBox(height: 12),
           _buildAnimationSettings(context, colors),
           const SizedBox(height: 24),
-
           _buildSectionHeader(context, colors, '속도 설정'),
           const SizedBox(height: 12),
           _buildSpeedSettings(context, colors),
           const SizedBox(height: 24),
-
           _buildSectionHeader(context, colors, '커브 설정'),
           const SizedBox(height: 12),
           _buildCurveSettings(context, colors),
           const SizedBox(height: 24),
-
           _buildSectionHeader(context, colors, '고급 설정'),
           const SizedBox(height: 12),
           _buildAdvancedSettings(context, colors),
           const SizedBox(height: 24),
-
           _buildSectionHeader(context, colors, '프리셋'),
           const SizedBox(height: 12),
           _buildPresets(context, colors),
