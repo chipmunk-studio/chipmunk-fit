@@ -32,7 +32,6 @@ dependencies:
   flutter_svg:
   flutter_bounceable:
   sprung:
-  flutter_keyboard_visibility:
 
 dev_dependencies:
   flutter_test:
